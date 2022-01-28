@@ -116,3 +116,7 @@
   .form-custom .form-control {
     border: #707070 solid 1px;
   }
+  #acc-subdivwrapper{
+    flex-direction:'row';
+    display:'flex'
+  }

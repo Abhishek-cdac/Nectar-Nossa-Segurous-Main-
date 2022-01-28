@@ -1,36 +1,54 @@
 import React, { useState } from "react";
-import "./UserPolicy.style.css";
-import CreditCard from "./Creditcard";
+// import "../UserPolicy.style.css";
+// import CreditCard from "./Creditcard";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ArrowLeftOutlined } from "@ant-design/icons";
+import {verifyServiceList} from "../../services/authentication"
+import { ContactsOutlined } from "@material-ui/icons";
 
-const UserPolicy = (props) => {
-  const selectedRecord = props && props.selectedRecord;
+const ServiceDetails = (props) => {
+  const SelectedRecord = props && props.selectedRecord;
   const alldata = props && props.data;
   const status = props && props.status;
-  const policyList =
-    alldata && alldata.data.filter((data) => data.id === selectedRecord.key)[0];
-  const [policyDetailsPage, setpolicyDetailsPage] = useState(true);
-  const [paymentPage, setpaymentPage] = useState(false);
+  console.log("data",alldata)
+  console.log("selected",SelectedRecord)
+  const ServiceData =
+    alldata && alldata.filter((data) => data.serviceCode === SelectedRecord.serviceid)[0];
+    console.log("record",ServiceData)
+//   const [policyDetailsPage, setpolicyDetailsPage] = useState(true);
+//   const [paymentPage, setpaymentPage] = useState(false);
   let navigate = useNavigate();
  
-  const handleBack = () => {
-    props.handleBacktoActivePage();
-  };
-  const handlePayment = () => {
-    setpolicyDetailsPage(false);
-    setpaymentPage(true);
-  };
-  const handleClaimRequest = () => {
-    navigate("/claim");
-  };
-  const handleBackToUserPolicy = () => {
-    setpolicyDetailsPage(true);
-    setpaymentPage(false);
-  };
+
+ const handleverifyAPI =async()=>{
+   const data={
+    "id":ServiceData.id,
+    "verifyStatus":  ServiceData.verifyStatus,
+    "priorityStatus":ServiceData.priorityStatus
+   }
+   try{
+     const resp = await verifyServiceList(data);
+     console.log("respppp",resp)
+     handlesubmit()
+     handleCancel()
+   }
+   catch(error){
+     console.log("error",error)
+   }
+
+ }
+
+  const handlesubmit = ()=>{
+     props.handlesubmit()
+  }
+
+  
+  const handleCancel = ()=>{
+
+  }
   return (
     <>
-      {policyDetailsPage && (
+
         <div>
           {/* <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -205,7 +223,7 @@ const UserPolicy = (props) => {
                                   marginBottom: "30px",
                                   fontSize: "20px",
                                 }}
-                                onClick={() => handleBack()}
+                                onClick={() => props.handleBack}
                               >
                                 <ArrowLeftOutlined
                                   style={{ paddingTop: "10px" }}
@@ -220,9 +238,9 @@ const UserPolicy = (props) => {
                           <div class="row">
                             <div class="col-lg-6 col-md-6 text-left">
                               <h3>
-                                Policies No. :{" "}
+                                service Request ID. :{" "}
                                 <span class="color-green">
-                                  {policyList && policyList.policy.policyCode}
+                                  {ServiceData && ServiceData.serviceCode}
                                 </span>
                               </h3>
                             </div>
@@ -234,9 +252,11 @@ const UserPolicy = (props) => {
                                 data-toggle="modal"
                                 data-target="#addPolicyList"
                               >
-                                Status: Premium Due
-                                {/* <img src="file:///D:/ReactNasso/nasso/src/user/Paypremium/assets/img/warning.svg"/> */}
-                              </a>
+                                Status: priority
+                                <span class="color-green">
+                                  {ServiceData && ServiceData.priorityStatus}
+                                </span>                              
+                                </a>
                             </div>
                           </div>
                         </div>
@@ -247,55 +267,57 @@ const UserPolicy = (props) => {
                       <div class="row">
                         <div class="col-12">
                           <div class="table-data">
-                            <span>Policy Holder Name</span>
+                            <span>Requested BY</span>
                             <b>
-                              {policyList && policyList.user.firstName}{" "}
-                              {policyList && policyList.user.lastName}
+                              {ServiceData && ServiceData.userPolicy.user.firstName}
+                              {/* {ServiceData && ServiceData.userPolicy.user.lastName} */}
                             </b>
                           </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="col-12 col-md-3 col-sm-3">
                           <div class="table-data">
-                            <span>Policy</span>
-                            <b>{policyList && policyList.policy.policyName}</b>
+                            <span>Assigned to</span>
+                            <b>{ServiceData && ServiceData.userPolicy.agent.firstName}</b>
+                          </div>
+                        </div>
+                        <div class="col-12 col-md-3 col-sm-3">
+                          <div class="table-data">
+                            <span>Requested Date</span>
+                            <b>{ServiceData && ServiceData.date}</b>
+                          </div>
+                        </div>
+                      <div atyle={{display:"flex",flexDirection:"row"}}>
+                        <div class="col-12 col-md-3 col-sm-3">
+                          <div class="table-data">
+                            <span>policy</span>
+                            <b>{ServiceData && ServiceData.userPolicy.policy.policyName}</b>
                           </div>
                         </div>
                         <div class="col-12 col-md-3 col-sm-3">
                           <div class="table-data">
                             <span>Policy Type</span>
-                            <b>{policyList && policyList.policy.policyType}</b>
-                          </div>
-                        </div>
-                        <div class="col-12 col-md-3 col-sm-3">
-                          <div class="table-data">
-                            <span>Policy Start date</span>
-                            <b>{policyList && policyList.createdAt}</b>
-                          </div>
-                        </div>
-                        <div class="col-12 col-md-3 col-sm-3">
-                          <div class="table-data">
-                            <span>Maturity date</span>
-                            <b>{policyList && policyList.policyMaturityDate}</b>
+                            <b>{ServiceData && ServiceData.userPolicy.policy.policyType}</b>
                           </div>
                         </div>
                         <div class="clearfix"></div>
                         <div class="col-12 col-md-3 col-sm-3">
                           <div class="table-data">
-                            <span>Premium plan</span>
-                            <b>{policyList && policyList.premiumPlan}</b>
+                            <span>Policy No</span>
+                            <b>{ServiceData && ServiceData.userPolicy.policy.policyCode}</b>
                           </div>
                         </div>
-                        <div class="col-12 col-md-3 col-sm-3">
+                      </div>
+                        {/* <div class="col-12 col-md-3 col-sm-3">
                           <div class="table-data">
                             <span>Premium</span>
                             <b>{policyList && policyList.premiumAmount}</b>
                           </div>
-                        </div>
+                        </div> */}
                         <div class="col-12 col-md-3 col-sm-3">
                           <div class="table-data">
-                            <span>Premium Due date</span>
-                            <b>{policyList && policyList.updatedAt}</b>
+                            <span>Requested For</span>
+                            <b>{ServiceData && ServiceData.requested}</b>
                           </div>
                         </div>
                         <div class="col-12 col-md-3 col-sm-3">
@@ -305,8 +327,8 @@ const UserPolicy = (props) => {
                       <div class="row">
                         <div class="col-12 col-md-10">
                           <div class="table-data">
-                            <span>Details</span>
-                            <p>{policyList && policyList.policy.description}</p>
+                            <span>Description</span>
+                            <p>{ServiceData && ServiceData.description}</p>
                             <a
                               data-toggle="collapse"
                               href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#collapseExample"
@@ -325,50 +347,50 @@ const UserPolicy = (props) => {
                         </div>
                       </div>
                       <div>
-                        {status && (
-                          <div class="row" style={{ display: "flex", flexDirection: "row" }}>
+                        {/* {status && ( */}
+                          <div class="row" style={{ display: "flex", flexDirection: "row",padding:"50px",justifyContent:"space-between"}}>
                             {" "}
-                            <div class="col-12 col-md-2">
+                            <div class="col-12 col-md-3">
                               <a
                                 href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#"
                                 class="btn-close"
                               >
-                                Close Policy
+                                Denied Request
                               </a>
                             </div>
                             {/* <div class="col-12 col-md-2">
                                 //     <a href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#" class="btn-close renew-btn">Renew Policy</a>
                                 // </div> */}
-                            <div class="col-12 col-md-2">
+                            <div class="col-12 col-md-3">
                               <a
                                 href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#"
                                 class="btn-close premium-btn"
-                                onClick={() => handlePayment()}
+                                 onClick={() => handleverifyAPI()}
                               >
-                                Pay Premium
+                                Approve
                               </a>
                             </div>
-                            <div class="col-12 col-md-2">
+                            <div class="col-12 col-md-3">
                               <a
                                 href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#"
                                 class="btn-close claim-btn"
-                                onClick={() => handleClaimRequest()}
+                                // onClick={() => handleClaimRequest()}
                               >
-                                Claim Request
+                                Assign Request
                               </a>
                             </div>
                           </div>
-                        )}
-                        {!status && (
-                          <div class="col-12 col-md-2">
+                        {/* )} */}
+                        {/* {!status && ( */}
+                          {/* <div class="col-12 col-md-3">
                             <a
                               href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#"
                               class="btn-close renew-btn"
                             >
                               Renew Policy
                             </a>
-                          </div>
-                        )}
+                          </div> */}
+                        {/* )} */}
                       </div>
                     </div>
                   </div>
@@ -402,14 +424,10 @@ const UserPolicy = (props) => {
         <script src="file:///D:/ReactNasso/nasso/src/user/Paypremium/assets/demo/datatables-demo.js"></script> */}
           </div>
         </div>
-      )}
-      {paymentPage && (
-        <CreditCard
-          selectedRecord={selectedRecord}
-          handleBackToUserPolicy={handleBackToUserPolicy}
-        />
-      )}
+      )
+     
+    
     </>
   );
 };
-export default UserPolicy;
+export default ServiceDetails;

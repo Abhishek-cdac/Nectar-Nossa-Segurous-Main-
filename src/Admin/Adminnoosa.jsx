@@ -6,6 +6,9 @@ import HrList from '../Admin/Hr list/Hrlist';
 import Header from "../user/Header/AppHeader";
 import 'antd/dist/antd.css';
 import Receivedpremium from './Premium/Receivedpremium';
+import AdminClaims from './Claims/AdminClaims'
+import AdminComplaint from './complaints/AdminComplaint'
+import ServiceRequested from './services/AdServiceReq'
 
 const { TabPane } = Tabs;
 
@@ -14,7 +17,7 @@ export default function noosa() {
         <div style={{ margin: '0px 7%' }}>
             <Header />
             
-            <Tabs tabPosition='left'>
+            <Tabs tabPosition='left' destroyInactiveTabPane> 
                 <TabPane tab='Dashboard' key='dashboard'>
                     <Dashboard />
                 </TabPane>
@@ -28,13 +31,13 @@ export default function noosa() {
                     <Receivedpremium/>
                 </TabPane>
                 <TabPane tab='Claims' key='claims'>
-                    Claims
+                    <AdminClaims/>
                 </TabPane>
                 <TabPane tab='Complaint Management' key='complaintmanagement'>
-                    Complaint Management
+                 <AdminComplaint/>
                 </TabPane>
                 <TabPane tab='Service Requested' key='servicerequested'>
-                    Service Requested
+                <ServiceRequested/>
                 </TabPane>
                 <TabPane tab='Reimbursement' key='reimbursement'>
                     Reimbursement

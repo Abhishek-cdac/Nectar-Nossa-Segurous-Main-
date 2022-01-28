@@ -61,7 +61,7 @@ export default function Dashboard() {
                       style={{
                         color: "#61b33b",
                         fontSize: "24px",
-                        fontWeight:"bolder",
+                        fontWeight:600,
                       }}
                     >
                       6457

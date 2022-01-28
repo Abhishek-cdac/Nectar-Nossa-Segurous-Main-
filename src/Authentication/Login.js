@@ -30,6 +30,7 @@ const Login = () => {
       const resp = await loginUser(values.user_id, values.confirm);
       const value = resp && resp.data.data.jwtToken
       window.localStorage.setItem('token',value)
+      window.localStorage.setItem('loginDetailsUserId',resp.data.data.userId)
       profile()
     } catch (error) {
         console.log('error',error)
@@ -99,7 +100,7 @@ const Login = () => {
           <Form.Item
             name="user_id"
             rules={[
-              { required: true, type:'email', message: "please Input your Email," },
+              { required: true, message: "please Enter yourInput," },
             ]}
           >
             <Input

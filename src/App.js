@@ -13,8 +13,9 @@ import Adminnoosa from "../src/Admin/Adminnoosa"
 import ForgetPass from './Authentication/ForgotPassword';
 import ResetAccountCode from "./Authentication/ResetAccountCode"
 import ListedPolocies from "./Admin/Listed polices/listedpolocies";
-
-
+import PageNotFound from './PageNotFound';
+import Claims from './user/Claims/claims';
+import Paypremium from './user/Paypremium/Paypremium';
 
 function App() {
   return (
@@ -31,12 +32,21 @@ function App() {
         <Route path="/dashboard" element={<Dashboard/>}/>
         <Route path="/linegraph" element={<LineGraph/>}/>
         <Route path="/user" element={<Noosa/>}/>
+        <Route path="/user/newClaim" element={ <Claims/>}/>
+        <Route path="/user/paypremium" element={<Paypremium/>}/>
+        <Route path="/user/noosacard" />
+        <Route path="/user/complaint" />
+        <Route path="/user/servicerequest" />
+        <Route path="/user/holidays" />
+        <Route path="/user/reimbursement" />
+        <Route path="/user/setting" />
+        <Route path="/user/helpandsupport" />
         <Route path="/hr" element={<Hrnoosa/>}/>
         <Route path="/admin" element={<Adminnoosa/>}/>
         <Route path='/forgetPassword' element={<ForgetPass/>}/>
         <Route path='/resetpassword/:token' element={<ResetAccountCode/>}/>
         <Route path='/listedpolocies' element={<ListedPolocies/>}/>
-
+        <Route path=':/pagename' element={<PageNotFound/>}/>
 
         
 

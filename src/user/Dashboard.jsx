@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useState} from "react";
 import { Card, Row, Col, Button, Tabs, Divider } from "antd";
 import { ArrowRightOutlined, ArrowDownOutlined } from "@ant-design/icons";
 import "antd/dist/antd.css";
@@ -6,6 +6,8 @@ import "antd/dist/antd.css";
 const { TabPane } = Tabs;
 
 export default function Dashboard() {
+  const [show,setShow] = useState(false)
+  const mouseHover = () => setShow(prev => !prev)
   return (
     <div>
       <div style={{ margin: "20px" }}>
@@ -13,7 +15,15 @@ export default function Dashboard() {
         <div className="site-card-wrapper">
           <Row gutter={16}>
             <Col span={6}>
-              <Card>
+              <Card  
+              actions={ show ? [
+               <div>
+                 <p> nagasai nassso </p>
+                </div> 
+              ] : null}
+              //  extra={show ? <Button type="link"> Download </Button> : null}
+              onMouseEnter={mouseHover}
+              onMouseLeave={mouseHover}>
                 <div>
                   <Row>
                     <Col span={20}>
@@ -34,7 +44,7 @@ export default function Dashboard() {
                 </div>
                 <Divider />
                 <div style={{ float: "right" }}>
-                  <ArrowRightOutlined style={{ color: "#61b33b" }} />
+                  {show ? <ArrowDownOutlined style={{ color: "#61b33b" }}/> : <ArrowRightOutlined style={{ color: "#61b33b" }} /> }
                 </div>
               </Card>
             </Col>

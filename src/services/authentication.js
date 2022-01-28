@@ -30,6 +30,7 @@ export const getPolicyList = async(data) =>{
 export const getAllUserPolicyList = async(data) =>{
   return await doGet(`policy/getAllUserPolicy?policy_id=${data.policy_id}&user_id=${data.user_id}&agent_id=${data.agent_id}&premiumPlan=${data.premiumPlan}&activeStatus=${data.activeStatus}`);
 }
+// doGet('/userPolicy', {params: objParam});
 export const addPolicyList = async(data) =>{
   return await doPost("policy/add",data)
 }
@@ -67,6 +68,64 @@ export const getPremiumList = async(data) =>{
 export const Creditcardinfo = async(data) =>{
   return await doPost("premium/payPremium",data)
 }
+
+//complaint Api
+
+export const getComplaintList = async(data) =>{
+  return await doGet('complaint');
+}
+
+export const addComplaintList = async(data) =>{
+  return await doPost("complaint/add",data)
+}
+
+export const deleteComplaintList = async(id) =>{
+  return await doDelete(`complaint/delete`,id)
+}
+
+export const editComplaintList = async(data) =>{
+  return await doPut('complaint/edit',data)
+}
+export const verifyComplaintList = async(data) =>{
+  return await doPost("complaint/verifyRequest",data)
+}
+
+
+//Services Api 
+export const getServiceList = async() =>{
+  return await doGet('servicerequest');
+}
+
+export const AddServiceList = async(data) =>{
+  return await doPost("servicerequest/add",data)
+}
+
+export const verifyServiceList = async(data) =>{
+  return await doPost('servicerequest/verifyRequest',data);
+}
+
+
+//claims
+export const getAddClaim = async(data) =>{
+  return await doPost('claim/add',data);
+}
+export const getEditClaim = async(data) =>{
+  return await doPut('claim/edit',data);
+}
+export const getDeleteClaim = async(data) =>{
+  return await doDelete('claim/delete',data);
+}
+//claim api
+export const getClaimsList = async() =>{
+  return await doGet('claim');
+}
+
+export const verifyClaimList = async(data) =>{
+  return await doPost('claim/verifyRequest',data);
+
+}
+
+
 
 
 
