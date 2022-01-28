@@ -147,7 +147,7 @@ const onFinishFailed = (errorInfo) =>{
                     <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                         <div className="form-group">
                             <label for="exampleInputtext" className="mb-1">Policy type<em>*</em></label>
-                            <Form.Item name="policy_No"
+                            <Form.Item name="policyType"
                             style={{width:"300px"}}
                             rules =  {[
                                 {
@@ -158,10 +158,10 @@ const onFinishFailed = (errorInfo) =>{
                             >
                             <Select 
                             placeholder="select a option" allowclear>
-                              <Option>General</Option>
-                              <Option>Health</Option>
-                              <Option>health && General</Option>
-                              <Option>vehicle</Option>
+                              <Option  value ='General'>General</Option>
+                        <Option value ='Health'>Health</Option>
+                        <Option value ='General && Health'>General && Health</Option>
+                        <Option value ='vehicle'>vehicle</Option>
                             </Select>
                             </Form.Item>
                         </div>

@@ -120,9 +120,10 @@ import NewComplaint from "./NewComplaint";
 
 //delete Api
         const handleDeleteComplaint = async(text,record) =>{
-          console.log('nnagvsvgv',text,record)
+          const value =  complaintsListArray.find((data)=>data.complaintCode ===record.id)
+          console.log("valuuuue",value)
           const payload = {
-            'id':record.complaintCode 
+            'id':value.id 
           }
           try {
            const resp = await deleteComplaintList(payload);

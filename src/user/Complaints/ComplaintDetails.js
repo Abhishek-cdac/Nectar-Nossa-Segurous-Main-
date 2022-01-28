@@ -121,12 +121,12 @@ const ComplaintDetails = (props)=>{
                         <div className="modal fade" id="exampleModal"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog" role="document">
             <div className="modal-content popup-form">
-                <div className="modal-header">
+                {/* <div className="modal-header">
                     <h5 className="modal-title" id="exampleModalLabel">Resubmit Complaint</h5>
                     <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
-                </div>
+                </div> */}
                 <div className="modal-body">                 
                       
 <Modal title='Resubmit Complaint' visible={IsResubmitModalVisible} onOk={handlesubmit}  onCancel={handelEditCancel}>
@@ -165,9 +165,9 @@ const ComplaintDetails = (props)=>{
      
           </Modal>
           </div>
-                <div className="modal-footer">
+                {/* <div className="modal-footer">
                     <button type="button" className="btn btn-primary">Submit</button>
-                </div>
+                </div> */}
             </div>
         </div>
     </div>

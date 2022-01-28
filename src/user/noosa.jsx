@@ -7,7 +7,7 @@ import Claims from "./Claims/claims";
 import { useNavigate  } from "react-router-dom";
 import UserServices from './UserServices/UserServices'
 import Complaint from './Complaints/Complaint'
-
+import NossaCard from './NossaCard/NossaCard'
 const { TabPane } = Tabs;
 const { Header } = Layout;
 
@@ -37,11 +37,10 @@ export default function Noosa() {
                     <Complaint/>
                 </TabPane>
                 <TabPane tab='Noosa Card' key='noosacard'>
-                    Noosa Card Content
+                   <NossaCard/>
                 </TabPane>
                 <TabPane tab='Service Request' key='servicerequest'>
                  <UserServices/>
-                   {/* Noosa Card Content */}
                 </TabPane>
                 <TabPane tab='Reimbursement' key='reimbursement'>
                     Reimbursement Content

@@ -292,7 +292,7 @@ const handleComplaintIdClick = (text,record) =>{
             </div>
 } 
  {adcomplaintsDetailspage && <AdComplaintDetails  selectedRecord={selectedRecord} data={complaintListArray} handleBack={handleBack}/>}
- <ApproveModal/>
+ {/* <ApproveModal/> */}
 {/* 
  {ApproveModalPage && <ApproveModal handleBack={handleDone}/>} */}
         </>

@@ -157,9 +157,9 @@ const HrComplaintDetails = (props) => {
                           color: "white",
                           backgroundColor: "red",
                         }}
-                        onClick={props.handleBack}
+                        onClick={() => handleApprovalShowModal('reject')}
+                        
                       >
-                         onClick={() => handleApprovalShowModal('reject')}
                         reject Complaint
                       </Button>
                       <Button
@@ -192,7 +192,7 @@ const HrComplaintDetails = (props) => {
               </div>
             </div>
           </div>
-          <ApproveModal/>
+        
 
           <div
             className="modal fade"
@@ -203,7 +203,7 @@ const HrComplaintDetails = (props) => {
           >
             <div className="modal-dialog" role="document">
               <div className="modal-content popup-form">
-                <div className="modal-header">
+                {/* <div className="modal-header">
                   <h4 className="modal-title" id="exampleModalLabel">
                     Send for Approval
                   </h4>
@@ -215,7 +215,7 @@ const HrComplaintDetails = (props) => {
                   >
                     <span aria-hidden="true">&times;</span>
                   </button>
-                </div>
+                </div> */}
                 <div className="modal-body">
                 <Modal
                     title= "Approval"
@@ -296,9 +296,9 @@ const HrComplaintDetails = (props) => {
                     </Modal>
                 </div>
                 <div className="modal-footer">
-                  <button type="button" className="btn btn-primary">
+                  {/* <button type="button" className="btn btn-primary">
                     Submit
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>
