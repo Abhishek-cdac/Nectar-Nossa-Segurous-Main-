@@ -22,7 +22,7 @@ const { Search } = Input;
 //             "updatedAt": "2022-01-10T04:35:13.000Z",
 //             "totalcount": 0
 
-const ListedPolocies = () => {
+const AdListedPolocies = () => {
   let navigate = useNavigate();
   const [accidentListStatus, setAccidentListStatus] = useState(false);
   const [policyListStatus, setPolicyListStatus] = useState(true);
@@ -522,4 +522,4 @@ useEffect(()=>{
     </>
   );
 };
-export default ListedPolocies;
+export default AdListedPolocies;

@@ -20,10 +20,10 @@ const ServiceDetails = (props) => {
   let navigate = useNavigate();
  
 
- const handleverifyAPI =async()=>{
+ const handleverifyAPI =async(verifyStatus)=>{
    const data={
     "id":ServiceData.id,
-    "verifyStatus":  ServiceData.verifyStatus,
+    "verifyStatus": verifyStatus,
     "priorityStatus":ServiceData.priorityStatus
    }
    try{
@@ -354,6 +354,8 @@ const ServiceDetails = (props) => {
                               <a
                                 href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#"
                                 class="btn-close"
+
+                                onClick={() => handleverifyAPI("Denied")}
                               >
                                 Denied Request
                               </a>
@@ -365,12 +367,12 @@ const ServiceDetails = (props) => {
                               <a
                                 href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#"
                                 class="btn-close premium-btn"
-                                 onClick={() => handleverifyAPI()}
+                                 onClick={() => handleverifyAPI("Approved")}
                               >
                                 Approve
                               </a>
                             </div>
-                            <div class="col-12 col-md-3">
+                            {/* <div class="col-12 col-md-3">
                               <a
                                 href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#"
                                 class="btn-close claim-btn"
@@ -378,7 +380,7 @@ const ServiceDetails = (props) => {
                               >
                                 Assign Request
                               </a>
-                            </div>
+                            </div> */}
                           </div>
                         {/* )} */}
                         {/* {!status && ( */}

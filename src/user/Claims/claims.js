@@ -5,6 +5,7 @@ import {DeleteOutlined,PlusOutlined,FilterOutlined,EditOutlined} from "@ant-desi
 import { useNavigate, useLocation } from "react-router-dom";
 import NewClaim from "./Newclaim"
 import UserClaim from './UserClaim'
+import moment from "moment";
 import {getClaimsList} from "../../services/authentication"
 
 const Claims = () =>{
@@ -40,14 +41,14 @@ const Claims = () =>{
     resp &&
       resp.data.map((data, i) => {
         const value = {
-        id:data.claim_details.claim_id,
-        policyName:data.userPolicy.policy.policyName,
-        code:data.userPolicy.policy.policyCode,
-        date:data.claim_details.createdAt,
-        status:data.verifyStatus
+        id:data.claim_details ? data.claim_details.claim_id :'',
+        policyName:data.userPolicy.policy.policyName ? data.userPolicy.policy.policyName :'',
+        code:data.userPolicy.policy.policyCode ? data.userPolicy.policy.policyCode :'',
+        date:data.claim_details ? moment(data.claim_details.createdAt).format("MMM Do YY") : '',
+        status:data.verifyStatus ? data.verifyStatus :''
 
         };
-        console.log(value);
+        console.log("sasas",value);
         tableDataArr.push(value);
       });
     console.log("tableDataArr in premium", tableDataArr);
@@ -78,13 +79,6 @@ const columns = [
       ),
     },
 
-     
-    {
-        title: "Sr.No",
-        dataIndex: "No",
-        key: "No",
-        ellipsis: true,
-      },
     
     {
         title: "Policy Name",

@@ -5,7 +5,7 @@ import { getAgentList, addAgentList,deleteAgentList,editAgentList,getAllUserPoli
 import {CSVLink} from "react-csv";
 import AgentDataPage from './Hrdata';
 
-import{EditOutlined,DeleteOutlined,FilterFilled,VerticalAlignBottomOutlined,PlusOutlined} from "@ant-design/icons";
+import{EditOutlined,DeleteOutlined,PlusOutlined} from "@ant-design/icons";
 
 const { Search } = Input;
 const onSearch = (value) => console.log(value);
@@ -115,13 +115,7 @@ const {Option}=Select
   }, []);
 
    ///ADD API SERVICE CALL AND FUNCTIONALITY STARTED
-  //  "firstName": "agent3",
-  //                   "lastName": "test3",
-  //                   "email": "rashmi.chauhan+5@nectarinfotel.com",
-  //                   "phone": "9016463222",
-  //                   "gendar": "Female",
-  //                   "currentAddress": "test",
-  //                   "permanentAddress": "test
+
 
   const handleAddAgnetListAPI = async (addAgentData) =>{
     console.log('addAgentData',addAgentData)
@@ -129,7 +123,7 @@ const {Option}=Select
     firstName:addAgentData.firstName,
     lastName:addAgentData.lastName,
     permanentAddress:addAgentData.permanentAddress,
-    phone:addAgentData.phone,
+    phone:addAgentData.phone.toString(),
     gendar:addAgentData.gender,
     email:addAgentData.Email,
     currentAddress:addAgentData.currentAddress,
@@ -476,10 +470,11 @@ const {Option}=Select
                name={'phone'}
                label="phone"
                  rules={[
+                  //  {
+                  //    required:true,message:'Please input your firstname',
+                  //  },
                    {
-                     required:true,message:'Please input your firstname'
-                   },
-                   {
+                    required:true,
                     pattern:/^(?:\d*)$/,
                     message:'Please enter numbers only'
                   }

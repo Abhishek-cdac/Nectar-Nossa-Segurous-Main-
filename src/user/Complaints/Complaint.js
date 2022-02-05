@@ -1,18 +1,18 @@
  import React,{useState,useEffect} from "react";
  import {Button,Table,Modal } from "antd";
 import { CSVLink } from "react-csv";
+import DeleteSucess from "./DeleteSucess";
 import {
   EditOutlined,
   DeleteOutlined,
   EyeOutlined,
 
 } from "@ant-design/icons";
+import moment from 'moment';
 import { getComplaintList,editComplaintList,deleteComplaintList,addComplaintList } from "../../services/authentication";
 import ComplaintDetails from "./ComplaintDetails";
 import NewComplaint from "./NewComplaint";
-
-
-
+import { ContactsOutlined } from "@material-ui/icons";
 
  const Complaint = () => {
 
@@ -20,7 +20,7 @@ import NewComplaint from "./NewComplaint";
     const[complaintsData,setComplaintsData] = useState('');
     const[IsEditModalVisible,setIsEditModalVisible] = useState('')
     const[complaintApiUpdateStatus,setcomplaintApiUpdateStatus]=useState('')
-    const[complaintId,setComplaintId]=useState("")
+    const[id,setID]=useState("")
     const[policyName,setPolicyName]=useState("")
     const[complaintDate,setComplaintDate]=useState("")
     const[status,setStatus]=useState("")
@@ -30,23 +30,18 @@ import NewComplaint from "./NewComplaint";
     const[selectedRecord,setSelectedRecord]=useState('')
     const[subject,setsubject]=useState('')
      const[newComplaintspage,setNewComplaintspage]=useState('')
-    
-    
+     const[DelSucessModal,setDelSucessModal] = useState('')
 
 
-
-   
-
-    
-
+     
     const handleEditShowModal = (text,record) =>{
-      console.log(record,text)
+      console.log("recooo",record,text)
       console.log("array",complaintsListArray)
      const value =  complaintsListArray.find((data)=>data.complaintCode ===record.id)
-     console.log('value',value)
+     const date = moment(value.complaintDate).format('YYYY-MM-DD');
      if(value){
-       setComplaintId(value.complaintCode)
-      setComplaintDate(value.complaintDate)
+      setID(value.id)
+      setComplaintDate(date)
       setComplaintDescription(value.description)
       setsubject(value.subject)
 
@@ -64,7 +59,7 @@ import NewComplaint from "./NewComplaint";
 
     const payload= {
 
-      "id":complaintId,
+      "id":id,
      "subject": subject,
     "description":complaintDescription,
     "complaintDate":complaintDate
@@ -92,11 +87,12 @@ import NewComplaint from "./NewComplaint";
       resp &&
         resp.data.map((data) => {
           const value = {
+            user_id:data.id,
             id:data.complaintCode,
             PolicyName:data.userPolicy.policy.policyName,
              date:data.complaintDate,
              status:data.verifyStatus,
-             description:data.userPolicy.policy.description,
+             description:data.description,
              subject:data.subject
           };
           console.log(value);
@@ -151,21 +147,43 @@ const handleBack = () =>{
   setComplaintsDetailspage(false)
 }
     
+const handlereturn = () =>{
+  setComplaintTablepage(true)
+  setNewComplaintspage(false)
+}
+ 
+const handleModalreturn = ()=>{
+  setComplaintTablepage(true)
+  setDelSucessModal(false)
+}
          
   const columns = [
+     
+    {
+      title: "Id",
+      dataIndex: "user_id",
+      key: "user_id",
+      ellipsis: true,
+    },
+
     {
       title: "Complaint Id",
       dataIndex: "id",
       key: "id",
       ellipsis: true,
       render: (text, record) => (
+        <div>
+           {record.status === 'Approved' ? 
         <a
           style={{ color: "#4cbb17" }}
         onClick={() => handleComplaintIdClick(text,record)}
         >
           {text}
-        </a>
-      ),
+        </a> : 
+          <label> {text}</label>
+        }
+        </div>
+      )
     },
     {
       title: "Policy Name",
@@ -208,12 +226,15 @@ const handleBack = () =>{
       render: (text, record) => {
         return (
           <>
+           {record.status === 'Approved' ? 
+            <EyeOutlined style={{ color: "#000089", paddingLeft: "10px" }} />
+            :
+            <div>
             <EyeOutlined style={{ color: "#000089", paddingLeft: "10px" }} />
             <EditOutlined style={{ color: "#000089", paddingLeft: "10px" }} onClick={()=>handleEditShowModal(text,record)}/>
             <DeleteOutlined 
                             style={{ color: "#000089", paddingLeft: "10px" }} onClick={()=>handleDeleteComplaint(text,record)} />
-            
-          
+            </div>}
           </>
         );
       },
@@ -300,13 +321,13 @@ const handleBack = () =>{
       />
      
 <div>
-<Modal title='Edit Policy' visible={IsEditModalVisible} onOk={handleEditComplaintListAPI} onCancel={handelEditCancel}>
+<Modal title='Edit Complaint' visible={IsEditModalVisible} onOk={handleEditComplaintListAPI} onCancel={handelEditCancel}>
 <input
                     style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px"}}
                     type="Id"
-                    placeholder="Complaint Id"
-                    value={complaintId}
-                    onChange={(e) => setComplaintId(e.target.value)}
+                    placeholder="Id"
+                    value={id}
+                    onChange={(e) => setID(e.target.value)}
                   /><br/> 
          
           <input
@@ -339,7 +360,9 @@ const handleBack = () =>{
 
        {complaintsDetailspage && <ComplaintDetails  selectedRecord={selectedRecord} data={complaintsListArray} handleBack={handleBack}/>}
 
-       {newComplaintspage && <NewComplaint/>}
+       {newComplaintspage && <NewComplaint handlereturn={handlereturn}/>}
+
+       {DelSucessModal && <DeleteSucess handleModalreturn={handleModalreturn}/>}
        
 
     </>

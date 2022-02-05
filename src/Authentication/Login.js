@@ -7,7 +7,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 // import { showAlert } from "../utils/showAlert";
 
 const Login = () => {
-  const [value, setValue] = React.useState("User");
+  const [role, setRole] = React.useState("User");
   // const [userId,setUserId] =useState('')
   // const [password,setPassword] =useState('')
 
@@ -16,18 +16,27 @@ const Login = () => {
 
   const profile = () =>{
     // var selectvalue = ("input[name=choice]:checked", "Form").val();
-    if (value == "User") {
+    if (role == "User") {
       navigate("/user")
-    } else if (value == "Hr") {
+    } else if (role == "Hr") {
       navigate("/hr")
-    } else if (value == "Admin") {
+    } else if (role == "Admin") {
       navigate("/admin")
     } 
   }
 
   const handleLoginButton = async (values) =>{
+    let roleVlaue = ''
+    if(role === "User"){
+      roleVlaue = 4
+    }else if(role === "Hr"){
+      roleVlaue = 3
+    }else{
+      roleVlaue = ''
+    }
+    // const roleValue = 
     try {
-      const resp = await loginUser(values.user_id, values.confirm);
+      const resp = await loginUser(values.user_id, values.confirm, roleVlaue);
       const value = resp && resp.data.data.jwtToken
       window.localStorage.setItem('token',value)
       window.localStorage.setItem('loginDetailsUserId',resp.data.data.userId)
@@ -42,7 +51,7 @@ const Login = () => {
 
   const onChange = (e) => {
     console.log("radio checked", e.target.value);
-    setValue(e.target.value);
+    setRole(e.target.value);
   };
   const onFinish = (values) => {
     console.log("Success:", values);
@@ -80,10 +89,9 @@ const Login = () => {
             }}
           />
         </div>
-        {console.log('value',value)}
         <Form onFinish={onFinish} onFinishFailed={onFinishFailed}>
         <Form.Item style={{justifyContent:'center',display:'flex'}}>
-              <Radio.Group onChange={onChange} value={value} style={{justifyContent:'center',display:'flex',paddingRight:'30px',alignSelf:'center'}}>
+              <Radio.Group onChange={onChange} value={role} style={{justifyContent:'center',display:'flex',paddingRight:'30px',alignSelf:'center'}}>
                 <Row>
                   <Radio name="value" value="User" style={{marginRight:'20px'}}>
                     User

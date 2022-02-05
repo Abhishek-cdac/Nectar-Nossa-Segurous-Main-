@@ -446,7 +446,7 @@ const AdminClaims = () =>{
                     }}
                   >
                     {/* Download PDF/CSV */}
-                    <CSVLink data={"ClaimCSV"} target="_blank">
+                    <CSVLink data={ClaimCSV} target="_blank">
                       Download PDF/CSV
                     </CSVLink>
                   </Button>

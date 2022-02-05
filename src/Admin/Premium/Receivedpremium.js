@@ -10,7 +10,7 @@ const { Search } = Input;
 const data = [
 ];
 
-const Receivedpremium = ()=>{
+const AdReceivedpremium = ()=>{
     let navigate = useNavigate();
     const [PremiumListArray,setPremiumListArray] = useState('')
     const [TableData,setTableData] = useState('')
@@ -238,4 +238,4 @@ const premiumCSV = premiumCSVData()
     </>
     )
 }
-export default Receivedpremium
+export default AdReceivedpremium

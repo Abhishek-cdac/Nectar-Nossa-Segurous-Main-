@@ -35,7 +35,7 @@ const suffix = (
 // Search box icon property ends
 
 
-function ServiceRequested() {
+function AdServices() {
   const [ServiceListArray, setServiceListArray] = useState("");
   const [TableData, setTableData] = useState("");
   const [serviceListStatus, setserviceListStatus] = useState(true)
@@ -410,4 +410,4 @@ const handlesubmit = ()=>{
   );
 }
 
-export default ServiceRequested;
+export default AdServices;

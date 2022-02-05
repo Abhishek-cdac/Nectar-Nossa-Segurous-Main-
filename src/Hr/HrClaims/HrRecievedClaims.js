@@ -163,13 +163,13 @@ const HrRecievedClaims = () => {
     const allHrRecievedListArrayData =allHrRecievedListArray && allHrRecievedListArray;
     if (allHrRecievedListArrayData) {
       HrRecievedClaimsData.push(
-        "Claim ID,Policy Holder,Policy Name,Policy Code, Request Date,Status,Description\n"
+        "ID,Policy Holder,Policy Name,Policy Code, Request Date,Status,Description\n"
       );
       allHrRecievedListArrayData.map((excelData) => {
         //console.log("ugugvcgvc",excelData)
         HrRecievedClaimsData
           .push(
-           `${excelData.claim_details.claim_id},${excelData.userPolicy.user.firstName}, ${excelData.userPolicy.policy.policyName}, ${excelData.userPolicy.policy.policyCode},${excelData.claim_details.createdAt},${excelData.verifyStatus},${excelData.userPolicy.policy.description}\n`
+           `${excelData.id},${excelData.userPolicy.user.firstName}, ${excelData.userPolicy.policy.policyName}, ${excelData.userPolicy.policy.policyCode},${excelData.date},${excelData.verifyStatus},${excelData.userPolicy.policy.description}\n`
           );
         
       });

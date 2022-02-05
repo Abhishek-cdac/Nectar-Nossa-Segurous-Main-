@@ -90,6 +90,12 @@ export const verifyComplaintList = async(data) =>{
   return await doPost("complaint/verifyRequest",data)
 }
 
+//NossaCard
+export const getCardDetails = async(data) =>{
+  return await doGet(`account/getUserById?user_id=${data.user_id}`);
+}
+
+
 
 //Services Api 
 export const getServiceList = async() =>{
@@ -125,6 +131,94 @@ export const verifyClaimList = async(data) =>{
 
 }
 
+//Client API
+
+export const getAllClientList = async(data) =>{
+  return await doGet(`policy/getAllUserPolicy?agent_id=${data.agent_id}`);
+}
+
+export const getAddClient = async(data) =>{
+  return await doPost('client/add',data);
+}
+
+//Holidays data
+
+export const getHolidaysList = async(data) =>{
+  return await doGet('holiday',data);
+}
+export const getEditHoliday= async(data) =>{
+  return await doPut('holiday/edit',data);
+}
+export const getDeleteHoliday = async(data) =>{
+  return await doDelete('holiday/delete',data);
+}
+
+//Reimbursment Api 
+export const getReimbursmentList = async(data) =>{
+  // return await doGet(`reimbursement?type=${data.type}&search=${data.hospitaltype}`);
+  return await doGet(`reimbursement?type=${data.type}`);
+}
+export const getReimbursmentListSearch = async(data) =>{
+  return await doGet(`reimbursement?type=${data.type}&search=${data.hospitaltype}`);
+}
+
+export const getreimbursementAPI = async(data) =>{
+  return await doPost('reimbursement/add',data);
+}
+export const getEditReimbursment= async(data) =>{
+  return await doPut('reimbursement/edit',data);
+}
+export const getDeleteReimbursment = async(data) =>{
+  return await doDelete('reimbursement/delete',data);
+}
+
+export const getDoctorsList = async(data) =>{
+  return await doGet(`reimbursement/getDoctor`,data);
+}
+export const getEditDoctorsList= async(data) =>{
+  return await doPut('reimbursement/editDoctor',data);
+}
+export const getDeleteDoctorsList = async(data) =>{
+  return await doDelete('reimbursement/deleteDoctor',data);
+}
+export const getAddDoctorsList = async(data) =>{
+  return await doPost('reimbursement/addDoctor',data);
+}
+
+export const getReimServicesList = async(data) =>{
+  return await doGet(`reimbursement/getService`,data);
+}
+export const getEditServicesList= async(data) =>{
+  return await doPut('reimbursement/editService',data);
+}
+export const getDeleteServicesList = async(data) =>{
+  return await doDelete('reimbursement/deleteService',data);
+}
+export const getAddServicesList = async(data) =>{
+  return await doPost('reimbursement/addService',data);
+}
+
+//notification
+export const getNotificationService = async() =>{
+  return await doGet(`notification`);
+}
+export const getUserNotificationService = async() =>{
+  return await doGet(`notification/getUserNotification`);
+}
+export const getAddNotificationService = async(data) =>{
+  return await doPost('notification/add',data);
+}
+export const getAddUserNotificationService = async(data) =>{
+  return await doPost('notification/addUserNotification',data);
+}
+
+//support
+export const getSupportAPI = async(data) =>{
+  return await doGet(`supports?type=${data.type}`);
+}
+export const getAddSupport = async(data) =>{
+  return await doPost('supports/add',data);
+}
 
 
 
@@ -132,10 +226,12 @@ export const verifyClaimList = async(data) =>{
 
 
 
-export const loginUser = async (email, password) => {
+
+export const loginUser = async (email, password,role) => {
   const data={
     userName:email,
     password,
+    'role':role
   }
   return new Promise(async (resolve, reject) => {
     try {
@@ -161,6 +257,10 @@ export const forgotPassword = async (email) => {
 //  export const resetPasswordService = async (payload) => {
 //    return await doPost("api/v1/auth/resetPassword", payload);
 //  };
+
+export const getChangePassword = async(data) =>{
+  return await doPost('account/changePassword',data);
+}
 
  export const resetPasswordVerification = async (verficationToken) => {
   return await doGet(`account/resetPasswordVerification/${verficationToken}`);

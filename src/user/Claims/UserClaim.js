@@ -119,6 +119,7 @@ const ClaimList =
                 const resp = await getEditClaim(payload);
                 console.log('record Edited successfuly')
                  handelEditCancel()
+                 seterrorMsg('')
               } catch (error) {
                   console.log('error',error)
                 // showAlert('In valide data', "error");
@@ -520,7 +521,7 @@ const ClaimList =
                     onChange={(e) => setClaimPhone(e.target.value)}
                   /><br/> 
                    <Form.Item name={'realtionDOB'}>
-                    <DatePicker  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px"}} onChange={(date) => setrealtionDOB(date)}/>
+                    <DatePicker  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px"}} onChange={(dateString) => setrealtionDOB(dateString)}/>
                   </Form.Item>
                   <input
                   style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
@@ -707,13 +708,13 @@ const ClaimList =
     onChange={(e) => setsurgicalCash(e.target.value)}
   /><br/> 
   <Form.Item name={'dateInjury'}>
-  <DatePicker  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px"}} onChange={(date) => setdateInjury(date)}/>
+  <DatePicker  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px"}} onChange={(dateString) => setdateInjury(dateString)}/>
 </Form.Item>
  <Form.Item name={'dateAdmission'}>
- <DatePicker  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px"}} onChange={(date) => setdateAdmission(date)}/>
+ <DatePicker  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px"}} onChange={(dateString) => setdateAdmission(dateString)}/>
 </Form.Item>
  <Form.Item name={'dateDischarge'}>
- <DatePicker  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px"}} onChange={(date) => setdateDischarge(date)}/>
+ <DatePicker  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px"}} onChange={(dateString) => setdateDischarge(dateString)}/>
 </Form.Item>
   <input
   style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}

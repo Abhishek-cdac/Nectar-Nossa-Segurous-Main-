@@ -56,17 +56,18 @@ const props = {
 
 const Newclaim = (props) => {
   const [form] = Form.useForm();
-  const alldata = props && props;
-  console.log('sl2',alldata)
-  const selectedRecord = props && props.SelectedRecord;
-  console.log('sl',selectedRecord)
+  // const alldata = props && props;
+  // console.log('sl2',alldata)
+  // const selectedRecord = props && props.SelectedRecord;
+  // console.log('sl',selectedRecord)
   
-  const ClaimList =
-        alldata && alldata.data.filter((data) => data.id === selectedRecord.id)[0];
+  // const ClaimList =
+  //       alldata && alldata.data.filter((data) => data.id === selectedRecord.id)[0];
         
-  console.log("claimList",ClaimList)
+  // console.log("claimList",ClaimList)
   const Token =  window.localStorage.getItem('token');
   const loginDetailsUserId =  window.localStorage.getItem('loginDetailsUserId');
+  console.log("lgu",loginDetailsUserId)
   const [getAllUserPolicyLI, setgetAllUserPolicyList] = useState('')
   const [policyCode,setPolicyCode] = useState('')
   const [claimForm, setclaimForm] = useState(false);
@@ -178,11 +179,18 @@ const Newclaim = (props) => {
     try {
       const resp = await getAddClaim(payload);
       console.log('record added successfuly')
+      handleBack()
+
     } catch (error) {
         console.log('error',error)
       // showAlert('In valide data', "error");
     }
   }
+
+  const handleBack = () =>{
+    props.handleBack()
+  }
+
   const handleGetPolicyListServiceCall = async (data) =>{
     try {
       let tableDataArr=[]; 
@@ -192,6 +200,7 @@ const Newclaim = (props) => {
       resp && resp.data.map((data,i)=>{
         const obj = {'policyCode':data.policy.policyCode, 'id':data.id, 'policyName': data.policy.policyName}
         tableDataArr.push(obj);
+        
         console.log('data',data)
       })
       setPolicyCode(tableDataArr)
@@ -590,7 +599,7 @@ const Newclaim = (props) => {
                 <div>
                   <label>Date of Birth *</label>
                   <Form.Item  name={'person_dateofBirth'}>
-                    <DatePicker  onChange={(e)=>setperson_dateofBirth(e.target.value)}  style={{ width: '150px',marginRight:'150px' }}/>
+                    <DatePicker  onChange={(dateString)=>setperson_dateofBirth(dateString)}  style={{ width: '150px',marginRight:'150px' }}/>
                   </Form.Item>
                 </div>
                 <div>
@@ -745,7 +754,7 @@ const Newclaim = (props) => {
                 <div>
                   <label>Date of Injury </label>
                   <Form.Item name={'hospitalization_dateofInjury'}>
-                    <DatePicker onChange={(e)=>sethospitalization_dateofInjury(e.target.value)} style={{ width: '150px' ,marginRight:'150px'}}/>
+                    <DatePicker onChange={(dateString)=>sethospitalization_dateofInjury(dateString)} style={{ width: '150px' ,marginRight:'150px'}}/>
                   </Form.Item>
                 </div>
               </div>
@@ -753,13 +762,13 @@ const Newclaim = (props) => {
                 <div>
                   <label>Date of Addmission *</label>
                   <Form.Item name={'hospitalization_Addmission'}>
-                    <DatePicker onChange={(e)=>sethospitalization_Addmission(e.target.value)}  style={{ width: '150px',marginRight:'150px' }} />
+                    <DatePicker onChange={(dateString)=>sethospitalization_Addmission(dateString)}  style={{ width: '150px',marginRight:'150px' }} />
                   </Form.Item>
                 </div>
                 <div>
                   <label>Date of Discharge *</label>
                   <Form.Item name={'hospitalization_Discharge'}>
-                    <DatePicker  onChange={(e)=>sethospitalization_Discharge(e.target.value)}  style={{ width: '150px',marginRight:'150px' }}/>
+                    <DatePicker  onChange={(dateString)=>sethospitalization_Discharge(dateString)}  style={{ width: '150px',marginRight:'150px' }}/>
                   </Form.Item>
                 </div>
               </div>

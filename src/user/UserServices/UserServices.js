@@ -5,6 +5,7 @@ import "antd/dist/antd.css";
 import { getServiceList } from "../../services/authentication";
 import { CSVLink } from "react-csv";
 import NewServices from "./Newservices"
+import SerSucessModal from "./SerSucessModal";
 
 
 const UserServices = () => {
@@ -12,15 +13,12 @@ const UserServices = () => {
   const mouseHover = () => setShow(prev => !prev)
   const[serviceListArray,setServiceListArray]=useState('')
   const[TableData,setTableData]=useState('')
+  const[SucessModalPage,setSucessModalPage] = useState('')
   const[UserServicesPage,setUserServicesPage]=useState(true)
   const[NewservicePage,setNewservicePage]=useState(false)
 
 
 
-  // const handleNewComplaint = ()=>{
-  //   setUserServicesPage(false)    
-  //   setNewservicePage(true) 
-  // }
 
   const handleGetServiceRequestCall = async (data) => {
     try {
@@ -73,6 +71,11 @@ const UserServices = () => {
     return serviceData.join("");
   };
   const serviceCSV = serviceRequestCSVData();
+
+  const handleback  =() =>{
+    setSucessModalPage(false)
+    setUserServicesPage(true)
+  }
 
 
 
@@ -259,6 +262,7 @@ const UserServices = () => {
       </div>
       </div>}
       {NewservicePage && <NewServices/>}
+      {SucessModalPage  && <SerSucessModal handleBack={handleback}/>}
       </>
   )
 }

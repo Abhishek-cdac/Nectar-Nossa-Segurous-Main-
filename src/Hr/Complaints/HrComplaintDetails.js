@@ -29,7 +29,7 @@ const HrComplaintDetails = (props) => {
   const[Submit,setSubmit]=useState('')
 
  
-  const handleApprovalShowModal = (submit) => {
+  const handleApprovalShowModal = (Submit) => {
     setSubmit(Submit)
     console.log("array", ComplaintList);
     const value = ComplaintList;
@@ -53,7 +53,7 @@ const HrComplaintDetails = (props) => {
       console.log('cl',ComplaintList)
       const data= {
         "id":ComplaintList.id,
-        "verifyStatus": Submit,
+        "verifyStatus":Submit,
         "VerifiedDate": ComplaintList.VerifiedDate
        }
       try {

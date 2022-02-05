@@ -8,7 +8,7 @@ import {
 import BestSellingTable from "../Hr/BestSellingTable"
 import LineGraph from "../components/atoms/LineGraph"
 
-export default function Dashboard() {
+export default function AdDashboard() {
   return (
     <div>
       <div style={{ margin: "20px" }}>

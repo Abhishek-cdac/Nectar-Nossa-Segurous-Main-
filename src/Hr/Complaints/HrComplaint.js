@@ -142,7 +142,7 @@ const AdminComplaint = () => {
                    
                     Id:data.complaintCode,
                     policyHolder:data.userPolicy.user.firstName,
-                    policyName:data.userPolicy.policy.PolicyName,
+                    policyName:data.userPolicy.policy.policyName,
                     date:data.complaintDate,
                     status:data.verifyStatus,
                     description:data.description
@@ -173,9 +173,9 @@ const AdminComplaint = () => {
                   Id:data.complaintCode,
                   policyHolder:data.userPolicy.user.firstName,
                   PolicyName:data.userPolicy.policy.PolicyName,
-           date:data.complaintDate,
-           status:data.verifyStatus,
-           agent:data.userPolicy.agent.firstName
+                  date:data.complaintDate,
+                 status:data.verifyStatus,
+                 agent:data.userPolicy.agent.firstName
                 };
                 tableDataArr.push(value);
             });
@@ -204,7 +204,7 @@ const AdminComplaint = () => {
             ComplaintListData.push('Complaint Id,Policy Holder,Policy,Complaint Date,Status,description\n')
             complainttableDataArray.map((excelData)=>{
             ComplaintListData.push(
-              `${excelData.complaintCode}, ${excelData.userPolicy.user.firstName}, ${excelData.userPolicy.policy.PolicyName},${excelData.complaintDate},${excelData.verifyStatus},${excelData.description}\n`
+              `${excelData.complaintCode}, ${excelData.userPolicy.user.firstName}, ${excelData.userPolicy.policy.policyName},${excelData.complaintDate},${excelData.verifyStatus},${excelData.description}\n`
               )
           })
         }
