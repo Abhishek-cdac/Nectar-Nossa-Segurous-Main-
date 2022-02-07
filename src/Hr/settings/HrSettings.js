@@ -14,53 +14,58 @@ import {
   getUserNotificationService,
   getNotificationService,
   getAddUserNotificationService
-} from "../../services/authentication";
-import setSucess from "./setSucess";
+} from "../../services/authentication"
+import setSucess from "../../user/settings/setSucess";
 
-export default function Setting() {
+export default function HrSetting() {
   const [data, setData] = useState({
     confirmPassword: "",
     oldPassword: "",
     newPassword: "",
+    email:"",
   });
   const [userNotification,setUserNotification] = useState('')
+  const[errorMsg,seterrorMsg]=useState('')
   const [notification, setnotification] = useState([])
   const [sucessPage, setsucessPage] = useState([]);
   const [settingsPage, setSettingsPage] = useState(true);
   const [emailvalue,setEmailvalue] = useState(false)
   const Token = window.localStorage.getItem("token");
-  const [serviceCallStatus, setServiceCallStatus] = useState(true)
-  const loginDetailsUserId = window.localStorage.getItem("loginDetailsUserId");
-  // console.log("Token in list", Token);
+  console.log("Token in list", Token);
 
-  const { confirmPassword, oldPassword, newPassword } = data;
+  const { confirmPassword, oldPassword, newPassword,email } = data;
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
   const reset = async () => {
-    // console.warn();
+    console.warn();
     const payload = {
+      email:email,
       oldPassword: oldPassword,
       confirmPassword: confirmPassword,
       newPassword: newPassword,
       token: Token,
     };
+    if (
+      confirmPassword !== newPassword
+     ) 
+      {
+    seterrorMsg("Password doesn't match");
+     } 
+   else {
     try {
       const response = await getChangePassword(payload);
-      // console.log(response);
+      console.log(response);
     } catch (error) {
-      /**
-       * Error logic here
-       * we need to do based on the error
-       */
+     
       alert(JSON.stringify(error.message));
     }
+  }
   };
 
   const handleNotification = async() =>{
-    console.log('service is hitting')
     try {
       const userNotificationResp = await getUserNotificationService();
       const notificationResp = await getNotificationService();
@@ -87,27 +92,24 @@ export default function Setting() {
     // }
     // handleverficationCall();
     handleNotification()
-  }, [serviceCallStatus]);
+  }, []);
 
-  const handletoggleChange = async(data,userNoti,type) =>{
+  const handletoggleChange = async(data,type) =>{
     let payload ={ }
-    // console.log('notoficatio data',data,userNoti)
     if(type === 'mobile'){
-      payload ={ "notification_id": userNoti.notification_id ,
-        "textStatus": !userNoti.textStatus,
-        'user_id':loginDetailsUserId
+      payload ={ "notification_id": data.notification_id ,
+        "textStatus": !data.textStatus
        }
     }else{
-       payload ={"notification_id": userNoti.notification_id ,
-        "emailStatus": !userNoti.emailStatus,
-        'user_id':loginDetailsUserId
+       payload ={"notification_id": data.notification_id ,
+        "emailStatus": !data.emailStatus,
        }
     }
-    // console.log('payload',payload , type , data)
+    console.log('payload',payload , type , data)
     try {
       const userAddNotiResp = await getAddUserNotificationService(payload);
-      // console.log('userAddNotiResp',userAddNotiResp);
-      setServiceCallStatus(false)
+      console.log('userAddNotiResp',userAddNotiResp);
+      handleNotification();
     } catch (error) {
       /**
        * Error logic here
@@ -161,6 +163,16 @@ export default function Setting() {
                         marginLeft: "20px",
                       }}
                     >
+                       <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control
+                          type="email"
+                          name="email"
+                          value={email}
+                          placeholder="Enter email"
+                          onChange={handleChange}
+                        />
+                      </Form.Group>
                       <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Old Password</Form.Label>
                         <Form.Control
@@ -225,12 +237,17 @@ export default function Setting() {
                         >
                           Cancel
                         </button>
+                        <label
+                          style={{ color: "red", justifyContent: "center" }}
+                        >
+                          {errorMsg}
+                        </label>
                       </div>
                     </div>
                   </TabPanel>
                   <TabPanel>
                     <div className="accord mx-3">
-                      {notification && notification.map((data,i)=>{
+                      {notification && notification.map((data)=>{
                         return(
                           <Accordion style={{ width: 800, marginTop: "30px" }}>
                         <div
@@ -254,55 +271,163 @@ export default function Setting() {
                         </div>
 
                         <AccordionDetails>
-                         {userNotification && userNotification.map((userNoti,i)=>{
-                           if(userNoti.id === data.id){
-                            console.log('userNoti',userNoti)
-                           return(
-                            <Typography>
+                          <Typography>
                             <p>
                               Premium received notification on your email
                               <input
                                 className="react-switch-checkbox"
-                                id={`react-switch-new-1`}
+                                id={`react-switch-new`}
                                 type="checkbox"
-                                checked={userNoti.emailStatus}
-                                onChange={() => handletoggleChange(data,userNoti,'email')}
+                                checked={data.emailStatus}
+                                onChange={() => handletoggleChange(data,'email')}
                               />
                               <label
                                 className="react-switch-label"
-                                htmlFor={`react-switch-new-1`}
+                                htmlFor={`react-switch-new`}
                               >
                                 <span className={`react-switch-button`} />
                                 {/* <span className="inner" /> */}
                                {/* <span className="switch" /> */}
                               </label>
                             </p>
-                            <p>
+                            {/* <p>
                               Premium received notification text message on
                               mobile
                               <input
                                 className="react-switch-checkbox"
-                                id={`react-switch-new-2`}
+                                id={`react-switch-new`}
                                 type="checkbox"
-                                checked={userNoti.textStatus}
-                                onChange={() => handletoggleChange(data,userNoti,'mobile')}
+                                checked={false}
+                                onChange={() => handletoggleChange(data,'mobile')}
                               />
                               <label
                                 className="react-switch-label"
-                                htmlFor={`react-switch-new-2`}
+                                htmlFor={`react-switch-new`}
+                              >
+                                <span className={`react-switch-button`} />
+                              </label>
+                            </p> */}
+                          </Typography>
+                        </AccordionDetails>
+                      </Accordion>
+                        )
+                      })}
+                      {/* <Accordion style={{ width: 800, marginTop: "30px" }}>
+                        <div
+                          className=" accordhead"
+                          style={{ backgroundColor: "#8EC131", color: "white" }}
+                        >
+                          <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel1a-content"
+                          >
+                            <Typography
+                              style={{
+                                fontWeight: 15,
+                                color: "white",
+                                fontSize: "large",
+                              }}
+                            >
+                              Premium Received Notification
+                            </Typography>
+                          </AccordionSummary>
+                        </div>
+
+                        <AccordionDetails>
+                          <Typography>
+                            <p>
+                              Premium received notification on your email
+                              <input
+                                className="react-switch-checkbox"
+                                id={`react-switch-new`}
+                                type="checkbox"
+                              />
+                              <label
+                                className="react-switch-label"
+                                htmlFor={`react-switch-new`}
                               >
                                 <span className={`react-switch-button`} />
                               </label>
                             </p>
+                            <p>
+                              Premium received notification text message on
+                              mobile
+                            </p>
                           </Typography>
-                           )
-                           }
-                         }
-                         )}
                         </AccordionDetails>
                       </Accordion>
-                        )
-                      })} 
+                      <Accordion style={{ width: 800 }}>
+                        <div
+                          className=" accordhead"
+                          style={{ backgroundColor: "#8EC131", color: "white" }}
+                        >
+                          <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel1a-content"
+                          >
+                            <Typography
+                              style={{
+                                fontWeight: 15,
+                                color: "white",
+                                fontSize: "large",
+                              }}
+                            >
+                              Email Notification
+                            </Typography>
+                          </AccordionSummary>
+                        </div>
+                        <AccordionDetails>
+                          <Typography>Greetings of the day :)</Typography>
+                        </AccordionDetails>
+                      </Accordion>
+                      <Accordion style={{ width: 800 }}>
+                        <div
+                          className=" accordhead"
+                          style={{ backgroundColor: "#8EC131", color: "white" }}
+                        >
+                          <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel1a-content"
+                          >
+                            <Typography
+                              style={{
+                                fontWeight: 15,
+                                color: "white",
+                                fontSize: "large",
+                              }}
+                            >
+                              About New Listed polices
+                            </Typography>
+                          </AccordionSummary>
+                        </div>
+                        <AccordionDetails>
+                          <Typography>Greetings of the day :)</Typography>
+                        </AccordionDetails>
+                      </Accordion>
+                      <Accordion style={{ width: 800 }}>
+                        <div
+                          className=" accordhead"
+                          style={{ backgroundColor: "#8EC131", color: "white" }}
+                        >
+                          <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel1a-content"
+                          >
+                            <Typography
+                              style={{
+                                fontWeight: 15,
+                                color: "white",
+                                fontSize: "large",
+                              }}
+                            >
+                              Offer
+                            </Typography>
+                          </AccordionSummary>
+                        </div>
+                        <AccordionDetails>
+                          <Typography>Greetings of the day :)</Typography>
+                        </AccordionDetails>
+                      </Accordion> */}
                     </div>
                   </TabPanel>
                 </Tabs>

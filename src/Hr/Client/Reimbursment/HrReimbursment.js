@@ -1,112 +1,254 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ClinicData from "../../../user/Reimbursment/ClinicData";
-import fileDownload1 from "../../../assets/img/fileDownload1.png"
+import fileDownload1 from "../../../assets/img/fileDownload1.png";
+import {
+  getReimbursmentList,
+  getReimbursmentListSearch,
+} from "../../../services/authentication";
+import { CSVLink } from "react-csv";
 
 const HrReimbursment = () => {
   const [ReimbursmentPage, setReimbursmentPage] = useState(true);
   const [ClinicDataPage, setClinicDataPage] = useState("");
   const [step, setStep] = useState(0);
+  const [searchValue, setSearchValue] = useState("");
 
-  const data = [
-    {
-      SrNo: "1",
-      RefNo: "23",
-      ClinicName: "Apple",
-      Adress: "tanuku",
-      Area: "railwatstation",
-      Contact: "9912399213",
-      HospitalType: "organs",
-    },
-    {
-      SrNo: "2",
-      RefNo: "23",
-      ClinicName: "Apple",
-      Adress: "tanuku",
-      Area: "railwatstation",
-      Contact: "9912399213",
-      HospitalType: "organs",
-    },
-    {
-      SrNo: "3",
-      RefNo: "23",
-      ClinicName: "Apple",
-      Adress: "tanuku",
-      Area: "railwatstation",
-      Contact: "9912399213",
-      HospitalType: "organs",
-    },
-    {
-      SrNo: "4",
-      RefNo: "23",
-      ClinicName: "Apple",
-      Adress: "tanuku",
-      Area: "railwatstation",
-      Contact: "9912399213",
-      HospitalType: "organs",
-    },
-    {
-      SrNo: "5",
-      RefNo: "23",
-      ClinicName: "Apple",
-      Adress: "tanuku",
-      Area: "railwatstation",
-      Contact: "9912399213",
-      HospitalType: "organs",
-    },
-  ];
+  const [ClinicalData, setClinicalData] = useState("");
+  const [PharmacyData, setPharmacyData] = useState("");
+  const [ClinicTableData, setClinicTableData] = useState("");
+  const [PharmacyTableData, setPharmacyTableData] = useState("");
 
-  const Pharmadata = [
-    {
-      SrNo: "1",
-      RefNo: "2",
-      ClinicName: "Apple",
-      Adress: "tanuku",
-      Area: "railwatstation",
-      Contact: "9912399213",
-      HospitalType: "organs",
-    },
-    {
-      SrNo: "2",
-      RefNo: "2",
-      ClinicName: "Apple",
-      Adress: "tanuku",
-      Area: "railwatstation",
-      Contact: "9912399213",
-      HospitalType: "organs",
-    },
-    {
-      SrNo: "3",
-      RefNo: "2",
-      ClinicName: "Apple",
-      Adress: "tanuku",
-      Area: "railwatstation",
-      Contact: "9912399213",
-      HospitalType: "organs",
-    },
-    {
-      SrNo: "4",
-      RefNo: "2",
-      ClinicName: "Apple",
-      Adress: "tanuku",
-      Area: "railwatstation",
-      Contact: "9912399213",
-      HospitalType: "organs",
-    },
-    {
-      SrNo: "5",
-      RefNo: "2",
-      ClinicName: "Apple",
-      Adress: "tanuku",
-      Area: "railwatstation",
-      Contact: "9912399213",
-      HospitalType: "organs",
-    },
-  ];
+  //Get Api Start
+
+  const handleClinicTab = async () => {
+    try {
+      let tableDataArr = [];
+      const data = {
+        type: "clinical",
+      };
+      const resp = await getReimbursmentList(data);
+      setClinicalData(resp && resp.data);
+      console.log("clinical", resp);
+      resp &&
+        resp.data.map((data, i) => {
+          const value = {
+            SrNo: i,
+            RefNo: data.referenceNumber,
+            ClinicName: data.name,
+            Adress: data.address,
+            Area: data.area,
+            Contact: data.contact,
+            HospitalType: data.hospitalType,
+          };
+          tableDataArr.push(value);
+        });
+      setClinicTableData(tableDataArr);
+    } catch (error) {
+      console.log("error", error);
+      // showAlert('In valide data', "error");
+    }
+  };
+
+  useEffect(() => {
+    handleClinicTab();
+  }, []);
+
+  const handlePharmacyTab = async () => {
+    try {
+      let tableDataArr = [];
+      const data = {
+        type: "pharmacy",
+      };
+      const resp = await getReimbursmentList(data);
+      console.log("pharm", resp);
+      setPharmacyData(resp && resp.data);
+      console.log("pc", resp);
+      resp &&
+        resp.data.map((data, i) => {
+          const value = {
+            SrNo: i,
+            RefNo: data.referenceNumber,
+            pharmacyName: data.name,
+            Adress: data.address,
+            Area: data.area,
+            Contact: data.contact,
+            servicesOffered: data.serviceOffered,
+          };
+          tableDataArr.push(value);
+        });
+      setPharmacyTableData(tableDataArr);
+    } catch (error) {
+      console.log("error", error);
+      // showAlert('In valide data', "error");
+    }
+  };
+  useEffect(() => {
+    handlePharmacyTab();
+  }, []);
 
   const handleChange = () => {
     setReimbursmentPage(false);
     setClinicDataPage(true);
   };
+
+  //search
+  const handleOnSearch = async () => {
+    // console.log("ClinicalDta",ClinicalData)
+
+    if (step === 0) {
+      try {
+        let tableDataArr = [];
+        const data = {
+          type: "clinical",
+          hospitaltype: searchValue,
+        };
+        const resp = await getReimbursmentListSearch(data);
+        console.log("clinical", resp);
+        resp &&
+          resp.data.map((data, i) => {
+            const value = {
+              SrNo: data.i,
+              RefNo: data.referenceNumber,
+              ClinicName: data.name,
+              Adress: data.address,
+              Area: data.area,
+              Contact: data.contact,
+              HospitalType: data.hospitalType,
+            };
+            tableDataArr.push(value);
+          });
+        setClinicTableData(tableDataArr);
+        setClinicalData(tableDataArr)
+      } catch (error) {
+        console.log("error", error);
+        // showAlert('In valide data', "error");
+      }
+    } else {
+      try {
+        let tableDataArr = [];
+        const data = {
+          type: "pharmacy",
+          hospitaltype: searchValue,
+        };
+        const resp = await getReimbursmentListSearch(data);
+        console.log("pharm", resp);
+        resp &&
+          resp.data.map((data, i) => {
+            const value = {
+              SrNo: i,
+              RefNo: data.referenceNumber,
+              pharmacyName: data.name,
+              Adress: data.address,
+              Area: data.area,
+              Contact: data.contact,
+              servicesOffered: data.serviceOffered,
+            };
+            tableDataArr.push(value);
+          });
+        setPharmacyTableData(tableDataArr);
+        setPharmacyData(tableDataArr)
+      } catch (error) {
+        console.log("error", error);
+        // showAlert('In valide data', "error");
+      }
+    }
+  };
+
+
+  const handleFilterData = (filterData) => {
+    const tableDataArr = [];
+    console.log("tr", tableDataArr);
+    console.log("filterData", filterData);
+    if (filterData.length > 0) {
+      if (step === 0) {
+        
+        filterData.map((data, i) => {
+          const value = {
+            SrNo: i,
+            referenceNumber: data.referenceNumber,
+            name: data.name,
+            address: data.adress,
+            area: data.area,
+            contact: data.contact,
+            hospitalType: data.hospitalType,
+          };
+          tableDataArr.push(value);
+          console.log("tableDataArr", tableDataArr);
+        });
+      } else {
+        filterData.map((data, i) => {
+          const value = {
+            SrNo: data,
+            referenceNumber: data.referenceNumber,
+            name: data.name,
+            address: data.adress,
+            area: data.area,
+            contact: data.contact,
+            serviceOffered: data.serviceOffered,
+          };
+          tableDataArr.push(value);
+          console.log("tableDataArr", tableDataArr);
+        });
+      }
+    }
+
+    return tableDataArr;
+  };
+
+  const handleclick = (type) => {
+
+    if (step === 0) {
+      const ClinicalfilterData =
+        ClinicalData &&
+        ClinicalData.filter((data) => data.hospitalType === type);
+      const Clinic = handleFilterData(ClinicalfilterData);
+      console.log("ClinicalfilterData",ClinicalfilterData, Clinic);
+      setClinicTableData(Clinic);
+      setClinicalData(Clinic)
+    } else {
+      const PharmacyfilterData =
+        PharmacyData &&
+        PharmacyData.filter((data) => data.hospitalType === type);
+      const Pharmacy = handleFilterData(PharmacyfilterData);
+      console.log("PharmacyfilterData", Pharmacy);
+      setPharmacyTableData(Pharmacy);
+      setPharmacyData(Pharmacy)
+    }
+  };
+
+  const ReimbursmentCSVData = () => {
+    let ClinicalData = [];
+    const ClinicaltableDataArray = ClinicTableData && ClinicTableData;
+    const PharmacyTableDataArray = PharmacyTableData && PharmacyTableData;
+    if (step === 0) {
+      if (ClinicaltableDataArray) {
+        ClinicalData.push(
+          "Sr.No,Ref No,Clinic,Adress,Area,Contact,Hospital Type\n"
+        );
+        ClinicaltableDataArray.map((excelData, i) => {
+          ClinicalData.push(
+            `${excelData.i},${excelData.RefNo}, ${excelData.ClinicName}, ${excelData.Adress},${excelData.Area},${excelData.Contact},${excelData.hospitalType}\n`
+          );
+        });
+      }
+    } else {
+      if (PharmacyTableDataArray) {
+        ClinicalData.push(
+          "Sr.No,Ref_N0,Pharmacy,Adress,Area,Contact,Service_offered\n"
+        );
+        PharmacyTableDataArray.map((excelData, i) => {
+          console.log("xl", excelData);
+          ClinicalData.push(
+            `${excelData.i},${excelData.RefNo}, ${excelData.pharmacyName}, ${excelData.Adress},${excelData.Area},${excelData.Contact},${excelData.servicesOffered}\n`
+          );
+        });
+      }
+    }
+    return ClinicalData.join("");
+  };
+  const ReimbursmentCSV = ReimbursmentCSVData();
+  // // CSV END
+
 
   return (
     <>
@@ -156,32 +298,75 @@ const HrReimbursment = () => {
             </div>
             <div className="col-12 col-lg-6 col-md-6 text-right">
               <div className="search-btn">
+              <div className="col-12 col-lg-6 col-md-6 text-right">
+              <div className="search-btn">
                 <div className="input-group">
                   <input
                     type="text"
                     className="form-control"
                     placeholder="Search Hospital"
+                    value={searchValue}
+                    onChange={(e) => setSearchValue(e.target.value)}
                   />
                   <div className="input-group-append">
-                    <button className="btn btn-secondary" type="button">
+                    <button
+                      className="btn btn-secondary"
+                      type="button"
+                      onClick={() => handleOnSearch()}
+                    >
                       <i className="fa fa-search"></i>
                     </button>
+                    </div>
+                    </div>
                   </div>
                 </div>
-                <div className="btn-two">
-                  <a href="#" className="print-card-btn">
-                    Add Filters <i className="fas fa-filter"></i>
-                  </a>
-                  <a href="#" className="download-card-btn">
-                    Download PDF/CSV{" "}
-                    <img
-                      src={fileDownload1}
-                      className="img-fluid"
-                      alt=""
-                    />
-                  </a>
+                <div class="btn-group hover_drop_down">
+                  <button
+                    type="button"
+                    class="btn btn-success btn-sm my-3"
+                    data-toggle="dropdown"
+                    style={{ width: "130px" }}
+                  >
+                    <i class="fas fa-filter"></i> Add Filters
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li>
+                      <a
+                        onClick={() => {
+                          handleclick("provincial");
+                        }}
+                      >
+                        provincial{" "}
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        onClick={() => {
+                          handleclick("public");
+                        }}
+                      >
+                        public
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        onClick={() => {
+                          handleclick("municipal");
+                        }}
+                      >
+                        Municipal
+                      </a>
+                    </li>
+                  </ul>
+                  <button type="button" class="btn btn-primary btn-sm my-3">
+                    <CSVLink data={ReimbursmentCSV} target="_blank">
+                      Download PDF/CSV
+                    </CSVLink>
+                  </button>
                 </div>
               </div>
+           
+              
             </div>
           </div>
           <div className="tab-content table-custome mt-3" id="myTabContent">
@@ -205,26 +390,30 @@ const HrReimbursment = () => {
                       <th>Hospital Type</th>
                     </tr>
                   </thead>
-                  {data.map((item) => (
-                    <tbody>
-                      <tr>
-                        <td>{item.SrNo}</td>
-                        <td>{item.RefNo}</td>
-                        <td>
-                          <a onClick={handleChange}>{item.ClinicName}</a>
-                        </td>
-                        <td>{item.Adress}</td>
-                        <td>{item.Area}</td>
-                        <td>{item.Contact}</td>
-                        <td>{item.HospitalType}</td>
-                      </tr>
-                    </tbody>
-                  ))}
+                  {ClinicalData &&
+                    ClinicalData.map((item) => (
+                      <tbody>
+                        <tr>
+                          {/* {console.log("item",item)} */}
+                          <td>{item.SrNo}</td>
+                          <td>{item.referenceNumber}</td>
+                          <td>
+                            <a onClick={() => handleChange(item)}>
+                              {item.name}
+                            </a>
+                          </td>
+                          <td>{item.address}</td>
+                          <td>{item.area}</td>
+                          <td>{item.contact}</td>
+                          <td>{item.hospitalType}</td>
+                        </tr>
+                      </tbody>
+                    ))}
                 </table>
               </div>
               <div className="row">
                 <div className="col-md-6 col-sm-6 col-12">
-                  <small>Showing 20 results</small>
+                  <small>Showing {ClinicalData.length}</small>
                 </div>
                 <div className="col-md-6 col-sm-6 col-12">
                   <div className="pagination-custom">
@@ -280,26 +469,28 @@ const HrReimbursment = () => {
                     </tr>
                   </thead>
 
-                  {Pharmadata.map((item) => (
-                    <tbody>
-                      <tr>
-                        <td>{item.SrNo}</td>
-                        <td>{item.RefNo}</td>
-                        <td>
-                          <a onClick={handleChange}>{item.ClinicName}</a>
-                        </td>
-                        <td>{item.Adress}</td>
-                        <td>{item.Area}</td>
-                        <td>{item.Contact}</td>
-                        <td>{item.HospitalType}</td>
-                      </tr>
-                    </tbody>
-                  ))}
+                  {PharmacyData &&
+                    PharmacyData.map((item) => (
+                      <tbody>
+                        <tr>
+                          {/* {console.log("item",item)} */}
+                          <td>{item.SrNo}</td>
+                          <td>{item.referenceNumber}</td>
+                          <td>
+                            <a>{item.name}</a>
+                          </td>
+                          <td>{item.address}</td>
+                          <td>{item.area}</td>
+                          <td>{item.contact}</td>
+                          <td>{item.serviceOffered}</td>
+                        </tr>
+                      </tbody>
+                    ))}
                 </table>
-              </div>
+             
               <div className="row">
                 <div className="col-md-6 col-sm-6 col-12">
-                  <small>Showing 20 results</small>
+                  <small>Showing{PharmacyData.length}</small>
                 </div>
                 <div className="col-md-6 col-sm-6 col-12">
                   <div className="pagination-custom">
@@ -332,6 +523,7 @@ const HrReimbursment = () => {
                     </nav>
                   </div>
                 </div>
+              </div>
               </div>
             </div>
           </div>

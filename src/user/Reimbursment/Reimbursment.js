@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from "react";
-import ClinicData from "./ClinicData";
-import { getReimbursmentList } from "../../services/authentication";
+import AdClinicData from "../../Admin/Reimbursment/AdClinicDetails";
+import fileDownload1 from "../../assets/img/fileDownload1.png"
+import {
+  getReimbursmentList,
+  getReimbursmentListSearch,
+} from "../.././services/authentication"
 import { CSVLink } from "react-csv";
 
-const Reimbusrment = () => {
+const HrReimbursment = () => {
   const [ReimbursmentPage, setReimbursmentPage] = useState(true);
   const [ClinicDataPage, setClinicDataPage] = useState("");
   const [step, setStep] = useState(0);
+  const [searchValue, setSearchValue] = useState("");
+ const[selectedrecord,setSelectedrecord]=useState('')
   const [ClinicalData, setClinicalData] = useState("");
   const [PharmacyData, setPharmacyData] = useState("");
   const [ClinicTableData, setClinicTableData] = useState("");
   const [PharmacyTableData, setPharmacyTableData] = useState("");
-
-  const handleChange = () => {
-    setReimbursmentPage(false);
-    setClinicDataPage(true);
-  };
 
   //Get Api Start
 
@@ -23,21 +24,21 @@ const Reimbusrment = () => {
     try {
       let tableDataArr = [];
       const data = {
-        type: "",
-        search: "",
+        type: "clinical",
       };
       const resp = await getReimbursmentList(data);
-      setClinicalData(resp && resp);
+      setClinicalData(resp && resp.data);
+      console.log("clinical", resp);
       resp &&
-        resp.data.map((data) => {
+        resp.data.map((data, i) => {
           const value = {
-            SrNo: data,
-            RefNo: data,
-            ClinicName: data,
-            Adress: data,
-            Area: data,
-            Contact: data,
-            HospitalType: data,
+            SrNo: i,
+            RefNo: data.referenceNumber,
+            ClinicName: data.name,
+            Adress: data.address,
+            Area: data.area,
+            Contact: data.contact,
+            HospitalType: data.hospitalType,
           };
           tableDataArr.push(value);
         });
@@ -47,25 +48,31 @@ const Reimbusrment = () => {
       // showAlert('In valide data', "error");
     }
   };
+
+  useEffect(() => {
+    handleClinicTab();
+  }, []);
+
   const handlePharmacyTab = async () => {
     try {
       let tableDataArr = [];
       const data = {
         type: "pharmacy",
-        search: "HospitalType",
       };
       const resp = await getReimbursmentList(data);
-      setPharmacyData(resp && resp);
+      console.log("pharm", resp);
+      setPharmacyData(resp && resp.data);
+      console.log("pc", resp);
       resp &&
-        resp.data.map((data) => {
+        resp.data.map((data, i) => {
           const value = {
-            SrNo: data,
-            RefNo: data,
-            ClinicName: data,
-            Adress: data,
-            Area: data,
-            Contact: data,
-            HospitalType: data,
+            SrNo: i,
+            RefNo: data.referenceNumber,
+            pharmacyName: data.name,
+            Adress: data.address,
+            Area: data.area,
+            Contact: data.contact,
+            servicesOffered: data.serviceOffered,
           };
           tableDataArr.push(value);
         });
@@ -75,47 +82,142 @@ const Reimbusrment = () => {
       // showAlert('In valide data', "error");
     }
   };
-
   useEffect(() => {
-    handleClinicTab();
     handlePharmacyTab();
   }, []);
 
+  const handleChange = (item) => {
+    setReimbursmentPage(false);
+    setClinicDataPage(true);
+    setSelectedrecord(item)
+  };
+  const handleBack = () => {
+    setReimbursmentPage(true);
+    setClinicDataPage(false);
+  };
+
+  //search
+  const handleOnSearch = async () => {
+    // console.log("ClinicalDta",ClinicalData)
+
+    if (step === 0) {
+      try {
+        let tableDataArr = [];
+        const data = {
+          type: "clinical",
+          hospitaltype: searchValue,
+        };
+        const resp = await getReimbursmentListSearch(data);
+        console.log("clinical", resp);
+        resp &&
+          resp.data.map((data, i) => {
+            const value = {
+              SrNo: data.i,
+              RefNo: data.referenceNumber,
+              ClinicName: data.name,
+              Adress: data.address,
+              Area: data.area,
+              Contact: data.contact,
+              HospitalType: data.hospitalType,
+            };
+            tableDataArr.push(value);
+          });
+        setClinicTableData(tableDataArr);
+        setClinicalData(tableDataArr)
+      } catch (error) {
+        console.log("error", error);
+        // showAlert('In valide data', "error");
+      }
+    } else {
+      try {
+        let tableDataArr = [];
+        const data = {
+          type: "pharmacy",
+          hospitaltype: searchValue,
+        };
+        const resp = await getReimbursmentListSearch(data);
+        console.log("pharm", resp);
+        resp &&
+          resp.data.map((data, i) => {
+            const value = {
+              SrNo: i,
+              RefNo: data.referenceNumber,
+              pharmacyName: data.name,
+              Adress: data.address,
+              Area: data.area,
+              Contact: data.contact,
+              servicesOffered: data.serviceOffered,
+            };
+            tableDataArr.push(value);
+          });
+        setPharmacyTableData(tableDataArr);
+        setPharmacyData(tableDataArr)
+      } catch (error) {
+        console.log("error", error);
+        // showAlert('In valide data', "error");
+      }
+    }
+  };
+
+
   const handleFilterData = (filterData) => {
     const tableDataArr = [];
+    console.log("tr", tableDataArr);
     console.log("filterData", filterData);
     if (filterData.length > 0) {
-      filterData.map((data, i) => {
-        const value = {
-          SrNo: data,
-          RefNo: data,
-          ClinicName: data,
-          Adress: data,
-          Area: data,
-          Contact: data,
-          HospitalType: data,
-        };
-        tableDataArr.push(value);
-      });
+      if (step === 0) {
+        
+        filterData.map((data, i) => {
+          const value = {
+            SrNo: i,
+            referenceNumber: data.referenceNumber,
+            name: data.name,
+            address: data.adress,
+            area: data.area,
+            contact: data.contact,
+            hospitalType: data.hospitalType,
+          };
+          tableDataArr.push(value);
+          console.log("tableDataArr", tableDataArr);
+        });
+      } else {
+        filterData.map((data, i) => {
+          const value = {
+            SrNo: data,
+            referenceNumber: data.referenceNumber,
+            name: data.name,
+            address: data.adress,
+            area: data.area,
+            contact: data.contact,
+            serviceOffered: data.serviceOffered,
+          };
+          tableDataArr.push(value);
+          console.log("tableDataArr", tableDataArr);
+        });
+      }
     }
+
     return tableDataArr;
   };
 
   const handleclick = (type) => {
-    const ClinicalfilterData = ClinicalData.filter(
-      (data) => data.HospitalType === type
-    );
-    const PharmacyfilterData = PharmacyData.filter(
-      (data) => data.HospitalType === type
-    );
-    const Clinic = handleFilterData(ClinicalfilterData);
-    const Pharmacy = handleFilterData(PharmacyfilterData);
-    if (step === "0") {
-      console.log("ClinicalfilterData", ClinicalfilterData);
+
+    if (step === 0) {
+      const ClinicalfilterData =
+        ClinicalData &&
+        ClinicalData.filter((data) => data.hospitalType === type);
+      const Clinic = handleFilterData(ClinicalfilterData);
+      console.log("ClinicalfilterData",ClinicalfilterData, Clinic);
       setClinicTableData(Clinic);
+      setClinicalData(Clinic)
     } else {
-      console.log("PharmacyfilterData", PharmacyfilterData);
+      const PharmacyfilterData =
+        PharmacyData &&
+        PharmacyData.filter((data) => data.hospitalType === type);
+      const Pharmacy = handleFilterData(PharmacyfilterData);
+      console.log("PharmacyfilterData", Pharmacy);
       setPharmacyTableData(Pharmacy);
+      setPharmacyData(Pharmacy)
     }
   };
 
@@ -123,30 +225,35 @@ const Reimbusrment = () => {
     let ClinicalData = [];
     const ClinicaltableDataArray = ClinicTableData && ClinicTableData;
     const PharmacyTableDataArray = PharmacyTableData && PharmacyTableData;
-    if (ClinicaltableDataArray) {
-      ClinicalData.push(
-        "Sr.No,Ref No,Clinic,Adress,Area,Contact,Hospital Type\n"
-      );
-      ClinicaltableDataArray.map((excelData,i) => {
+    if (step === 0) {
+      if (ClinicaltableDataArray) {
         ClinicalData.push(
-          `${i},${excelData.Ref_No}, ${excelData.Clinic}, ${excelData.Adress},${excelData.Area},${excelData.Contact},${excelData.hospitalType}\n`
+          "Sr.No,Ref No,Clinic,Adress,Area,Contact,Hospital Type\n"
         );
-      });
-    }
-    if (PharmacyTableDataArray) {
-      // ClinicalData.push(
-      //   "Sr.No,Ref_N0,Clinic,Adress,Area,Contact,Service_offered\n"
-      // );
-      PharmacyTableDataArray.map((excelData) => {
+        ClinicaltableDataArray.map((excelData, i) => {
+          ClinicalData.push(
+            `${excelData.i},${excelData.RefNo}, ${excelData.ClinicName}, ${excelData.Adress},${excelData.Area},${excelData.Contact},${excelData.hospitalType}\n`
+          );
+        });
+      }
+    } else {
+      if (PharmacyTableDataArray) {
         ClinicalData.push(
-          `${excelData.Sr.No},${excelData.Ref_No}, ${excelData.Clinic}, ${excelData.Adress},${excelData.Area},${excelData.Contact},${excelData.serviceOffered}\n`
+          "Sr.No,Ref_N0,Pharmacy,Adress,Area,Contact,Service_offered\n"
         );
-      });
+        PharmacyTableDataArray.map((excelData, i) => {
+          console.log("xl", excelData);
+          ClinicalData.push(
+            `${excelData.i},${excelData.RefNo}, ${excelData.pharmacyName}, ${excelData.Adress},${excelData.Area},${excelData.Contact},${excelData.servicesOffered}\n`
+          );
+        });
+      }
     }
     return ClinicalData.join("");
   };
   const ReimbursmentCSV = ReimbursmentCSVData();
-  // CSV END
+  // // CSV END
+
 
   return (
     <>
@@ -196,14 +303,22 @@ const Reimbusrment = () => {
             </div>
             <div className="col-12 col-lg-6 col-md-6 text-right">
               <div className="search-btn">
+              <div className="col-12 col-lg-6 col-md-6 text-right">
+              <div className="search-btn">
                 <div className="input-group">
                   <input
                     type="text"
                     className="form-control"
                     placeholder="Search Hospital"
+                    value={searchValue}
+                    onChange={(e) => setSearchValue(e.target.value)}
                   />
                   <div className="input-group-append">
-                    <button className="btn btn-secondary" type="button">
+                    <button
+                      className="btn btn-secondary"
+                      type="button"
+                      onClick={() => handleOnSearch()}
+                    >
                       <i className="fa fa-search"></i>
                     </button>
                   </div>
@@ -254,6 +369,8 @@ const Reimbusrment = () => {
                 </div>
               </div>
             </div>
+              </div>
+            </div>
           </div>
           <div className="tab-content table-custome mt-3" id="myTabContent">
             <div
@@ -276,19 +393,22 @@ const Reimbusrment = () => {
                       <th>Hospital Type</th>
                     </tr>
                   </thead>
-                  {ClinicTableData &&
-                    ClinicTableData.map((item) => (
+                  {ClinicalData &&
+                    ClinicalData.map((item) => (
                       <tbody>
                         <tr>
+                          {/* {console.log("item",item)} */}
                           <td>{item.SrNo}</td>
-                          <td>{item.RefNo}</td>
+                          <td>{item.referenceNumber}</td>
                           <td>
-                            <a onClick={handleChange}>{item.ClinicName}</a>
+                            <a onClick={() => handleChange(item)}>
+                              {item.name}
+                            </a>
                           </td>
-                          <td>{item.Adress}</td>
-                          <td>{item.Area}</td>
-                          <td>{item.Contact}</td>
-                          <td>{item.HospitalType}</td>
+                          <td>{item.address}</td>
+                          <td>{item.area}</td>
+                          <td>{item.contact}</td>
+                          <td>{item.hospitalType}</td>
                         </tr>
                       </tbody>
                     ))}
@@ -296,7 +416,7 @@ const Reimbusrment = () => {
               </div>
               <div className="row">
                 <div className="col-md-6 col-sm-6 col-12">
-                  <small>Showing results{ClinicalData.length}</small>
+                  <small>Showing 20 results</small>
                 </div>
                 <div className="col-md-6 col-sm-6 col-12">
                   <div className="pagination-custom">
@@ -352,19 +472,20 @@ const Reimbusrment = () => {
                     </tr>
                   </thead>
 
-                  {PharmacyTableData &&
-                    PharmacyTableData.map((item) => (
+                  {PharmacyData &&
+                    PharmacyData.map((item) => (
                       <tbody>
                         <tr>
+                          {/* {console.log("item",item)} */}
                           <td>{item.SrNo}</td>
-                          <td>{item.RefNo}</td>
+                          <td>{item.referenceNumber}</td>
                           <td>
-                            <a onClick={handleChange}>{item.ClinicName}</a>
+                            <a>{item.name}</a>
                           </td>
-                          <td>{item.Adress}</td>
-                          <td>{item.Area}</td>
-                          <td>{item.Contact}</td>
-                          <td>{item.HospitalType}</td>
+                          <td>{item.address}</td>
+                          <td>{item.area}</td>
+                          <td>{item.contact}</td>
+                          <td>{item.serviceOffered}</td>
                         </tr>
                       </tbody>
                     ))}
@@ -372,7 +493,7 @@ const Reimbusrment = () => {
               </div>
               <div className="row">
                 <div className="col-md-6 col-sm-6 col-12">
-                  <small>Showing Results{PharmacyData.length}</small>
+                  <small>Showing 20 results</small>
                 </div>
                 <div className="col-md-6 col-sm-6 col-12">
                   <div className="pagination-custom">
@@ -410,8 +531,10 @@ const Reimbusrment = () => {
           </div>
         </div>
       )}
-      {ClinicDataPage && <ClinicData />}
+      {ClinicDataPage && <AdClinicData  selectedrecord={selectedrecord}
+          data={ClinicalData}
+          handleBack={handleBack} />}
     </>
   );
 };
-export default Reimbusrment;
+export default HrReimbursment;

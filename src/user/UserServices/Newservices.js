@@ -27,7 +27,7 @@ const Newservice = () => {
 
   const getPolicyload = {
     policy_id: "",
-    user_id: "",
+    user_id: loginDetailsUserId,
     agent_id: "",
     premiumPlan: "",
   };
@@ -35,11 +35,11 @@ const Newservice = () => {
   const handleGetPolicyListServiceCall = async (data) => {
     try {
       let tableDataArr = [];
-
       const resp = await getAllUserPolicyList(data);
       setgetAllUsersList(resp.data);
       resp &&
         resp.data.map((data, i) => {
+          
           const obj = {
             policyCode: data.policy.policyCode,
             id: data.id,

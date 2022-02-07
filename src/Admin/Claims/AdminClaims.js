@@ -14,7 +14,7 @@ const AdminClaims = () =>{
     const[recievedData,setRecievedData]=useState(" ")
     const[settledTableData,setSettledTableData]=useState('')
     const[settledData,setSettledData]=useState(" ")
-    const[tabStatus,setTabStatus]=useState('Active')
+    const[tabStatus,setTabStatus]=useState('Recieved')
     const[selectedRecord,setSelectedRecord]=useState('')
     const[HrClaimDetailsPage,setHrClaimDetailsPage]=useState('')
     const[AdminClaims,setAdminClaims]=useState(true)
@@ -32,7 +32,9 @@ const AdminClaims = () =>{
       setAdminClaims(true) 
     }
   
-  
+    const handleTabStatus = (key) =>{
+      setTabStatus(key)
+    }
 
 
 
@@ -80,12 +82,12 @@ const AdminClaims = () =>{
         resp &&
           resp.data.map((data) => {
             const value = {
-              id:data.claim_details.claim_id,
+              id:data.claim_details && data.claim_details.claim_id,
               policyHolder:data.userPolicy.user.firstName,
               policyName:data.userPolicy.policy.policyName,
               amount:data.sumInsured,
               code:data.userPolicy.policy.policyCode,
-              date:data.claim_details.createdAt,
+              date:data.claim_details && data.claim_details.createdAt,
               status:data.verifyStatus,
               agent:data.userPolicy.agent.firstName,
               //description:data.userPolicy.policy.description
@@ -118,12 +120,12 @@ const AdminClaims = () =>{
         resp &&
           resp.data.map((data, i) => {
             const value = {
-              id:data.claim_details.claim_id,
+              id:data.claim_details && data.claim_details.claim_id,
               policyHolder:data.userPolicy.user.firstName,
               policyName:data.userPolicy.policy.policyName,
               amount:data.sumInsured,
               code:data.userPolicy.policy.policyCode,
-              date:data.claim_details.createdAt,
+              date:data.claim_details && data.claim_details.createdAt,
               status:data.verifyStatus,
               agent:data.userPolicy.agent.firstName,
           
@@ -152,14 +154,14 @@ const AdminClaims = () =>{
       if(filterData.length > 0){
        filterData.map((data, i) => {
         const value = {
-          id:data.claim_details.claim_id,
+          id: data.claim_details && data.claim_details.claim_id,
           policyHolder:data.userPolicy.user.firstName,
           policyName:data.userPolicy.policy.policyName,
           amount:data.sumInsured,
           code:data.userPolicy.policy.policyCode,
-          date:data.claim_details.createdAt,
+          date:data.claim_details && data.claim_details.createdAt,
           status:data.verifyStatus,
-          agent:data.userPolicy.agent.firstName,
+          amount:data.sumInsured,
         };
         tableDataArr.push(value);
       });
@@ -172,7 +174,7 @@ const AdminClaims = () =>{
     // console.log("filter",recievedData)
     // console.log("status",status)
     // console.log("filter2",settledData)
-    if(tabStatus === 'Active'){
+    if(tabStatus === 'Recieved'){
       const recievedfilterData = recievedData.filter((data)=>data.verifyStatus === status);
        const recieved = handleFilterData(recievedfilterData);
       console.log('recievedfilterData',recievedfilterData)
@@ -199,7 +201,7 @@ const AdminClaims = () =>{
     if(recievedtableDataArray){
       RecievedClaimsData.push('id,policy Holder,Policy Name,Policy Code,Request Date,Claim Amount,Assigned By\n')
       recievedtableDataArray.map((excelData)=>{
-        console.log("EXCEL",excelData)
+        // console.log("EXCEL",excelData)
         RecievedClaimsData.push(
           `${excelData.id},${excelData.policyHolder},${excelData.policyName},${excelData.code}, ${excelData.date}, ${excelData.amount},${excelData.agent}\n`
         )
@@ -208,7 +210,7 @@ const AdminClaims = () =>{
     if(settledTableDataArray){
      RecievedClaimsData.push('Claim_ID,policy Holder,Policy Name,Policy Code,Request Date,Claim Amount,Approved Amount\n')
       settledTableDataArray.map((excelData)=>{
-        console.log("xl",excelData)
+        // console.log("xl",excelData)
         RecievedClaimsData.push(
           `${excelData.id},${excelData.policyHolder},${excelData.policyName},${excelData.code}, ${excelData.date}, ${excelData.amount},${excelData.agent}\n`
         )      
@@ -371,8 +373,8 @@ const AdminClaims = () =>{
         
           {
             title: "Approved",
-            dataIndex: "agent",
-            key: "agent",
+            dataIndex: "amount",
+            key: "amount",
             ellipsis: true,
           },
           {
@@ -460,7 +462,7 @@ const AdminClaims = () =>{
                   defaultActiveKey="1"
                   style={{ fontSize: "30px" }}
                   size="Large"
-                
+                  onChange={handleTabStatus}
                 >
                   <TabPane tab="Recieved Claims" key="Recieved">
                     <div>

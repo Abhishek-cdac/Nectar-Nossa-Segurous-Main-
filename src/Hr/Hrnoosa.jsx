@@ -16,8 +16,8 @@ const Tabs =Object.freeze([{label:"Dashboard", link:"hr/dashboard"},
 {label:"Service Request", link:"hr/servicerequest"},
 {label:"Reimbursement", link:"hr/reimbursement"},
 {label:"Holidays", link:"hr/holidays"},
-// {label:"Settings", link:"user/setting"},
-// {label:"Help & Support", link:"user/helpandsupport"}
+{label:"Settings", link:"hr/setting"},
+{label:"Help & Support", link:"hr/helpandsupport"}
 ])
 
 

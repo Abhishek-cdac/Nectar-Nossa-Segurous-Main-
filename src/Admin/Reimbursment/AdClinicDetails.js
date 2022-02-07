@@ -18,7 +18,7 @@ const AdClinicData = (props) =>{
   console.log("data",alldata)
   console.log("selected",SelectedRecord)
   const ClinicData =
-  alldata && alldata.data.filter((data) => data.id === SelectedRecord.id)[0];
+  alldata && alldata.filter((data) => data.id === SelectedRecord.id)[0];
   console.log("record",ClinicData)
     return(
         <>
@@ -30,7 +30,7 @@ const AdClinicData = (props) =>{
             fontSize: "20px",
             marginLeft:"30px"
           }}
-          onClick={() => props.handleBack}
+          onClick={props.handleback}
         >
           <ArrowLeftOutlined
             style={{ paddingTop: "10px" }}

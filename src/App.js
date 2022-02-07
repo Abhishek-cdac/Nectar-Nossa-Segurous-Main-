@@ -42,6 +42,8 @@ import Setting from "./user/settings/Setting"
 import HelpAndSupport from "./user/HelpAndSupport";
 import AdSetting from "./Admin/settings/Adsettings";
 import AdHelpAndSupport from "./Admin/AdHelp&&support/Help&support";
+import HrSetting from "./Hr/settings/HrSettings";
+import HrHelp from "./Hr/settings/HrHelp&support/HrHelp&Support";
 
 function App() {
   return (
@@ -81,8 +83,8 @@ function App() {
             <Route path="client" element={<Client />} />
             <Route path="holidays" element={<HrHolidays />} />
             <Route path="reimbursement" element={<HrReimbursment />} />
-            <Route path="setting" />
-            <Route path="helpandsupport" />
+            <Route path="setting"  element={<HrSetting />} />
+            <Route path="helpandsupport" element={<HrHelp />} />
           </Route>
 
           <Route path="/admin" element={<Adminnoosa />}>

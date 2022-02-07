@@ -212,6 +212,13 @@ export const getAddUserNotificationService = async(data) =>{
   return await doPost('notification/addUserNotification',data);
 }
 
+export const getEditNotificationList= async(data) =>{
+  return await doPut('notification/edit',data);
+}
+export const getDeleteNotificationList = async(data) =>{
+  return await doDelete('notification/delete',data);
+}
+
 //support
 export const getSupportAPI = async(data) =>{
   return await doGet(`supports?type=${data.type}`);
@@ -252,6 +259,13 @@ export const forgotPassword = async (email) => {
   const response = await doPost("account/forgotPassword", { email });
 
   return response;
+};
+
+//DashBoard API
+
+
+export const getDashboardAPI = async (data) => {
+  return await doGet(`dashboard`,data);
 };
 
 //  export const resetPasswordService = async (payload) => {

@@ -79,16 +79,16 @@ const Doctors = () =>{
 
        //Edit API
 
-  const handleShowModal = (selectedRec) =>{
-     console.log('selectedRec',selectedRec)
+  const handleShowModal = (item) =>{
+     console.log('item',item)
      console.log("table",DoctorsData)
-    const Date = moment(selectedRec.date).format('YYYY-MM-DD');
+    const Date = moment(item.date).format('YYYY-MM-DD');
     setData({ 
-    id:selectedRec.id,
-    Name:selectedRec.Name,
-    specialization:selectedRec.specialization,
+    id:item.id,
+    Name:item.doctorName,
+    specialization:item.specialization,
     date:Date,
-    description:selectedRec.description})
+    description:item.description})
     setShowModal(true)
   }
   
@@ -96,7 +96,7 @@ const Doctors = () =>{
   const handleEditDoctorsList = async() =>{
    const payload ={
      "id":id,
-    "doctorName": Name,
+    "doctorName":Name,
     "date": date,
     "specialization":specialization,
     "description":description

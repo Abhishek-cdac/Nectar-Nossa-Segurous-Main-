@@ -19,7 +19,7 @@ const tailLayout = {
 /// end.
 
 
-const props = {
+const values = {
   name: 'file',
   action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
   maxCount: 1,
@@ -946,7 +946,7 @@ const Newclaim = (props) => {
               <Checkbox style={{ width: '100%', display: 'flex' }} checked={claimForm} onChange={onclaimFormDulyCheckboxChange}>
                 Claim form duly signed
               </Checkbox>
-              <Upload {...props} customRequest={claimFormDulyRequest}>
+              <Upload {...values} customRequest={claimFormDulyRequest}>
                 <Button icon={<UploadOutlined />}>Choose File</Button>
               </Upload>
             </div>
@@ -954,7 +954,7 @@ const Newclaim = (props) => {
               <Checkbox style={{ width: '100%', display: 'flex' }} checked={copyOfClaim} onChange={oncopyOfClaimCheckboxChange}>
                 Copy of Claim intimation, If any
               </Checkbox>
-              <Upload {...props} customRequest={copyOfClaimRequest}>
+              <Upload {...values} customRequest={copyOfClaimRequest}>
                 <Button icon={<UploadOutlined />}>Choose File</Button>
               </Upload>
             </div>
@@ -962,7 +962,7 @@ const Newclaim = (props) => {
               <Checkbox style={{ width: '100%', display: 'flex' }} checked={hospitalMainBill} onChange={onhospitalMainBillCheckboxChange}>
                 Hospital Main Bill
               </Checkbox>
-              <Upload {...props} customRequest={hospitalMainBillRequest}>
+              <Upload {...values} customRequest={hospitalMainBillRequest}>
                 <Button icon={<UploadOutlined />}>Choose File</Button>
               </Upload>
             </div>
@@ -970,7 +970,7 @@ const Newclaim = (props) => {
               <Checkbox style={{ width: '100%', display: 'flex' }} checked={hospitalBreakup} onChange={onhospitalBreakupCheckboxChange}>
                 Hospital Break-up Bill
               </Checkbox>
-              <Upload {...props} customRequest={hospitalBreakupRequest}>
+              <Upload {...values} customRequest={hospitalBreakupRequest}>
                 <Button icon={<UploadOutlined />}>Choose File</Button>
               </Upload>
             </div>
@@ -978,7 +978,7 @@ const Newclaim = (props) => {
               <Checkbox style={{ width: '100%', display: 'flex' }} checked={hospitalBillPayment} onChange={onhospitalBillPaymentCheckboxChange}>
                 Hospital Bill Payment Receipt
               </Checkbox>
-              <Upload {...props} customRequest={hospitalBillPaymentRequest}>
+              <Upload {...values} customRequest={hospitalBillPaymentRequest}>
                 <Button icon={<UploadOutlined />}>Choose File</Button>
               </Upload>
             </div>
@@ -986,7 +986,7 @@ const Newclaim = (props) => {
               <Checkbox style={{ width: '100%', display: 'flex' }} checked={hospitalDischarge} onChange={onhospitalDischargeCheckboxChange}>
                 Hospital Discharge Summary
               </Checkbox>
-              <Upload {...props} customRequest={hospitalDischargeRequest}>
+              <Upload {...values} customRequest={hospitalDischargeRequest}>
                 <Button icon={<UploadOutlined />}>Choose File</Button>
               </Upload>
             </div>
@@ -994,7 +994,7 @@ const Newclaim = (props) => {
               <Checkbox style={{ width: '100%', display: 'flex' }} checked={pharmacyBill} onChange={onpharmacyBillCheckboxChange}>
                 Pharmacy Bill
               </Checkbox>
-              <Upload {...props} customRequest={pharmacyBillRequest}>
+              <Upload {...values} customRequest={pharmacyBillRequest}>
                 <Button icon={<UploadOutlined />}>Choose File</Button>
               </Upload>
             </div>
@@ -1002,7 +1002,7 @@ const Newclaim = (props) => {
               <Checkbox style={{ width: '100%', display: 'flex' }} checked={OperationTheater} onChange={onOperationTheaterCheckboxChange}>
                 Operation Theater Notes
               </Checkbox>
-              <Upload {...props} customRequest={OperationTheaterRequest}>
+              <Upload {...values} customRequest={OperationTheaterRequest}>
                 <Button icon={<UploadOutlined />}>Choose File</Button>
               </Upload>
             </div>
@@ -1010,7 +1010,7 @@ const Newclaim = (props) => {
               <Checkbox style={{ width: '100%', display: 'flex' }} checked={ECG} onChange={onECGCheckboxChange}>
                 ECG
               </Checkbox>
-              <Upload {...props} customRequest={ECGRequest}>
+              <Upload {...values} customRequest={ECGRequest}>
                 <Button icon={<UploadOutlined />}>Choose File</Button>
               </Upload>
             </div>
@@ -1018,7 +1018,7 @@ const Newclaim = (props) => {
               <Checkbox style={{ width: '100%', display: 'flex' }} checked={DoctorRequest} onChange={onDoctorRequestCheckboxChange}>
                 Doctor's request for investigation
               </Checkbox>
-              <Upload {...props} customRequest={DoctorRequestRequest}>
+              <Upload {...values} customRequest={DoctorRequestRequest}>
                 <Button icon={<UploadOutlined />}>Choose File</Button>
               </Upload>
             </div>
@@ -1026,7 +1026,7 @@ const Newclaim = (props) => {
               <Checkbox style={{ width: '100%', display: 'flex' }} checked={InvestgationReports} onChange={onInvestgationReportsCheckboxChange}>
                 Investgation Reports(Including CT/MRI/USG/HPE)
               </Checkbox>
-              <Upload {...props} customRequest={InvestgationReportsRequest}>
+              <Upload {...values} customRequest={InvestgationReportsRequest}>
                 <Button icon={<UploadOutlined />}>Choose File</Button>
               </Upload>
             </div>
@@ -1034,7 +1034,7 @@ const Newclaim = (props) => {
               <Checkbox style={{ width: '100%', display: 'flex' }} checked={Doctorprescriptions} onChange={onDoctorprescriptionsCheckboxChange}>
                 Doctor prescriptions
               </Checkbox>
-              <Upload {...props} customRequest={DoctorprescriptionsRequest}>
+              <Upload {...values} customRequest={DoctorprescriptionsRequest}>
                 <Button icon={<UploadOutlined />}>Choose File</Button>
               </Upload>
             </div>
@@ -1042,7 +1042,7 @@ const Newclaim = (props) => {
               <Checkbox style={{ width: '100%', display: 'flex' }} checked={Others} onChange={onOthersCheckboxChange}>
                 Others
               </Checkbox>
-              <Upload {...props} customRequest={OthersRequest}>
+              <Upload {...values} customRequest={OthersRequest}>
                 <Button icon={<UploadOutlined />}>Choose File</Button>
               </Upload>
             </div>

@@ -51,11 +51,11 @@ console.log("lug",loginDetailsUserId)
         <div className="col-lg-6 col-md-6 text-right">
             <div className="btn-two">
                 <a href="#" className="print-card-btn" onClick={() =>{window.print()}}>Print Card <img src={print} className="img-fluid" alt=""/></a>
-                <a href="#" className="download-card-btn">Download card <img src={fileDownload1} className="img-fluid" alt=""/></a>
+                <a href="#" className="download-card-btn" download="Nossa Card">Download card <img src={fileDownload1} className="img-fluid" alt=""/></a>
             </div>
         </div>
     </div>
-
+ 
     <div className="row">
         <div className="col-lg-6 col-md- col-12">
             <div className="nossa-card-front">
@@ -76,7 +76,7 @@ console.log("lug",loginDetailsUserId)
                         </div>
                         <div className="col-md-8 col-sm-8 col-12">
                             <div className="front-card-text mt-4">
-                                <p><span>NS Account No.:</span> 529698664235</p>
+                                <p><span>NS Account No.:</span> {CardDetails&&CardDetails.accountNo}</p>
                                 <p><span>Name:</span>{CardDetails && CardDetails.firstName}</p>
                                 <p className="w-50 float-left"><span>Age:</span>{CardDetails && CardDetails.dob}</p>
                                 <p className="w-50 float-left"><span>Gender:</span>{CardDetails && CardDetails.gendar}</p>
