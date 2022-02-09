@@ -211,18 +211,19 @@ const handleBacktoActivePage =()=>{
 }
 
   return (
-    <div>
-      <div>
+    <>
+     { paypremium && <div>
+    <div className="container">
+     <div className="ant-row" style={{justifyContent:"space-between"}}>
+       <div className="ant-col ant-col-xs-24 ant-col-lg-8" style={{marginTop:"20px"}} >
         <h3>My polocies</h3>
-      </div>
-      { paypremium && <div>
+       </div>
+     
         <div
           style={{
             marginTop: "20px",
-            marginBottom: "25px",
-            display: "flex",
-            justifyContent: "flex-end",
-            flexDirection: "row",
+            display:"flex",
+            alignItem:""
           }}
         >
           <Button
@@ -230,13 +231,16 @@ const handleBacktoActivePage =()=>{
               borderRadius: "5px",
               backgroundColor: "#000086",
               color: "white",
+              
             }}
           >
             Download PDF/CSV
             <VerticalAlignBottomOutlined />
           </Button>
         </div>
-        <div>
+        </div> 
+       <div className="ant-row" style={{marginTop:"5px"}}>
+       <div className="ant-col ant-col-xs-20">
           <Tabs defaultActiveKey="1" size="Large">
             <TabPane tab="Active" key="Active">
               <div>
@@ -290,12 +294,15 @@ const handleBacktoActivePage =()=>{
               {/* <Inactive tableData={InactiveTableData} inactiveData={inactiveData} /> */}
             </TabPane>
           </Tabs>
+          </div>
+        </div>
         </div>
       </div>}
       {policyDetailsPage && <UserPolicy selectedRecord = {selectedRecord} data={status ? activeData : inactiveData} status={status} handleBacktoActivePage={handleBacktoActivePage} />}
 
       {/* {policyDetailsPage && <UserPolicy selectedRecord={selectedRecord} data={props.activeData} status={true} handleBacktoActivePage={handleBacktoActivePage} />} */}
-    </div>
+   
+    </>
   );
 };
 export default Paypremium;

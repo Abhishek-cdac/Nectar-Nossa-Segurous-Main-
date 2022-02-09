@@ -56,15 +56,7 @@ const values = {
 
 const Newclaim = (props) => {
   const [form] = Form.useForm();
-  // const alldata = props && props;
-  // console.log('sl2',alldata)
-  // const selectedRecord = props && props.SelectedRecord;
-  // console.log('sl',selectedRecord)
-  
-  // const ClaimList =
-  //       alldata && alldata.data.filter((data) => data.id === selectedRecord.id)[0];
-        
-  // console.log("claimList",ClaimList)
+ 
   const Token =  window.localStorage.getItem('token');
   const loginDetailsUserId =  window.localStorage.getItem('loginDetailsUserId');
   console.log("lgu",loginDetailsUserId)

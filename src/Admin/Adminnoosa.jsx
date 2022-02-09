@@ -35,6 +35,8 @@ export default function Noosa() {
           >
             <div class="sb-sidenav-menu">
               <div class="nav mt-4">
+                {/* { 
+                  if(label =="Reimbursement")} */}
                 {Tabs.map(({ label, link }) => {
                   const isActive = location.pathname.split("/")[1] === link;
                   return (
@@ -46,7 +48,9 @@ export default function Noosa() {
                       {label}
                     </a>
                   );
-                })}
+                })
+                }
+               
               </div>
             </div>
           </nav>

@@ -152,6 +152,9 @@ export const getEditHoliday= async(data) =>{
 export const getDeleteHoliday = async(data) =>{
   return await doDelete('holiday/delete',data);
 }
+export const getAddHoliday = async(data) =>{
+  return await doPost('holiday/add',data);
+}
 
 //Reimbursment Api 
 export const getReimbursmentList = async(data) =>{

@@ -17,7 +17,7 @@ const Services = () =>{
     const[ShowModal,setShowModal]=useState(false)
     const[ServicesListArray,setServicesListArray]=useState('')
     const[ServicesData,setServicesData]=useState('')
-    const [cancerTestFile, setCancerTestfile] = useState('')
+    const [TestFile, setTestfile] = useState('')
     const [bloodTest, setBloodTestfile] = useState('')
     const[show,setShow]=useState('')
     const handleClose = () => setShow(false);
@@ -126,7 +126,7 @@ const handleServicesList = async () => {
      
      const handleEditServicesList = async() =>{
       const payload ={
-       'Blood test': cancerTestFile,
+       'Blood test': TestFile,
        'Cancer treatment': bloodTest
      }
      try {
@@ -160,16 +160,17 @@ const handleServicesList = async () => {
              console.log('error',error)
          }
      }
-     const OperationBloodTestRequest = ({ file, onSuccess }) => {
-      setBloodTestfile(file)
-      setTimeout(() => {
-        onSuccess("ok");
-      }, 0);
-    };
+    //  const OperationBloodTestRequest = ({ file, onSuccess }) => {
+    //   setBloodTestfile(file)
+    //   setTimeout(() => {
+    //     onSuccess("ok");
+    //   }, 0);
+    // };
     const OperationCancerTestRequest = ({ file, onSuccess }) => {
-      setCancerTestfile(file)
+      setTestfile(file)
       setTimeout(() => {
         onSuccess("ok");
+        console.log("file",file)
       }, 0);
     };
 
@@ -272,23 +273,21 @@ const handleServicesList = async () => {
                   <Modal.Body>
                   <div class="container">
                       <Form.Group>
-                      <Form.Label>Id</Form.Label>
-                      <Form.Control type="id" value={id} name="id" onChange={handleChange}></Form.Control> 
+                      {/* <Form.Label>Id</Form.Label>
+                      <Form.Control type="id" value={id} name="id" onChange={handleChange}></Form.Control>  */}
                        <Form.Label>Services Name</Form.Label>
                       <Form.Control type="text" value={serviceName} name="serviceName" onChange={handleChange}></Form.Control>
 
                       <Form.Label>Description</Form.Label>
                       <Form.Control type="textarea" value={description} name="description" onChange={handleChange}></Form.Control>
-                      <Form.Label>Created At</Form.Label>
-                      <Form.Control type="date" value={date} name="date" onChange={handleChange}></Form.Control>
                       </Form.Group>
                       <div style={{marginBottom:'10px',marginTop:'10px'}}>
-                      <Upload {...values} customRequest={OperationBloodTestRequest}>
+                      {/* <Upload {...values} customRequest={OperationBloodTestRequest}>
                         <Button icon={<UploadOutlined />}>Choose File</Button>
-                      </Upload>
+                      </Upload> */}
                       </div>
                       <Upload {...values} customRequest={OperationCancerTestRequest}>
-                        <Button icon={<UploadOutlined />}>Choose File</Button>
+                        <Button icon={<UploadOutlined/>}>Choose File</Button>
                       </Upload>
                     </div>
                     

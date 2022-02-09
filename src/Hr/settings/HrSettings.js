@@ -9,119 +9,128 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Typography from "@material-ui/core/Typography";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import {
-  resetpassword,
   getChangePassword,
   getUserNotificationService,
   getNotificationService,
-  getAddUserNotificationService
+  getAddUserNotificationService,
 } from "../../services/authentication"
-import setSucess from "../../user/settings/setSucess";
+import setSucess from "../../user/settings/setSucess"
 
-export default function HrSetting() {
+export default function Setting() {
   const [data, setData] = useState({
     confirmPassword: "",
     oldPassword: "",
     newPassword: "",
-    email:"",
   });
-  const [userNotification,setUserNotification] = useState('')
-  const[errorMsg,seterrorMsg]=useState('')
-  const [notification, setnotification] = useState([])
+  const [userNotification, setUserNotification] = useState("");
+  const [notification, setnotification] = useState([]);
+  const [errorMsg, seterrorMsg] = useState("");
   const [sucessPage, setsucessPage] = useState([]);
   const [settingsPage, setSettingsPage] = useState(true);
-  const [emailvalue,setEmailvalue] = useState(false)
   const Token = window.localStorage.getItem("token");
-  console.log("Token in list", Token);
+  const email = window.localStorage.getItem("email");
+  // console.log("Token in list", Token);
 
-  const { confirmPassword, oldPassword, newPassword,email } = data;
+  const { confirmPassword, oldPassword, newPassword } = data;
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
+  //Chnage password
 
   const reset = async () => {
     console.warn();
     const payload = {
-      email:email,
+      email: email,
       oldPassword: oldPassword,
       confirmPassword: confirmPassword,
-      newPassword: newPassword,
+      password: newPassword,
       token: Token,
     };
-    if (
-      confirmPassword !== newPassword
-     ) 
-      {
-    seterrorMsg("Password doesn't match");
-     } 
-   else {
-    try {
-      const response = await getChangePassword(payload);
-      console.log(response);
-    } catch (error) {
-     
-      alert(JSON.stringify(error.message));
+    if (confirmPassword !== newPassword) {
+      seterrorMsg("Password doesn't match");
+    } else {
+      try {
+        const response = await getChangePassword(payload);
+        console.log(response);
+        seterrorMsg("");
+        setsucessPage(true);
+      } catch (error) {
+        alert(JSON.stringify(error.message));
+      }
     }
-  }
   };
 
-  const handleNotification = async() =>{
+  //Notification API
+  const handleNotification = async () => {
+    console.log("service is hitting");
     try {
       const userNotificationResp = await getUserNotificationService();
       const notificationResp = await getNotificationService();
       // console.log('userNotificationResp',notificationResp , userNotificationResp);
-      setUserNotification(userNotificationResp.data)
-      setnotification(notificationResp.data)
+      setUserNotification(userNotificationResp.data);
+      setnotification(notificationResp.data);
     } catch (error) {
-      /**
-       * Error logic here
-       * we need to do based on the error
-       */
-      alert('naga sai',JSON.stringify(error.message));
+      alert("naga sai", JSON.stringify(error.message));
     }
-    }
+  };
   useEffect(() => {
-    // async function handleverficationCall() {
-    //   const resp = await resetPasswordVerification(Token);
-    //   console.log("resfasdfas", resp);
-    //   if (resp) {
-    //     setsucessPage(true);
-    //   } else {
-    //     setSettingsPage(false);
-    //   }
-    // }
-    // handleverficationCall();
-    handleNotification()
+    handleNotification();
   }, []);
 
-  const handletoggleChange = async(data,type) =>{
-    let payload ={ }
-    if(type === 'mobile'){
-      payload ={ "notification_id": data.notification_id ,
-        "textStatus": !data.textStatus
-       }
-    }else{
-       payload ={"notification_id": data.notification_id ,
-        "emailStatus": !data.emailStatus,
-       }
-    }
-    console.log('payload',payload , type , data)
+  const handleGetAddNotification = async (i, updatedData) => {
+    let payload = {};
+    userNotification &&
+      userNotification.map((item, index) => {
+        if (index === i) {
+          payload = {
+            notification_id: item.notification_id,
+            textStatus: item.textStatus,
+            emailStatus: item.emailStatus,
+            user_id: item.user_id,
+          };
+        }
+      });
+    console.log("payload", payload);
     try {
       const userAddNotiResp = await getAddUserNotificationService(payload);
-      console.log('userAddNotiResp',userAddNotiResp);
-      handleNotification();
+      // console.log('userAddNotiResp',userAddNotiResp);
     } catch (error) {
       /**
        * Error logic here
        * we need to do based on the error
        */
-      alert('naga sai',JSON.stringify(error.message));
+      alert("naga sai", JSON.stringify(error.message));
     }
-  }
+  };
 
   const handleback = () => {
     setsucessPage(false);
     setSettingsPage(true);
+  };
+
+  const handleUserNotification = (i, updateObj, email) => {
+    const updatedData = userNotification.map((item, index) => {
+      if (index == i) {
+        return { ...item, ...updateObj };
+      } else {
+        return item;
+      }
+    });
+    setUserNotification(updatedData);
+    handleGetAddNotification(i, updatedData);
+  };
+
+  const handleTextNotification = (i, updateObj, mobile) => {
+    const updatedData = userNotification.map((item, index) => {
+      if (index == i) {
+        return { ...item, ...updateObj };
+      } else {
+        return item;
+      }
+    });
+    setUserNotification(updatedData);
+    handleGetAddNotification(updatedData);
   };
 
   return (
@@ -163,16 +172,6 @@ export default function HrSetting() {
                         marginLeft: "20px",
                       }}
                     >
-                       <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control
-                          type="email"
-                          name="email"
-                          value={email}
-                          placeholder="Enter email"
-                          onChange={handleChange}
-                        />
-                      </Form.Group>
                       <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Old Password</Form.Label>
                         <Form.Control
@@ -247,187 +246,108 @@ export default function HrSetting() {
                   </TabPanel>
                   <TabPanel>
                     <div className="accord mx-3">
-                      {notification && notification.map((data)=>{
-                        return(
-                          <Accordion style={{ width: 800, marginTop: "30px" }}>
-                        <div
-                          className=" accordhead"
-                          style={{ backgroundColor: "#8EC131", color: "white" }}
-                        >
-                          <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panel1a-content"
-                          >
-                            <Typography
-                              style={{
-                                fontWeight: 15,
-                                color: "white",
-                                fontSize: "large",
-                              }}
+                      {notification &&
+                        notification.map((data, i) => {
+                          return (
+                            <Accordion
+                              style={{ width: 800, marginTop: "30px" }}
                             >
-                             {data.name}
-                            </Typography>
-                          </AccordionSummary>
-                        </div>
+                              <div
+                                className=" accordhead"
+                                style={{
+                                  backgroundColor: "#8EC131",
+                                  color: "white",
+                                }}
+                              >
+                                <AccordionSummary
+                                  expandIcon={<ExpandMoreIcon />}
+                                  aria-controls="panel1a-content"
+                                >
+                                  <Typography
+                                    style={{
+                                      fontWeight: 15,
+                                      color: "white",
+                                      fontSize: "large",
+                                    }}
+                                  >
+                                    {data.name}
+                                  </Typography>
+                                </AccordionSummary>
+                              </div>
 
-                        <AccordionDetails>
-                          <Typography>
-                            <p>
-                              Premium received notification on your email
-                              <input
-                                className="react-switch-checkbox"
-                                id={`react-switch-new`}
-                                type="checkbox"
-                                checked={data.emailStatus}
-                                onChange={() => handletoggleChange(data,'email')}
-                              />
-                              <label
-                                className="react-switch-label"
-                                htmlFor={`react-switch-new`}
-                              >
-                                <span className={`react-switch-button`} />
-                                {/* <span className="inner" /> */}
-                               {/* <span className="switch" /> */}
-                              </label>
-                            </p>
-                            {/* <p>
-                              Premium received notification text message on
-                              mobile
-                              <input
-                                className="react-switch-checkbox"
-                                id={`react-switch-new`}
-                                type="checkbox"
-                                checked={false}
-                                onChange={() => handletoggleChange(data,'mobile')}
-                              />
-                              <label
-                                className="react-switch-label"
-                                htmlFor={`react-switch-new`}
-                              >
-                                <span className={`react-switch-button`} />
-                              </label>
-                            </p> */}
-                          </Typography>
-                        </AccordionDetails>
-                      </Accordion>
-                        )
-                      })}
-                      {/* <Accordion style={{ width: 800, marginTop: "30px" }}>
-                        <div
-                          className=" accordhead"
-                          style={{ backgroundColor: "#8EC131", color: "white" }}
-                        >
-                          <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panel1a-content"
-                          >
-                            <Typography
-                              style={{
-                                fontWeight: 15,
-                                color: "white",
-                                fontSize: "large",
-                              }}
-                            >
-                              Premium Received Notification
-                            </Typography>
-                          </AccordionSummary>
-                        </div>
-
-                        <AccordionDetails>
-                          <Typography>
-                            <p>
-                              Premium received notification on your email
-                              <input
-                                className="react-switch-checkbox"
-                                id={`react-switch-new`}
-                                type="checkbox"
-                              />
-                              <label
-                                className="react-switch-label"
-                                htmlFor={`react-switch-new`}
-                              >
-                                <span className={`react-switch-button`} />
-                              </label>
-                            </p>
-                            <p>
-                              Premium received notification text message on
-                              mobile
-                            </p>
-                          </Typography>
-                        </AccordionDetails>
-                      </Accordion>
-                      <Accordion style={{ width: 800 }}>
-                        <div
-                          className=" accordhead"
-                          style={{ backgroundColor: "#8EC131", color: "white" }}
-                        >
-                          <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panel1a-content"
-                          >
-                            <Typography
-                              style={{
-                                fontWeight: 15,
-                                color: "white",
-                                fontSize: "large",
-                              }}
-                            >
-                              Email Notification
-                            </Typography>
-                          </AccordionSummary>
-                        </div>
-                        <AccordionDetails>
-                          <Typography>Greetings of the day :)</Typography>
-                        </AccordionDetails>
-                      </Accordion>
-                      <Accordion style={{ width: 800 }}>
-                        <div
-                          className=" accordhead"
-                          style={{ backgroundColor: "#8EC131", color: "white" }}
-                        >
-                          <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panel1a-content"
-                          >
-                            <Typography
-                              style={{
-                                fontWeight: 15,
-                                color: "white",
-                                fontSize: "large",
-                              }}
-                            >
-                              About New Listed polices
-                            </Typography>
-                          </AccordionSummary>
-                        </div>
-                        <AccordionDetails>
-                          <Typography>Greetings of the day :)</Typography>
-                        </AccordionDetails>
-                      </Accordion>
-                      <Accordion style={{ width: 800 }}>
-                        <div
-                          className=" accordhead"
-                          style={{ backgroundColor: "#8EC131", color: "white" }}
-                        >
-                          <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panel1a-content"
-                          >
-                            <Typography
-                              style={{
-                                fontWeight: 15,
-                                color: "white",
-                                fontSize: "large",
-                              }}
-                            >
-                              Offer
-                            </Typography>
-                          </AccordionSummary>
-                        </div>
-                        <AccordionDetails>
-                          <Typography>Greetings of the day :)</Typography>
-                        </AccordionDetails>
-                      </Accordion> */}
+                              <AccordionDetails>
+                                {userNotification &&
+                                  userNotification.map((userNoti, i) => {
+                                    if (userNoti.id === data.id) {
+                                      // console.log("userNoti", userNoti);
+                                      return (
+                                        <Typography>
+                                          <p>
+                                            Premium received notification on
+                                            your email
+                                            <input
+                                              className="react-switch-checkbox"
+                                              id={`react-switch-new-1`}
+                                              type="checkbox"
+                                              checked={userNoti.emailStatus}
+                                              onChange={() =>
+                                                handleUserNotification(
+                                                  i,
+                                                  {
+                                                    emailStatus:
+                                                      !userNoti.emailStatus,
+                                                  },
+                                                  "email"
+                                                )
+                                              }
+                                            />
+                                            <label
+                                              className="react-switch-label"
+                                              htmlFor={`react-switch-new-1`}
+                                            >
+                                              <span
+                                                className={`react-switch-button`}
+                                              />
+                                              {/* <span className="inner" /> */}
+                                              {/* <span className="switch" /> */}
+                                            </label>
+                                          </p>
+                                          <p>
+                                            Premium received notification text
+                                            message on mobile
+                                            <input
+                                              className="react-switch-checkbox"
+                                              id={`react-switch-new-2`}
+                                              type="checkbox"
+                                              checked={userNoti.textStatus}
+                                              onChange={() =>
+                                                handleTextNotification(
+                                                  i,
+                                                  {
+                                                    textStatus:
+                                                      !userNoti.textStatus,
+                                                  },
+                                                  "mobile"
+                                                )
+                                              }
+                                            />
+                                            <label
+                                              className="react-switch-label"
+                                              htmlFor={`react-switch-new-2`}
+                                            >
+                                              <span
+                                                className={`react-switch-button`}
+                                              />
+                                            </label>
+                                          </p>
+                                        </Typography>
+                                      );
+                                    }
+                                  })}
+                              </AccordionDetails>
+                            </Accordion>
+                          );
+                        })}
                     </div>
                   </TabPanel>
                 </Tabs>

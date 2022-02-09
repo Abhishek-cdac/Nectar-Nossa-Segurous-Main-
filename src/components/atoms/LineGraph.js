@@ -38,7 +38,7 @@ function LineGraph() {
    
     }
     return (
-        <div className='Chart' style={{width:"720px", display:"flex"}}>       
+        <div className='Chart' style={{width:"100%"}}>       
              <Line data={data} options={options}/>
         </div>
 

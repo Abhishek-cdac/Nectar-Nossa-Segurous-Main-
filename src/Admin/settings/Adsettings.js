@@ -34,17 +34,18 @@ export default function AdSetting() {
     emailBody: "",
     textBody: "",
     status: "",
-    Type: "",email:'',
+    Type: "",
   });
   const [sucessPage, setsucessPage] = useState("");
   const [settingsPage, setSettingsPage] = useState(true);
   const Token = window.localStorage.getItem("token");
+  const email =window.localStorage.getItem("email")
   const { Option } = Select;
   console.log("Token in list", Token);
 
 
   const {
-    email,
+    // email,
     confirmPassword,
     oldPassword,
     newPassword,
@@ -65,8 +66,8 @@ export default function AdSetting() {
     const payload = {
      email:email,
       oldPassword: oldPassword,
-      confirmPassword: confirmPassword,
-      newPassword: newPassword,
+      confirmPassword:confirmPassword,
+      password:newPassword,
       token: Token,
     };
     if (
@@ -80,19 +81,15 @@ export default function AdSetting() {
       const response = await getChangePassword(payload);
       console.log(response);
       seterrorMsg('')
+      setsucessPage(true);
     } catch (error) {
-      /**
-       * Error logic here
-       * we need to do based on the error
-       */
+      
       alert(JSON.stringify(error.message));
     }
   }
 };
 
-//    useEffect(() => {
-//     reset()
-//    }, []);
+
 
   const handleback = () => {
     setsucessPage(false);
@@ -254,7 +251,7 @@ export default function AdSetting() {
                           marginLeft: "20px",
                         }}
                       >
-                           <Form.Group className="mb-3" controlId="formBasicEmail">
+                           {/* <Form.Group className="mb-3" controlId="formBasicEmail">
                           <Form.Label>Email</Form.Label>
                           <Form.Control
                             type="email"
@@ -263,7 +260,7 @@ export default function AdSetting() {
                             placeholder="Enter Email"
                             onChange={handleChange}
                           />
-                        </Form.Group>
+                        </Form.Group> */}
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                           <Form.Label>Old Password</Form.Label>
                           <Form.Control

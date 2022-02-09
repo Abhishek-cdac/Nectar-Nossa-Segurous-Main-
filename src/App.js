@@ -6,7 +6,6 @@ import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Login from "./Authentication/Login";
 import CreateAccount from "./Authentication/CreateAccount";
 import Dashboard from "../src/user/Dashboard";
-import HRDashboard from "../src/Hr/HrDashboard";
 import Noosa from "./user/noosa";
 import Hrnoosa from "../src/Hr/Hrnoosa";
 import Adminnoosa from "../src/Admin/Adminnoosa";
@@ -44,6 +43,7 @@ import AdSetting from "./Admin/settings/Adsettings";
 import AdHelpAndSupport from "./Admin/AdHelp&&support/Help&support";
 import HrSetting from "./Hr/settings/HrSettings";
 import HrHelp from "./Hr/settings/HrHelp&support/HrHelp&Support";
+import HrDashboard2 from "./Hr/HrDashBoard2";
 
 function App() {
   return (
@@ -51,11 +51,11 @@ function App() {
       {/* <h1>data</h1> */}
       <BrowserRouter>
         <Routes>
-          <Route path="/auth" element={<Login />}>
+          <Route path="/login" element={<Login />}/>
             <Route path="signup" element={<CreateAccount />} />
             <Route path="forgetPassword" element={<ForgetPass />} />
             <Route path="resetpassword/:token" element={<ResetAccountCode />} />
-          </Route>
+         
           <Route path="/user" element={<Noosa />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="newClaim" element={<Claims />} />
@@ -73,7 +73,7 @@ function App() {
 
           <Route path="/hr" element={<Hrnoosa />}>
             {/* <Route path="hr" element={<Hrnoosa />} /> */}
-            <Route path="dashboard" element={<HRDashboard />} />
+            <Route path="dashboard" element={<HrDashboard2/>} />
             <Route path="listedPolices" element={<Hrlisted />} />
             <Route path="newClaim" element={<HrRecievedClaims />} />
             <Route path="paypremium" element={<Receivedpremium />} />

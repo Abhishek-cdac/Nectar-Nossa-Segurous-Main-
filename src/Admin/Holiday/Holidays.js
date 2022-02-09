@@ -5,11 +5,13 @@ import { Menu, Dropdown } from 'antd';
 import {Button,Modal, Form, Table} from "react-bootstrap";
 import { getHolidaysList } from "../../services/authentication";
 import moment from 'moment';
-import { getEditHoliday,getDeleteHoliday } from "../../services/authentication";
+import { getEditHoliday,getDeleteHoliday,getAddHoliday } from "../../services/authentication";
 import {CSVLink} from "react-csv";
+
 //test
 import Doctors from "../Reimbursment/Doctors"
 import Services from "../Reimbursment/Services";
+import { parse } from "papaparse";
 
 
 
@@ -19,8 +21,12 @@ function AdHolidays() {
   const[ShowModal,setShowModal]=useState(false)
   const [HolidaysData, setHolidaysData] = useState("");
   const[HolidayListArray,setHolidayListArray]=useState('')
+  const [uploadedStatus,setUplaodedStatus] = useState(true)
   const [TableData, setTableData] = useState("");
-  const handleClose = () => setShow(false);
+  const[uploadedData,setUplaodedData]=useState([])
+  const handleClose = () => {
+    setShow(false) 
+    setUplaodedStatus(true)}
   const handleShow = () => setShow(true);
   const handleCancel = () =>setShowModal(false)
   const [Data,setData] = useState({
@@ -139,7 +145,37 @@ const payload ={
 
   //ADD List API 
   const handleAddHlidayAPI = () =>{
+    let tableDataArr =[]
+    console.log('uploadedData',uploadedData.data)
+    if(uploadedData.data.length > 0){
+      console.log(uploadedData)
+      // let value={}
+     uploadedData.data.map((data, i) => {
+       const value = {
+        id:data.Id,
+        Name:data.Name,
+        Date:data.Date,
+        Day:data.Day,
+        Type:data.Type,
+      };
 
+  
+      try {
+        console.log("value",value)
+        const resp =  getAddHoliday(value);
+        console.log("sucess", resp);
+      tableDataArr.push(value);
+      setHolidaysData(value)
+      setTableData(tableDataArr);
+      setShow(false) 
+      console.log("tdr", tableDataArr);
+      }
+      catch (error) {
+        console.log("error", error);
+      }
+    });  
+
+  }
   }
 
 
@@ -157,12 +193,10 @@ const payload ={
 
   const HolidayCSVdata = () =>{
     let HolidayData =[]
-    console.log("hla",HolidayListArray)
     const HolidayListArrayData = HolidayListArray && HolidayListArray
     if(HolidayListArrayData){
       HolidayData.push('Id,Name,Date,Day,Type\n')
       HolidayListArrayData.map((excelData)=>{
-        console.log("excel",excelData)
         HolidayData.push(
           `${excelData.id},${excelData.name}, ${excelData.date}, ${excelData.day},${excelData.type}\n`
  
@@ -179,7 +213,6 @@ const payload ={
   //Filter
   const handleFilterData = (filterData) =>{
     const tableDataArr =[];
-    console.log('filterData',filterData)
     if(filterData.length > 0){
      filterData.map((data, i) => {
       const value = {
@@ -230,9 +263,27 @@ const payload ={
                   </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <h5>Upload CSV</h5>
+                 {uploadedStatus ? <div><h5>Upload CSV</h5>
                   <div class="container">
-                    <div class="droptarget">
+                    <div class="droptarget"
+                     onDragOver={(e)=>{
+                       e.preventDefault();
+                     }}
+                     onDrop={(e)=>{
+                       e.preventDefault();
+                       console.log(e.dataTransfer.files)
+                       Array.from(e.dataTransfer.files)
+                       .filter((file) => ['application/vnd.ms-excel','text/plain','text/csv','application/csv'].includes(file.type))
+                       .forEach(async (file) =>{
+                         const text = await file.text();
+                         const result = parse(text,{header:true});
+                         console.log(result);
+                         setUplaodedData(result)
+                         setUplaodedStatus(false)
+                       })
+                     }}
+                     >
+                 
                       <i
                         class="fas fa-upload"
                         style={{ justifyContent: "center", display: "flex" }}
@@ -241,8 +292,14 @@ const payload ={
                         Drag Drop file here
                       </span>
                     </div>
+                  </div> 
                   </div>
-                  <p style={{ justifyContent: "center", display: "flex" }}>
+                  :
+                  <div class="container">
+                      <h5>Uploaded CSV file sucessfully</h5>
+                  </div>
+                  }
+                  {/* <p style={{ justifyContent: "center", display: "flex" }}>
                     Or
                   </p>
                   <Form.Group
@@ -251,13 +308,13 @@ const payload ={
                   ></Form.Group>
                   <Form.Group controlId="formFile" className="mb-3">
                     <Form.Control type="file" />
-                  </Form.Group>
+                  </Form.Group> */}
                 </Modal.Body>
                 <Modal.Footer>
                   <Button
                     variant="primary"
                     size="lg"
-                    onClick={handleAddHlidayAPI}
+                    onClick={()=>handleAddHlidayAPI()}
                     style={{ width: "200%" }}
                   >
                     Add

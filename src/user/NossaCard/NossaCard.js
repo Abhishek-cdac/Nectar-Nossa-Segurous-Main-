@@ -44,6 +44,7 @@ console.log("lug",loginDetailsUserId)
 
     return(
         <>
+    
         <div className="row d-flex align-items-center justify-content-between">
         <div className="col-lg-6 col-md-6 text-left">
             <h3 className="mt-3 mb-4">Nossa Card</h3>

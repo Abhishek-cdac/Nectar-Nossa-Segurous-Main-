@@ -30,6 +30,7 @@ import { useNavigate } from "react-router-dom";
 // import AccidentList from "../Listed polices/Accidentlist";
 // import { getAllUserPolicyList } from "../../services/authentication";
 import { Popover } from "@material-ui/core";
+import { render } from "@testing-library/react";
 
 const { Search } = Input;
 
@@ -49,6 +50,7 @@ const HrData = (props) => {
   const [gender,setGender] = useState(props.data.gendar ? props.data.gendar : '');
   const [currentAddress, setcurrentAddress] = useState(props.data.currentAddress ? props.data.currentAddress : '');
   const [errorMsg,seterrorMsg] = useState('')
+  const [image,setImage] =useState(props.data.profileImg ? props.data.profileImg : '')
   // const[AllHrPolicyListArray,setAllHrPolicyListArray]=useState();
   const [radioButtonValue, setradioButtonValue] = useState(
     HrData.status === true ? "Active" : "InActive"
@@ -104,7 +106,7 @@ const HrData = (props) => {
        'currentAddress':currentAddress,
        'permanentAddress':permanentAddress,
        'city':city,
-       'profileImg':''
+       'profileImg':image
       }
      try {
        const resp = await editAgentList(data);
@@ -285,11 +287,11 @@ const HrData = (props) => {
     setGender(e.target.value)
   }
 
-  const getBase64 = (img,callback) =>{
-    const reader = new FileReader();
-    reader.addEventListener('load',()=>callback(reader.result))
-    reader.readAsDataURL(img)
-  }
+  // const getBase64 = (img,callback) =>{
+  //   const reader = new FileReader();
+  //   reader.addEventListener('load',()=>callback(reader.result))
+  //   reader.readAsDataURL(img)
+  // }
   const beforeUpload = (file)=> {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
     if (!isJpgOrPng) {
@@ -302,25 +304,14 @@ const HrData = (props) => {
     return isJpgOrPng && isLt2M;
   }
 
-  const handleChange = info => {
-    if (info.file.status === 'uploading') {
-      this.setState({ loading: true });
-      return;
+  const convert2base64 =(e) =>{
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () =>{
+      setImage(reader.result.toString());
     }
-    if (info.file.status === 'done') {
-      // Get this url from response in real world.
-      getBase64(info.file.originFileObj, imageUrl =>
-       setImageUrl(imageUrl),
-       SetLoading(false)
-      );
-    }
-  };
-  const uploadButton = (
-    <div>
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
-  );
+    reader.readAsDataURL(file);
+  }
 
   return (
     <div>
@@ -364,16 +355,7 @@ const HrData = (props) => {
             marginTop:"30px"
           }}
         >
-          <Card
-            bordered={true}
-            style={{ width: "200px" }}
-            cover={
-              <img
-                alt="example"
-                src="https://tse4.mm.bing.net/th?id=OIP.TX6sFdfHo_WI_R1x61omFAHaHa&pid=Api&P=0&w=190&h=190"
-              />
-            }
-          ></Card>
+          { image &&  <img src={image} />}
           <div
             style={{ display: "flex", justifyContent: "space-around" }}
             style={{
@@ -660,17 +642,15 @@ const HrData = (props) => {
                     value={permanentAddress}
                     onChange={(e) => setpermanentAddress(e.target.value)}
                     />
-                    {/* <Upload
-                    name="avatar"
-                    listType="picture-card"
-                    className="avatar-uploader"
-                    showUploadList={false}
-                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                    beforeUpload={beforeUpload}
-                    onChange={handleChange}
-                  >
-                    {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-                  </Upload> */}
+                   {image ? (
+                    <img src={image} />
+                  ) : (
+                    <div>
+                      <input id='fileupload' type='file' onChange={(e)=>convert2base64(e)}/>
+                      <label htmlFor="fileupload">Upload File</label>
+                    </div>
+                  )}
+                 
                     
                   <p style={{color:'red',marginLeft:'45px'}}>{errorMsg}</p>
           </Modal> 

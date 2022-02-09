@@ -9,24 +9,24 @@ export default function Dashboard() {
   const [show,setShow] = useState(false)
   const mouseHover = () => setShow(prev => !prev)
   return (
-    <div>
+    <div className="container-fluid">
       <div style={{ margin: "20px" }}>
         <h2>Dashboard</h2>
         <div className="site-card-wrapper">
           <Row gutter={16}>
-            <Col span={6}>
-              <Card  
-              actions={ show ? [
-               <div>
-                 <p> nagasai nassso </p>
-                </div> 
-              ] : null}
+            <Col xs={24} md={12} lg={4} xl={4}>
+               <Card  
+              // actions={ show ? [
+              // //  <div>
+              // //    <p> nagasai nassso </p>
+              // //   </div> 
+              // ] : null}
               //  extra={show ? <Button type="link"> Download </Button> : null}
               onMouseEnter={mouseHover}
               onMouseLeave={mouseHover}>
                 <div>
                   <Row>
-                    <Col span={20}>
+                  <Col xs={24} md={12} lg={4}>
                       <div>Active</div>
                       <div>Policies</div>
                     </Col>
@@ -46,7 +46,7 @@ export default function Dashboard() {
                 <div style={{ float: "right" }}>
                   {show ? <ArrowDownOutlined style={{ color: "#61b33b" }}/> : <ArrowRightOutlined style={{ color: "#61b33b" }} /> }
                 </div>
-              </Card>
+              </Card> 
             </Col>
             <Col span={6}>
               <Card>

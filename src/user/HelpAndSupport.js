@@ -85,7 +85,7 @@ function HelpAndSupport() {
             </Breadcrumb>
             </div>
             <div className="accord">
-              <Accordion defaultActiveKey="0" flush>
+              <Accordion  style={{width:"100%"}}defaultActiveKey="0" flush>
                 <Accordion.Item eventKey="0">
                   <Accordion.Header>Help & Support</Accordion.Header>
                   <Accordion.Body>

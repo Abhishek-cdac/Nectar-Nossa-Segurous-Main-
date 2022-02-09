@@ -31,7 +31,7 @@ const CreateAccount = () => {
     }
 
     return (
-         <body style={{ width: "100%" }}>
+         <div className='container-fluid' style={{ width: "100%" }}>
         <div
           className="container"
           style={{
@@ -207,7 +207,7 @@ const CreateAccount = () => {
                 </Form>
             </div>
         </div>
-        </body>
+        </div>
     );
 };
 export default CreateAccount;
