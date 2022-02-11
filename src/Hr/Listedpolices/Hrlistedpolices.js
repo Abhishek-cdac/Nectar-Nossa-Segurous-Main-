@@ -180,12 +180,12 @@ const Hrlisted = () => {
 
   return (
     <div>
-      <div>
+      <div className="container-fluid">
         <Breadcrumb style={{ marginTop: "20px" }}>
           <Breadcrumb.Item >Home</Breadcrumb.Item>
           <Breadcrumb.Item>ListedPolocies</Breadcrumb.Item>
         </Breadcrumb>
-        <div
+        <div className="row"
           style={{
             marginTop: "20px",
             marginBottom: "25px",
@@ -194,45 +194,46 @@ const Hrlisted = () => {
             flexDirection: "row",
           }}
         >
-          <div>
-            <h3>Listed Polocies</h3>
-          </div>
-          <div style={{ display: "flex", flexDirection: "row" }}>
-            <Search
-              placeholder="search Policy"
-              onSearch={onSearch}
-              style={{
-                width: 300,
-                borderRadius: "25px",
-                marginRight: "10px",
-              }}
-            />
-             <Dropdown placement="bottomCenter" overlay={content} arrow>
+          <div className="col-12 col-sm-3 col-md-3">
+          <h3>Listed Policy</h3>
+        </div>
+        <div className="nav justify-content-center">
+        <div className="col-12 col-sm-5 col-md-5" style={{ display: "flex", flexDirection: "row" }}>
+          <Search
+            placeholder="search Policy"
+            onSearch={onSearch}
+            style={{
+              borderRadius: "25px",
+            }}
+          />
+        </div>
+        <div className="col-12 col-sm-3 col-md-3" style={{ display: "flex", flexDirection: "row" }}>
+        <Dropdown placement="bottomCenter" overlay={content} arrow>
             <Button
               style={{
                 borderRadius: "5px",
-                marginRight: "10px",
                 backgroundColor: "#61b33b",
                 color: "white",
               }}
             >
               <FilterOutlined /> Add Filters
             </Button>
-            </Dropdown>
-            <div>
-              <Button
-                style={{
-                  color: "#ffffff",
-                  backgroundColor: "#000089",
-                }}
-              >
-                {/* Download PDF/CSV */}
-                <CSVLink data={policyCSV} target="_blank">
-                  Download PDF/CSV
-                </CSVLink>
-              </Button>
-            </div>
-          </div>
+          </Dropdown>
+        </div>
+        <div className="col-12 col-sm-3 col-md-3" style={{ display: "flex", flexDirection: "row" }}>
+        <Button
+            style={{
+              color: "#ffffff",
+              backgroundColor: "#000089",
+              borderRadius: "5px"
+            }}
+          >
+            <CSVLink data={policyCSV} target="_blank">
+              Download PDF/CSV
+            </CSVLink>
+          </Button>
+        </div>
+        </div>
         </div>
 
         <div style={{ display: "flex", flexDirection: "row" }}>
