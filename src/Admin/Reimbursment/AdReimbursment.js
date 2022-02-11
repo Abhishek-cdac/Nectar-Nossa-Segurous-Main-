@@ -560,7 +560,7 @@ const Reimbusrment = () => {
                     <button
                       type="button"
                       class="btn btn-success btn-sm my-3 mx-2"
-                      style={{ width: "140px", borderRadius:"5px", height:"40px" }}
+                      style={{ width: "140px", borderRadius:"5px", height:"40px", border: "1px solid #8EC131", backgroundColor: "#8EC131"}}
                       onClick={handleShow}
                     >
                       <i class="fas fa-plus-circle"></i> Add Holiday List
