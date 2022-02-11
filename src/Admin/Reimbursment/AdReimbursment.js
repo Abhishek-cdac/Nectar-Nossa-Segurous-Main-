@@ -560,7 +560,7 @@ const Reimbusrment = () => {
                     <button
                       type="button"
                       class="btn btn-success btn-sm my-3 mx-2"
-                      style={{ width: "130px", borderRadius:"5px", height:"40px" }}
+                      style={{ width: "140px", borderRadius:"5px", height:"40px" }}
                       onClick={handleShow}
                     >
                       <i class="fas fa-plus-circle"></i> Add Holiday List
@@ -737,7 +737,7 @@ const Reimbusrment = () => {
                         target="_blank"
                         style={{ color: "white"}}
                       >
-                        Download PDF/CSV
+                       Download PDF/CSV
                       </CSVLink>
                     </button>
                   </div>
