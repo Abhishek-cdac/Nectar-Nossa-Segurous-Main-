@@ -324,86 +324,83 @@ const handlesubmit = ()=>{
 
   return (
     <>
-    {serviceRequestPage && <div>
-      <div>
-        <Breadcrumb style={{ marginTop: "20px" }}>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>Services</Breadcrumb.Item>
-        </Breadcrumb>
-        <div
-          style={{
-            marginTop: "20px",
-            marginBottom: "25px",
-            display: "flex",
-            justifyContent: "space-between",
-            flexDirection: "row",
-          }}
-        >
-          <div>
-            <h3>Requested Services</h3>
-          </div>
+    {serviceRequestPage &&
+      <div className="container-fluid">
+          <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Services</Breadcrumb.Item>
+          </Breadcrumb>
           <div
+            className="row"
             style={{
+              marginTop: "20px",
+              marginBottom: "25px",
               display: "flex",
+              justifyContent: "space-between",
               flexDirection: "row",
-              borderRadius: "5px",
             }}
           >
-            <Input
-              onSearch={onSearch}
-              style={{
-                borderRadius: "25px",
-                marginRight: "10px",
-                height: "80%",
-                width: "200%",
-                borderBlockColor: "#61B33B",
-                borderRightColor: "#61B33B",
-                borderLeftColor: "#61B33B",
-              }}
-              placeholder="Search Service request"
-              suffix={suffix}
-            />
-
-            <Dropdown placement="bottomCenter" overlay={content} arrow>
-              <Button
-                style={{
-                  borderRadius: "5px",
-                  marginRight: "10px",
-                  backgroundColor: "#61b33b",
-                  color: "white",
-                }}
+            <div className="col-12 col-sm-3 col-md-3">
+              <h3>Requested Services</h3>
+            </div>
+            <div className="nav justify-content-center">
+              <div
+                className="col-12 col-sm-4 col-md-4"
+                style={{ display: "flex", flexDirection: "row" }}
               >
-                <FilterOutlined /> Add Filters
-              </Button>
-            </Dropdown>
-            <div>
-              <Button
-                style={{
-                  color: "#ffffff",
-                  backgroundColor: "#000089",
-                  borderRadius: "5px",
-                }}
+                <Search
+                  placeholder="search Policy"
+                  onSearch={onSearch}
+                  style={{
+                    borderRadius: "25px",
+                  }}
+                />
+              </div>
+              <div
+                className="col-12 col-sm-3 col-md-3"
+                style={{ display: "flex", flexDirection: "row" }}
               >
-                {/* Download PDF/CSV */}
-                <CSVLink data={serviceCSV} target="_blank">
-                  Download PDF/CSV
-                </CSVLink>
-              </Button>
+                <Dropdown placement="bottomCenter" overlay={content} arrow>
+                  <Button
+                    style={{
+                      borderRadius: "5px",
+                      backgroundColor: "#61b33b",
+                      color: "white",
+                    }}
+                  >
+                    <FilterOutlined /> Add Filters
+                  </Button>
+                </Dropdown>
+              </div>
+              <div
+                className="col-12 col-sm-3 col-md-3"
+                style={{ display: "flex", flexDirection: "row" }}
+              >
+                <Button
+                  style={{
+                    color: "#ffffff",
+                    backgroundColor: "#000089",
+                    borderRadius: "5px",
+                  }}
+                >
+                  <CSVLink data={serviceCSV} target="_blank">
+                    Download PDF/CSV
+                  </CSVLink>
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
-        <div>
-          <Table
-            rowClassName={() => "rowClassName1"}
-            columns={columns}
-            dataSource={TableData}
-          />
-        </div>
-        <div>
-          <span>shown Results {ServiceListArray.length} </span>
-        </div>
-      </div>
-      </div>}
+          <div>
+            <Table
+              rowClassName={() => "rowClassName1"}
+              columns={columns}
+              dataSource={TableData}
+            />
+          </div>
+          <div>
+            <span>shown Results {ServiceListArray.length} </span>
+          </div>
+        </div>}
       {HrServiceDetailPage && <HrServiceDetails selectedRecord={selectedRecord} data={ServiceListArray} handleBack={handleBack} handlesubmit={handlesubmit}/>}
     </>
   );
