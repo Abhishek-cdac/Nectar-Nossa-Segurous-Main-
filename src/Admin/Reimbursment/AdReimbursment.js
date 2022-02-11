@@ -18,8 +18,8 @@ const Reimbusrment = () => {
   const [ClinicDataPage, setClinicDataPage] = useState("");
   const [selectedrecord, setSelectedrecord] = useState("");
   const [step, setStep] = useState(0);
-  const [ClinicalData, setClinicalData] = useState('');
-  const [PharmacyData, setPharmacyData] = useState('');
+  const [ClinicalData, setClinicalData] = useState("");
+  const [PharmacyData, setPharmacyData] = useState("");
   const [ClinicTableData, setClinicTableData] = useState("");
   const [PharmacyTableData, setPharmacyTableData] = useState("");
   const [ReimbursmentPage, setReimbursmentPage] = useState(true);
@@ -238,7 +238,7 @@ const Reimbusrment = () => {
             tableDataArr.push(value);
           });
         setClinicTableData(tableDataArr);
-        setClinicalData(tableDataArr)
+        setClinicalData(tableDataArr);
       } catch (error) {
         console.log("error", error);
         // showAlert('In valide data', "error");
@@ -266,7 +266,7 @@ const Reimbusrment = () => {
             tableDataArr.push(value);
           });
         setPharmacyTableData(tableDataArr);
-        setPharmacyData(tableDataArr)
+        setPharmacyData(tableDataArr);
       } catch (error) {
         console.log("error", error);
         // showAlert('In valide data', "error");
@@ -280,7 +280,6 @@ const Reimbusrment = () => {
     console.log("filterData", filterData);
     if (filterData.length > 0) {
       if (step === 0) {
-        
         filterData.map((data, i) => {
           const value = {
             SrNo: i,
@@ -315,15 +314,14 @@ const Reimbusrment = () => {
   };
 
   const handleclick = (type) => {
-
     if (step === 0) {
       const ClinicalfilterData =
         ClinicalData &&
         ClinicalData.filter((data) => data.hospitalType === type);
       const Clinic = handleFilterData(ClinicalfilterData);
-      console.log("ClinicalfilterData",ClinicalfilterData, Clinic);
+      console.log("ClinicalfilterData", ClinicalfilterData, Clinic);
       setClinicTableData(Clinic);
-      setClinicalData(Clinic)
+      setClinicalData(Clinic);
     } else {
       const PharmacyfilterData =
         PharmacyData &&
@@ -331,7 +329,7 @@ const Reimbusrment = () => {
       const Pharmacy = handleFilterData(PharmacyfilterData);
       console.log("PharmacyfilterData", Pharmacy);
       setPharmacyTableData(Pharmacy);
-      setPharmacyData(Pharmacy)
+      setPharmacyData(Pharmacy);
     }
   };
 
@@ -377,7 +375,7 @@ const Reimbusrment = () => {
       contact: contact,
       description: description,
       serviceOffered: serviceOffered,
-      doctors:doctors
+      doctors: doctors,
     };
 
     if (
@@ -497,12 +495,12 @@ const Reimbusrment = () => {
         <div>
           <div className="row d-flex align-items-center justify-content-between">
             <div className="col-lg-12 text-left">
-              <h3 className="mt-0 mb-4">Reimbursement</h3>
+              <h3 className="mt-0 mb-4 my-2">Reimbursement</h3>
             </div>
           </div>
 
           <div className="row d-flex align-items-center justify-content-between border-bottom pb-2">
-            <div className="col-12 col-lg-6 col-md-6 text-left">
+            <div className="col-12 col-lg-4 col-md-4 text-left">
               <ul className="nav nav-tabs table-nav" id="myTab" role="tablist">
                 <li className="nav-item" role="presentation">
                   <a
@@ -537,190 +535,212 @@ const Reimbusrment = () => {
                 </li>
               </ul>
             </div>
-            <div className="col-12 col-lg-6 col-md-6 text-right">
+            <div className="col-12 col-lg-8 col-md-8 text-right">
               <div className="search-btn">
-                <div className="input-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Search Hospital"
-                    value={searchValue}
-                    onChange={(e) => setSearchValue(e.target.value)}
-                  />
-                  <div className="input-group-append">
+                <div className="search-btn">
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      className="form-control my-3"
+                      placeholder="Search Hospital"
+                      value={searchValue}
+                      onChange={(e) => setSearchValue(e.target.value)}
+                    />
+                    <div className="input-group-append">
+                      <button
+                        className="btn btn-secondary my-3"
+                        type="button"
+                        onClick={() => handleOnSearch()}
+                      >
+                        <i className="fa fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div className="btn-group">
                     <button
-                      className="btn btn-secondary"
                       type="button"
-                      onClick={() => handleOnSearch()}
+                      class="btn btn-success btn-sm my-3 mx-2"
+                      style={{ width: "130px", borderRadius:"5px", height:"40px" }}
+                      onClick={handleShow}
                     >
-                      <i className="fa fa-search"></i>
+                      <i class="fas fa-plus-circle"></i> Add Holiday List
+                    </button>
+                    <div className="header">
+                      <Modal show={ShowModal} onHide={handleCancel} size="lg">
+                        <Modal.Header closeButton>
+                          <Modal.Title
+                            style={{ color: "#61B33B", marginLeft: "130px" }}
+                          >
+                            Add Reimbursment List
+                          </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                          <div class="container">
+                            <Form.Group>
+                              <Form.Label>Name</Form.Label>
+                              <Form.Control
+                                type="text"
+                                value={name}
+                                name="name"
+                                onChange={handleChange}
+                              ></Form.Control>
+                              <Form.Label>Type</Form.Label>
+                              <Form.Control
+                                type="text"
+                                value={type}
+                                name="type"
+                                onChange={handleChange}
+                              ></Form.Control>
+                              <Form.Label>Adress</Form.Label>
+                              <Form.Control
+                                type="textArea"
+                                value={address}
+                                name="address"
+                                onChange={handleChange}
+                              ></Form.Control>
+                              <Form.Label>Area</Form.Label>
+                              <Form.Control
+                                type="text"
+                                value={area}
+                                name="area"
+                                onChange={handleChange}
+                              ></Form.Control>
+                              <Form.Label>Contact</Form.Label>
+                              <Form.Control
+                                type="number"
+                                value={contact}
+                                name="contact"
+                                onChange={handleChange}
+                              ></Form.Control>
+                              <Form.Label>Service_offered</Form.Label>
+                              <Form.Control
+                                type="text"
+                                value={serviceOffered}
+                                name="serviceOffered"
+                                onChange={handleChange}
+                              ></Form.Control>
+                              <Form.Label>Doctors Selected</Form.Label>
+                              <Form.Control
+                                as="select"
+                                multiple
+                                value={doctors}
+                                onChange={(e) =>
+                                  setDoctors(
+                                    [].slice
+                                      .call(e.target.selectedOptions)
+                                      .map((item) => item.value)
+                                  )
+                                }
+                              >
+                                {/* <Form.Control as="select" multiple value={doctors}> */}
+                                {DoctorsName &&
+                                  DoctorsName.map((data) => (
+                                    <option value={data.DoctorsName}>
+                                      {data.DoctorsName}
+                                    </option>
+                                  ))}
+                              </Form.Control>
+                              <Form.Label>Services Selected</Form.Label>
+                              <Form.Control
+                                as="select"
+                                multiple
+                                value={services}
+                              >
+                                {ServiceName &&
+                                  ServiceName.map((data) => (
+                                    <option value={data.ServiceName}>
+                                      {data.ServiceName}
+                                    </option>
+                                  ))}
+                              </Form.Control>
+                              <Form.Label>description</Form.Label>
+                              <Form.Control
+                                type="textArea"
+                                value={description}
+                                name="description"
+                                onChange={handleChange}
+                              ></Form.Control>
+                            </Form.Group>
+                          </div>
+                        </Modal.Body>
+                        <Modal.Footer>
+                          <Button
+                            variant="primary"
+                            size="md"
+                            onClick={handleAddRemList}
+                            style={{ width: "200%" }}
+                          >
+                            Submit
+                          </Button>
+                          <label
+                            style={{ color: "red", justifyContent: "center" }}
+                          >
+                            {errorMsg}
+                          </label>
+                        </Modal.Footer>
+                      </Modal>
+                    </div>
+                  </div>
+                  <div class="btn-group hover_drop_down">
+                    <button
+                      type="button"
+                      class="btn btn-success btn-sm my-3 mx-2"
+                      data-toggle="dropdown"
+                      style={{
+                        width: "160px",
+                        borderRadius: "5px",
+                        backgroundColor: "#8EC131",
+                        border: "1px solid #8EC131",
+                        height:"40px"
+                      }}
+                    >
+                      <i class="fas fa-filter"></i> Add Filters
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li>
+                        <a
+                          onClick={() => {
+                            handleclick("provincial");
+                          }}
+                        >
+                          provincial{" "}
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          onClick={() => {
+                            handleclick("public");
+                          }}
+                        >
+                          public
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          onClick={() => {
+                            handleclick("municipal");
+                          }}
+                        >
+                          Municipal
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="btn-group">
+                    <button
+                      type="button"
+                      class="btn btn-primary btn-sm my-3 mx-2"
+                      style={{height:"40px"}}
+                    >
+                      <CSVLink
+                        data={ReimbursmentCSV}
+                        target="_blank"
+                        style={{ color: "white"}}
+                      >
+                        Download PDF/CSV
+                      </CSVLink>
                     </button>
                   </div>
-                </div>
-                <div>
-                  <button
-                    type="button"
-                    class="btn btn-success btn-sm my-3"
-                    style={{ width: "130px" }}
-                    onClick={handleShow}
-                  >
-                    <i class="fas fa-plus-circle"></i> Add Holiday List
-                  </button>
-                  <div className="header">
-                    <Modal show={ShowModal} onHide={handleCancel} size="lg">
-                      <Modal.Header closeButton>
-                        <Modal.Title
-                          style={{ color: "#61B33B", marginLeft: "130px" }}
-                        >
-                          Add Reimbursment List
-                        </Modal.Title>
-                      </Modal.Header>
-                      <Modal.Body>
-                        <div class="container">
-                          <Form.Group>
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control
-                              type="text"
-                              value={name}
-                              name="name"
-                              onChange={handleChange}
-                            ></Form.Control>
-                            <Form.Label>Type</Form.Label>
-                            <Form.Control
-                              type="text"
-                              value={type}
-                              name="type"
-                              onChange={handleChange}
-                            ></Form.Control>
-                            <Form.Label>Adress</Form.Label>
-                            <Form.Control
-                              type="textArea"
-                              value={address}
-                              name="address"
-                              onChange={handleChange}
-                            ></Form.Control>
-                            <Form.Label>Area</Form.Label>
-                            <Form.Control
-                              type="text"
-                              value={area}
-                              name="area"
-                              onChange={handleChange}
-                            ></Form.Control>
-                            <Form.Label>Contact</Form.Label>
-                            <Form.Control
-                              type="number"
-                              value={contact}
-                              name="contact"
-                              onChange={handleChange}
-                            ></Form.Control>
-                            <Form.Label>Service_offered</Form.Label>
-                            <Form.Control
-                              type="text"
-                              value={serviceOffered}
-                              name="serviceOffered"
-                              onChange={handleChange}
-                            ></Form.Control>
-                            <Form.Label>Doctors Selected</Form.Label>
-                            <Form.Control
-                              as="select"
-                              multiple
-                              value={doctors}
-                              onChange={(e) =>
-                                setDoctors(
-                                  [].slice
-                                    .call(e.target.selectedOptions)
-                                    .map((item) => item.value)
-                                )
-                              }
-                            >
-                              {/* <Form.Control as="select" multiple value={doctors}> */}
-                              {DoctorsName &&
-                                DoctorsName.map((data) => (
-                                  <option value={data.DoctorsName}>
-                                    {data.DoctorsName}
-                                  </option>
-                                ))}
-                            </Form.Control>
-                            <Form.Label>Services Selected</Form.Label>
-                            <Form.Control as="select" multiple value={services}>
-                              {ServiceName &&
-                                ServiceName.map((data) => (
-                                  <option value={data.ServiceName}>
-                                    {data.ServiceName}
-                                  </option>
-                                ))}
-                            </Form.Control>
-                            <Form.Label>description</Form.Label>
-                            <Form.Control
-                              type="textArea"
-                              value={description}
-                              name="description"
-                              onChange={handleChange}
-                            ></Form.Control>
-                          </Form.Group>
-                        </div>
-                      </Modal.Body>
-                      <Modal.Footer>
-                        <Button
-                          variant="primary"
-                          size="md"
-                          onClick={handleAddRemList}
-                          style={{ width: "200%" }}
-                        >
-                          Submit
-                        </Button>
-                        <label
-                          style={{ color: "red", justifyContent: "center" }}
-                        >
-                          {errorMsg}
-                        </label>
-                      </Modal.Footer>
-                    </Modal>
-                  </div>
-                </div>
-                <div class="btn-group hover_drop_down">
-                  <button
-                    type="button"
-                    class="btn btn-success btn-sm my-3"
-                    data-toggle="dropdown"
-                    style={{ width: "130px" }}
-                  >
-                    <i class="fas fa-filter"></i> Add Filters
-                  </button>
-                  <ul class="dropdown-menu" role="menu">
-                    <li>
-                      <a
-                        onClick={() => {
-                          handleclick("provincial");
-                        }}
-                      >
-                        provincial{" "}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        onClick={() => {
-                          handleclick("public");
-                        }}
-                      >
-                        public
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        onClick={() => {
-                          handleclick("municipal");
-                        }}
-                      >
-                        Municipal
-                      </a>
-                    </li>
-                  </ul>
-                  <button type="button" class="btn btn-primary btn-sm my-3">
-                    <CSVLink data={ReimbursmentCSV} target="_blank">
-                      Download PDF/CSV
-                    </CSVLink>
-                  </button>
                 </div>
               </div>
             </div>
