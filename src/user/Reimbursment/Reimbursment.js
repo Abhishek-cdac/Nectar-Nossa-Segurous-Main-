@@ -258,10 +258,10 @@ const HrReimbursment = () => {
   return (
     <>
       {ReimbursmentPage && (
-        <div>
+        <div className="container-fluid">
           <div className="row d-flex align-items-center justify-content-between">
             <div className="col-lg-12 text-left">
-              <h3 className="mt-0 mb-4">Reimbursement</h3>
+              <h3 className="mt-0 mb-4 my-3">Reimbursement</h3>
             </div>
           </div>
 
@@ -303,19 +303,18 @@ const HrReimbursment = () => {
             </div>
             <div className="col-12 col-lg-6 col-md-6 text-right">
               <div className="search-btn">
-              <div className="col-12 col-lg-6 col-md-6 text-right">
               <div className="search-btn">
                 <div className="input-group">
                   <input
                     type="text"
-                    className="form-control"
+                    className="form-control my-3"
                     placeholder="Search Hospital"
                     value={searchValue}
                     onChange={(e) => setSearchValue(e.target.value)}
                   />
                   <div className="input-group-append">
                     <button
-                      className="btn btn-secondary"
+                      className="btn btn-secondary my-3"
                       type="button"
                       onClick={() => handleOnSearch()}
                     >
@@ -326,9 +325,9 @@ const HrReimbursment = () => {
                 <div class="btn-group hover_drop_down">
                   <button
                     type="button"
-                    class="btn btn-success btn-sm my-3"
+                    class="btn btn-success btn-md my-3 mx-2"
                     data-toggle="dropdown"
-                    style={{ width: "130px" }}
+                    style={{ width: "160px", borderRadius:"5px", backgroundColor: "#8EC131", border: "1px solid #8EC131" }}
                   >
                     <i class="fas fa-filter"></i> Add Filters
                   </button>
@@ -361,13 +360,14 @@ const HrReimbursment = () => {
                       </a>
                     </li>
                   </ul>
-                  <button type="button" class="btn btn-primary btn-sm my-3">
-                    <CSVLink data={ReimbursmentCSV} target="_blank">
+                </div>
+                <div className="btn-group">
+                <button type="button" class="btn btn-primary btn-md my-3 mx-2">
+                    <CSVLink data={ReimbursmentCSV} target="_blank" style={{color:"white"}}>
                       Download PDF/CSV
                     </CSVLink>
                   </button>
                 </div>
-              </div>
             </div>
               </div>
             </div>
