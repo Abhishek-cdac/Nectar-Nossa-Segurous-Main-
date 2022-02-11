@@ -6,6 +6,7 @@ import VerticalMenu from "../components/atoms/VerticalMenu";
 import Logo from "../images/Userdashboard/logo.png";
 import { forgotPassword } from "../services/authentication";
 // import { showAlert } from "./../../utils/showAlert";
+import "./Login.css";
 
 export default function ResetAccount() {
   let navigate = useNavigate();
@@ -34,33 +35,21 @@ export default function ResetAccount() {
   };
 
   return (
-    <body style={{ width: "100%" }}>
-      <div
-        className="container"
-        style={{
-          display: "flex",
-          borderRadius: "10px",
-          alignItems: "center",
-          flexDirection: "column",
-          marginTop: "150px",
-          height: "400px",
-          width: "530px",
-          backgroundColor: "#4cbb17",
-        }}
-      >
-        <div>
+    <body>
+      <div className="container">
+      <div className="row justify-content-center" style={{padding:"20px"}}>
+        <div className="col-12 col-sm-6 col-md-6">
+        <div className="form-container">
+        <div className="logo justify-content-center">
           <img
             src={Logo}
             style={{
               width: "175px",
               height: "45px",
-              marginTop: "50px",
-              marginBottom: "50px",
             }}
           />
         </div>
-
-        <h3 className="text-center mb-3">Forget Password</h3>
+        <h3 className="text-center mb-3 my-4">Forget Password</h3>
 
         {/* <p className="text-center font-weight-light">
           Please enter your registered mail id
@@ -75,7 +64,7 @@ export default function ResetAccount() {
             <Input
               size="large"
               placeholder="Please enter your registered mail id"
-              style={{ height: "60px", width: "350px", borderRadius: "5px" }}
+              style={{ height: "60px", borderRadius: "5px" }}
               value={email}
               onChange={(e)=>setEmailId(e.target.value)}
             />
@@ -91,9 +80,10 @@ export default function ResetAccount() {
           </div> */}
           <Form.Item>
             <Button
-              type="primary"
+              type="primary" block
+              size="large"
               htmlType="submit"
-              style={{background:'#000080', height: "60px", width: "350px", borderRadius: "5px",borderColor:'#000080' }}
+              style={{background:'#000080', height: "60px", borderRadius: "5px",borderColor:'#000080' }}
               onClick={(e)=> { 
                 e.preventDefault();
                 resetPassword(); }}
@@ -114,7 +104,10 @@ export default function ResetAccount() {
             </button>
           </div> */}
           </Form>
-    </div>
+        </div>
+        </div>
+      </div>
+      </div>
     </body>
   );
 }
