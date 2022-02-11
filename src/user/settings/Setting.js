@@ -9,10 +9,11 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Typography from "@material-ui/core/Typography";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import {
+  resetpassword,
   getChangePassword,
   getUserNotificationService,
   getNotificationService,
-  getAddUserNotificationService,
+  getAddUserNotificationService
 } from "../../services/authentication";
 import setSucess from "./setSucess";
 
@@ -22,13 +23,14 @@ export default function Setting() {
     oldPassword: "",
     newPassword: "",
   });
-  const [userNotification, setUserNotification] = useState("");
-  const [notification, setnotification] = useState([]);
-  const[errorMsg,seterrorMsg]=useState('')
+  const [userNotification,setUserNotification] = useState('')
+  const [notification, setnotification] = useState([])
   const [sucessPage, setsucessPage] = useState([]);
   const [settingsPage, setSettingsPage] = useState(true);
+  const [emailvalue,setEmailvalue] = useState(false)
   const Token = window.localStorage.getItem("token");
-  const email = window.localStorage.getItem("email");
+  const [serviceCallStatus, setServiceCallStatus] = useState(true)
+  const loginDetailsUserId = window.localStorage.getItem("loginDetailsUserId");
   // console.log("Token in list", Token);
 
   const { confirmPassword, oldPassword, newPassword } = data;
@@ -36,116 +38,88 @@ export default function Setting() {
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
-  //Chnage password
 
   const reset = async () => {
-    console.warn();
+    // console.warn();
     const payload = {
-     email:email,
       oldPassword: oldPassword,
-      confirmPassword:confirmPassword,
-      password:newPassword,
+      confirmPassword: confirmPassword,
+      newPassword: newPassword,
       token: Token,
     };
-    if (
-        confirmPassword !== newPassword
-       ) 
-        {
-      seterrorMsg("Password doesn't match");
-       } 
-     else {
     try {
       const response = await getChangePassword(payload);
-      console.log(response);
-      seterrorMsg('')
-      setsucessPage(true);
-    } catch (error) {
-      
-      alert(JSON.stringify(error.message));
-    }
-  }
-};
-
-
-  //Notification API
-  const handleNotification = async () => {
-    console.log("service is hitting");
-    try {
-      const userNotificationResp = await getUserNotificationService();
-      const notificationResp = await getNotificationService();
-      // console.log('userNotificationResp',notificationResp , userNotificationResp);
-      setUserNotification(userNotificationResp.data);
-      setnotification(notificationResp.data);
-    } catch (error) {
-      alert("naga sai", JSON.stringify(error.message));
-    }
-  };
-  useEffect(() => {
-    handleNotification();
-  }, []);
-
-  const handleGetAddNotification = async (i, updatedData,type) => {
-    let payload = {};
-    userNotification &&
-      userNotification.map((item, index) => {
-        if (index === i && type =="email") {
-          payload = {
-            notification_id: item.notification_id,
-            // textStatus: item.textStatus,
-            emailStatus: item.emailStatus,
-            user_id: item.user_id,
-          };
-          
-        }
-        else if(index === i && type == "text"){
-          payload = {
-            notification_id: item.notification_id,
-            textStatus: item.textStatus,
-            // emailStatus: item.emailStatus,
-            user_id: item.user_id,
-          };
-        }
-      });
-    console.log("payload", payload);
-    try {
-      const userAddNotiResp = await getAddUserNotificationService(payload);
-      // console.log('userAddNotiResp',userAddNotiResp);
+      // console.log(response);
     } catch (error) {
       /**
        * Error logic here
        * we need to do based on the error
        */
-      alert("naga sai", JSON.stringify(error.message));
+      alert(JSON.stringify(error.message));
     }
   };
+
+  const handleNotification = async() =>{
+    console.log('service is hitting')
+    try {
+      const userNotificationResp = await getUserNotificationService();
+      const notificationResp = await getNotificationService();
+      // console.log('userNotificationResp',notificationResp , userNotificationResp);
+      setUserNotification(userNotificationResp.data)
+      setnotification(notificationResp.data)
+    } catch (error) {
+      /**
+       * Error logic here
+       * we need to do based on the error
+       */
+      alert('naga sai',JSON.stringify(error.message));
+    }
+    }
+  useEffect(() => {
+    // async function handleverficationCall() {
+    //   const resp = await resetPasswordVerification(Token);
+    //   console.log("resfasdfas", resp);
+    //   if (resp) {
+    //     setsucessPage(true);
+    //   } else {
+    //     setSettingsPage(false);
+    //   }
+    // }
+    // handleverficationCall();
+    handleNotification()
+  }, [serviceCallStatus]);
+
+  const handletoggleChange = async(data,userNoti,type) =>{
+    let payload ={ }
+    // console.log('notoficatio data',data,userNoti)
+    if(type === 'mobile'){
+      payload ={ "notification_id": userNoti.notification_id ,
+        "textStatus": !userNoti.textStatus,
+        'user_id':loginDetailsUserId
+       }
+    }else{
+       payload ={"notification_id": userNoti.notification_id ,
+        "emailStatus": !userNoti.emailStatus,
+        'user_id':loginDetailsUserId
+       }
+    }
+    // console.log('payload',payload , type , data)
+    try {
+      const userAddNotiResp = await getAddUserNotificationService(payload);
+      // console.log('userAddNotiResp',userAddNotiResp);
+      setServiceCallStatus(false)
+    } catch (error) {
+      /**
+       * Error logic here
+       * we need to do based on the error
+       */
+      alert('naga sai',JSON.stringify(error.message));
+    }
+  }
 
   const handleback = () => {
     setsucessPage(false);
     setSettingsPage(true);
-  };
-
-  const handleUserNotification = (i, updateObj, email) => {
-    const updatedData = userNotification.map((item, index) => {
-      if (index == i) {
-        return { ...item, ...updateObj };
-      } else {
-        return item;
-      }
-    });
-    setUserNotification(updatedData);
-    handleGetAddNotification(i, updatedData);
-  };
-
-  const handleTextNotification = (i, updateObj, mobile) => {
-    const updatedData = userNotification.map((item, index) => {
-      if (index == i) {
-        return { ...item, ...updateObj };
-      } else {
-        return item;
-      }
-    });
-    setUserNotification(updatedData);
-    handleGetAddNotification(updatedData);
   };
 
   return (
@@ -182,12 +156,12 @@ export default function Setting() {
                   <TabPanel>
                     <div
                       style={{
-                        width: "350px",
+                        width: "330px",
                         marginTop: "40px",
-                        marginLeft: "20px",
+                        // marginLeft: "20px",
                       }}
                     >
-                      <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Group className="mb-3 p-2" controlId="formBasicEmail">
                         <Form.Label>Old Password</Form.Label>
                         <Form.Control
                           type="password"
@@ -199,7 +173,7 @@ export default function Setting() {
                       </Form.Group>
 
                       <Form.Group
-                        className="mb-3"
+                        className="mb-3 p-2"
                         controlId="formBasicPassword"
                       >
                         <Form.Label> New Password</Form.Label>
@@ -213,7 +187,7 @@ export default function Setting() {
                       </Form.Group>
 
                       <Form.Group
-                        className="mb-3"
+                        className="mb-3 p-2"
                         controlId="formBasicPassword"
                       >
                         <Form.Label> Confirm New Password</Form.Label>
@@ -251,118 +225,84 @@ export default function Setting() {
                         >
                           Cancel
                         </button>
-                        <label
-                          style={{ color: "red", justifyContent: "center" }}
-                        >
-                          {errorMsg}
-                          </label>
                       </div>
                     </div>
                   </TabPanel>
                   <TabPanel>
-                    <div className="accord mx-3">
-                      {notification &&
-                        notification.map((data, i) => {
-                          return (
-                            <Accordion
-                              style={{ width: 800, marginTop: "30px" }}
+                    <div className="accord mx-3 row">
+                      {notification && notification.map((data,i)=>{
+                        return(
+                          <Accordion style={{ width: 700, marginTop: "30px" }}>
+                        <div
+                          className=" accordhead col-md-12"
+                          style={{ backgroundColor: "#8EC131", color: "white" }}
+                        >
+                          <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel1a-content"
+                          >
+                            <Typography
+                              style={{
+                                fontWeight: 15,
+                                color: "white",
+                                fontSize: "large",
+                              }}
                             >
-                              <div
-                                className=" accordhead"
-                                style={{
-                                  backgroundColor: "#8EC131",
-                                  color: "white",
-                                }}
-                              >
-                                <AccordionSummary
-                                  expandIcon={<ExpandMoreIcon />}
-                                  aria-controls="panel1a-content"
-                                >
-                                  <Typography
-                                    style={{
-                                      fontWeight: 15,
-                                      color: "white",
-                                      fontSize: "large",
-                                    }}
-                                  >
-                                    {data.name}
-                                  </Typography>
-                                </AccordionSummary>
-                              </div>
+                             {data.name}
+                            </Typography>
+                          </AccordionSummary>
+                        </div>
 
-                              <AccordionDetails>
-                                {userNotification &&
-                                  userNotification.map((userNoti, i) => {
-                                    if (userNoti.id === data.id) {
-                                      console.log("userNoti", userNoti);
-                                      return (
-                                        <Typography>
-                                          <p>
-                                            Premium received notification on
-                                            your email
-                                            <input
-                                              className="react-switch-checkbox"
-                                              id={`react-switch-new-1`}
-                                              type="checkbox"
-                                              checked={userNoti.emailStatus}
-                                              onChange={() =>
-                                                handleUserNotification(
-                                                  i,
-                                                  {
-                                                    emailStatus:
-                                                      !userNoti.emailStatus,
-                                                  },
-                                                  "email"
-                                                )
-                                              }
-                                            />
-                                            <label
-                                              className="react-switch-label"
-                                              htmlFor={`react-switch-new-1`}
-                                            >
-                                              <span
-                                                className={`react-switch-button`}
-                                              />
-                                              {/* <span className="inner" /> */}
-                                              {/* <span className="switch" /> */}
-                                            </label>
-                                          </p>
-                                          <p>
-                                            Premium received notification text
-                                            message on mobile
-                                            <input
-                                              className="react-switch-checkbox"
-                                              id={`react-switch-new-2`}
-                                              type="checkbox"
-                                              checked={userNoti.textStatus}
-                                              onChange={() =>
-                                                handleTextNotification(
-                                                  i,
-                                                  {
-                                                    textStatus:
-                                                      !userNoti.textStatus,
-                                                  },
-                                                  "text"
-                                                )
-                                              }
-                                            />
-                                            <label
-                                              className="react-switch-label"
-                                              htmlFor={`react-switch-new-2`}
-                                            >
-                                              <span
-                                                className={`react-switch-button`}
-                                              />
-                                            </label>
-                                          </p>
-                                        </Typography>
-                                      );
-                                    }
-                                  })}
-                              </AccordionDetails>
-                            </Accordion>
-                          );
-                        })}
+                        <AccordionDetails>
+                         {userNotification && userNotification.map((userNoti,i)=>{
+                           if(userNoti.id === data.id){
+                            console.log('userNoti',userNoti)
+                           return(
+                            <Typography>
+                            <p>
+                              Premium received notification on your email
+                              <input
+                                className="react-switch-checkbox"
+                                id={`react-switch-new-1`}
+                                type="checkbox"
+                                checked={userNoti.emailStatus}
+                                onChange={() => handletoggleChange(data,userNoti,'email')}
+                              />
+                              <label
+                                className="react-switch-label"
+                                htmlFor={`react-switch-new-1`}
+                              >
+                                <span className={`react-switch-button`} />
+                                {/* <span className="inner" /> */}
+                               {/* <span className="switch" /> */}
+                              </label>
+                            </p>
+                            <p>
+                              Premium received notification text message on
+                              mobile
+                              <input
+                                className="react-switch-checkbox"
+                                id={`react-switch-new-2`}
+                                type="checkbox"
+                                checked={userNoti.textStatus}
+                                onChange={() => handletoggleChange(data,userNoti,'mobile')}
+                              />
+                              <label
+                                className="react-switch-label"
+                                htmlFor={`react-switch-new-2`}
+                              >
+                                <span className={`react-switch-button`} />
+                              </label>
+                            </p>
+                          </Typography>
+                           )
+                           }
+                         }
+                         )}
+                        </AccordionDetails>
+                      </Accordion>
+                        )
+                      })} 
                     </div>
                   </TabPanel>
                 </Tabs>
