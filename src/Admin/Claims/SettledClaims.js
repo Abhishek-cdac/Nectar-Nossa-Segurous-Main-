@@ -21,6 +21,7 @@ const SettledClaims = () =>{
         dataIndex: "id",
         key: "id",
         ellipsis: true,
+        responsive: ["sm"],
         render: (text,record) => (
           <a
             style={{ color: "#4cbb17" }}
@@ -34,7 +35,8 @@ const SettledClaims = () =>{
           title: "Policy Holder",
           dataIndex: "name",
           key: "name",
-          ellipsis: true,        
+          ellipsis: true,
+          responsive: ["sm"],        
           
         },
     
@@ -43,6 +45,7 @@ const SettledClaims = () =>{
           dataIndex: "name",
           key: "name",
           ellipsis: true,
+          responsive: ["sm"],
         },
         
         {
@@ -50,6 +53,7 @@ const SettledClaims = () =>{
             dataIndex: "code",
             key: "code ",
             ellipsis: true,
+            responsive: ["sm"],
           },
         
         {
@@ -57,12 +61,14 @@ const SettledClaims = () =>{
           dataIndex: "date",
           key: "date",
           ellipsis: true,
+          responsive: ["sm"],
         },
         {
             title: "Claim Amt",
             dataIndex: "amount",
             key: "amount",
             ellipsis: true,
+            responsive: ["sm"],
           },
       
         {
@@ -70,6 +76,7 @@ const SettledClaims = () =>{
           dataIndex: "agent",
           key: "agent",
           ellipsis: true,
+          responsive: ["sm"],
         },
         {
           title: "Actions",
@@ -88,6 +95,7 @@ const SettledClaims = () =>{
               </>
             );
           },
+          responsive: ["sm", "xs", "md"],
         },
       ]; 
     return(
