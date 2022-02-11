@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Breadcrumb,Select,Menu,Dropdown } from "antd";
+import { Breadcrumb, Select, Menu, Dropdown } from "antd";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import {
-  Form,
-  Button,
-  Modal,
-  Table,
-  DropdownButton,
-} from "react-bootstrap";
+import { Form, Button, Modal, Table, DropdownButton } from "react-bootstrap";
 import { FormOutlined } from "@ant-design/icons";
 import {
   getChangePassword,
@@ -23,8 +17,8 @@ import moment from "moment";
 export default function AdSetting() {
   const [NotificationListArray, setNotificationListArray] = useState("");
   const [ShowModal, setShowModal] = useState("");
-  const[ShowAddModal,setShowAddModal]=useState('');
-  const[errorMsg,seterrorMsg]=useState('');
+  const [ShowAddModal, setShowAddModal] = useState("");
+  const [errorMsg, seterrorMsg] = useState("");
   const [data, setData] = useState({
     confirmPassword: "",
     oldPassword: "",
@@ -35,17 +29,16 @@ export default function AdSetting() {
     textBody: "",
     status: "",
     Type: "",
+    email: "",
   });
   const [sucessPage, setsucessPage] = useState("");
   const [settingsPage, setSettingsPage] = useState(true);
   const Token = window.localStorage.getItem("token");
-  const email =window.localStorage.getItem("email")
   const { Option } = Select;
   console.log("Token in list", Token);
 
-
   const {
-    // email,
+    email,
     confirmPassword,
     oldPassword,
     newPassword,
@@ -64,41 +57,41 @@ export default function AdSetting() {
   const reset = async () => {
     console.warn();
     const payload = {
-     email:email,
+      email: email,
       oldPassword: oldPassword,
-      confirmPassword:confirmPassword,
-      password:newPassword,
+      confirmPassword: confirmPassword,
+      newPassword: newPassword,
       token: Token,
     };
-    if (
-        confirmPassword !== newPassword
-       ) 
-        {
+    if (confirmPassword !== newPassword) {
       seterrorMsg("Password doesn't match");
-       } 
-     else {
-    try {
-      const response = await getChangePassword(payload);
-      console.log(response);
-      seterrorMsg('')
-      setsucessPage(true);
-    } catch (error) {
-      
-      alert(JSON.stringify(error.message));
+    } else {
+      try {
+        const response = await getChangePassword(payload);
+        console.log(response);
+        seterrorMsg("");
+      } catch (error) {
+        /**
+         * Error logic here
+         * we need to do based on the error
+         */
+        alert(JSON.stringify(error.message));
+      }
     }
-  }
-};
+  };
 
-
+  //    useEffect(() => {
+  //     reset()
+  //    }, []);
 
   const handleback = () => {
     setsucessPage(false);
     setSettingsPage(true);
   };
 
-  const handleDropdownChange =(value) =>{
-    setData({status:value})
-  }
+  const handleDropdownChange = (value) => {
+    setData({ status: value });
+  };
 
   //NOtification API
   const handleNotificationList = async () => {
@@ -136,7 +129,7 @@ export default function AdSetting() {
   const handleEditNotification = async (item) => {
     const payload = {
       //chcek
-      id:id,
+      id: id,
       name: Name,
       emailBody: emailBody,
       textBody: textBody,
@@ -168,23 +161,17 @@ export default function AdSetting() {
     }
   };
 
-  const handleAddNotification = async() =>{
+  const handleAddNotification = async () => {
     const Payload = {
-        // user_id:loginDetailsUserId,
-        name: Name,
-        emailBody:emailBody,
-        textBody: textBody
-      };
+      // user_id:loginDetailsUserId,
+      name: Name,
+      emailBody: emailBody,
+      textBody: textBody,
+    };
 
-    if (
-        emailBody === "" ||
-        textBody === "" ||
-        Name === "" 
-       ) 
-        {
+    if (emailBody === "" || textBody === "" || Name === "") {
       seterrorMsg("Please Fill all fileds.");
-       } 
-     else {
+    } else {
       try {
         const resp = await getAddNotificationService(Payload);
         console.log("record added successfuly");
@@ -195,21 +182,32 @@ export default function AdSetting() {
         console.log("error", error);
         // showAlert('In valide data', "error");
       }
-    
+    }
   };
-}
 
-
-  const menu =(item)=> {
-    return(
-    <Menu>
-      {/* <Menu.Item key="1">Assign to</Menu.Item> */}
-      <Menu.Item key="2" onClick={() =>{handleShowModal(item)}}>Edit Info</Menu.Item>
-      <Menu.Item key="3" onClick={() =>{handleDeleteNoti(item)}}>Delete</Menu.Item>
-    </Menu>
-    )
-  }
-
+  const menu = (item) => {
+    return (
+      <Menu>
+        {/* <Menu.Item key="1">Assign to</Menu.Item> */}
+        <Menu.Item
+          key="2"
+          onClick={() => {
+            handleShowModal(item);
+          }}
+        >
+          Edit Info
+        </Menu.Item>
+        <Menu.Item
+          key="3"
+          onClick={() => {
+            handleDeleteNoti(item);
+          }}
+        >
+          Delete
+        </Menu.Item>
+      </Menu>
+    );
+  };
 
   return (
     <>
@@ -221,7 +219,7 @@ export default function AdSetting() {
                 <div classpolicy="comppage">
                   <Breadcrumb style={{ marginTop: "20px" }}>
                     <Breadcrumb.Item>Home</Breadcrumb.Item>
-                    <Breadcrumb.Item>claims</Breadcrumb.Item>
+                    <Breadcrumb.Item>Setting</Breadcrumb.Item>
                   </Breadcrumb>
                   <div
                     style={{
@@ -234,7 +232,7 @@ export default function AdSetting() {
                   >
                     <div>
                       <h3>Profile Setting</h3>
-                    </div>                 
+                    </div>
                   </div>
 
                   <Tabs>
@@ -246,12 +244,13 @@ export default function AdSetting() {
                     <TabPanel>
                       <div
                         style={{
-                          width: "350px",
+                         
+                          width: "330px",
                           marginTop: "40px",
                           marginLeft: "20px",
                         }}
                       >
-                           {/* <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Group className="mb-3 p-2" controlId="formBasicEmail">
                           <Form.Label>Email</Form.Label>
                           <Form.Control
                             type="email"
@@ -260,8 +259,8 @@ export default function AdSetting() {
                             placeholder="Enter Email"
                             onChange={handleChange}
                           />
-                        </Form.Group> */}
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                        </Form.Group>
+                        <Form.Group className="mb-2 p-2" controlId="formBasicEmail">
                           <Form.Label>Old Password</Form.Label>
                           <Form.Control
                             type="password"
@@ -273,7 +272,7 @@ export default function AdSetting() {
                         </Form.Group>
 
                         <Form.Group
-                          className="mb-3"
+                          className="mb-3 p-2"
                           controlId="formBasicPassword"
                         >
                           <Form.Label> New Password</Form.Label>
@@ -287,7 +286,7 @@ export default function AdSetting() {
                         </Form.Group>
 
                         <Form.Group
-                          className="mb-3"
+                          className="mb-3 p-2"
                           controlId="formBasicPassword"
                         >
                           <Form.Label> Confirm New Password</Form.Label>
@@ -326,27 +325,36 @@ export default function AdSetting() {
                             Cancel
                           </button>
                           <label
-                          style={{ color: "red", justifyContent: "center" }}
-                        >
-                          {errorMsg}
-                        </label>
+                            style={{ color: "red", justifyContent: "center" }}
+                          >
+                            {errorMsg}
+                          </label>
                         </div>
                       </div>
                     </TabPanel>
-                    <TabPanel>             
+                    <TabPanel>
                       <div className="row">
-                      <div style={{ display: "flex", flexDirection: "row",justifyContent:"end"}}>
-                      <button
-                        type="button"
-                        class="btn btn-success btn-sm my-1"
-                        style={{
-                          width: "130px",
-                        }}
-                        onClick={() =>{setShowAddModal(true)}}
-                      >
-                        <i class="fas fa-plus-circle"></i> Add Notification List
-                      </button>
-                    </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "end",
+                          }}
+                        >
+                          <button
+                            type="button"
+                            class="btn btn-success btn-sm my-1"
+                            style={{
+                              width: "130px",
+                            }}
+                            onClick={() => {
+                              setShowAddModal(true);
+                            }}
+                          >
+                            <i class="fas fa-plus-circle"></i> Add Notification
+                            List
+                          </button>
+                        </div>
                         <div className="col-xl-12  col-lg-9 col-md-6 col-sm-4">
                           <Table responsive>
                             <thead>
@@ -369,12 +377,14 @@ export default function AdSetting() {
                                     <td>{item.updatedAt}</td>
 
                                     <td>
-                        <Dropdown overlay={menu(item)}>
-                          <a className="ant-dropdown-link">
-                            <FormOutlined  style={{ paddingLeft: "30px" }} />
-                          </a>
-                        </Dropdown>
-                      </td>
+                                      <Dropdown overlay={menu(item)}>
+                                        <a className="ant-dropdown-link">
+                                          <FormOutlined
+                                            style={{ paddingLeft: "30px" }}
+                                          />
+                                        </a>
+                                      </Dropdown>
+                                    </td>
                                   </tr>
                                 ))}
                             </tbody>
@@ -429,11 +439,15 @@ export default function AdSetting() {
                     {/* <Dropdown overlay={menu} placement="bottomLeft">
                       <Button>bottomLeft</Button>
                     </Dropdown> */}
-                     <Select defaultValue="true" onChange={handleDropdownChange} style={{marginTop:'10px', width: 200 }}>
-                     <Option value="true">true</Option>
-                     <Option value="false">false</Option>
+                    <Select
+                      defaultValue="true"
+                      onChange={handleDropdownChange}
+                      style={{ marginTop: "10px", width: 200 }}
+                    >
+                      <Option value="true">true</Option>
+                      <Option value="false">false</Option>
                     </Select>
-                      {/* <DropdownButton
+                    {/* <DropdownButton
                         id="dropdown-item-button"
                       title="Dropdown button"
                       value={status}
@@ -451,7 +465,7 @@ export default function AdSetting() {
                   variant="primary"
                   size="lg"
                   onClick={handleEditNotification}
-                  style={{ width: "200%" }}
+                  style={{ width: "100%" }}
                 >
                   Submit
                 </Button>
@@ -459,10 +473,10 @@ export default function AdSetting() {
             </Modal>
           </div>
           <div>
-          <Modal show={ShowAddModal} onHide={handleCancel}>
+            <Modal show={ShowAddModal} onHide={handleCancel}>
               <Modal.Header closeButton>
                 <Modal.Title style={{ color: "#61B33B", marginLeft: "130px" }}>
-                Add Notification List
+                  Add Notification List
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
@@ -497,15 +511,13 @@ export default function AdSetting() {
                   variant="primary"
                   size="lg"
                   onClick={handleAddNotification}
-                  style={{ width: "200%" }}
+                  style={{ width: "100%" }}
                 >
                   Submit
                 </Button>
-                <label
-                          style={{ color: "red", justifyContent: "center" }}
-                        >
-                          {errorMsg}
-                        </label>
+                <label style={{ color: "red", justifyContent: "center" }}>
+                  {errorMsg}
+                </label>
               </Modal.Footer>
             </Modal>
           </div>
