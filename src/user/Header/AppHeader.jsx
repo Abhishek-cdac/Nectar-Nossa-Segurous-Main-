@@ -60,7 +60,7 @@ export default function AppHeader() {
         href="#"
       >
         <svg
-          class="svg-inline--fa fa-bars fa-w-14"
+          className="svg-inline--fa fa-bars fa-w-14"
           aria-hidden="true"
           focusable="false"
           data-prefix="fas"

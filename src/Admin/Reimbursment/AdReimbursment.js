@@ -560,11 +560,11 @@ const Reimbusrment = () => {
                 <div>
                   <button
                     type="button"
-                    class="btn btn-success btn-sm my-3"
+                    className="btn btn-success btn-sm my-3"
                     style={{ width: "130px" }}
                     onClick={handleShow}
                   >
-                    <i class="fas fa-plus-circle"></i> Add Holiday List
+                    <i className="fas fa-plus-circle"></i> Add Holiday List
                   </button>
                   <div className="header">
                     <Modal show={ShowModal} onHide={handleCancel} size="lg">
@@ -576,7 +576,7 @@ const Reimbusrment = () => {
                         </Modal.Title>
                       </Modal.Header>
                       <Modal.Body>
-                        <div class="container">
+                        <div className="container">
                           <Form.Group>
                             <Form.Label>Name</Form.Label>
                             <Form.Control
@@ -678,16 +678,16 @@ const Reimbusrment = () => {
                     </Modal>
                   </div>
                 </div>
-                <div class="btn-group hover_drop_down">
+                <div className="btn-group hover_drop_down">
                   <button
                     type="button"
-                    class="btn btn-success btn-sm my-3"
+                    className="btn btn-success btn-sm my-3"
                     data-toggle="dropdown"
                     style={{ width: "130px" }}
                   >
-                    <i class="fas fa-filter"></i> Add Filters
+                    <i className="fas fa-filter"></i> Add Filters
                   </button>
-                  <ul class="dropdown-menu" role="menu">
+                  <ul className="dropdown-menu" role="menu">
                     <li>
                       <a
                         onClick={() => {
@@ -716,7 +716,7 @@ const Reimbusrment = () => {
                       </a>
                     </li>
                   </ul>
-                  <button type="button" class="btn btn-primary btn-sm my-3">
+                  <button type="button" className="btn btn-primary btn-sm my-3">
                     <CSVLink data={ReimbursmentCSV} target="_blank">
                       Download PDF/CSV
                     </CSVLink>
@@ -923,7 +923,7 @@ const Reimbusrment = () => {
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <div class="container">
+                <div className="container">
                   <Form.Group>
                     {/* <Form.Label>ID</Form.Label>
                     <Form.Control

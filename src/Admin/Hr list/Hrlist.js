@@ -238,49 +238,13 @@ const HrList = () => {
   //Responsive
 
   const columns = [
-    // This section is written to make the table responsive
-    {
-      title: "Agent-Name   Code",
-      render: (record) => (
-        <React.Fragment>
-          {record.name}
-          <br />
-          <hr />
-          {record.name}
-        </React.Fragment>
-      ),
-      responsive: ["xs"],
-    },
-    {
-      title: "Clients Complaint-Assigned",
-      render: (record) => (
-        <React.Fragment>
-          {record.members}
-          <br />
-          <hr />
-          {record.Assigned}
-        </React.Fragment>
-      ),
-      responsive: ["xs"],
-    },
-    {
-      title: "Complaint-Resolved",
-      render: (record) => (
-        <React.Fragment>
-          {record.Resolved}
-          <br />
-          <hr />
-          {record.amount}
-        </React.Fragment>
-      ),
-      responsive: ["xs"],
-    },
+   
 
     {
       title: "Agent Name",
       dataIndex: "name",
       key: "name",
-      ellipsis: true,
+     
 
       sorter: (a, b) => a.name.length - b.name.length,
       render: (text, record) => (
@@ -291,42 +255,39 @@ const HrList = () => {
           {text}
         </a>
       ),
-      responsive: ["sm"],
+      
     },
 
     {
       title: "Code",
       dataIndex: "code",
       key: "code",
-      ellipsis: true,
-      responsive: ["sm"],
+    
     },
     {
       title: "Clients",
       dataIndex: "members",
       key: "members",
-      ellipsis: true,
-      responsive: ["sm"],
+    
     },
     {
       title: "Complaint Assigned",
       dataIndex: "Assigned",
       key: "Assigned",
-      ellipsis: true,
-      responsive: ["sm"],
+    
     },
     {
       title: "Complaint Resolved",
       dataIndex: "Resolved",
       key: "Resolved",
-      ellipsis: true,
+    
       render: (text) => <span style={{ color: "#4cbb17" }}>{text}</span>,
-      responsive: ["sm"],
+     
     },
     {
       title: "Actions",
       key: "action",
-      ellipsis: true,
+     
       render: (text, record) => {
         return (
           <>
@@ -341,7 +302,7 @@ const HrList = () => {
           </>
         );
       },
-      responsive: ["sm", "xs", "md"],
+      
     },
   ];
 
@@ -417,7 +378,7 @@ const HrList = () => {
             </div>
           </div>
           <div className="container-fluid">
-            <div className="row">
+            <div className="row DataTable" style={{justifyContent:"center"}}>
               <Table
                 style={{ fontSize: "28px", fontWeight: "bolder" }}
                 columns={columns}
@@ -428,12 +389,13 @@ const HrList = () => {
                   total: totalPages,
                 }}
               />
+               </div>
+          </div>
 
               <div>
                 <span>shown Results {AgentListArray.length}</span>
               </div>
-            </div>
-          </div>
+           
           <Modal
             title="Add Agent"
             visible={isModalVisible}
@@ -597,17 +559,12 @@ const HrList = () => {
             okText="Create"
             style={{ width: "100%" }}
           >
-            <form class="col-12 col-xl-4 col-12">
-              <div class="form-group mb-4">
+            <form className="col-12 col-xl-4 col-12">
+              <div className="form-group mb-4">
                 <input
                   type="text"
-                  class="form-control"
-                  // style={{
-                  //   height: "30px",
-                  //   width: "300px",
-                  //   marginTop: "10px",
-                  //   marginLeft: "80px",
-                  // }}
+                  className="form-control"
+                 
                   type="name"
                   placeholder="Agent Name"
                   value={AgentName}
@@ -615,16 +572,11 @@ const HrList = () => {
                 />
               </div>
               <br />
-              <div class="form-group mb-4">
+              <div className="form-group mb-4">
                 <input
                   type="text"
-                  class="form-control"
-                  // style={{
-                  //   height: "30px",
-                  //   width: "300px",
-                  //   marginTop: "10px",
-                  //   marginLeft: "80px",
-                  // }}
+                  className="form-control"
+                 
                   type="email"
                   placeholder="Email"
                   value={EmailId}
@@ -632,16 +584,11 @@ const HrList = () => {
                 />
               </div>
               <br />
-              <div class="form-group mb-4">
+              <div className="form-group mb-4">
                 <input
                   type="text"
-                  class="form-control"
-                  // style={{
-                  //   height: "30px",
-                  //   width: "300px",
-                  //   marginTop: "10px",
-                  //   marginLeft: "80px",
-                  // }}
+                  className="form-control"
+                  
                   type="type"
                   placeholder="Phone"
                   value={Phone}
@@ -649,16 +596,11 @@ const HrList = () => {
                 />
               </div>
               <br />
-              <div class="form-group mb-4">
+              <div className="form-group mb-4">
                 <input
                   type="text"
-                  class="form-control"
-                  // style={{
-                  //   height: "30px",
-                  //   width: "300px",
-                  //   marginTop: "10px",
-                  //   marginLeft: "80px",
-                  // }}
+                  className="form-control"
+               
                   type="Adress"
                   placeholder="Current Adress"
                   value={CurrentAdress}
@@ -666,10 +608,10 @@ const HrList = () => {
                 />
               </div>
               <br />
-              <div class="form-group mb-4">
+              <div className="form-group mb-4">
                 <input
                   type="textArea"
-                  class="form-control"
+                  className="form-control"
                   // style={{ width: "300px", marginTop: "10px", marginLeft: "80px" }}
                   type="Textarea"
                   placeholder="Permenant Adress"

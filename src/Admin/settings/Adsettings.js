@@ -22,7 +22,7 @@ import moment from "moment";
 
 export default function AdSetting() {
   const [NotificationListArray, setNotificationListArray] = useState("");
-  const [ShowModal, setShowModal] = useState("");
+  const[ShowEditModal,setShowEditModal]=useState('')
   const[ShowAddModal,setShowAddModal]=useState('');
   const[errorMsg,seterrorMsg]=useState('');
   const [data, setData] = useState({
@@ -126,12 +126,16 @@ export default function AdSetting() {
       createdAt: Date,
       updatedAt: update,
     });
-    setShowModal(true);
+    setShowEditModal(true);
   };
 
   const handleCancel = () => {
-    setShowModal(false);
+    setShowAddModal(false);
   };
+
+  const handleClose = () =>{
+    setShowEditModal(false)
+  }
 
   const handleEditNotification = async (item) => {
     const payload = {
@@ -147,7 +151,7 @@ export default function AdSetting() {
       console.log("success", resp);
       // resp && handleHolidaysList()
       // handelEditCancel()
-      setShowModal(false);
+      setShowEditModal(false);
     } catch (error) {
       console.log("error", error);
     }
@@ -304,15 +308,9 @@ export default function AdSetting() {
                           className="bttn"
                           style={{ marginTop: "50px", borderRadius: "10px" }}
                         >
-                          {/* <Button variant="primary" type="submit">
-                    Update Password
-                  </Button>
-                  <Button variant="primary" type="submit">
-                    Cancel
-                  </Button> */}
                           <button
                             type="button"
-                            class="btn btn-primary btn-lg"
+                            className="btn btn-primary btn-lg"
                             onClick={() => {
                               reset();
                             }}
@@ -321,7 +319,7 @@ export default function AdSetting() {
                           </button>
                           <button
                             type="button"
-                            class="btn btn-secondary btn-lg mx-4"
+                            className="btn btn-secondary btn-lg mx-4"
                           >
                             Cancel
                           </button>
@@ -338,13 +336,13 @@ export default function AdSetting() {
                       <div style={{ display: "flex", flexDirection: "row",justifyContent:"end"}}>
                       <button
                         type="button"
-                        class="btn btn-success btn-sm my-1"
+                        className="btn btn-success btn-sm my-1"
                         style={{
                           width: "130px",
                         }}
                         onClick={() =>{setShowAddModal(true)}}
                       >
-                        <i class="fas fa-plus-circle"></i> Add Notification List
+                        <i className="fas fa-plus-circle"></i> Add Notification List
                       </button>
                     </div>
                         <div className="col-xl-12  col-lg-9 col-md-6 col-sm-4">
@@ -388,14 +386,14 @@ export default function AdSetting() {
             </div>
           </div>
           <div>
-            <Modal show={ShowModal} onHide={handleCancel}>
+            <Modal show={ShowEditModal} onHide={handleClose}>
               <Modal.Header closeButton>
                 <Modal.Title style={{ color: "#61B33B", marginLeft: "130px" }}>
                   Edit Notification List
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <div class="container">
+                <div className="container">
                   <Form.Group>
                     <Form.Label>Id</Form.Label>
                     <Form.Control
@@ -466,7 +464,7 @@ export default function AdSetting() {
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <div class="container">
+                <div className="container">
                   <Form.Group>
                     <Form.Label>Notification Name</Form.Label>
                     <Form.Control
@@ -511,7 +509,7 @@ export default function AdSetting() {
           </div>
         </div>
       )}
-      {setsucessPage && <setSucess handleback={handleback} />}
+      {sucessPage && ( <setSucess handleback={handleback} />)}
     </>
   );
 }

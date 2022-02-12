@@ -123,7 +123,7 @@ function HelpAndSupport() {
                   </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                <div class="container">
+                <div className="container">
                     <Form.Group>
                     <Form.Label>Type</Form.Label>
                     <Form.Control type="text" value={Type} name="type"  onChange={handleChange}></Form.Control>

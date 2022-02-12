@@ -15,6 +15,8 @@ const Paypremium = () => {
   const [status,setStatus]=useState('')
   const [policyDetailsPage,setPolicyDetailsPage] = useState(false)
   const [paypremium, setPaypremium] = useState(true)
+ const loginDetailsUserId = window.localStorage.getItem("loginDetailsUserId");
+
 
   const handleActivepolicyNoClick =(text,record) =>{
     setSelectedRecord(record)
@@ -140,7 +142,7 @@ const Activecolumns = [
       let tableDataArr = [];
       const data = {
         policy_id: '',
-        user_id: '',
+        user_id: loginDetailsUserId,
         agent_id: '',
         premiumPlan: '',
         activeStatus: '0',
@@ -172,7 +174,7 @@ const Activecolumns = [
       let tableDataArr = [];
       const data = {
         policy_id: '',
-        user_id: '',
+        user_id: loginDetailsUserId,
         agent_id: '',
         premiumPlan: '',
         activeStatus: '1',

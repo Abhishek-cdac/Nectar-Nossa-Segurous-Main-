@@ -63,7 +63,7 @@ const values = {
   },
   beforeUpload: (file) => {
     var fileTypes = [".png", ".jpg", ".jpeg", ".pdf"];
-    const isPNG = file.type === fileTypes;
+    const isPNG = fileTypes.includes(file.type);
     if (!isPNG) {
       message.error(`${file.name} is not a png file`);
     }
@@ -130,7 +130,7 @@ const Newclaim = (props) => {
   const [DoctorRequestFile, setDoctorRequestfile] = useState("");
   const [InvestgationReportsFile, setInvestgationReportsfile] = useState("");
   const [DoctorprescriptionsFile, setDoctorprescriptionsfile] = useState("");
-  const [OthersFile, setOthersfile] = useState("");
+  const [OthersFile, setOthersfile] = useState({ selectedFile: null,selectedFileList: []});
   const getPolicyPayload = {
     premiumPlan: "",
     policy_id: "",
@@ -138,7 +138,7 @@ const Newclaim = (props) => {
     activeStatus: "",
     user_id: loginDetailsUserId,
   };
-  const setTime = (onSuccess) => {
+  const setTime = (file, onSuccess) => {
     setTimeout(() => {
       onSuccess("ok");
     }, 0);
@@ -357,9 +357,35 @@ const Newclaim = (props) => {
     setOthers(e.target.checked);
   };
   const OthersRequest = ({ file, onSuccess }) => {
-    setOthersfile(file);
-    setOthers(true);
+    console.log('file',file,onSuccess)
+   
     setTime(onSuccess);
+  };
+  const dummyRequest = ({ file, onSuccess }) => {
+    setTimeout(() => {
+      onSuccess("ok");
+    }, 0);
+  };
+  const handledUpload = (info) =>{
+    const nextState = {};
+    switch (info.file.status) {
+      case "uploading":
+        nextState.selectedFileList = [info.file];
+        break;
+      case "done":
+        nextState.selectedFile = info.file;
+        nextState.selectedFileList = [info.file];
+        break;
+      default:
+        // error or removed
+        nextState.selectedFile = null;
+        nextState.selectedFileList = [];
+    }
+    return nextState
+  }
+  const onChange = info => {
+    setOthersfile(handledUpload(info));
+    setOthers(true);
   };
   return (
     <div className="container-fluid" style={{ paddingTop: "30px" }}>
@@ -1224,9 +1250,18 @@ const Newclaim = (props) => {
               >
                 Others
               </Checkbox>
-              <Upload {...values} customRequest={OthersRequest}>
-                <Button icon={<UploadOutlined />}>Choose File</Button>
+              <div style={{display:'flex'}}>
+              <Upload
+                fileList={OthersFile.selectedFileList}
+                customRequest={dummyRequest}
+                onChange={onChange}
+                itemRender ={(existingComp, file)=>{
+                  return <p style={{width:'125px'}}>{file.name}</p>
+                }}
+              >
+                <Button  icon={<UploadOutlined />}>Choose File</Button>
               </Upload>
+              </div>
             </div>
           </Panel>
         </Collapse>

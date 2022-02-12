@@ -34,16 +34,16 @@ export default function Noosa() {
   const location = useLocation();
   const [Active, setIsActive] = useState(false);
   return (
-    <div class="sb-nav-fixed bg-light">
+    <div className="sb-nav-fixed bg-light">
       <AppHeader />
       <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
           <nav
-            class="sb-sidenav accordion sb-sidenav-dark"
+            className="sb-sidenav accordion sb-sidenav-dark"
             id="sidenavAccordion"
           >
-            <div class="sb-sidenav-menu">
-              <div class="nav mt-4">
+            <div className="sb-sidenav-menu">
+              <div className="nav mt-4">
                 {Tabs.map(({ label, link }) => {
                   const isActive = location.pathname.split("/")[1] === link;
                   console.log(label);
@@ -51,7 +51,7 @@ export default function Noosa() {
                     return (
                       <div style={{ flexDirection: "row" }}>
                         <a
-                          class={`nav-link ${isActive ? "active" : ""}`}
+                          className={`nav-link ${isActive ? "active" : ""}`}
                           key={link}
                           onClick={() =>handleReimbursment(link)}
                         >
@@ -67,7 +67,7 @@ export default function Noosa() {
                         {Active ? (
                           <div style={{ backgroundColor: "#898989" }}>
                             <a
-                              class={`nav-link ${isActive ? "active" : ""}`}
+                              className={`nav-link ${isActive ? "active" : ""}`}
                               key={link}
                               onClick={() =>navigate(`/admin/reimbursement/service`)}
                             >
@@ -75,7 +75,7 @@ export default function Noosa() {
                               <p style={{ color: "white" }}>Service list</p>
                             </a>
                             <a
-                              class={`nav-link ${isActive ? "active" : ""}`}
+                              className={`nav-link ${isActive ? "active" : ""}`}
                               key={link}
                               onClick={() =>navigate(`/admin/reimbursement/doctors`)}
                             >
@@ -89,7 +89,7 @@ export default function Noosa() {
                   } else {
                     return (
                       <a
-                        class={`nav-link ${isActive ? "active" : ""}`}
+                        className={`nav-link ${isActive ? "active" : ""}`}
                         key={link}
                         onClick={() => navigate(`/${link}`)}
                       >
@@ -104,7 +104,7 @@ export default function Noosa() {
         </div>
         Complaint
         <div id="layoutSidenav_content">
-          <div class="container-fluid">
+          <div className="container-fluid">
             <Outlet />
           </div>
         </div>

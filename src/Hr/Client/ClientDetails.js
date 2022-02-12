@@ -10,25 +10,25 @@ const ClientDetails = (props) => {
   console.log("pl", policyList);
 
   return (
-    <div class="container-fluid">
-      <div class="row d-flex align-items-center justify-content-between">
-        <div class="col-12 text-left">
-          <h3 class="mt-0 mb-4">
-            <a class="text-black" onClick={props.handleBackPage}>
-              <i class="fas fa-long-arrow-alt-left"></i>
+    <div className="container-fluid">
+      <div className="row d-flex align-items-center justify-content-between">
+        <div className="col-12 text-left">
+          <h3 className="mt-0 mb-4">
+            <a className="text-black" onClick={props.handleBackPage}>
+              <i className="fas fa-long-arrow-alt-left"></i>
             </a>
           </h3>
         </div>
       </div>
 
-      <div class="row d-flex align-items-center justify-content-between">
-        <div class="col-12">
-          <div class="heading-with-box m-0">
-            <div class="row">
-              <div class="col-lg-12 text-left">
+      <div className="row d-flex align-items-center justify-content-between">
+        <div className="col-12">
+          <div className="heading-with-box m-0">
+            <div className="row">
+              <div className="col-lg-12 text-left">
                 <h3>
                   Policy No :{" "}
-                  <span class="color-green">
+                  <span className="color-green">
                     {policyList && policyList.policy.policyCode}
                   </span>
                 </h3>
@@ -38,13 +38,13 @@ const ClientDetails = (props) => {
         </div>
       </div>
 
-      <div class="faq-custom">
-        <div class="detail-box">
-          <div class="card-body form-custom">
-            <div class="row">
-              <div class="col-12 col-sm-6 col-md-6 col-lg-3">
-                <div class="table-data">
-                  <span class="text-blue">Policy Holder</span>
+      <div className="faq-custom">
+        <div className="detail-box">
+          <div className="card-body form-custom">
+            <div className="row">
+              <div className="col-12 col-sm-6 col-md-6 col-lg-3">
+                <div className="table-data">
+                  <span className="text-blue">Policy Holder</span>
                   <b>
                     {" "}
                     {policyList && policyList.user.firstName}{" "}
@@ -52,53 +52,53 @@ const ClientDetails = (props) => {
                   </b>
                 </div>
               </div>
-              <div class="col-12 col-sm-6 col-md-6 col-lg-3">
-                <div class="table-data">
-                  <span class="text-blue">Policy</span>
+              <div className="col-12 col-sm-6 col-md-6 col-lg-3">
+                <div className="table-data">
+                  <span className="text-blue">Policy</span>
                   <b>{policyList && policyList.policy.policyName}</b>
                 </div>
               </div>
-              <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-                <div class="table-data">
-                  <span class="text-blue">Location</span>
+              <div className="col-12 col-sm-6 col-md-6 col-lg-4">
+                <div className="table-data">
+                  <span className="text-blue">Location</span>
                   <b>{policyList && policyList.policy.location}</b>
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-12 col-sm-6 col-md-6 col-lg-3">
-                <div class="table-data">
-                  <span class="text-blue">Policy type</span>
+            <div className="row">
+              <div className="col-12 col-sm-6 col-md-6 col-lg-3">
+                <div className="table-data">
+                  <span className="text-blue">Policy type</span>
                   <b>{policyList && policyList.policy.policyType}</b>
                 </div>
               </div>
-              <div class="col-12 col-sm-6 col-md-6 col-lg-3">
-                <div class="table-data">
-                  <span class="text-blue">Start Date & Time</span>
+              <div className="col-12 col-sm-6 col-md-6 col-lg-3">
+                <div className="table-data">
+                  <span className="text-blue">Start Date & Time</span>
                   <b>{policyList && policyList.createdAt}</b>
                 </div>
               </div>
-              <div class="col-12 col-sm-6 col-md-6 col-lg-4">
-                <div class="table-data">
-                  <span class="text-blue">End Date & Time</span>
+              <div className="col-12 col-sm-6 col-md-6 col-lg-4">
+                <div className="table-data">
+                  <span className="text-blue">End Date & Time</span>
                   <b>{policyList && policyList.updatedAt}</b>
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-12">
-                <div class="table-data">
-                  <span class="text-blue">Policy Description</span>
+            <div className="row">
+              <div className="col-12">
+                <div className="table-data">
+                  <span className="text-blue">Policy Description</span>
                   <p>{policyList && policyList.policy.description}</p>
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-12">
-                <div class="table-data mt-4">
-                  <span class="text-blue">Terms & Conditions</span>
+            <div className="row">
+              <div className="col-12">
+                <div className="table-data mt-4">
+                  <span className="text-blue">Terms & Conditions</span>
                   <p>{policyList && policyList.terms}</p>
-                  {/* <ul class="ml-4 p-0">
+                  {/* <ul className="ml-4 p-0">
                                                     <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod libero natus vero, maxime dolores numquam.</li>
                                                     <li>Dolor fuga autem nemo beatae earum delectus, cum neque tenetur fugit, at quibusdam quae pariatur.</li>
                                                     <li>Quod libero natus vero, maxime dolores numquam dolor fuga autem nemo beatae earum delectus.</li>

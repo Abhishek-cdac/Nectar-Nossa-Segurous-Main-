@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { getDashboardAPI } from ".././services/authentication";
+import { getDashboardAPI,getAllUserPolicyList } from ".././services/authentication";
 import ic_file_download from "../assets/img/ic_file_download.png";
 import ic_notifications from "../assets/img/ic_notifications.png";
 
 const Dashboard = () => {
   const [dashBoardListArray, setDashBoardListArray] = useState("");
-
+  const [getAllUsersList,setgetAllUsersList]=useState('')
+ const loginDetailsUserId = window.localStorage.getItem("loginDetailsUserId");
+ 
   const handleDashboardApI = async () => {
     try{
     const resp = await getDashboardAPI();
@@ -19,6 +21,23 @@ const Dashboard = () => {
   };
   useEffect(() => {
     handleDashboardApI();
+  }, []);
+
+
+  const handleGetPolicyListServiceCall = async () => {
+    const data ={
+      user_id:loginDetailsUserId
+    }
+    try {
+      const resp = await getAllUserPolicyList(data);
+      console.log("resssss", resp);
+      setgetAllUsersList(resp.data);
+    } catch (error) {
+      console.log("err", error);
+    }
+  };
+  useEffect(() => {
+    handleGetPolicyListServiceCall();
   }, []);
 
   return (
@@ -137,7 +156,7 @@ const Dashboard = () => {
               <hr />
               <div className="row">
                 <div className="col-9 col-md-9 col-sm-9 text-left">
-                  <small className="pl-4 pt-0 pb-3 d-block">&nbsp;</small>
+                  <small className="pl-4 pt-0 pb-3 d-block"></small>
                 </div>
                 <div className="col-3 col-md-3 col-sm-3 text-right">
                   <a href="" className="pr-4 pt-0 pb-3 d-block">
@@ -179,15 +198,15 @@ const Dashboard = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {/* {dashBoardListArray &&
-                        dashBoardListArray.bestPolicy.map((item) => (
+                      {getAllUsersList &&
+                        getAllUsersList.map((item) => (
                           <tr className="grey-box">
                             <td className="green-text">{item.policyName}</td>
                             <td>{item.policyCode}</td>
                             <td>{item.policyType}</td>
                             <td className="green-text">{item.totalSales}</td>
                           </tr>
-                        ))} */}
+                        ))}
                     </tbody>
                   </table>
                 </div>

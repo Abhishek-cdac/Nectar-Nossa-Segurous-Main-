@@ -15,6 +15,7 @@ const Hrlisted = () => {
   const [activeData, setActiveData] = useState('')
   const [inactiveData, setinactiveData] = useState('')
   const [tabStatus, setTabStatus] = useState('Active')
+  const loginDetailsUserId = window.localStorage.getItem("loginDetailsUserId");
   const { TabPane } = Tabs;
 
   const onSearch = (value) =>{
@@ -31,7 +32,7 @@ const Hrlisted = () => {
       let tableDataArr = [];
       const data = {
         policy_id: "",
-        user_id: "",
+        user_id: loginDetailsUserId,
         agent_id: "",
         premiumPlan: "",
         activeStatus: "0",
@@ -46,7 +47,7 @@ const Hrlisted = () => {
             code: data.policy.policyCode,
             number:data.policy.registration,
             type: data.policy.policyType,
-            count: null
+            count:data.Activecount,
           };
           tableDataArr.push(value);
         });
@@ -61,7 +62,7 @@ const Hrlisted = () => {
       let tableDataArr = [];
       const data = {
         policy_id: "",
-        user_id: "",
+        user_id: loginDetailsUserId,
         agent_id: "",
         premiumPlan: "",
         activeStatus: "1",
@@ -76,7 +77,7 @@ const Hrlisted = () => {
             code: data.policy.policyCode,
             number:data.policy.registration,
             type: data.policy.policyType,
-            count: null
+            count: data.inActivecount,
           };
           tableDataArr.push(value);
         });
@@ -103,7 +104,7 @@ const Hrlisted = () => {
         code: data.policy.policyCode,
         number:data.policy.registration,
         type: data.policy.policyType,
-        count: null
+        count: data.Activecount,
       };
       tableDataArr.push(value);
     });

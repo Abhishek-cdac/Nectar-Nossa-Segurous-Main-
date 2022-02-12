@@ -11,7 +11,7 @@ const Client = () => {
   const [NewClientPage, setNewClientPage] = useState(false);
   const [ClientDetalsPage, setClientDetalsPage] = useState(false);
   const [SelectedRecord, setSelectedRecord] = useState("");
-  const[policyTypeSearch,setpolicyTypeSearch]=useState('')
+  const [policyTypeSearch, setpolicyTypeSearch] = useState("");
   const loginDetailsUserId = window.localStorage.getItem("loginDetailsUserId");
   console.log("lgu", loginDetailsUserId);
 
@@ -33,13 +33,12 @@ const Client = () => {
             policyType: data.policy.policyName,
             startDate: data.policyStartDate,
             endDate: data.policyMaturityDate,
-            id:data.id,
-
+            id: data.id,
           };
           tableDataArr.push(value);
           console.log("tdr", tableDataArr);
         });
-        setTableData(tableDataArr);
+      setTableData(tableDataArr);
     } catch (error) {
       console.log("error", error);
       // showAlert('In valide data', "error");
@@ -53,12 +52,10 @@ const Client = () => {
   const handleNewClientBack = () => {
     setNewClientPage(false);
     setClientPage(true);
-   
   };
   const handleNewClient = () => {
     setNewClientPage(true);
     setClientPage(false);
-
   };
 
   const handleChange = (item) => {
@@ -67,10 +64,10 @@ const Client = () => {
     setSelectedRecord(item);
   };
 
-  const handleBackPage = () =>{
+  const handleBackPage = () => {
     setClientDetalsPage(false);
     setClientPage(true);
-  }
+  };
   //Filter
   //Filter
   const handleFilterData = (filterData) => {
@@ -92,16 +89,16 @@ const Client = () => {
     return tableDataArr;
   };
   const handleClick = (policyType) => {
-    console.log("CLA",ClientListArray)
+    console.log("CLA", ClientListArray);
     const ClientfilterData = ClientListArray.filter(
       (data) => data.policy.policyType === policyType
     );
     const filterData = handleFilterData(ClientfilterData);
     setTableData(filterData);
   };
-  const onSearch = () => { 
+  const onSearch = () => {
     const ClientfilterData = ClientListArray.filter((data) => {
-      console.log("filter",ClientListArray)
+      console.log("filter", ClientListArray);
       const itemData = data.policy.policyType.toUpperCase();
       const textData = policyTypeSearch && policyTypeSearch.toUpperCase();
       return itemData.indexOf(textData) > -1;
@@ -110,9 +107,9 @@ const Client = () => {
     setTableData(searchFilter);
   };
 
-  const handlesearch = (e) =>{
-    setpolicyTypeSearch(e.target.value)
-  }
+  const handlesearch = (e) => {
+    setpolicyTypeSearch(e.target.value);
+  };
 
   //csv Link
   //CSV Download
@@ -147,91 +144,93 @@ const Client = () => {
             </div>
             <div className="col-12 col-lg-9 col-md-9 text-right">
               <div className="search-btn">
-                <div className="input-group">
+                <div className="input-group" style={{ paddingTop: "10px" }}>
                   <input
                     value={policyTypeSearch}
                     onChange={handlesearch}
                     type="text"
                     className="form-control"
                     placeholder="Search Category"
-                   
                   />
                   <div className="input-group-append">
-                    <button className="btn btn-secondary" type="button" onClick={()=>onSearch()}>
-                      
+                    <button
+                      className="btn btn-secondary"
+                      type="button"
+                      onClick={() => onSearch()}
+                    >
                       <i className="fa fa-search"></i>
                     </button>
                   </div>
                 </div>
-                <div className="btn-two">
-                  <div className="dropdown d-md-inline-block">
-                    <a
-                      onClick={() => handleNewClient()}
-                      className="print-card-btn green-btn float-left"
-                    >
-                      <button className="fas fa-plus-circle"></button> Add New
-                      Client
-                    </a>
-                    <div class="btn-group hover_drop_down">
-                      <button
-                        type="button"
-                        class="btn btn-success btn-sm my-3"
-                        data-toggle="dropdown"
-                        style={{ width: "130px" }}
-                      >
-                        <i class="fas fa-filter"></i> Add Filters
-                      </button>
-                      <ul
-                        class="dropdown-menu"
-                        role="menu"
-                        // onClick={HandleClick}
-                      >
-                        <li>
-                          <a
-                            onClick={() => {
-                              handleClick("General");
-                            }}
-                          >
-                            General{" "}
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            onClick={() => {
-                              handleClick("Health");
-                            }}
-                          >
-                           Health
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            onClick={() => {
-                              handleClick("General && Health");
-                            }}
-                          >
-                             General&&Health
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            onClick={() => {
-                              handleClick("vehicle");
-                            }}
-                          >
-                            vehicle
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                    <button type="button" class="btn btn-primary btn-sm my-3">
-                      <CSVLink data={ClientCSV} target="_blank">
-                        Download PDF/CSV
-                      </CSVLink>
-                    </button>
-                  </div>
-                </div>
               </div>
+              <div>
+               
+                <a
+                  onClick={() => handleNewClient()}
+                  className="print-card-btn green-btn float-left"
+                >
+                  <button className="fas fa-plus-circle"></button> Add New
+                  Client
+                </a>
+              </div>
+
+              <div className="btn-group hover_drop_down">
+                <button
+                  type="button"
+                  className="btn btn-success btn-sm my-3"
+                  data-toggle="dropdown"
+                  style={{ width: "130px" }}
+                >
+                  <i className="fas fa-filter"></i> Add Filters
+                </button>
+                <ul
+                  className="dropdown-menu"
+                  role="menu"
+                  // onClick={HandleClick}
+                >
+                  <li>
+                    <a
+                      onClick={() => {
+                        handleClick("General");
+                      }}
+                    >
+                      General{" "}
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      onClick={() => {
+                        handleClick("Health");
+                      }}
+                    >
+                      Health
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      onClick={() => {
+                        handleClick("General && Health");
+                      }}
+                    >
+                      General&&Health
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      onClick={() => {
+                        handleClick("vehicle");
+                      }}
+                    >
+                      vehicle
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <button type="button" className="btn btn-primary btn-sm my-3">
+                <CSVLink data={ClientCSV} target="_blank">
+                  Download PDF/CSV
+                </CSVLink>
+              </button>
             </div>
           </div>
 
@@ -250,12 +249,12 @@ const Client = () => {
                     </tr>
                   </thead>
                   <tbody>
-                  {TableData &&
-                    TableData.map((item) => (
+                    {TableData &&
+                      TableData.map((item) => (
                         <tr>
                           <td>
                             {" "}
-                            {console.log('item in table data in client', item)}
+                            {console.log("item in table data in client", item)}
                             <a onClick={() => handleChange(item)}>
                               {item.policyNo}
                             </a>
@@ -263,13 +262,12 @@ const Client = () => {
                           <td>{item.policyHolder}</td>
                           <td>{item.policyType}</td>
                           <td>{item.Category}</td>
-                         {/* <td>{item.id}</td> */}
+                          {/* <td>{item.id}</td> */}
                           <td>{item.startDate}</td>
                           <td>{item.endDate}</td>
                         </tr>
-                     
-                    ))}
-                     </tbody>
+                      ))}
+                  </tbody>
                 </table>
               </div>
               <div className="row">
@@ -313,7 +311,11 @@ const Client = () => {
         </div>
       )}
       {ClientDetalsPage && (
-        <ClientDetails selectedRecord={SelectedRecord} data={ClientListArray} handleBackPage={handleBackPage}/>
+        <ClientDetails
+          selectedRecord={SelectedRecord}
+          data={ClientListArray}
+          handleBackPage={handleBackPage}
+        />
       )}
       {NewClientPage && <NewClient handleNewClientBack={handleNewClientBack} />}
     </>

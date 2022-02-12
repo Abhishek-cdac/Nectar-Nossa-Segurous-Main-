@@ -22,14 +22,18 @@ export default function Setting() {
     oldPassword: "",
     newPassword: "",
   });
-  const [userNotification, setUserNotification] = useState("");
+  const [userNotification, setUserNotification] = useState([]);
   const [notification, setnotification] = useState([]);
-  const[errorMsg,seterrorMsg]=useState('')
+  const [errorMsg, seterrorMsg] = useState("");
   const [sucessPage, setsucessPage] = useState([]);
   const [settingsPage, setSettingsPage] = useState(true);
   const Token = window.localStorage.getItem("token");
   const email = window.localStorage.getItem("email");
-  console.log("Token in list", Token);
+  const loginDetailsUserId = window.localStorage.getItem("loginDetailsUserId");
+  console.log(
+    "Token in list",
+    window.localStorage.getItem("loginDetailsUserId")
+  );
 
   const { confirmPassword, oldPassword, newPassword } = data;
 
@@ -41,31 +45,25 @@ export default function Setting() {
   const reset = async () => {
     console.warn();
     const payload = {
-     email:email,
+      email: email,
       oldPassword: oldPassword,
-      confirmPassword:confirmPassword,
-      password:newPassword,
+      confirmPassword: confirmPassword,
+      password: newPassword,
       token: Token,
     };
-    if (
-        confirmPassword !== newPassword
-       ) 
-        {
+    if (confirmPassword !== newPassword) {
       seterrorMsg("Password doesn't match");
-       } 
-     else {
-    try {
-      const response = await getChangePassword(payload);
-      // console.log(response);
-      seterrorMsg('')
-      setsucessPage(true);
-    } catch (error) {
-      
-      alert(JSON.stringify(error.message));
+    } else {
+      try {
+        const response = await getChangePassword(payload);
+        // console.log(response);
+        seterrorMsg("");
+        setsucessPage(true);
+      } catch (error) {
+        alert(JSON.stringify(error.message));
+      }
     }
-  }
-};
-
+  };
 
   //Notification API
   const handleNotification = async () => {
@@ -83,33 +81,36 @@ export default function Setting() {
     handleNotification();
   }, []);
 
-  const handleGetAddNotification = async (i, updatedData,type) => {
-    let payload = {};
-    userNotification &&
-      userNotification.map((item, index) => {
-        if (index === i) {
-          console.log('handleGetAddNotification service', item)
-          payload = {
-            notification_id: item.notification_id,
-            textStatus: item.textStatus,
-            emailStatus: item.emailStatus,
-            user_id: item.user_id,
-          };
-          
-        }
-        // else if(index === i && type == "text"){
-        //   payload = {
-        //     notification_id: item.notification_id,
-        //     textStatus: item.textStatus,
-        //     // emailStatus: item.emailStatus,
-        //     user_id: item.user_id,
-        //   };
-        // }
-      });
+  const handleGetAddNotification = async (payload, type) => {
+    // else if(index === i && type == "text"){
+    //   payload = {
+    //     notification_id: item.notification_id,
+    //     textStatus: item.textStatus,
+    //     // emailStatus: item.emailStatus,
+    //     user_id: item.user_id,
+    //   };
+    // }
     console.log("payload", payload);
     try {
       const userAddNotiResp = await getAddUserNotificationService(payload);
-      // console.log('userAddNotiResp',userAddNotiResp);
+
+      const respData = userAddNotiResp.data.data;
+      let isExist = false;
+      let updatedData = [];
+      updatedData = userNotification.map((item) => {
+        if (item.id === respData.id) {
+          isExist = true;
+          return respData;
+        } else {
+          return item;
+        }
+      });
+
+      if (!isExist) {
+        updatedData = [...updatedData, respData];
+      }
+
+      setUserNotification(updatedData);
     } catch (error) {
       /**
        * Error logic here
@@ -124,18 +125,18 @@ export default function Setting() {
     setSettingsPage(true);
   };
 
-  const handleUserNotification = (i, updateObj, email) => {
-    const updatedData = userNotification.map((item, index) => {
-      if (index == i) {
-        console.log( 'handleUserNotification',item,updateObj)
-        return { ...item, ...updateObj };
-      } else {
-        return item;
-      }
-    });
-    console.log( 'handleUserNotification updatedData',updatedData)
-    setUserNotification(updatedData);
-    handleGetAddNotification(i, updatedData,email);
+  const handleUserNotification = (updateObj, email) => {
+    // const updatedData = userNotification.map((item, index) => {
+    //   if (item.id === j) {
+    //     console.log("handleUserNotification", item, updateObj);
+    //     return { ...item, ...updateObj };
+    //   } else {
+    //     return item;
+    //   }
+    // });
+    // console.log("handleUserNotification updatedData", updatedData);
+    // setUserNotification(updatedData);
+    handleGetAddNotification(updateObj, email);
   };
 
   const handleTextNotification = (i, updateObj, mobile) => {
@@ -147,7 +148,7 @@ export default function Setting() {
       }
     });
     setUserNotification(updatedData);
-    handleGetAddNotification(i,updatedData,mobile);
+    handleGetAddNotification(i, updatedData, mobile);
   };
 
   return (
@@ -240,7 +241,7 @@ export default function Setting() {
                   </Button> */}
                         <button
                           type="button"
-                          class="btn btn-primary btn-lg"
+                          className="btn btn-primary btn-lg"
                           onClick={() => {
                             reset();
                           }}
@@ -249,7 +250,7 @@ export default function Setting() {
                         </button>
                         <button
                           type="button"
-                          class="btn btn-secondary btn-lg mx-4"
+                          className="btn btn-secondary btn-lg mx-4"
                         >
                           Cancel
                         </button>
@@ -257,17 +258,31 @@ export default function Setting() {
                           style={{ color: "red", justifyContent: "center" }}
                         >
                           {errorMsg}
-                          </label>
+                        </label>
                       </div>
                     </div>
                   </TabPanel>
                   <TabPanel>
                     <div className="accord mx-3">
                       {notification &&
-                        notification.map((data, i) => {
+                        notification.map((data, index) => {
+                          const notificationdata = userNotification.find(
+                            (userNoti, i) =>
+                              userNoti.notification_id === data.id &&
+                              userNoti.user_id == loginDetailsUserId
+                          ) || {
+                            notification_id: data.id,
+                            textStatus: true,
+                            emailStatus: true,
+                            user_id: loginDetailsUserId,
+                          };
+
+                          data = { ...data, notificationdata };
+
                           return (
                             <Accordion
                               style={{ width: 800, marginTop: "30px" }}
+                              key={data.id}
                             >
                               <div
                                 className=" accordhead"
@@ -293,76 +308,66 @@ export default function Setting() {
                               </div>
 
                               <AccordionDetails>
-                                {userNotification &&
-                                  userNotification.map((userNoti, i) => {
-                                    if (userNoti.id === data.id) {
-                                      console.log("userNoti", userNoti);
-                                      return (
-                                        <Typography>
-                                          <p>
-                                            Premium received notification on
-                                            your email
-                                            <input
-                                              className="react-switch-checkbox"
-                                              id={`react-switch-new-1`}
-                                              type="checkbox"
-                                              checked={userNoti.emailStatus}
-                                              onChange={() =>
-                                                handleUserNotification(
-                                                  i,
-                                                  {
-                                                    emailStatus:
-                                                      !userNoti.emailStatus,
-                                                  },
-                                                  "email"
-                                                )
-                                              }
-                                            />
-                                            <label
-                                              className="react-switch-label"
-                                              htmlFor={`react-switch-new-1`}
-                                            >
-                                              <span
-                                                className={`react-switch-button`}
-                                              />
-                                              {/* <span className="inner" /> */}
-                                              {/* <span className="switch" /> */}
-                                            </label>
-                                          </p>
-                                          <p>
-                                            Premium received notification text
-                                            message on mobile
-                                            <input
-                                              className="react-switch-checkbox"
-                                              id={`react-switch-new-2`}
-                                              type="checkbox"
-                                              checked={userNoti.textStatus}
-                                              onChange={() =>
-                                                handleTextNotification(
-                                                  i,
-                                                  {
-                                                    textStatus:
-                                                      !userNoti.textStatus,
-                                                  },
-                                                  "text"
-                                                )
-                                              }
-                                            />
-                                            <label
-                                              className="react-switch-label"
-                                              htmlFor={`react-switch-new-2`}
-                                            >
-                                              <span
-                                                className={`react-switch-button`}
-                                              />
-                                            </label>
-                                          </p>
-                                        </Typography>
-                                      );
-                                    }else{
-                                      return null
-                                    }
-                                  })}
+                                <Typography key={data?.id}>
+                                  <p>
+                                    Premium received notification on your email
+                                    <input
+                                      className="react-switch-checkbox"
+                                      id={`react-switch-new-${data.id}-1`}
+                                      type="checkbox"
+                                      checked={
+                                        data.notificationdata?.emailStatus
+                                      }
+                                      onChange={() => {
+                                        handleUserNotification(
+                                          {
+                                            ...data.notificationdata,
+                                            emailStatus:
+                                              !data.notificationdata
+                                                ?.emailStatus,
+                                          },
+                                          "email"
+                                        );
+                                      }}
+                                    />
+                                    <label
+                                      className="react-switch-label"
+                                      htmlFor={`react-switch-new-${data.id}-1`}
+                                    >
+                                      <span className={`react-switch-button`} />
+                                      {/* <span className="inner" /> */}
+                                      {/* <span className="switch" /> */}
+                                    </label>
+                                  </p>
+                                  <p>
+                                    Premium received notification text message
+                                    on mobile
+                                    <input
+                                      className="react-switch-checkbox"
+                                      id={`react-switch-new-${data.id}-2`}
+                                      type="checkbox"
+                                      checked={ data.notificationdata?.textStatus}
+                                      onChange={() =>{
+                                        handleUserNotification(
+                                          {
+                                            ...data.notificationdata,
+                                            textStatus:
+                                              !data.notificationdata
+                                                ?.textStatus,
+                                          },
+
+                                          "text"
+                                        )
+                                      } }
+                                    />
+                                    <label
+                                      className="react-switch-label"
+                                      htmlFor={`react-switch-new-${data.id}-2`}
+                                    >
+                                      <span className={`react-switch-button`} />
+                                    </label>
+                                  </p>
+                                </Typography>
                               </AccordionDetails>
                             </Accordion>
                           );

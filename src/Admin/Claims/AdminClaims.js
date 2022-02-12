@@ -6,8 +6,6 @@ import {
   EllipsisOutlined,
   EyeOutlined,
 } from "@ant-design/icons";
-import RecievedClaims from "./RecievedClaims";
-import SettledClaims from "./SettledClaims";
 import { getClaimsList } from "../../services/authentication";
 import HrClaimDetails from "../../Hr/HrClaims/HrClaimDetails";
 

@@ -9,7 +9,7 @@ const SucessModal = () => {
   let navigate = useNavigate();
   return (
 
-          <div class="invoice-start-box">
+          <div className="invoice-start-box">
       <div
         
         id="exampleModalCenter"
@@ -19,26 +19,26 @@ const SucessModal = () => {
         aria-hidden="true"
       >
         <div
-          class="modal-dialog modal-dialog-centered modal-lg"
+          className="modal-dialog modal-dialog-centered modal-lg"
           role="document" style={{paddingTop:"50px"}}
         >
-          <div class="modal-content">
-            <div class="modal-body">
-              <div class="invoice-star">
+          <div className="modal-content">
+            <div className="modal-body">
+              <div className="invoice-star">
                 <img src={invoice} alt="" width="20px"/>
               </div>
               <h2>Premium Paid successfully</h2>
             </div>
-            <div class="modal-footer">
+            <div className="modal-footer">
               <button
                 type="button"
-                class="btn btn-secondary"
+                className="btn btn-secondary"
                 data-dismiss="modal"
                 onClick={()=>navigate("user/paypremium")}
               >
                 Close
               </button>
-              <button type="button" class="btn btn-primary">
+              <button type="button" className="btn btn-primary">
                 Download Invoice
               </button>
             </div>

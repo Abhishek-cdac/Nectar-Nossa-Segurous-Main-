@@ -411,53 +411,53 @@ const HrData = (props) => {
       </div>
 
       
-      <div class="name-box mb-3">
-                            <div class="row">
-                                <div class="col-12 col-lg-3 col-md-3">
-                                    <div class="name-box-img">
+      <div className="name-box mb-3">
+                            <div className="row">
+                                <div className="col-12 col-lg-3 col-md-3">
+                                    <div className="name-box-img">
                                     {image && <img src={image} />}
                                     </div>
                                 </div>
-                                <div class="col-12 col-lg-3 col-md-3">
-                                    <div class="name-box-text">
+                                <div className="col-12 col-lg-3 col-md-3">
+                                    <div className="name-box-text">
                                         <small>Agent Name</small>
                                         <span>{HrData.firstName} {HrData.lastName}</span>
                                     </div>
-                                    <div class="name-box-text">
+                                    <div className="name-box-text">
                                         <small>Agent Code</small>
                                         <span>{HrData.code}</span>
                                     </div>
-                                    <div class="name-box-text" defaultValue={"Active"}
+                                    <div className="name-box-text" defaultValue={"Active"}
                                       onChange={RadioButtonOnChange}
                                        value={radioButtonValue}>
                                         <small>Status</small>
                                         if(HrData.activeStatus == "true"?    :   )
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"/>
-                                            <label class="form-check-label" for="inlineRadio1">Active</label>
+                                        <div className="form-check form-check-inline">
+                                            <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"/>
+                                            <label className="form-check-label" for="inlineRadio1">Active</label>
                                         </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"/>
-                                            <label class="form-check-label" for="inlineRadio2">Inactive</label>
+                                        <div className="form-check form-check-inline">
+                                            <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"/>
+                                            <label className="form-check-label" for="inlineRadio2">Inactive</label>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-lg-3 col-md-3">
-                                    <div class="name-box-text">
+                                <div className="col-12 col-lg-3 col-md-3">
+                                    <div className="name-box-text">
                                         <small>Agent Email</small>
                                         <span>{HrData.email}</span>
                                     </div>
-                                    <div class="name-box-text">
+                                    <div className="name-box-text">
                                         <small>Agent Phone No.</small>
                                         <span>{HrData.phone}</span>
                                     </div>
-                                    <div class="name-box-text">
+                                    <div className="name-box-text">
                                         <small>Agent Location</small>
                                         <span>{HrData.city}</span>
                                     </div>
                                 </div>
-                                <div class="col-12 col-lg-3 col-md-3" >
-                                    <div class="name-box-text">
+                                <div className="col-12 col-lg-3 col-md-3" >
+                                    <div className="name-box-text">
                                         <small>Agent Adress</small>
                                         <span>{HrData.currentAddress}</span>
                                     </div>
@@ -700,11 +700,11 @@ const HrData = (props) => {
         <ModalHeader style={{justifyContent:"center",
     fontSize:"22px", fontWeight:"bolder", color:"#000089"}}>Edit Agent</ModalHeader>
         <ModalBody>
-        <form class="col-12">
-          <div class="form-group mb-4">
+        <form className="col-12">
+          <div className="form-group mb-4">
             <input
               type="text"
-              class="col-xs-12 w-100"
+              className="col-xs-12 w-100"
               type="firstname"
               placeholder="First Name"
               value={firstName}
@@ -712,10 +712,10 @@ const HrData = (props) => {
             />
           </div>
           
-          <div class="form-group mb-4">
+          <div className="form-group mb-4">
             <input
               type="text"
-              class="col-xs-12 w-100"
+              className="col-xs-12 w-100"
               type="lastName"
               placeholder="Last Name"
               value={lastName}
@@ -723,10 +723,10 @@ const HrData = (props) => {
             />
           </div>
           
-          <div class="form-group mb-4">
+          <div className="form-group mb-4">
             <input
               type="text"
-              class="col-xs-12 w-100"
+              className="col-xs-12 w-100"
               type="email"
               placeholder="Email"
               value={email}
@@ -735,10 +735,10 @@ const HrData = (props) => {
           </div>
         
 
-          <div class="form-group mb-4">
+          <div className="form-group mb-4">
             <input
               type="text"
-              class="col-xs-12 w-100"
+              className="col-xs-12 w-100"
               type="number"
               placeholder="Phone Number"
               value={phone}
@@ -747,10 +747,10 @@ const HrData = (props) => {
           </div>
           
 
-          <div class="form-group mb-4">
+          <div className="form-group mb-4">
             <input
               type="text"
-              class="col-xs-12 w-100"
+              className="col-xs-12 w-100"
               placeholder="City"
               value={city}
               onChange={(e) => setCity(e.target.value)}
@@ -758,10 +758,10 @@ const HrData = (props) => {
           </div>
          
 
-          <div class="form-group mb-4">
+          <div className="form-group mb-4">
             <select
               type="text"
-              class="col-xs-12 w-100"
+              className="col-xs-12 w-100"
               placeholder="select the Gender"
               onChange={onGenderChange}
             >
@@ -771,10 +771,10 @@ const HrData = (props) => {
             </select>
           </div>
          
-          <div class="form-group mb-4">
+          <div className="form-group mb-4">
             <textarea
               type="text"
-              class="col-xs-12 w-100"
+              className="col-xs-12 w-100"
               type="currentAddress"
               placeholder="Current Adress"
               value={currentAddress}
@@ -782,10 +782,10 @@ const HrData = (props) => {
             />
           </div>
          
-          <div class="form-group mb-4">
+          <div className="form-group mb-4">
             <textarea
               type="text"
-              class="col-xs-12 w-100"
+              className="col-xs-12 w-100"
               style={{}}
               type="permanentAddress"
               placeholder="permanent Address"

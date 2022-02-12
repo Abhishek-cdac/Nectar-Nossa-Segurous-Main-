@@ -11163,3 +11163,9 @@ ul.services-li li {
   font-weight: 500;
   word-break: break-all;
   }
+
+  @media screen and (max-width: 768px) and (min-width: 340px) {
+    .DataTable {
+      overflow-x: scroll;
+    }
+  }

@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  Table,
-  Button,
-  Breadcrumb,
- 
-} from "antd";
+import { Table, Button, Breadcrumb } from "antd";
 import { CSVLink } from "react-csv";
-import {
-  PlusOutlined,
-  
-} from "@ant-design/icons";
+import { PlusOutlined } from "@ant-design/icons";
 import { useNavigate, useLocation } from "react-router-dom";
 import NewClaim from "./Newclaim";
 import UserClaim from "./UserClaim";
@@ -76,56 +68,50 @@ const Claims = () => {
   }, []);
 
   const columns = [
-//responsive
-{
-  title: "ID. PolicyName",
-  render: (record) => (
-    <React.Fragment>
-      {record.id}
-      <br />
-      <hr />
-      {record.name}
-    </React.Fragment>
-  ),
-  responsive: ["xs"],
-},
-{
-  title: "Code RequestDate",
-  render: (record) => (
-    <React.Fragment>
-      {record.code}
-      <br />
-      <hr />
-      {record.date}
-    </React.Fragment>
-  ),
-  responsive: ["xs"],
-},
-{
-  title: "Status",
-  render: (record) => (
-    <React.Fragment>
-      {record.status}
-      <br />
-      <hr />
-      {record.amount}
-    </React.Fragment>
-  ),
-  responsive: ["xs"],
-},
-
-
-
-
-
-
+    //responsive
+    // {
+    //   title: "ID. PolicyName",
+    //   render: (record) => (
+    //     <React.Fragment>
+    //       {record.id}
+    //       <br />
+    //       <hr />
+    //       {record.name}
+    //     </React.Fragment>
+    //   ),
+    //   responsive: ["xs"],
+    // },
+    // {
+    //   title: "Code RequestDate",
+    //   render: (record) => (
+    //     <React.Fragment>
+    //       {record.code}
+    //       <br />
+    //       <hr />
+    //       {record.date}
+    //     </React.Fragment>
+    //   ),
+    //   responsive: ["xs"],
+    // },
+    // {
+    //   title: "Status",
+    //   render: (record) => (
+    //     <React.Fragment>
+    //       {record.status}
+    //       <br />
+    //       <hr />
+    //       {record.amount}
+    //     </React.Fragment>
+    //   ),
+    //   responsive: ["xs"],
+    // },
 
     {
       title: "Claim Id",
       dataIndex: "id",
       key: "id",
-      ellipsis: true,
-      responsive: ["sm"],
+      // ellipsis: true,
+      // responsive: ["sm"],
       render: (text, record) => (
         <a
           style={{ color: "#4cbb17" }}
@@ -140,31 +126,31 @@ const Claims = () => {
       title: "Policy Name",
       dataIndex: "policyName",
       key: "policyName",
-      ellipsis: true,
-      responsive: ["sm"],
+      // ellipsis: true,
+      // responsive: ["sm"],
     },
 
     {
       title: "Policy Code",
       dataIndex: "code",
       key: "code",
-      ellipsis: true,
-      responsive: ["sm"],
+      // ellipsis: true,
+      // responsive: ["sm"],
     },
     {
       title: "Request Date",
       dataIndex: "date",
       key: "date",
-      ellipsis: true,
-      responsive: ["sm"],
+      // ellipsis: true,
+      // responsive: ["sm"],
     },
 
     {
       title: "Staus",
       dataIndex: "status",
       key: "status",
-      ellipsis: true,
-      responsive: ["sm"],
+      // ellipsis: true,
+      // responsive: ["sm"],
     },
   ];
 
@@ -174,66 +160,68 @@ const Claims = () => {
   };
 
   return (
-    <div className="container-fluid">
+    <div>
       {claimTablePage && (
         <div>
           <Breadcrumb style={{ marginTop: "20px" }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
             <Breadcrumb.Item>claims</Breadcrumb.Item>
           </Breadcrumb>
-          <div
-            className="ant-row"
-            style={{
-              marginTop: "20px",
-              marginBottom: "25px",
-              display: "flex",
-              justifyContent: "space-between",
-              flexDirection: "row",
-            }}
-          >
-            <div className="col-12 col-sm-3 col-md-3">
-              <h3>Claim Requests</h3>
-            </div>
+          <div className="container-fluid">
+            <div
+              className="ant-row"
+              style={{
+                marginTop: "20px",
+                marginBottom: "25px",
+                display: "flex",
+                justifyContent: "space-between",
+                flexDirection: "row",
+              }}
+            >
+              <div className="col-12 col-sm-3 col-md-3">
+                <h3>Claim Requests</h3>
+              </div>
 
-            <div className="col-12 col-sm-3 col-md-3">
-              <Button
-                style={{
-                  borderRadius: "5px",
-                  // marginRight: "30px",
-                  backgroundColor: "#61b33b",
-                  color: "white",
-                }}
-                onClick={() => handleAddClaims()}
-              >
-                <PlusOutlined style={{ paddingTop: "5px" }} /> New Claim Request
-              </Button>
-            </div>
+              <div className="col-12 col-sm-3 col-md-3">
+                <Button
+                  style={{
+                    borderRadius: "5px",
+                    // marginRight: "30px",
+                    backgroundColor: "#61b33b",
+                    color: "white",
+                  }}
+                  onClick={() => handleAddClaims()}
+                >
+                  <PlusOutlined style={{ paddingTop: "5px" }} /> New Claim
+                  Request
+                </Button>
+              </div>
 
-            <div className="col-12 col-sm-3 col-md-3">
-              <Button
-                style={{
-                  color: "#ffffff",
-                  backgroundColor: "#000089",
-                }}
-              >
-                {/* Download PDF/CSV */}
-                <CSVLink data={""} target="_blank">
-                  Download PDF/CSV
-                </CSVLink>
-              </Button>
+              <div className="col-12 col-sm-3 col-md-3">
+                <Button
+                  style={{
+                    color: "#ffffff",
+                    backgroundColor: "#000089",
+                  }}
+                >
+                  {/* Download PDF/CSV */}
+                  <CSVLink data={""} target="_blank">
+                    Download PDF/CSV
+                  </CSVLink>
+                </Button>
+              </div>
             </div>
           </div>
-          <div className="container-fluid" style={{paddingLeft:"20px"}}>
-            <div className="row">
-            <Table
-              columns={columns}
-              dataSource={TableData}
-              pagination={true}
-              total={10}
-            />
+        
+            <div className="DataTable" >
+              <Table
+                columns={columns}
+                dataSource={TableData}
+                pagination={true}
+                total={10}
+              />
             <div>
               <span>shown Results {ClaimsListArray.length}</span>
-            </div>
             </div>
           </div>
         </div>

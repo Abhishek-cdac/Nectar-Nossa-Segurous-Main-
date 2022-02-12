@@ -223,7 +223,7 @@ export default function Setting() {
                   </Button> */}
                         <button
                           type="button"
-                          class="btn btn-primary btn-lg"
+                          className="btn btn-primary btn-lg"
                           onClick={() => {
                             reset();
                           }}
@@ -232,7 +232,7 @@ export default function Setting() {
                         </button>
                         <button
                           type="button"
-                          class="btn btn-secondary btn-lg mx-4"
+                          className="btn btn-secondary btn-lg mx-4"
                         >
                           Cancel
                         </button>
