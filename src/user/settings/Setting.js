@@ -9,10 +9,11 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Typography from "@material-ui/core/Typography";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import {
+  resetpassword,
   getChangePassword,
   getUserNotificationService,
   getNotificationService,
-  getAddUserNotificationService,
+  getAddUserNotificationService
 } from "../../services/authentication";
 import setSucess from "./setSucess";
 
@@ -27,6 +28,7 @@ export default function Setting() {
   const [errorMsg, seterrorMsg] = useState("");
   const [sucessPage, setsucessPage] = useState([]);
   const [settingsPage, setSettingsPage] = useState(true);
+  const [emailvalue,setEmailvalue] = useState(false)
   const Token = window.localStorage.getItem("token");
   const email = window.localStorage.getItem("email");
   const loginDetailsUserId = window.localStorage.getItem("loginDetailsUserId");
@@ -40,10 +42,9 @@ export default function Setting() {
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
-  //Chnage password
 
   const reset = async () => {
-    console.warn();
+    // console.warn();
     const payload = {
       email: email,
       oldPassword: oldPassword,
@@ -116,9 +117,67 @@ export default function Setting() {
        * Error logic here
        * we need to do based on the error
        */
-      alert("naga sai", JSON.stringify(error.message));
+      alert(JSON.stringify(error.message));
     }
   };
+
+  const handleNotification = async() =>{
+    console.log('service is hitting')
+    try {
+      const userNotificationResp = await getUserNotificationService();
+      const notificationResp = await getNotificationService();
+      // console.log('userNotificationResp',notificationResp , userNotificationResp);
+      setUserNotification(userNotificationResp.data)
+      setnotification(notificationResp.data)
+    } catch (error) {
+      /**
+       * Error logic here
+       * we need to do based on the error
+       */
+      alert('naga sai',JSON.stringify(error.message));
+    }
+    }
+  useEffect(() => {
+    // async function handleverficationCall() {
+    //   const resp = await resetPasswordVerification(Token);
+    //   console.log("resfasdfas", resp);
+    //   if (resp) {
+    //     setsucessPage(true);
+    //   } else {
+    //     setSettingsPage(false);
+    //   }
+    // }
+    // handleverficationCall();
+    handleNotification()
+  }, [serviceCallStatus]);
+
+  const handletoggleChange = async(data,userNoti,type) =>{
+    let payload ={ }
+    // console.log('notoficatio data',data,userNoti)
+    if(type === 'mobile'){
+      payload ={ "notification_id": userNoti.notification_id ,
+        "textStatus": !userNoti.textStatus,
+        'user_id':loginDetailsUserId
+       }
+    }else{
+       payload ={"notification_id": userNoti.notification_id ,
+        "emailStatus": !userNoti.emailStatus,
+        'user_id':loginDetailsUserId
+       }
+    }
+    // console.log('payload',payload , type , data)
+    try {
+      const userAddNotiResp = await getAddUserNotificationService(payload);
+      // console.log('userAddNotiResp',userAddNotiResp);
+      setServiceCallStatus(false)
+    } catch (error) {
+      /**
+       * Error logic here
+       * we need to do based on the error
+       */
+      alert('naga sai',JSON.stringify(error.message));
+    }
+  }
 
   const handleback = () => {
     setsucessPage(false);
@@ -185,12 +244,12 @@ export default function Setting() {
                   <TabPanel>
                     <div
                       style={{
-                        width: "350px",
+                        width: "330px",
                         marginTop: "40px",
-                        marginLeft: "20px",
+                        // marginLeft: "20px",
                       }}
                     >
-                      <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Group className="mb-3 p-2" controlId="formBasicEmail">
                         <Form.Label>Old Password</Form.Label>
                         <Form.Control
                           type="password"
@@ -202,7 +261,7 @@ export default function Setting() {
                       </Form.Group>
 
                       <Form.Group
-                        className="mb-3"
+                        className="mb-3 p-2"
                         controlId="formBasicPassword"
                       >
                         <Form.Label> New Password</Form.Label>
@@ -216,7 +275,7 @@ export default function Setting() {
                       </Form.Group>
 
                       <Form.Group
-                        className="mb-3"
+                        className="mb-3 p-2"
                         controlId="formBasicPassword"
                       >
                         <Form.Label> Confirm New Password</Form.Label>
@@ -302,10 +361,10 @@ export default function Setting() {
                                       fontSize: "large",
                                     }}
                                   >
-                                    {data.name}
-                                  </Typography>
-                                </AccordionSummary>
-                              </div>
+                             {data.name}
+                            </Typography>
+                          </AccordionSummary>
+                        </div>
 
                               <AccordionDetails>
                                 <Typography key={data?.id}>
