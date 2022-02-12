@@ -19,10 +19,10 @@ import { useNavigate } from "react-router-dom";
 import { getServiceList } from "../../services/authentication";
 import { CSVLink } from "react-csv";
 import "./Service.style.css";
-import ServiceDetails from "./ServiceDetails"
+import ServiceDetails from "./ServiceDetails";
 
 // Search box icon property starts
-
+const { Search } = Input;
 
 const suffix = (
   <SearchOutlined
@@ -34,14 +34,13 @@ const suffix = (
 );
 // Search box icon property ends
 
-
 function AdServices() {
   const [ServiceListArray, setServiceListArray] = useState("");
   const [TableData, setTableData] = useState("");
-  const [serviceListStatus, setserviceListStatus] = useState(true)
-  const[ServiceDetailPage,setServiceDetailPage]=useState('')
-  const[serviceRequestPage,setserviceRequestPage]=useState(true)
-  const[selectedRecord,setselectedRecord]=useState('')
+  const [serviceListStatus, setserviceListStatus] = useState(true);
+  const [ServiceDetailPage, setServiceDetailPage] = useState("");
+  const [serviceRequestPage, setserviceRequestPage] = useState(true);
+  const [selectedRecord, setselectedRecord] = useState("");
   let navigate = useNavigate();
 
   ///LIST API SERVICE CALL AND FUNCTIONALITY STARTED
@@ -50,7 +49,7 @@ function AdServices() {
     try {
       let tableDataArr = [];
       const resp = await getServiceList(data);
-      console.log("resp",resp)
+      console.log("resp", resp);
       setServiceListArray(resp && resp.data);
       resp &&
         resp.data.map((data, i) => {
@@ -62,7 +61,6 @@ function AdServices() {
             priority: data.priorityStatus,
             status: data.verifyStatus,
             owner: data.userPolicy.agent.firstName,
-
           };
           console.log(value);
           tableDataArr.push(value);
@@ -85,13 +83,13 @@ function AdServices() {
     if (filterData.length > 0) {
       filterData.map((data, i) => {
         const value = {
-            serviceid: data.serviceCode,
-            servicename: data.serviceName,
-            requestedby: data.userPolicy.user.firstName,
-            reqesteddate: data.date,
-            tags: data.priorityStatus,
-            status: data.verifyStatus,
-            owner: data.userPolicy.agent.firstName,
+          serviceid: data.serviceCode,
+          servicename: data.serviceName,
+          requestedby: data.userPolicy.user.firstName,
+          reqesteddate: data.date,
+          tags: data.priorityStatus,
+          status: data.verifyStatus,
+          owner: data.userPolicy.agent.firstName,
         };
         tableDataArr.push(value);
       });
@@ -113,28 +111,26 @@ function AdServices() {
     const servicefilterData = ServiceListArray.filter(
       (data) => data.verifyStatus === status
     );
-    console.log("sf",ServiceListArray)
-    console.log("status",status)
+    console.log("sf", ServiceListArray);
+    console.log("status", status);
     const filterData = handleFilterData(servicefilterData);
     setTableData(filterData);
   };
-  const handleServiceIdClick = (text,record) =>{
-    setServiceDetailPage(true)
-    setserviceRequestPage(false)
-    setselectedRecord(record)
-}
- 
-const handleBack = ()=>{
-    setServiceDetailPage(true)
-    setserviceRequestPage(false)
-}
+  const handleServiceIdClick = (text, record) => {
+    setServiceDetailPage(true);
+    setserviceRequestPage(false);
+    setselectedRecord(record);
+  };
 
-const handlesubmit = ()=>{
-    setServiceDetailPage(false)
-    setserviceRequestPage(true)
+  const handleBack = () => {
+    setServiceDetailPage(true);
+    setserviceRequestPage(false);
+  };
 
-}
-
+  const handlesubmit = () => {
+    setServiceDetailPage(false);
+    setserviceRequestPage(true);
+  };
 
   const content = (
     <Menu>
@@ -236,71 +232,109 @@ const handlesubmit = ()=>{
   // Table for Service Requested ( Columns )
 
   const columns = [
+    // This section is made for responsivness
+    {
+      title: "ServiceID | ServiceName | RequestedBy",
+      render: (record) => (
+        <React.Fragment>
+          {record.serviceid}
+          <br />
+          <hr />
+          {record.servicename}
+          <br />
+          <hr />
+          {record.name}
+        </React.Fragment>
+      ),
+      responsive: ["xs"],
+    },
+    {
+      title: "RequestedDate | Priority | Status | OwnedBy",
+      render: (record) => (
+        <React.Fragment>
+          {record.reqesteddate}
+          <br />
+          <hr />
+          {record.tags}
+          <br />
+          <hr />
+          {record.status}
+          <br />
+          <hr />
+          {record.owner}
+        </React.Fragment>
+      ),
+      responsive: ["xs"],
+    },
+
+    // Actual Table Columns
     {
       title: "Service ID.",
       dataIndex: "serviceid",
       key: "serviceid",
-      render: (text,record) => {
-    
-       return <a onClick={() => handleServiceIdClick(text,record)}
-      >
-        {text}
-      </a>}
-      
-      
+      render: (text, record) => {
+        return <a onClick={() => handleServiceIdClick(text, record)}>{text}</a>;
+      },
+      responsive: ["sm"],
     },
     {
       title: "Service Name",
       dataIndex: "servicename",
       key: "servicename",
       render: (text) => <p>{text}</p>,
+      responsive: ["sm"],
     },
     {
       title: "Requested By",
       dataIndex: "requestedby",
       key: "requestedby",
       render: (text) => <p>{text}</p>,
+      responsive: ["sm"],
     },
     {
       title: "Requested Date",
       dataIndex: "reqesteddate",
       key: "requesteddate",
       render: (text) => <p>{text}</p>,
+      responsive: ["sm"],
     },
     {
-        title: "Priority",
-        key: "priority",
-        dataIndex: "priority",
-        // render: (tags) => (
-        //   <>
-        //     {tags.map((tag) => {
-        //       let color = tag.length > 5 ? "#39A405" : "#39A405";
-        //       if (tag === "urgent") {
-        //         color = "#FF0000";
-        //       }
-        //       if (tag === "Low") {
-        //         color = "#E5C110";
-        //       }
-        //       return (
-        //         <Tag color={color} key={tag}>
-        //           {tag.toUpperCase()}
-        //         </Tag>
-        //       );
-        //     })}
-        //   </>
-        // ),
-      },
+      title: "Priority",
+      key: "priority",
+      dataIndex: "priority",
+      responsive: ["sm"],
+      // render: (tags) => (
+      //   <>
+      //     {tags.map((tag) => {
+      //       let color = tag.length > 5 ? "#39A405" : "#39A405";
+      //       if (tag === "urgent") {
+      //         color = "#FF0000";
+      //       }
+      //       if (tag === "Low") {
+      //         color = "#E5C110";
+      //       }
+      //       return (
+      //         <Tag color={color} key={tag}>
+      //           {tag.toUpperCase()}
+      //         </Tag>
+      //       );
+      //     })}
+      //   </>
+      // ),
+    },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
       render: (text) => <p>{text}</p>,
+      responsive: ["sm"],
     },
     {
       title: "Owned By",
       dataIndex: "owner",
       key: "owner",
       render: (text) => <p>{text}</p>,
+      responsive: ["sm"],
     },
     {
       title: "Action",
@@ -312,6 +346,7 @@ const handlesubmit = ()=>{
           </a>
         </Dropdown>
       ),
+      responsive: ["sm", "xs", "md"],
     },
   ];
 
@@ -325,87 +360,92 @@ const handlesubmit = ()=>{
 
   return (
     <>
-    {serviceRequestPage && <div>
-      <div>
-        <Breadcrumb style={{ marginTop: "20px" }}>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>Services</Breadcrumb.Item>
-        </Breadcrumb>
-        <div
-          style={{
-            marginTop: "20px",
-            marginBottom: "25px",
-            display: "flex",
-            justifyContent: "space-between",
-            flexDirection: "row",
-          }}
-        >
-          <div>
-            <h3>Requested Services</h3>
-          </div>
+      {serviceRequestPage && (
+        <div className="container-fluid">
+          <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Services</Breadcrumb.Item>
+          </Breadcrumb>
           <div
+            className="row"
             style={{
+              marginTop: "20px",
+              marginBottom: "25px",
               display: "flex",
+              justifyContent: "space-between",
               flexDirection: "row",
-              borderRadius: "5px",
             }}
           >
-            <Input
-              onSearch={onSearch}
-              style={{
-                borderRadius: "25px",
-                marginRight: "10px",
-                height: "80%",
-                width: "200%",
-                borderBlockColor: "#61B33B",
-                borderRightColor: "#61B33B",
-                borderLeftColor: "#61B33B",
-              }}
-              placeholder="Search Service request"
-              suffix={suffix}
-            />
-
-            <Dropdown placement="bottomCenter" overlay={content} arrow>
-              <Button
-                style={{
-                  borderRadius: "5px",
-                  marginRight: "10px",
-                  backgroundColor: "#61b33b",
-                  color: "white",
-                }}
+            <div className="col-12 col-sm-3 col-md-3">
+              <h3>Requested Services</h3>
+            </div>
+            <div className="nav justify-content-center">
+              <div
+                className="col-12 col-sm-4 col-md-4"
+                style={{ display: "flex", flexDirection: "row" }}
               >
-                <FilterOutlined /> Add Filters
-              </Button>
-            </Dropdown>
-            <div>
-              <Button
-                style={{
-                  color: "#ffffff",
-                  backgroundColor: "#000089",
-                  borderRadius: "5px",
-                }}
+                <Search
+                  placeholder="search Policy"
+                  onSearch={onSearch}
+                  style={{
+                    borderRadius: "25px",
+                  }}
+                />
+              </div>
+              <div
+                className="col-12 col-sm-3 col-md-3"
+                style={{ display: "flex", flexDirection: "row" }}
               >
-                {/* Download PDF/CSV */}
-                <CSVLink data={serviceCSV} target="_blank">
-                  Download PDF/CSV
-                </CSVLink>
-              </Button>
+                <Dropdown placement="bottomCenter" overlay={content} arrow>
+                  <Button
+                    style={{
+                      borderRadius: "5px",
+                      backgroundColor: "#61b33b",
+                      color: "white",
+                    }}
+                  >
+                    <FilterOutlined /> Add Filters
+                  </Button>
+                </Dropdown>
+              </div>
+              <div
+                className="col-12 col-sm-3 col-md-3"
+                style={{ display: "flex", flexDirection: "row" }}
+              >
+                <Button
+                  style={{
+                    color: "#ffffff",
+                    backgroundColor: "#000089",
+                    borderRadius: "5px",
+                  }}
+                >
+                  <CSVLink data={serviceCSV} target="_blank">
+                    Download PDF/CSV
+                  </CSVLink>
+                </Button>
+              </div>
             </div>
           </div>
+          <div>
+            <Table
+              rowClassName={() => "rowClassName1"}
+              columns={columns}
+              dataSource={TableData}
+            />
+          </div>
+          <div>
+            <span>shown Results {ServiceListArray.length} </span>
+          </div>
         </div>
-        <div>
-          <Table
-            rowClassName={() => "rowClassName1"}
-            columns={columns}
-            dataSource={TableData}
-          />
-        </div>
-        <div>
-          <span>shown Results {ServiceListArray.length} </span>
-        </div>
-      </div>
-      </div>}
-      {ServiceDetailPage && <ServiceDetails selectedRecord={selectedRecord} data={ServiceListArray} handleBack={handleBack} handlesubmit={handlesubmit}/>}
+      )}
+      {ServiceDetailPage && (
+        <ServiceDetails
+          selectedRecord={selectedRecord}
+          data={ServiceListArray}
+          handleBack={handleBack}
+          handlesubmit={handlesubmit}
+        />
+      )}
     </>
   );
 }

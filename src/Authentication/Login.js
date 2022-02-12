@@ -5,6 +5,7 @@ import Logo from "../images/Userdashboard/logo.png";
 import { loginUser } from "../services/authentication";
 import { useNavigate, useLocation } from "react-router-dom";
 // import { showAlert } from "../utils/showAlert";
+import "./Login.css"
 
 const Login = () => {
   const [role, setRole] = React.useState("User");
@@ -63,29 +64,19 @@ const Login = () => {
   };
 
   return (
-    <body style={{ width: "100%" }}>
+    <body>
       {console.log('location',policy )}
-      <div
-        className="container"
-        style={{
-          display: "flex",
-          borderRadius: "10px",
-          alignItems: "center",
-          flexDirection: "column",
-          marginTop: "150px",
-          height: "600px",
-          width: "530px",
-          backgroundColor: "#4cbb17",
-        }}
-      >
-        <div>
+      <div className="container">
+      <div className="row justify-content-center" style={{padding:"20px"}}>
+        <div className="col-12 col-sm-6 col-md-6">
+        <div className="form-container">
+        <div className="logo justify-content-center">
           <img
             src={Logo}
             style={{
               width: "175px",
               height: "45px",
-              marginTop: "50px",
-              marginBottom: "50px",
+              marginBottom: "40px",
             }}
           />
         </div>
@@ -114,7 +105,7 @@ const Login = () => {
             <Input
               size="large"
               placeholder="User Id"
-              style={{ height: "60px", width: "350px", borderRadius: "5px" }}
+              style={{ borderRadius: "5px", height: "50px" }}
               // value={userId}
               // onChange={(e)=>setUserId(e.target.value)}
             />
@@ -133,7 +124,7 @@ const Login = () => {
             <Input.Password
               size="large"
               placeholder="Enter Password"
-              style={{ height: "60px", width: "350px", borderRadius: "5px" }}
+              style={{ borderRadius: "5px", height: "50px" }}
               // value={password}
               // onChange={(e)=>setPassword(e.target.value)}
             />
@@ -146,18 +137,22 @@ const Login = () => {
             </Form.Item>
           <Form.Item>
             <Button
-              type="primary"
+              type="primary" block
+              size="large"
               htmlType="submit"
-              style={{background:'#000080', height: "60px", width: "350px", borderRadius: "5px",borderColor:'#000080' }}
+              style={{background:'#000080', borderRadius: "5px",borderColor:'#000080', height: "50px" }}
               // onClick={()=>handleLoginButton()}
             >
-              <div style={{color:'white',fontSize:'25px',marginTop:'5px'}}>LOGIN</div>
+              <div style={{color:'white', fontSize:'20px'}}>LOGIN</div>
             </Button>
           </Form.Item>
           <Form.Item >
               <a href="#" style={{color:'white',justifyContent:'center',display:'flex'}} onClick={()=> navigate("/forgetPassword")}> Forget password?</a>
           </Form.Item>
         </Form>
+        </div>
+        </div>
+      </div>
       </div>
     </body>
   );

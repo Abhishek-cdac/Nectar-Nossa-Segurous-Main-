@@ -110,6 +110,45 @@ const AdminComplaint = () => {
   );
 
   const columns = [
+    // This section is written to make the table responsive
+    {
+      title: "ComplainID | PolicyHolder",
+      render: (record) => (
+        <React.Fragment>
+          {record.Id}
+          <br />
+          <hr />
+          {record.policyHolder}
+        </React.Fragment>
+      ),
+      responsive: ["xs"],
+    },
+    {
+      title: "Policy | ComplainDate",
+      render: (record) => (
+        <React.Fragment>
+          {record.policyName}
+          <br />
+          <hr />
+          {record.date}
+        </React.Fragment>
+      ),
+      responsive: ["xs"],
+    },
+    {
+      title: "Status | AssignedBy",
+      render: (record) => (
+        <React.Fragment>
+          {record.status}
+          <br />
+          <hr />
+          {record.agent}
+        </React.Fragment>
+      ),
+      responsive: ["xs"],
+    },
+
+    // Actual Columns of tables starts from here
     {
       title: "Complaint ID",
       dataIndex: "Id",
@@ -124,12 +163,14 @@ const AdminComplaint = () => {
           {text}
         </a>
       ),
+      responsive: ["sm"],
     },
     {
       title: "Policy Holder",
       dataIndex: "policyHolder",
       key: "policyHolder",
       ellipsis: true,
+      responsive: ["sm"],
     },
 
     {
@@ -137,24 +178,28 @@ const AdminComplaint = () => {
       dataIndex: "policyName",
       key: "policyName",
       ellipsis: true,
+      responsive: ["sm"],
     },
     {
       title: "Complaint Date",
       dataIndex: "date",
       key: "date",
       ellipsis: true,
+      responsive: ["sm"],
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
       ellipsis: true,
+      responsive: ["sm"],
     },
     {
       title: "Assigned By",
       dataIndex: "agent",
       key: "agent",
       ellipsis: true,
+      responsive: ["sm"],
     },
     {
       title: "Actions",
@@ -168,6 +213,7 @@ const AdminComplaint = () => {
           </>
         );
       },
+      responsive: ["sm", "xs", "md"],
     },
   ];
 
@@ -258,7 +304,7 @@ const AdminComplaint = () => {
   return (
     <>
       {adcomplaintTablepage && (
-        <div>
+        <div className="container-fluid">
           <div
             style={{
               marginTop: "20px",

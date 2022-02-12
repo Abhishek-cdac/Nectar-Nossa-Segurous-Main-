@@ -213,19 +213,17 @@ const handleBacktoActivePage =()=>{
 }
 
   return (
-    <>
-     { paypremium && <div>
-    <div className="container">
-     <div className="ant-row" style={{justifyContent:"space-between"}}>
-       <div className="ant-col ant-col-xs-24 ant-col-lg-8" style={{marginTop:"20px"}} >
+    <div className="container-fluid">
+      
+      { paypremium && <div className="row" style={{marginTop:"20px"}}>
+        <div className="col-12 col-sm-6 col-md-6">
         <h3>My polocies</h3>
-       </div>
-     
-        <div
+      </div>
+        <div className="col-12 col-sm-6 col-md-6"
           style={{
-            marginTop: "20px",
-            display:"flex",
-            alignItem:""
+            display: "flex",
+            justifyContent: "flex-end",
+            flexDirection: "row",
           }}
         >
           <Button
@@ -233,16 +231,13 @@ const handleBacktoActivePage =()=>{
               borderRadius: "5px",
               backgroundColor: "#000086",
               color: "white",
-              
             }}
           >
             Download PDF/CSV
             <VerticalAlignBottomOutlined />
           </Button>
         </div>
-        </div> 
-       <div className="ant-row" style={{marginTop:"5px"}}>
-       <div className="ant-col ant-col-xs-20">
+        <div>
           <Tabs defaultActiveKey="1" size="Large">
             <TabPane tab="Active" key="Active">
               <div>
@@ -296,15 +291,12 @@ const handleBacktoActivePage =()=>{
               {/* <Inactive tableData={InactiveTableData} inactiveData={inactiveData} /> */}
             </TabPane>
           </Tabs>
-          </div>
-        </div>
         </div>
       </div>}
       {policyDetailsPage && <UserPolicy selectedRecord = {selectedRecord} data={status ? activeData : inactiveData} status={status} handleBacktoActivePage={handleBacktoActivePage} />}
 
       {/* {policyDetailsPage && <UserPolicy selectedRecord={selectedRecord} data={props.activeData} status={true} handleBacktoActivePage={handleBacktoActivePage} />} */}
-   
-    </>
+    </div>
   );
 };
 export default Paypremium;

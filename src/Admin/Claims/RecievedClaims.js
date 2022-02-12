@@ -25,6 +25,7 @@ const RecievedClaims = () =>{
         dataIndex: "id",
         key: "id",
         ellipsis: true,
+        responsive: ["sm"],
         render: (text,record) => (
           <a
             style={{ color: "#4cbb17" }}
@@ -38,7 +39,8 @@ const RecievedClaims = () =>{
           title: "Policy Holder",
           dataIndex: "name",
           key: "name",
-          ellipsis: true,        
+          ellipsis: true,
+          responsive: ["sm"],        
           
         },
     
@@ -47,30 +49,35 @@ const RecievedClaims = () =>{
           dataIndex: "name",
           key: "name",
           ellipsis: true,
+          responsive: ["sm"],
         },
         {
           title: "Claim Amt",
           dataIndex: "amount",
           key: "amount",
           ellipsis: true,
+          responsive: ["sm"],
         },
         {
           title: "Request Date",
           dataIndex: "date",
           key: "date",
           ellipsis: true,
+          responsive: ["sm"],
         },
         {
           title: "Status",
           dataIndex: "status",
           key: "status",
           ellipsis: true,
+          responsive: ["sm"],
         },
         {
           title: "Assigned By",
           dataIndex: "agent",
           key: "agent",
           ellipsis: true,
+          responsive: ["sm"],
         },
         {
           title: "Action",
@@ -89,6 +96,7 @@ const RecievedClaims = () =>{
               </>
             );
           },
+          responsive: ["sm", "xs", "md"],
         },
       ]; 
 

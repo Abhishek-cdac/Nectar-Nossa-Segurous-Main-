@@ -224,6 +224,15 @@ const Claims = () => {
               <span>shown Results {ClaimsListArray.length}</span>
             </div>
           </div>
+          <Table style={{padding:"10px"}}
+              columns={columns}
+              dataSource={TableData}
+              pagination={true}
+              total={10}
+            />
+            <div>
+              <span>shown Results {ClaimsListArray.length}</span>
+            </div>
         </div>
       )}
       {addClaim && (
