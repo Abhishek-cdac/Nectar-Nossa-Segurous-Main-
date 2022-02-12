@@ -1,29 +1,26 @@
 import {
-  Card,Modal,
+ 
+  Modal,
   Radio,
-  Row,
-  Col,
-  Divider,
   Table,
   Button,
   Input,
   Menu,
-  Dropdown,Upload,message
+  Dropdown,
+  message,
 } from "antd";
 import React, { useEffect, useState } from "react";
-import {editAgentList} from "../../services/authentication";
+import { editAgentList } from "../../services/authentication";
 
 import { CSVLink } from "react-csv";
 import {
-  EyeOutlined,
+ 
   VerticalAlignBottomOutlined,
   FilterOutlined,
-  SmallDashOutlined,
-  ArrowUpOutlined,
+  
   EditOutlined,
   ArrowLeftOutlined,
-  LoadingOutlined,
-  PlusOutlined
+  
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 
@@ -31,32 +28,47 @@ import { useNavigate } from "react-router-dom";
 // import { getAllUserPolicyList } from "../../services/authentication";
 import { Popover } from "@material-ui/core";
 import { render } from "@testing-library/react";
+import { ModalBody } from "react-bootstrap";
+import ModalHeader from "react-bootstrap/esm/ModalHeader";
 
 const { Search } = Input;
 
 const HrData = (props) => {
   let navigate = useNavigate();
   const HrData = props.data;
+  console.log("Hrdata",HrData)
   const [tableData, setTableData] = useState(props.tableData);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
-  const [loading,SetLoading] = useState(false)
-  const [imageUrl,setImageUrl] = useState('')
-  const [permanentAddress, setpermanentAddress] = useState(props.data.permanentAddress ? props.data.permanentAddress : '');
-  const [firstName, setFirstName] = useState(props.data.firstName ? props.data.firstName : '');
-  const [lastName, setLastName] = useState(props.data.lastName ? props.data.lastName : '');
-  const [email, setEmail] = useState(props.data.email ? props.data.email : '');
-  const [phone, setPhone] = useState(props.data.phone ? props.data.phone : '');
-  const [city,setCity] = useState(props.data.city ? props.data.city : '');
-  const [gender,setGender] = useState(props.data.gendar ? props.data.gendar : '');
-  const [currentAddress, setcurrentAddress] = useState(props.data.currentAddress ? props.data.currentAddress : '');
-  const [errorMsg,seterrorMsg] = useState('')
-  const [image,setImage] =useState(props.data.profileImg ? props.data.profileImg : '')
+  const [loading, SetLoading] = useState(false);
+  const [imageUrl, setImageUrl] = useState("");
+  const [permanentAddress, setpermanentAddress] = useState(
+    props.data.permanentAddress ? props.data.permanentAddress : ""
+  );
+  const [firstName, setFirstName] = useState(
+    props.data.firstName ? props.data.firstName : ""
+  );
+  const [lastName, setLastName] = useState(
+    props.data.lastName ? props.data.lastName : ""
+  );
+  const [email, setEmail] = useState(props.data.email ? props.data.email : "");
+  const [phone, setPhone] = useState(props.data.phone ? props.data.phone : "");
+  const [city, setCity] = useState(props.data.city ? props.data.city : "");
+  const [gender, setGender] = useState(
+    props.data.gendar ? props.data.gendar : ""
+  );
+  const [currentAddress, setcurrentAddress] = useState(
+    props.data.currentAddress ? props.data.currentAddress : ""
+  );
+  const [errorMsg, seterrorMsg] = useState("");
+  const [image, setImage] = useState(
+    props.data.profileImg ? props.data.profileImg : ""
+  );
   // const[AllHrPolicyListArray,setAllHrPolicyListArray]=useState();
   const [radioButtonValue, setradioButtonValue] = useState(
     HrData.status === true ? "Active" : "InActive"
   );
   let AllHrTabelData = props.AllHrPolicyListArray;
-  console.log('AllHrTabelData',props, props.tableData);
+  console.log("AllHrTabelData", props, props.tableData);
   const RadioButtonOnChange = (e) => {
     setradioButtonValue(e.target.value);
   };
@@ -65,23 +77,23 @@ const HrData = (props) => {
       <p>Send reminder to policy Holder for payment</p>
     </div>
   );
-  const handleClearStates = () =>{
-    setpermanentAddress('')
-    setFirstName('')
-    setLastName('')
-    setEmail('')
-    setPhone('')
-    setCity('')
-    setGender('')
-    setcurrentAddress('')
-  }
+  const handleClearStates = () => {
+    setpermanentAddress("");
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setPhone("");
+    setCity("");
+    setGender("");
+    setcurrentAddress("");
+  };
 
-  const handleEditShowModal = () =>{
-     setIsEditModalVisible(true)
-  }
-  const handelEditCancel= () =>{
-    setIsEditModalVisible(false)
-  }
+  const handleEditShowModal = () => {
+    setIsEditModalVisible(true);
+  };
+  const handelEditCancel = () => {
+    setIsEditModalVisible(false);
+  };
 
   const validateEmail = (email) => {
     return String(email)
@@ -91,50 +103,96 @@ const HrData = (props) => {
       );
   };
 
-  const handleEditAgentListAPI = async () =>{
-    if(firstName === '' || lastName === '' || email ==='' || phone ==='' || gender === ''|| currentAddress === '' || permanentAddress ==='',city === ''){
-      seterrorMsg('Please Enter above fileds')
-    }else if(validateEmail(email)){
-      seterrorMsg('')
-      const data= {
-        'id':props.data.id,
-        'firstName': firstName,
-       'lastName':lastName,
-       'email': email,
-       'phone':phone,
-       "gendar":gender,
-       'currentAddress':currentAddress,
-       'permanentAddress':permanentAddress,
-       'city':city,
-       'profileImg':image
+  const handleEditAgentListAPI = async () => {
+    if (
+      (firstName === "" ||
+        lastName === "" ||
+        email === "" ||
+        phone === "" ||
+        gender === "" ||
+        currentAddress === "" ||
+        permanentAddress === "",
+      city === "")
+    ) {
+      seterrorMsg("Please Enter above fileds");
+    } else if (validateEmail(email)) {
+      seterrorMsg("");
+      const data = {
+        id: props.data.id,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        phone: phone,
+        gendar: gender,
+        currentAddress: currentAddress,
+        permanentAddress: permanentAddress,
+        city: city,
+        profileImg: image,
+      };
+      try {
+        const resp = await editAgentList(data);
+        console.log("success");
+        handelEditCancel();
+        handleClearStates();
+        // handleGetAgentListServiceCall()
+      } catch (error) {
+        console.log("error", error);
+        // showAlert('In valide data', "error");
       }
-     try {
-       const resp = await editAgentList(data);
-       console.log('success')
-       handelEditCancel()
-       handleClearStates()
-      // handleGetAgentListServiceCall()
-     } catch (error) {
-         console.log('error',error)
-       // showAlert('In valide data', "error");
-     }
-    }else {
-      seterrorMsg('Please Enter valid email')
+    } else {
+      seterrorMsg("Please Enter valid email");
     }
-  }
+  };
 
   const handleBack = () => {
     props.handeleBackButton();
   };
 
   const columns = [
+    // This section is written to make the table responsive
+    {
+      title: "PolicyNo   PolicyHolder",
+      render: (record) => (
+        <React.Fragment>
+          {record.code}
+          <br />
+          <hr />
+          {record.name}
+        </React.Fragment>
+      ),
+      responsive: ["xs"],
+    },
+    {
+      title: "Premium-plan Amount",
+      render: (record) => (
+        <React.Fragment>
+          {record.type}
+          <br />
+          <hr />/{record.Amount}
+        </React.Fragment>
+      ),
+      responsive: ["xs"],
+    },
+    {
+      title: "Status Claims",
+      render: (record) => (
+        <React.Fragment>
+          {record.status}
+          <br />
+          <hr />
+          {record.count}
+        </React.Fragment>
+      ),
+      responsive: ["xs"],
+    },
+
     {
       title: "Policy Number",
       dataIndex: "code",
       key: "code",
       ellipsis: true,
-      sorter: (a, b) => a.code.length - b.code.length,
       render: (text) => <a style={{ color: "#4cbb17" }}>{text}</a>,
+      responsive: ["sm"],
     },
 
     {
@@ -142,59 +200,58 @@ const HrData = (props) => {
       dataIndex: "name",
       key: "name",
       ellipsis: true,
-      sorter: (a, b) => a.name.length - b.name.length,
+      responsive: ["sm"],
     },
-    {
-      title: "Policy start date",
-      dataIndex: "date",
-      key: "date",
-      ellipsis: true,
-    },
+
     {
       title: "Premium plan",
       dataIndex: "type",
       key: "type",
       ellipsis: true,
+      responsive: ["sm"],
     },
     {
-      title: "Premium",
+      title: "Amount",
       dataIndex: "Amount",
       key: "Amount",
       ellipsis: true,
+      responsive: ["sm"],
     },
     {
-      title: "Premium staus",
+      title: "staus",
       dataIndex: "status",
       key: "status",
       ellipsis: true,
       render: (PremiumPaid) => (
         <a style={{ color: "#4cbb17" }}>{PremiumPaid}</a>
       ),
+      responsive: ["sm"],
     },
     {
       title: "claims",
       dataIndex: "count",
       key: "count",
       ellipsis: true,
+      responsive: ["sm"],
     },
-    {
-      title: "options",
-      key: "option",
-      ellipsis: true,
-      render: (record) => {
-        return (
-          <>
-            <div>
-              <Popover placement="bottom" content={handleContent()}>
-                {" "}
-                <SmallDashOutlined />
-              </Popover>
-            </div>
-            <EyeOutlined style={{ paddingLeft: "30px" }} />
-          </>
-        );
-      },
-    },
+    // {
+    //   title: "options",
+    //   key: "option",
+    //   ellipsis: true,
+    //   render: (record) => {
+    //     return (
+    //       <>
+    //         <div>
+    //           <Popover placement="bottom" content={handleContent()}>
+    //             {" "}
+    //             <SmallDashOutlined />
+    //           </Popover>
+    //         </div>
+    //         <EyeOutlined style={{ paddingLeft: "30px" }} />
+    //       </>
+    //     );
+    //   },
+    // },
   ];
   const handleFilterData = (filterData) => {
     const tableDataArr = [];
@@ -283,43 +340,51 @@ const HrData = (props) => {
   };
   const hrpolicyCSV = hrpolicyCSVData();
 
-  const onGenderChange = (e)=>{
-    setGender(e.target.value)
-  }
+  const onGenderChange = (e) => {
+    setGender(e.target.value);
+  };
 
   // const getBase64 = (img,callback) =>{
   //   const reader = new FileReader();
   //   reader.addEventListener('load',()=>callback(reader.result))
   //   reader.readAsDataURL(img)
   // }
-  const beforeUpload = (file)=> {
-    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+  const beforeUpload = (file) => {
+    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
     if (!isJpgOrPng) {
-      message.error('You can only upload JPG/PNG file!');
+      message.error("You can only upload JPG/PNG file!");
     }
     const isLt2M = file.size / 1024 / 1024 < 2;
     if (!isLt2M) {
-      message.error('Image must smaller than 2MB!');
+      message.error("Image must smaller than 2MB!");
     }
     return isJpgOrPng && isLt2M;
-  }
+  };
 
-  const convert2base64 =(e) =>{
+  const convert2base64 = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
-    reader.onloadend = () =>{
+    reader.onloadend = () => {
       setImage(reader.result.toString());
-    }
+    };
     reader.readAsDataURL(file);
-  }
+  };
 
   return (
     <div>
-      <div style={{display:"flex",flexDirection:"row",justifyContent:"space-between",marginTop:"10px"}}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          marginTop: "10px",
+        }}
+      >
         <div>
           <a
             style={{
               marginTop: "50px",
+              marginLeft: "10px",
             }}
             onClick={() => handleBack()}
           >
@@ -333,197 +398,227 @@ const HrData = (props) => {
               justifyContent: "flexEnd",
               borderRadius: "5px",
               marginRight: "10px",
+              marginBottom:"10px",
               backgroundColor: "#61b33b",
               color: "white",
               size: "large",
             }}
-            onClick={()=>handleEditShowModal()}
+            onClick={() => handleEditShowModal()}
           >
             <EditOutlined /> Edit
           </Button>
         </div>
-      </div>  
+      </div>
+
       
+      <div class="name-box mb-3">
+                            <div class="row">
+                                <div class="col-12 col-lg-3 col-md-3">
+                                    <div class="name-box-img">
+                                    {image && <img src={image} />}
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-3 col-md-3">
+                                    <div class="name-box-text">
+                                        <small>Agent Name</small>
+                                        <span>{HrData.firstName} {HrData.lastName}</span>
+                                    </div>
+                                    <div class="name-box-text">
+                                        <small>Agent Code</small>
+                                        <span>{HrData.code}</span>
+                                    </div>
+                                    <div class="name-box-text" defaultValue={"Active"}
+                                      onChange={RadioButtonOnChange}
+                                       value={radioButtonValue}>
+                                        <small>Status</small>
+                                        if(HrData.activeStatus == "true"?    :   )
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"/>
+                                            <label class="form-check-label" for="inlineRadio1">Active</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"/>
+                                            <label class="form-check-label" for="inlineRadio2">Inactive</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-3 col-md-3">
+                                    <div class="name-box-text">
+                                        <small>Agent Email</small>
+                                        <span>{HrData.email}</span>
+                                    </div>
+                                    <div class="name-box-text">
+                                        <small>Agent Phone No.</small>
+                                        <span>{HrData.phone}</span>
+                                    </div>
+                                    <div class="name-box-text">
+                                        <small>Agent Location</small>
+                                        <span>{HrData.city}</span>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-3 col-md-3" >
+                                    <div class="name-box-text">
+                                        <small>Agent Adress</small>
+                                        <span>{HrData.currentAddress}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+{/* 
+      <div
+        className="container-fluid"
+        style={{
+          padding: "10px",
+          backgroundColor: "#eeeeee",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-evenly",
+          marginTop: "30px",
+        }}
+      >
+        {image && <img src={image} />}
         <div
-          className="site-card-wrapper"
           style={{
-            padding: "10px",
-            backgroundColor: "#eeeeee",
+            display: "flex",
+            justifyContent: "space-around",
             display: "flex",
             flexDirection: "row",
-            justifyContent: "space-evenly",
-            marginTop:"30px"
+            fontFamily: "sans-serif",
+            fontSize: "18px",
           }}
         >
-          { image &&  <img src={image} />}
-          <div
-            style={{ display: "flex", justifyContent: "space-around" }}
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              fontFamily: "sans-serif",
-              fontSize: "18px",
-            }}
-          >
-            <div style={{ marginLeft: "50px" }}>
-              <label>Agent:</label>
-              <h6>
-                {HrData.firstName} {HrData.lastName}
-              </h6>{" "}
-              <br></br>
-              <label>Agent Code:</label>
-              <br />
-              <h6>need code</h6> <br></br>
-              <label>Status:</label>
-              <br />
-              <Radio.Group
-                name="radiogroup"
-                defaultValue={"Active"}
-                onChange={RadioButtonOnChange}
-                value={radioButtonValue}
-              >
-                <Radio value={"Active"}>Active</Radio>
-                <Radio value={"Inactive"}>Inactive</Radio>
-              </Radio.Group>
-            </div>
+          <div className="container-fluid" style={{ marginLeft: "50px" }}>
+            <label>Agent:</label>
+            <h6>
+              {HrData.firstName} {HrData.lastName}
+            </h6>{" "}
+            <br></br>
+            <label>Agent Code:</label>
+            <br />
+            <h6>need code</h6> <br></br>
+            <label>Status:</label>
+            <br />
+            <Radio.Group
+              name="radiogroup"
+              defaultValue={"Active"}
+              onChange={RadioButtonOnChange}
+              value={radioButtonValue}
+            >
+              <Radio value={"Active"}>Active</Radio>
+              <Radio value={"Inactive"}>Inactive</Radio>
+            </Radio.Group>
+          </div>
 
-            <div style={{ marginLeft: "100px" }}>
-              <label>Agent Email:</label>
-              <h6>{HrData.email}</h6> <br></br>
-              <label>Agent Phone No:</label>
-              <br />
-              <h6>{HrData.phone}</h6> <br></br>
-              <label>Agent Location:</label>
-              <br />
-              <h6>{HrData.city}</h6>
+          <div style={{ marginLeft: "100px" }}>
+            <label>Agent Email:</label>
+            <h6>{HrData.email}</h6> <br></br>
+            <label>Agent Phone No:</label>
+            <br />
+            <h6>{HrData.phone}</h6> <br></br>
+            <label>Agent Location:</label>
+            <br />
+            <h6>{HrData.city}</h6>
+          </div>
+          <div style={{ marginLeft: "100px" }}>
+            <label>Agent Adress:</label>
+            <h6>{HrData.currentAddress}</h6>
+          </div>
+        </div>
+      </div> */}
+
+      <div className="row" style={{ marginTop: "30px" }}>
+        <div className="col-12 col-md-6 col-sm-6 col-lg-4 mb-2">
+          <div className="card card-custom">
+            <div className="row">
+              <div className="col-6 col-md-6 col-sm-6 text-left">
+                <p className="pl-4 pt-4">
+                  No Of
+                  <br />
+                  Clients{" "}
+                </p>
+              </div>
+              <div className="col-6 col-md-6 col-sm-6 text-right">
+                <h3 className="pr-4 pt-4">{HrData.totalClient}</h3>
+              </div>
             </div>
-            <div style={{ marginLeft: "100px" }}>
-              <label>Agent Adress:</label>
-              <h6>{HrData.currentAddress}</h6>
+            <div style={{ backgroundColor: "#8ec131" }}>
+              <hr />
+              <div className="row">
+                <div className="col-9 col-md-9 col-sm-9 text-left">
+                  <p className="pl-4 pt-0 pb-3 d-block">View</p>
+                </div>
+                <div className="col-3 col-md-3 col-sm-3 text-right">
+                  <a href="" className="pr-4 pt-0 pb-3 d-block">
+                    <i className="fas fa-arrow-right"></i>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-        <div className="site-card-wrapper" style={{ marginTop: "20px" }}>
-          <Row gutter={16}>
-            <Col span={8}>
-              <Card>
-                <div
-                // style={{
-                //   backgroundColor: "#FFB6C1",
-                // }}
-                >
-                  <Row>
-                    <Col
-                      span={20}
-                      style={{
-                        color: "#000000",
-                        fontSize: "24px",
-                        fontWeight: 600,
-                      }}
-                    >
-                    
-                      <div style={{height:"75px"}}>Clients</div>
-                    </Col>
-                    <Col span={4}>{HrData.totalClient}</Col>
-                  </Row>
+        <div className="col-12 col-md-6 col-sm-6 col-lg-4 mb-2">
+          <div className="card card-custom">
+            <div className="row">
+              <div className="col-6 col-md-6 col-sm-6 text-left">
+                <p className="pl-4 pt-4">
+                  Complaints
+                  <br />
+                  Resolved{" "}
+                </p>
+              </div>
+              <div className="col-6 col-md-6 col-sm-6 text-right">
+                <h3 className="pr-4 pt-4">{HrData.totalResolvedComplaint}</h3>
+              </div>
+            </div>
+            <div style={{ backgroundColor: "#8ec131" }}>
+              <hr />
+              <div className="row">
+                <div className="col-9 col-md-9 col-sm-9 text-left">
+                  <p className="pl-4 pt-0 pb-3 d-block">View</p>
                 </div>
-                <div style={{backgroundColor:"greenyellow"}}>
-                  <Divider />
-                  <div>
-                  <Row>
-                    <Col span={4} >View</Col>
-                
-                    <Col span={20} style={{ color: "61b33b" }}>
-                      <ArrowUpOutlined
-                        style={{ color: "#000000", justifyItem: "flex-end" }}
-                      />
-                    </Col>
-                  </Row>
-                  </div>
+                <div className="col-3 col-md-3 col-sm-3 text-right">
+                  <a href="" className="pr-4 pt-0 pb-3 d-block">
+                    <i className="fas fa-arrow-right"></i>
+                  </a>
                 </div>
-              </Card>
-            </Col>
-            <Col span={8}>
-              <Card>
-                <div
-                // style={{
-                //   backgroundColor: "#FFB6C1",
-                // }}
-                >
-                  <Row>
-                    <Col
-                      span={20}
-                      style={{
-                        color: "#000000",
-                        fontSize: "24px",
-                        fontWeight: 600,
-                      }}
-                    >
-                      <div>Complaints</div>
-                      <div>Assigned</div>
-                    </Col>
-                    <Col span={4}>{HrData.totalComplaint}</Col>
-                  </Row>
-                </div>
-                <div style={{backgroundColor:"greenyellow"}}>
-                  <Divider />
-                  <div>
-                  <Row>
-                    <Col span={4} >View</Col>
-                
-                    <Col span={20} style={{ color: "61b33b" }}>
-                      <ArrowUpOutlined
-                        style={{ color: "#000000", justifyItem: "flex-end" }}
-                      />
-                    </Col>
-                  </Row>
-                  </div>
-                </div>
-              </Card>
-            </Col>
-            <Col span={8}>
-              <Card>
-                <div
-                // style={{
-                //   backgroundColor: "#FFB6C1",
-                // }}
-                >
-                  <Row>
-                    <Col
-                      span={20}
-                      style={{
-                        color: "#000000",
-                        fontSize: "24px",
-                        fontWeight: 600,
-                      }}
-                    >
-                      <div>Complaints</div>
-                      <div>Received</div>
-                    </Col>
-                    <Col span={4}>{HrData.totalResolvedComplaint}</Col>
-                  </Row>
-                </div>
-                <div style={{backgroundColor:"greenyellow"}}>
-                  <Divider />
-                  <div>
-                  <Row>
-                    <Col span={4} >View</Col>
-                
-                    <Col span={20} style={{ color: "61b33b" }}>
-                      <ArrowUpOutlined
-                        style={{ color: "#000000", justifyItem: "flex-end" }}
-                      />
-                    </Col>
-                  </Row>
-                  </div>
-                </div>
-              </Card>
-            </Col>
-          </Row>
+              </div>
+            </div>
+          </div>
         </div>
+        <div className="col-12 col-md-6 col-sm-6 col-lg-4 mb-2">
+          <div className="card card-custom">
+            <div className="row">
+              <div className="col-6 col-md-6 col-sm-6 text-left">
+                <p className="pl-4 pt-4">
+                  Complaints
+                  <br />
+                  Assigned{" "}
+                </p>
+              </div>
+              <div className="col-6 col-md-6 col-sm-6 text-right">
+                <h3 className="pr-4 pt-4">{HrData.totalComplaint}</h3>
+              </div>
+            </div>
+            <div style={{ backgroundColor: "#FFACAC" }}>
+              <hr />
+              <div className="row">
+                <div className="col-9 col-md-9 col-sm-9 text-left">
+                  <p className="pl-4 pt-0 pb-3 d-block">View</p>
+                </div>
+                <div className="col-3 col-md-3 col-sm-3 text-right">
+                  <a href="" className="pr-4 pt-0 pb-3 d-block">
+                    <i className="fas fa-arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <div className="container-fluid">
         <div
+          className="row"
           style={{
             marginTop: "20px",
             marginBottom: "25px",
@@ -532,128 +627,190 @@ const HrData = (props) => {
             flexDirection: "row",
           }}
         >
-          <div>
-            <h3> </h3>
-          </div>
-          <div style={{ display: "flex", flexDirection: "row" }}>
-            <Search
-              placeholder="search Policy"
-              onSearch={onSearch}
-              style={{
-                width: 300,
-                borderRadius: "25px",
-                marginRight: "10px",
-              }}
-            />
-            <Dropdown placement="bottomCenter" overlay={content} arrow>
+          <div className="col-12 col-sm-3 col-md-3">
+              <h3>Client List</h3>
+            </div>
+            <div className="nav justify-content-center">
+          <div
+            className="col-12 col-sm-5 col-md-5"
+            style={{ display: "flex", flexDirection: "row" }}
+          >
+            <Search placeholder="search Policy" onSearch={onSearch}
+             style={{
+              width: 300,
+              borderRadius: "25px",
+              marginRight: "10px",
+            }} />
+            </div>
+            <div className="col-12 col-sm-3 col-md-3"
+             style={{ display: "flex", flexDirection: "row" }}>
+              <Dropdown placement="bottomCenter" overlay={content} arrow>
+                <Button
+                  style={{
+                    borderRadius: "5px",
+                    marginRight: "10px",
+                    backgroundColor: "#61b33b",
+                    color: "white",
+                  }}
+                >
+                  <FilterOutlined /> Add Filters
+                </Button>
+              </Dropdown>
+            </div>
+            <div className="col-12 col-sm-3 col-md-3"
+             style={{ display: "flex", flexDirection: "row" }}>
               <Button
                 style={{
                   borderRadius: "5px",
-                  marginRight: "10px",
-                  backgroundColor: "#61b33b",
+                  backgroundColor: "#000086",
                   color: "white",
                 }}
               >
-                <FilterOutlined /> Add Filters
+                <CSVLink data={hrpolicyCSV} target="_blank">
+                  Download PDF/CSV
+                  <VerticalAlignBottomOutlined />
+                </CSVLink>
               </Button>
-            </Dropdown>
-            <Button
-              style={{
-                borderRadius: "5px",
-                backgroundColor: "#000086",
-                color: "white",
-              }}
-            >
-              <CSVLink data={hrpolicyCSV} target="_blank">
-                Download PDF/CSV
-                <VerticalAlignBottomOutlined />
-              </CSVLink>
-            </Button>
+            </div>
           </div>
         </div>
-        <Table
-          columns={columns}
-          dataSource={tableData}
-          //onChange={this.handleChange}
-          pagination={true}
-          total={10}
-        />
-        <div>
-          <span>shown Results {tableData && tableData.length}</span>
         </div>
-       
-     <Modal title='Edit Agent' visible={isEditModalVisible} onOk={handleEditAgentListAPI} onCancel={handelEditCancel}>
-          <input
-                    style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px"}}
-                    type="firstname"
-                    placeholder="First Name"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                  /><br/>    
-                  <input
-                   style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px"}}
-                    type="lastName"
-                    placeholder="Last Name"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                  /><br/> 
-                  <input
-                   style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px"}}
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  /><br/>          
-                  <input
-                    style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px"}}
-                    type="number"
-                    placeholder="Phone Number"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                  /><br/> 
-                  <input
-                    style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px"}}
-                    placeholder="City"
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
-                  /><br/>
-                   <select
-                    placeholder="select the Gender"
-                    onChange={onGenderChange}
-                    style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px"}}
-                  // allowClear
-                  >
-                    <option value="male">male</option>
-                    <option value="female">female</option>
-                    <option value="other">other</option>
-                  </select>
-                  <br/>
-                  <textarea
-                  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px"}}
-                    type="currentAddress"
-                    placeholder="Current Adress"
-                    value={currentAddress}
-                    onChange={(e) => setcurrentAddress(e.target.value)}
-                  /><br/> 
-                  <textarea
-                  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px"}}
-                    type="permanentAddress"
-                    placeholder="permanent Address"
-                    value={permanentAddress}
-                    onChange={(e) => setpermanentAddress(e.target.value)}
-                    />
-                   {image ? (
-                    <img src={image} />
-                  ) : (
-                    <div>
-                      <input id='fileupload' type='file' onChange={(e)=>convert2base64(e)}/>
-                      <label htmlFor="fileupload">Upload File</label>
-                    </div>
-                  )}
-                 
-                    
-                  <p style={{color:'red',marginLeft:'45px'}}>{errorMsg}</p>
-          </Modal> 
+        <div className="container-fluid">
+          <div className="row">
+            <Table
+              columns={columns}
+              dataSource={tableData}
+              //onChange={this.handleChange}
+              pagination={true}
+              total={10}
+            />
+            <div>
+              <span>shown Results {tableData && tableData.length}</span>
+            </div>
+          </div>
+        </div>
+      
+
+      <Modal
+        visible={isEditModalVisible}
+        onOk={handleEditAgentListAPI}
+        onCancel={handelEditCancel}
+         width={380}
+      >
+        <ModalHeader style={{justifyContent:"center",
+    fontSize:"22px", fontWeight:"bolder", color:"#000089"}}>Edit Agent</ModalHeader>
+        <ModalBody>
+        <form class="col-12">
+          <div class="form-group mb-4">
+            <input
+              type="text"
+              class="col-xs-12 w-100"
+              type="firstname"
+              placeholder="First Name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </div>
+          
+          <div class="form-group mb-4">
+            <input
+              type="text"
+              class="col-xs-12 w-100"
+              type="lastName"
+              placeholder="Last Name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </div>
+          
+          <div class="form-group mb-4">
+            <input
+              type="text"
+              class="col-xs-12 w-100"
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+        
+
+          <div class="form-group mb-4">
+            <input
+              type="text"
+              class="col-xs-12 w-100"
+              type="number"
+              placeholder="Phone Number"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
+          </div>
+          
+
+          <div class="form-group mb-4">
+            <input
+              type="text"
+              class="col-xs-12 w-100"
+              placeholder="City"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+            />
+          </div>
+         
+
+          <div class="form-group mb-4">
+            <select
+              type="text"
+              class="col-xs-12 w-100"
+              placeholder="select the Gender"
+              onChange={onGenderChange}
+            >
+              <option value="male">male</option>
+              <option value="female">female</option>
+              <option value="other">other</option>
+            </select>
+          </div>
+         
+          <div class="form-group mb-4">
+            <textarea
+              type="text"
+              class="col-xs-12 w-100"
+              type="currentAddress"
+              placeholder="Current Adress"
+              value={currentAddress}
+              onChange={(e) => setcurrentAddress(e.target.value)}
+            />
+          </div>
+         
+          <div class="form-group mb-4">
+            <textarea
+              type="text"
+              class="col-xs-12 w-100"
+              style={{}}
+              type="permanentAddress"
+              placeholder="permanent Address"
+              value={permanentAddress}
+              onChange={(e) => setpermanentAddress(e.target.value)}
+            />
+          </div>
+          {image ? (
+            <img src={image} />
+          ) : (
+            <div>
+              <input
+                id="fileupload"
+                type="file"
+                onChange={(e) => convert2base64(e)}
+              />
+              <label htmlFor="fileupload">Upload File</label>
+            </div>
+          )}
+        
+
+        <p style={{ color: "red", marginLeft: "45px" }}>{errorMsg}</p>
+        </form>
+        </ModalBody>
+      </Modal>
     </div>
   );
 };

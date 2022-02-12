@@ -10477,6 +10477,52 @@ a.fp {
   border: #707070 solid 1px;
 }
 
+.green-box {
+  background: #8EC131;
+  border-radius: 5px;
+  padding: 30px 20px;
+}
+
+
+.bell-text {
+  color: #fff;
+  background: url(../assets/img/ic_notifications.png);
+  background-repeat: no-repeat;
+  padding: 0 0 0 45px;
+  background-position: 0 7px;
+  font-size: 15px;
+  margin: 0;
+}
+.pay-now {
+  background: #0A2C60;
+  border-radius: 50px;
+  font-size: 14px;
+}
+.recommended-policies-box {
+  background:#fff;
+  border: #DCDCDC solid 1px;
+  padding: 8px;
+  margin: 15px;
+  border-radius: 5px;
+}
+.recommended-policies-box:hover {
+  border: #8EC131 solid 1px;}
+.recommended-policies-box .btn.btn-primary {
+  font-size: 14px;
+  border-radius: 50px;
+  background: #0A2C60;
+  border:#0A2C60 solid 1px;
+  padding: 5px 15px;
+}
+.recommended-policies-box .btn.btn-secondary {
+  font-size: 14px;
+  border-radius: 50px;
+  background: #EEF1F5;
+  border:#0A2C60 solid 1px;
+  padding: 5px 15px;
+}
+
+
 .color-green {color: var(--secondary);}
 a.danger-color {
   color: #FF0000;
@@ -11089,3 +11135,31 @@ ul.services-li li {
 .react-switch-label:active .react-switch-button {
   width: 60px;
 }
+/* Style the buttons that are used to open and close the accordion panel */
+
+.name-box {
+  background: #EEF1F5;
+  padding: 40px 40px 15px;
+  border: #E2E2E2 solid 1px;
+  width: 100%;
+  }
+  .name-box-img {
+  background: #fff;
+  width: 100%;
+  border-radius: 5px;margin: 0 0 30px;
+  }
+  .name-box-img img {width: 100%;border-radius: 5px;}
+  .name-box-text small {
+  color: #7D7D7D;
+  font-size: 14px;
+  display: block;
+  margin: 0px 0 5px;
+  }
+  .name-box-text span {
+  color: #434343;
+  font-size: 16px;
+  display: block;
+  margin: 0 0 30px;
+  font-weight: 500;
+  word-break: break-all;
+  }

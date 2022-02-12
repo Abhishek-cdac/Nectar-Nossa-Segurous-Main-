@@ -203,7 +203,7 @@ const Doctors = () =>{
         <>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-xl-7  col-lg-4 col-md-4 col-sm-3">
+          <div className="col-xl-7 col-lg-4 col-md-4 col-sm-4">
             <h4 id="head" className="my-3 mx-5">
               Doctors List
             </h4>
@@ -221,9 +221,9 @@ const Doctors = () =>{
               <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                   <Modal.Title
-                    style={{ color: "#61B33B", marginLeft: "130px" }}
+                    style={{ color: "#61B33B", marginLeft: "" }}
                   >
-                    Add Holiday List
+                    Add Doctors List
                   </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>

@@ -29,7 +29,7 @@ export default function Setting() {
   const [settingsPage, setSettingsPage] = useState(true);
   const Token = window.localStorage.getItem("token");
   const email = window.localStorage.getItem("email");
-  // console.log("Token in list", Token);
+  console.log("Token in list", Token);
 
   const { confirmPassword, oldPassword, newPassword } = data;
 
@@ -56,7 +56,7 @@ export default function Setting() {
      else {
     try {
       const response = await getChangePassword(payload);
-      console.log(response);
+      // console.log(response);
       seterrorMsg('')
       setsucessPage(true);
     } catch (error) {
@@ -69,10 +69,9 @@ export default function Setting() {
 
   //Notification API
   const handleNotification = async () => {
-    console.log("service is hitting");
     try {
-      const userNotificationResp = await getUserNotificationService();
-      const notificationResp = await getNotificationService();
+      const userNotificationResp = await getUserNotificationService(data);
+      const notificationResp = await getNotificationService(data);
       // console.log('userNotificationResp',notificationResp , userNotificationResp);
       setUserNotification(userNotificationResp.data);
       setnotification(notificationResp.data);
@@ -88,23 +87,24 @@ export default function Setting() {
     let payload = {};
     userNotification &&
       userNotification.map((item, index) => {
-        if (index === i && type =="email") {
+        if (index === i) {
+          console.log('handleGetAddNotification service', item)
           payload = {
             notification_id: item.notification_id,
-            // textStatus: item.textStatus,
+            textStatus: item.textStatus,
             emailStatus: item.emailStatus,
             user_id: item.user_id,
           };
           
         }
-        else if(index === i && type == "text"){
-          payload = {
-            notification_id: item.notification_id,
-            textStatus: item.textStatus,
-            // emailStatus: item.emailStatus,
-            user_id: item.user_id,
-          };
-        }
+        // else if(index === i && type == "text"){
+        //   payload = {
+        //     notification_id: item.notification_id,
+        //     textStatus: item.textStatus,
+        //     // emailStatus: item.emailStatus,
+        //     user_id: item.user_id,
+        //   };
+        // }
       });
     console.log("payload", payload);
     try {
@@ -127,13 +127,15 @@ export default function Setting() {
   const handleUserNotification = (i, updateObj, email) => {
     const updatedData = userNotification.map((item, index) => {
       if (index == i) {
+        console.log( 'handleUserNotification',item,updateObj)
         return { ...item, ...updateObj };
       } else {
         return item;
       }
     });
+    console.log( 'handleUserNotification updatedData',updatedData)
     setUserNotification(updatedData);
-    handleGetAddNotification(i, updatedData);
+    handleGetAddNotification(i, updatedData,email);
   };
 
   const handleTextNotification = (i, updateObj, mobile) => {
@@ -145,7 +147,7 @@ export default function Setting() {
       }
     });
     setUserNotification(updatedData);
-    handleGetAddNotification(updatedData);
+    handleGetAddNotification(i,updatedData,mobile);
   };
 
   return (
@@ -357,6 +359,8 @@ export default function Setting() {
                                           </p>
                                         </Typography>
                                       );
+                                    }else{
+                                      return null
                                     }
                                   })}
                               </AccordionDetails>

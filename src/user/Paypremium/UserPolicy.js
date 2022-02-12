@@ -60,13 +60,12 @@ const UserPolicy = (props) => {
 
                   <div class="col-lg-6 col-md-6 text-right">
                     <a
-                      href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html"
+                      href=""
                       class="danger-color"
                       data-toggle="modal"
                       data-target="#addPolicyList"
                     >
                       Status: Premium Due
-                      {/* <img src="file:///D:/ReactNasso/nasso/src/user/Paypremium/assets/img/warning.svg"/> */}
                     </a>
                   </div>
                 </div>
@@ -140,7 +139,7 @@ const UserPolicy = (props) => {
                   <p>{policyList && policyList.policy.description}</p>
                   <a
                     data-toggle="collapse"
-                    href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#collapseExample"
+                    href=""
                     role="button"
                     aria-expanded="false"
                     aria-controls="collapseExample"
@@ -164,18 +163,16 @@ const UserPolicy = (props) => {
                   {" "}
                   <div class="col-12 col-md-2">
                     <a
-                      href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#"
+                      href=""
                       class="btn-close"
                     >
                       Close Policy
                     </a>
                   </div>
-                  {/* <div class="col-12 col-md-2">
-                                //     <a href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#" class="btn-close renew-btn">Renew Policy</a>
-                                // </div> */}
+               
                   <div class="col-12 col-md-2">
                     <a
-                      href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#"
+                      href="#"
                       class="btn-close premium-btn"
                       onClick={() => handlePayment()}
                     >
@@ -184,7 +181,7 @@ const UserPolicy = (props) => {
                   </div>
                   <div class="col-12 col-md-2">
                     <a
-                      href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#"
+                      href="#"
                       class="btn-close claim-btn"
                       onClick={() => handleClaimRequest()}
                     >
@@ -196,7 +193,7 @@ const UserPolicy = (props) => {
               {!status && (
                 <div class="col-12 col-md-2">
                   <a
-                    href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#"
+                    href="#"
                     class="btn-close renew-btn"
                   >
                     Renew Policy
@@ -211,11 +208,11 @@ const UserPolicy = (props) => {
               <div class="d-flex align-items-center justify-content-between small">
                 <div class="text-muted">Copyright © Nossa 2020</div>
                 <div>
-                  <a href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#">
+                  <a href="#">
                     Privacy Policy
                   </a>
                   ·
-                  <a href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#">
+                  <a href="#">
                     Terms &amp; Conditions
                   </a>
                 </div>
@@ -223,15 +220,7 @@ const UserPolicy = (props) => {
             </div>
           </footer>
 
-          {/* <script src="./userpolicy_files/jquery-3.5.1.slim.min.js.download" crossorigin="anonymous"></script>
-        <script src="./userpolicy_files/bootstrap.bundle.min.js.download" crossorigin="anonymous"></script>
-        <script src="file:///D:/ReactNasso/nasso/src/user/Paypremium/js/scripts.js"></script>
-        <script src="./userpolicy_files/Chart.min.js.download" crossorigin="anonymous"></script>
-        <script src="file:///D:/ReactNasso/nasso/src/user/Paypremium/assets/demo/chart-area-demo.js"></script>
-        <script src="file:///D:/ReactNasso/nasso/src/user/Paypremium/assets/demo/chart-bar-demo.js"></script>
-        <script src="./userpolicy_files/jquery.dataTables.min.js.download" crossorigin="anonymous"></script>
-        <script src="./userpolicy_files/dataTables.bootstrap4.min.js.download" crossorigin="anonymous"></script>
-        <script src="file:///D:/ReactNasso/nasso/src/user/Paypremium/assets/demo/datatables-demo.js"></script> */}
+  
         </div>
       )}
       {paymentPage && (

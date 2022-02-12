@@ -400,7 +400,7 @@ const handleServicesList = async () => {
                 <Modal show={ShowModal} onHide={handleCancel}>
                   <Modal.Header closeButton>
                     <Modal.Title
-                      style={{ color: "#61B33B", marginLeft: "130px" }}
+                      style={{ color: "#61B33B"}}
                     >
                       Edit Services List
                     </Modal.Title>

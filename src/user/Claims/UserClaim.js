@@ -496,48 +496,51 @@ const ClaimList =
                         </div>
                     </div>
                 </footer>
-                <Modal title='Edit Agent' visible={isEditModalVisible} footer={null} onCancel={handelEditCancel} okText="Create">
+                <Modal title='Edit Claim' visible={isEditModalVisible} footer={null} onCancel={handelEditCancel} okText="Create">
                 <Form onFinish={onFinish}>
-          <input
-                    style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
+                <div class="form-group mb-4">
+                  <input class="form-control"
+                    // style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
                     type="name"
                     placeholder="Name"
                     value={ClaimName}
                     onChange={(e) => setClaimName(e.target.value)}
-                  /><br/>            
-                  <input
-                    style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
+                  />
+                  </div>  
+                  <div class="form-group mb-4">       
+                  <input class="form-control"
+                    // style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
                     type="email"
                     placeholder="Claim Email"
                     value={claimEmailId}
                     onChange={(e) => setClaimEmailId(e.target.value)}
-                  /><br/> 
-                  <input
-                  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
+                  />
+                  </div>
+                  <div class="form-group mb-4">       
+                  <input class="form-control"
+                //   style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
                     type="number"
                     maxlength="10"
                     placeholder="Phone"
                     value={claimPhone}
                     onChange={(e) => setClaimPhone(e.target.value)}
-                  /><br/> 
+                  />
+                  </div>
                    <Form.Item name={'realtionDOB'}>
                     <DatePicker  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px"}} onChange={(dateString) => setrealtionDOB(dateString)}/>
                   </Form.Item>
-                  <input
-                  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
+                  <div class="form-group mb-4">       
+                  <input class="form-control"
+                //   style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
                     type="Address"
                     placeholder="Address"
                     value={claimAddress}
                     onChange={(e) => setClaimAdress(e.target.value)}
-                  /><br/> 
-                  {/* <textarea
-                  style={{width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
-                  type="Textarea"
-                  placeholder="Permenant Adress"
-                  value={PermenantAdress}
-                  onChange={(e) => setPermenantAdress(e.target.value)}
-                /> */}
-                <select  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
+                  /> 
+                  </div>
+                  <div class="form-group mb-4">       
+                  <select class="form-control"
+                //  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
                          label={'coveredByOtherInsurance'} value={coveredByOtherInsurance} onChange={(e)=>setcoveredByOtherInsurance(e.target.value)}>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
@@ -547,166 +550,213 @@ const ClaimList =
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
                 </select>
-                <br/> 
-                 <input
-                    style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
+                </div>
+                <div class="form-group mb-4">       
+                  <input class="form-control"
+                    // style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
                     type="name"
                     placeholder="Company Name"
                     value={companyName}
                     onChange={(e) => setcompanyName(e.target.value)}
-                  /><br/> 
-                   <input
-                    style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
+                  />
+                  </div>
+                  <div class="form-group mb-4">       
+                  <input class="form-control"
+                    // style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
                     type="name"
                     placeholder="Sum Insured"
                     value={sumInsured}
                     onChange={(e) => setsumInsured(e.target.value)}
-                  /><br/> 
-                   <select  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}} 
+                  />
+                  </div>
+                  <div class="form-group mb-4">       
+                  <select class="form-control"
+                //    style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}} 
                          label={'Relation With Insured'} value={relationWithInsured} onChange={(e)=> setrelationWithInsured(e.target.value)}>
                 <option value="self">Self</option>
                 <option value="father">Father</option>
                 <option value="mother">Mother</option>
                 <option value="wife">Wife</option>
-                </select><br/> 
-                   <input
-                    style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
+                </select>
+                </div>
+                <div class="form-group mb-4">       
+                  <input class="form-control"
+                    // style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
                     type="name"
                     placeholder="Relation Name"
                     value={relationName}
                     onChange={(e) => setrelationName(e.target.value)}
-                  /><br/> 
-                  <select  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}} 
+                  />
+                  </div> 
+                  <div class="form-group mb-4">       
+                  <select class="form-control"
+                    // style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}} 
                          label={'Relation Gender'} value={relationGender} onChange={(e)=> setrelationGender(e.target.value)}>
                 <option value="self">Male</option>
                 <option value="father">Female</option>
                 </select>
-                <br/>
-                   <input
-                    style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
+                </div>
+                <div class="form-group mb-4">       
+                  <input class="form-control"
+                    // style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
                     type="number"
                     placeholder="Relation Gender"
                     value={relationAge}
                     onChange={(e) => setrelationAge(e.target.value)}
-                  /><br/> 
-                  <select  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}} 
+                  />
+                  </div>
+                  <div class="form-group mb-4">       
+                  <select class="form-control"
+                    style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}} 
                          label={'Relation Occupation'} value={relationOccupation} onChange={(e)=>setrelationOccupation(e.target.value)}>
                 <option value="self">Job</option>
                 <option value="father">Business</option>
-                </select><br/>
-                <input
-                    style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
+                </select>
+                </div>
+                <div class="form-group mb-4">       
+                  <input class="form-control"
+                    // style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
                     type="email"
                     placeholder="Claim Email"
                     value={relationEmail}
                     onChange={(e) => setrelationEmail(e.target.value)}
-                  /><br/> 
-                  <input
-                  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
+                  />
+                  </div>
+                 <div class="form-group mb-4">       
+                  <input class="form-control"
+                //   style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
                     type="number"
                     maxlength="10"
                     placeholder="Phone"
                     value={relationPhone}
                     onChange={(e) => setRelationPhone(e.target.value)}
-                  /><br/>
-                   <input
-                  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
+                  />
+                  </div>
+                  <div class="form-group mb-4">       
+                  <input class="form-control"
+                //   style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
                     type="Address"
                     placeholder="Relation Address"
                     value={relationAddress}
                     onChange={(e) => setRelationAdress(e.target.value)}
-                  /><br/> 
-                   <input
+                  />
+                  </div>
+                  <div class="form-group mb-4">       
+                  <input class="form-control"
                     style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
                     type="name"
                     placeholder="Hospital Name"
                     value={claimhospitalName}
                     onChange={(e) => setclaimhospitalName(e.target.value)}
-                  /><br/> 
-                  <select  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}} 
+                  />
+                  </div>
+                  <div class="form-group mb-4">       
+                  <select class="form-control"
+                //    style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}} 
                          label={'Room Category'} value={roomCategory} onChange={(e)=> setroomCategory(e.target.value)}>
                 <option value="self">Single</option>
                 <option value="father">Multi</option>
-                </select><br/>
-                   <input
-                    style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
+                </select>
+                </div>
+                <div class="form-group mb-4">       
+                  <input class="form-control"
+                   // style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
                     type="name"
                     placeholder="Reason"
                     value={claimreason}
                     onChange={(e) => setclaimreason(e.target.value)}
-                  /><br/> 
-                  <select  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}} 
+                  />
+                  </div>
+                  <div class="form-group mb-4">       
+                  <select class="form-control"
+                    // style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}} 
                   label={'InjuryCause'} value={injuryCause} onChange={(e)=> setinjuryCause(e.target.value)}>
            <option value="traffic">Road Traffic Accident</option>
                       <option value="accident">Accident</option>
                       <option value="killing">Killing</option>
-         </select><br/>
-                   <input
-                    style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
+         </select></div>
+
+         <div class="form-group mb-4">       
+                  <input class="form-control"
+                    // style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
                     type="name"
                     placeholder="PreHospital Expense"
                     value={preHospitalExpense}
                     onChange={(e) => setpreHospitalExpense(e.target.value)}
-                  /><br/> 
-                   <input
-                    style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
+                  />
+                  </div>
+                     <div class="form-group mb-4">       
+                  <input class="form-control"
+                    // style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
                     type="name"
                     placeholder="Hospital Expense"
                     value={hospitalExpense}
                     onChange={(e) => sethospitalExpense(e.target.value)}
-                  /><br/>  <input
-                  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
+                  /></div>  
+                   <div class="form-group mb-4">       
+                  <input class="form-control"
+                //   style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
                   type="name"
                   placeholder="PostHospital Expense"
                   value={postHospitalExpense}
                   onChange={(e) => setpostHospitalExpense(e.target.value)}
-                /><br/>  <input
-                style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
+                /></div>  
+                  <div class="form-group mb-4">       
+                  <input class="form-control"
+                // style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
                 type="name"
                 placeholder="Health Checkup"
                 value={healthCheckupExpense}
                 onChange={(e) => sethealthCheckupExpense(e.target.value)}
-              /><br/>  <input
-              style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
+              /></div> 
+                <div class="form-group mb-4">       
+                  <input class="form-control"
+            //   style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
               type="name"
               placeholder="Ambulance Expense"
               value={ambulanceExpense}
               onChange={(e) => setambulanceExpense(e.target.value)}
-            /><br/>  <input
-            style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
+            /></div> 
+              <div class="form-group mb-4">       
+                  <input class="form-control"
+            // style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
             type="name"
             placeholder="Other Expense"
             value={otherExpense}
             onChange={(e) => setotherExpense(e.target.value)}
-          /><br/> 
-          <input
-          style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
+          /></div>
+          <div class="form-group mb-4">       
+                  <input class="form-control"
+        //   style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
           type="name"
           placeholder="PreHospital Duration"
           value={preHospitalDuration}
           onChange={(e) => setpreHospitalDuration(e.target.value)}
-        /><br/> 
-        <input
-        style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
+        /></div>
+         <div class="form-group mb-4">       
+                  <input class="form-control"
+        // style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
         type="name"
         placeholder="PostHospital Duration"
         value={postHospitalDuration}
         onChange={(e) => setpostHospitalDuration(e.target.value)}
-      /><br/> 
-      <input
-      style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
+      /></div>
+       <div class="form-group mb-4">       
+                  <input class="form-control"
+    //   style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
       type="name"
       placeholder="hospital DailyCash"
       value={hospitalDailyCash}
       onChange={(e) => sethospitalDailyCash(e.target.value)}
-    /><br/> 
-    <input
-    style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
+    /></div>
+      <div class="form-group mb-4">       
+                  <input class="form-control"
+    // style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
     type="name"
     placeholder="Surgical Cash"
     value={surgicalCash}
     onChange={(e) => setsurgicalCash(e.target.value)}
-  /><br/> 
+  /></div>
   <Form.Item name={'dateInjury'}>
   <DatePicker  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px"}} onChange={(dateString) => setdateInjury(dateString)}/>
 </Form.Item>
@@ -716,40 +766,46 @@ const ClaimList =
  <Form.Item name={'dateDischarge'}>
  <DatePicker  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px"}} onChange={(dateString) => setdateDischarge(dateString)}/>
 </Form.Item>
-  <input
-  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
+<div class="form-group mb-4">     
+<input class="form-control"
+//   style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
   type="name"
   placeholder="CriticalIllnessbenefit"
   value={criticalIllnessbenefit}
   onChange={(e) => setcriticalIllnessbenefit(e.target.value)}
-/><br/> 
- <input
- style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
+/></div>
+<div class="form-group mb-4">       
+                  <input class="form-control"
+//  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
  type="name"
  placeholder="Convalescence"
  value={convalescence}
  onChange={(e) => setconvalescence(e.target.value)}
-/><br/> 
- <input
- style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
+/></div>
+<div class="form-group mb-4">       
+<input class="form-control"
+//  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
  type="name"
  placeholder="LumpSumBenefit"
  value={lumpSumBenefit}
  onChange={(e) => setlumpSumBenefit(e.target.value)}
-/><br/> 
-<input
- style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
+/></div>
+<div class="form-group mb-4">       
+<input class="form-control"
+//  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
  type="name"
  placeholder="OtherCharges"
  value={otherCharges}
  onChange={(e) => setotherCharges(e.target.value)}
-/><br/> <input
- style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
+/></div>
+<div class="form-group mb-4">       
+<input class="form-control"
+//  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
  type="name"
  placeholder="lumpSumBenefitDetail"
  value={lumpSumBenefitDetail}
  onChange={(e) => setlumpSumBenefitDetail(e.target.value)}
-/><br/> 
+/></div>
 <label style={{color:'red'}}>{errorMsg}</label>
 <br/>
 <Button type="primary" htmlType="submit" >

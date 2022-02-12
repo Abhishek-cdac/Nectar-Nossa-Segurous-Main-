@@ -13,7 +13,8 @@ export default function AppHeader() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    navigate("/login");
+    navigate("/");
+    // localStorage.clear();
   };
   const menu = (
     <Menu>
@@ -32,7 +33,9 @@ export default function AppHeader() {
           target="_blank"
           rel="noopener noreferrer"
           onClick={()=>navigate("/user/setting")}
+          
         >
+         
           Settings
         </a>
       </Menu.Item>

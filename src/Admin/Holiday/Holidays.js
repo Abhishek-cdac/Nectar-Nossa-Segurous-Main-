@@ -149,32 +149,31 @@ const payload ={
     console.log('uploadedData',uploadedData.data)
     if(uploadedData.data.length > 0){
       console.log(uploadedData)
-      // let value={}
+      let value={}
      uploadedData.data.map((data, i) => {
-       const value = {
+       if(data.Id){
+      value = {
         id:data.Id,
         Name:data.Name,
         Date:data.Date,
         Day:data.Day,
         Type:data.Type,
       };
-
-  
-      try {
-        console.log("value",value)
-        const resp =  getAddHoliday(value);
-        console.log("sucess", resp);
-      tableDataArr.push(value);
-      setHolidaysData(value)
-      setTableData(tableDataArr);
-      setShow(false) 
-      console.log("tdr", tableDataArr);
-      }
-      catch (error) {
-        console.log("error", error);
-      }
+    }
     });  
-
+    try {
+      console.log("value",value)
+      const resp =  getAddHoliday(value);
+      console.log("sucess", resp);
+    tableDataArr.push(value);
+    setHolidaysData(value)
+    setTableData(tableDataArr);
+    setShow(false) 
+    console.log("tdr", tableDataArr);
+    }
+    catch (error) {
+      console.log("error", error);
+    }
   }
   }
 

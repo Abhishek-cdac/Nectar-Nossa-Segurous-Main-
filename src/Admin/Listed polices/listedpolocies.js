@@ -430,12 +430,8 @@ useEffect(()=>{
                   required: true,
                   message: 'Please Enter the policy Type',
                 },
-                  {
-                  pattern:/^(?:\d*)$/,
-                  message:'Please enter numbers only'
-                }
               ]}>
-                   <InputNumber style={{height:"30px",width:"300px",marginTop:"10px"}}/>
+                   <Input style={{height:"30px",width:"300px",marginTop:"10px"}}/>
                </Form.Item>  
                <Form.Item
                name={'policyDuration'}

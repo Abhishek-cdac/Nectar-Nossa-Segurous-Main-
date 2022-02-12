@@ -44,13 +44,16 @@ import AdHelpAndSupport from "./Admin/AdHelp&&support/Help&support";
 import HrSetting from "./Hr/settings/HrSettings";
 import HrHelp from "./Hr/settings/HrHelp&support/HrHelp&Support";
 import HrDashboard2 from "./Hr/HrDashBoard2";
-
+import Rp from "./example"
+import Doctors from "./Admin/Reimbursment/Doctors";
+import Services from "./Admin/Reimbursment/Services";
 function App() {
   return (
     <div>
       {/* <h1>data</h1> */}
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<Login />}/>
           <Route path="/login" element={<Login />}/>
             <Route path="signup" element={<CreateAccount />} />
             <Route path="forgetPassword" element={<ForgetPass />} />
@@ -91,14 +94,20 @@ function App() {
             <Route path="dashboard" element={<AdDashboard />} />
             <Route path="listedPolices" element={<AdListedPolocies />} />
             <Route path="newClaim" element={<AdminClaims />} />
-            <Route path="paypremium" element={<AdReceivedpremium />} />
+            <Route path="paypremium" element={<Rp />} />
             <Route path="HrList" element={<HrList />} />
             <Route path="complaint" element={<AdminComplaint />} />
             <Route path="servicerequest" element={<AdServices />} />
             <Route path="holidays" element={<AdHolidays />} />
-            <Route path="reimbursement" element={<AdReimbursment />} />
+            <Route path="reimbursement" element={<AdReimbursment />}/>
+            <Route path="reimbursement/doctors" element={<Doctors/>}/>
+            <Route path="reimbursement/service" element={<Services/>}/>
             <Route path="setting" element={<AdSetting/>} />
             <Route path="helpandsupport" element={<AdHelpAndSupport/>}/>
+            
+
+
+
             {/* passwordRoutes */}
 
             <Route path="listedpolocies" element={<ListedPolocies />} />

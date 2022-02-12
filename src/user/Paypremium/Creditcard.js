@@ -17,7 +17,7 @@ import SucessModal from "../Paypremium/SucessModal"
 
 function CreditCard(props) {
   const data = props.selectedRecord;
-  // console.log("nagasai",data)
+  console.log("nagasai",data)
   const [cardBtnLoading, setCardBtnLoading] = useState();
   const [showCCDetails, setShowCCDetails] = useState();
   const [creditCardpage,setCreditCardPage] = useState(true);
@@ -186,7 +186,7 @@ function CreditCard(props) {
     const payLoad= {
       id:data.key,
       paymentType:"online",
-      paymentStatus:"suscess",
+      paymentStatus:"success",
       paymentDate:"2022-01-13 12:54:00"
      }
     try {

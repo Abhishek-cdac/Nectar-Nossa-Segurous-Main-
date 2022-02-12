@@ -268,7 +268,7 @@ export const forgotPassword = async (email) => {
 
 
 export const getDashboardAPI = async (data) => {
-  return await doGet(`dashboard`,data);
+  return await doGet('dashboard',data);
 };
 
 //  export const resetPasswordService = async (payload) => {
