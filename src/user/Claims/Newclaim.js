@@ -118,18 +118,18 @@ const Newclaim = (props) => {
     useState("");
   const [person_dateofBirth, setperson_dateofBirth] = useState("");
 
-  const [claimFormFile, setClaimFormfile] = useState({});
-  const [copyOfClaimFile, setcopyOfClaimfile] = useState("");
-  const [hospitalMainBillFile, sethospitalMainBillfile] = useState("");
-  const [hospitalBreakupFile, sethospitalBreakupfile] = useState("");
-  const [hospitalBillPaymentFile, sethospitalBillPaymentfile] = useState("");
-  const [hospitalDischargeFile, sethospitalDischargefile] = useState("");
-  const [pharmacyBillFile, setpharmacyBillfile] = useState("");
-  const [OperationTheaterFile, setOperationTheaterfile] = useState("");
-  const [ECGFile, setECGfile] = useState("");
-  const [DoctorRequestFile, setDoctorRequestfile] = useState("");
-  const [InvestgationReportsFile, setInvestgationReportsfile] = useState("");
-  const [DoctorprescriptionsFile, setDoctorprescriptionsfile] = useState("");
+  const [claimFormFile, setClaimFormfile] = useState({ selectedFile: null,selectedFileList: []});
+  const [copyOfClaimFile, setcopyOfClaimfile] = useState({ selectedFile: null,selectedFileList: []});
+  const [hospitalMainBillFile, sethospitalMainBillfile] = useState({ selectedFile: null,selectedFileList: []});
+  const [hospitalBreakupFile, sethospitalBreakupfile] = useState({ selectedFile: null,selectedFileList: []});
+  const [hospitalBillPaymentFile, sethospitalBillPaymentfile] = useState({ selectedFile: null,selectedFileList: []});
+  const [hospitalDischargeFile, sethospitalDischargefile] = useState({ selectedFile: null,selectedFileList: []});
+  const [pharmacyBillFile, setpharmacyBillfile] = useState({ selectedFile: null,selectedFileList: []});
+  const [OperationTheaterFile, setOperationTheaterfile] = useState({ selectedFile: null,selectedFileList: []});
+  const [ECGFile, setECGfile] = useState({ selectedFile: null,selectedFileList: []});
+  const [DoctorRequestFile, setDoctorRequestfile] = useState({ selectedFile: null,selectedFileList: []});
+  const [InvestgationReportsFile, setInvestgationReportsfile] = useState({ selectedFile: null,selectedFileList: []});
+  const [DoctorprescriptionsFile, setDoctorprescriptionsfile] = useState({ selectedFile: null,selectedFileList: []});
   const [OthersFile, setOthersfile] = useState({ selectedFile: null,selectedFileList: []});
   const getPolicyPayload = {
     premiumPlan: "",
@@ -387,6 +387,57 @@ const Newclaim = (props) => {
     setOthersfile(handledUpload(info));
     setOthers(true);
   };
+  const onClaimChange = info =>{
+    setClaimFormfile(handledUpload(info));
+    setclaimForm(true);
+  }
+const onCopyChange = info =>{
+  setcopyOfClaimfile(handledUpload(info))
+  setcopyOfClaim(true)
+}
+const onMainChange = info =>{
+  sethospitalMainBillfile(handledUpload(info))
+  sethospitalMainBill(true)
+}
+const onBreakChange = info =>{
+  sethospitalBreakupfile(handledUpload(info))
+  sethospitalBreakup(true)
+
+} 
+const onBillChange =info =>{
+  sethospitalBillPaymentfile(handledUpload(info))
+  sethospitalBillPayment(true)
+} 
+const onDischargeChange = info =>{
+  sethospitalDischargefile(handledUpload(info))
+  sethospitalDischarge(true)
+}
+const onPharmacyChange = info =>{
+  setpharmacyBillfile(handledUpload(info))
+  setpharmacyBill(true)
+}
+const onOperationChange = info =>{
+  setOperationTheaterfile(handledUpload(info))
+  setOperationTheater(true)
+}
+const onECGChange = info =>{
+  setECGfile(handledUpload(info))
+  setECG(true)
+}
+const onDoctosChange = info =>{
+  setDoctorRequestfile(handledUpload(info))
+  setDoctorRequest(true)
+}
+const onInvesChange = info =>{
+  setInvestgationReportsfile(handledUpload(info))
+  setInvestgationReports(true)
+}
+const onPrescriptionChange = info =>{
+  setDoctorprescriptionsfile(handledUpload(info))
+  setDoctorprescriptions(true)
+}
+
+  
   return (
     <div className="container-fluid" style={{ paddingTop: "30px" }}>
       <Form  col={{ span: 8 }}
@@ -1022,8 +1073,15 @@ const Newclaim = (props) => {
               >
                 Claim form duly signed
               </Checkbox>
-              <Upload {...values} customRequest={claimFormDulyRequest}>
-                <Button icon={<UploadOutlined />}>Choose File</Button>
+              <Upload
+                fileList={claimFormFile.selectedFileList}
+                customRequest={dummyRequest}
+                onChange={onClaimChange}
+                itemRender ={(existingComp, file)=>{
+                  return <p style={{width:'125px'}}>{file.name}</p>
+                }}
+              >
+                <Button  icon={<UploadOutlined />}>Choose File</Button>
               </Upload>
             </div>
             <div
@@ -1041,8 +1099,15 @@ const Newclaim = (props) => {
               >
                 Copy of Claim intimation, If any
               </Checkbox>
-              <Upload {...values} customRequest={copyOfClaimRequest}>
-                <Button icon={<UploadOutlined />}>Choose File</Button>
+              <Upload
+                fileList={copyOfClaimFile.selectedFileList}
+                customRequest={dummyRequest}
+                onChange={onCopyChange}
+                itemRender ={(existingComp, file)=>{
+                  return <p style={{width:'125px'}}>{file.name}</p>
+                }}
+              >
+                <Button  icon={<UploadOutlined />}>Choose File</Button>
               </Upload>
             </div>
             <div
@@ -1060,8 +1125,15 @@ const Newclaim = (props) => {
               >
                 Hospital Main Bill
               </Checkbox>
-              <Upload {...values} customRequest={hospitalMainBillRequest}>
-                <Button icon={<UploadOutlined />}>Choose File</Button>
+              <Upload
+                fileList={hospitalMainBillFile.selectedFileList}
+                customRequest={dummyRequest}
+                onChange={onMainChange}
+                itemRender ={(existingComp, file)=>{
+                  return <p style={{width:'125px'}}>{file.name}</p>
+                }}
+              >
+                <Button  icon={<UploadOutlined />}>Choose File</Button>
               </Upload>
             </div>
             <div
@@ -1079,8 +1151,15 @@ const Newclaim = (props) => {
               >
                 Hospital Break-up Bill
               </Checkbox>
-              <Upload {...values} customRequest={hospitalBreakupRequest}>
-                <Button icon={<UploadOutlined />}>Choose File</Button>
+              <Upload
+                fileList={hospitalBreakupFile.selectedFileList}
+                customRequest={dummyRequest}
+                onChange={onBreakChange}
+                itemRender ={(existingComp, file)=>{
+                  return <p style={{width:'125px'}}>{file.name}</p>
+                }}
+              >
+                <Button  icon={<UploadOutlined />}>Choose File</Button>
               </Upload>
             </div>
             <div
@@ -1098,8 +1177,15 @@ const Newclaim = (props) => {
               >
                 Hospital Bill Payment Receipt
               </Checkbox>
-              <Upload {...values} customRequest={hospitalBillPaymentRequest}>
-                <Button icon={<UploadOutlined />}>Choose File</Button>
+              <Upload
+                fileList={hospitalBillPaymentFile.selectedFileList}
+                customRequest={dummyRequest}
+                onChange={onBillChange}
+                itemRender ={(existingComp, file)=>{
+                  return <p style={{width:'125px'}}>{file.name}</p>
+                }}
+              >
+                <Button  icon={<UploadOutlined />}>Choose File</Button>
               </Upload>
             </div>
             <div
@@ -1117,8 +1203,15 @@ const Newclaim = (props) => {
               >
                 Hospital Discharge Summary
               </Checkbox>
-              <Upload {...values} customRequest={hospitalDischargeRequest}>
-                <Button icon={<UploadOutlined />}>Choose File</Button>
+              <Upload
+                fileList={hospitalDischargeFile.selectedFileList}
+                customRequest={dummyRequest}
+                onChange={onDischargeChange}
+                itemRender ={(existingComp, file)=>{
+                  return <p style={{width:'125px'}}>{file.name}</p>
+                }}
+              >
+                <Button  icon={<UploadOutlined />}>Choose File</Button>
               </Upload>
             </div>
             <div
@@ -1136,8 +1229,15 @@ const Newclaim = (props) => {
               >
                 Pharmacy Bill
               </Checkbox>
-              <Upload {...values} customRequest={pharmacyBillRequest}>
-                <Button icon={<UploadOutlined />}>Choose File</Button>
+              <Upload
+                fileList={pharmacyBill.selectedFileList}
+                customRequest={dummyRequest}
+                onChange={onPharmacyChange}
+                itemRender ={(existingComp, file)=>{
+                  return <p style={{width:'125px'}}>{file.name}</p>
+                }}
+              >
+                <Button  icon={<UploadOutlined />}>Choose File</Button>
               </Upload>
             </div>
             <div
@@ -1155,8 +1255,15 @@ const Newclaim = (props) => {
               >
                 Operation Theater Notes
               </Checkbox>
-              <Upload {...values} customRequest={OperationTheaterRequest}>
-                <Button icon={<UploadOutlined />}>Choose File</Button>
+              <Upload
+                fileList={OperationTheater.selectedFileList}
+                customRequest={dummyRequest}
+                onChange={onOperationChange}
+                itemRender ={(existingComp, file)=>{
+                  return <p style={{width:'125px'}}>{file.name}</p>
+                }}
+              >
+                <Button  icon={<UploadOutlined />}>Choose File</Button>
               </Upload>
             </div>
             <div
@@ -1174,8 +1281,15 @@ const Newclaim = (props) => {
               >
                 ECG
               </Checkbox>
-              <Upload {...values} customRequest={ECGRequest}>
-                <Button icon={<UploadOutlined />}>Choose File</Button>
+              <Upload
+                fileList={ECG.selectedFileList}
+                customRequest={dummyRequest}
+                onChange={onECGChange}
+                itemRender ={(existingComp, file)=>{
+                  return <p style={{width:'125px'}}>{file.name}</p>
+                }}
+              >
+                <Button  icon={<UploadOutlined />}>Choose File</Button>
               </Upload>
             </div>
             <div
@@ -1193,8 +1307,15 @@ const Newclaim = (props) => {
               >
                 Doctor's request for investigation
               </Checkbox>
-              <Upload {...values} customRequest={DoctorRequestRequest}>
-                <Button icon={<UploadOutlined />}>Choose File</Button>
+              <Upload
+                fileList={DoctorRequestFile.selectedFileList}
+                customRequest={dummyRequest}
+                onChange={onDoctosChange}
+                itemRender ={(existingComp, file)=>{
+                  return <p style={{width:'125px'}}>{file.name}</p>
+                }}
+              >
+                <Button  icon={<UploadOutlined />}>Choose File</Button>
               </Upload>
             </div>
             <div
@@ -1212,8 +1333,15 @@ const Newclaim = (props) => {
               >
                 Investgation Reports(Including CT/MRI/USG/HPE)
               </Checkbox>
-              <Upload {...values} customRequest={InvestgationReportsRequest}>
-                <Button icon={<UploadOutlined />}>Choose File</Button>
+              <Upload
+                fileList={InvestgationReportsFile.selectedFileList}
+                customRequest={dummyRequest}
+                onChange={onInvesChange}
+                itemRender ={(existingComp, file)=>{
+                  return <p style={{width:'125px'}}>{file.name}</p>
+                }}
+              >
+                <Button  icon={<UploadOutlined />}>Choose File</Button>
               </Upload>
             </div>
             <div
@@ -1231,8 +1359,15 @@ const Newclaim = (props) => {
               >
                 Doctor prescriptions
               </Checkbox>
-              <Upload {...values} customRequest={DoctorprescriptionsRequest}>
-                <Button icon={<UploadOutlined />}>Choose File</Button>
+              <Upload
+                fileList={DoctorprescriptionsFile.selectedFileList}
+                customRequest={dummyRequest}
+                onChange={onPrescriptionChange}
+                itemRender ={(existingComp, file)=>{
+                  return <p style={{width:'125px'}}>{file.name}</p>
+                }}
+              >
+                <Button  icon={<UploadOutlined />}>Choose File</Button>
               </Upload>
             </div>
             <div

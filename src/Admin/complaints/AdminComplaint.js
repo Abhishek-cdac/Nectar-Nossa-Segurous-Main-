@@ -7,10 +7,8 @@ import {
 } from "@ant-design/icons";
 import { CSVLink } from "react-csv";
 import { getComplaintList } from "../../services/authentication";
-import AdComplaintDetails from "./AdComplaintDetail";
+import AdComplaintDetails from "./AdComplaintDetail"
 import ApproveModal from "./ApproveModal";
-
-import "./Style.css";
 
 const { Search } = Input;
 
@@ -18,25 +16,19 @@ const data = [];
 const AdminComplaint = () => {
   const [complaintListArray, setComplaintListArray] = useState("");
   const [tableData, setTableData] = useState("");
-  const [adcomplaintTablepage, setAdComplaintTablepage] = useState(true);
-  const [adcomplaintsDetailspage, setAdComplaintsDetailspage] = useState("");
+  const [hrComplaintsTablepage, setHrComplaintsTablepage] = useState(true);
+  const [hrcomplaintsDetailspage, setHrcomplaintsDetailspage] = useState("");
   const [selectedRecord, setSelectedRecord] = useState("");
-  const [ApproveModalPage, setApproveModalPage] = useState("");
 
   const handleComplaintIdClick = (text, record) => {
     setSelectedRecord(record);
-    setAdComplaintTablepage(false);
-    setAdComplaintsDetailspage(true);
+    setHrComplaintsTablepage(false);
+    setHrcomplaintsDetailspage(true);
   };
 
   const handleBack = () => {
-    setAdComplaintTablepage(true);
-    setAdComplaintsDetailspage(false);
-  };
-
-  const handleDone = () => {
-    setAdComplaintTablepage(true);
-    setApproveModalPage(true);
+    setHrComplaintsTablepage(true);
+    setHrcomplaintsDetailspage(false);
   };
 
   const content = (
@@ -110,50 +102,10 @@ const AdminComplaint = () => {
   );
 
   const columns = [
-    // This section is written to make the table responsive
-    {
-      title: "ComplainID | PolicyHolder",
-      render: (record) => (
-        <React.Fragment>
-          {record.Id}
-          <br />
-          <hr />
-          {record.policyHolder}
-        </React.Fragment>
-      ),
-      responsive: ["xs"],
-    },
-    {
-      title: "Policy | ComplainDate",
-      render: (record) => (
-        <React.Fragment>
-          {record.policyName}
-          <br />
-          <hr />
-          {record.date}
-        </React.Fragment>
-      ),
-      responsive: ["xs"],
-    },
-    {
-      title: "Status | AssignedBy",
-      render: (record) => (
-        <React.Fragment>
-          {record.status}
-          <br />
-          <hr />
-          {record.agent}
-        </React.Fragment>
-      ),
-      responsive: ["xs"],
-    },
-
-    // Actual Columns of tables starts from here
     {
       title: "Complaint ID",
       dataIndex: "Id",
       key: "Id",
-      ellipsis: true,
 
       render: (text, record) => (
         <a
@@ -163,48 +115,37 @@ const AdminComplaint = () => {
           {text}
         </a>
       ),
-      responsive: ["sm"],
     },
     {
       title: "Policy Holder",
       dataIndex: "policyHolder",
       key: "policyHolder",
-      ellipsis: true,
-      responsive: ["sm"],
     },
 
     {
       title: "Policy ",
       dataIndex: "policyName",
       key: "policyName",
-      ellipsis: true,
-      responsive: ["sm"],
     },
     {
       title: "Complaint Date",
       dataIndex: "date",
       key: "date",
-      ellipsis: true,
-      responsive: ["sm"],
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      ellipsis: true,
-      responsive: ["sm"],
     },
     {
-      title: "Assigned By",
-      dataIndex: "agent",
-      key: "agent",
-      ellipsis: true,
-      responsive: ["sm"],
+      title: "Description",
+      dataIndex: "description",
+      key: "description",
     },
     {
       title: "Actions",
       key: "action",
-      ellipsis: true,
+
       render: (text, record) => {
         return (
           <>
@@ -213,7 +154,6 @@ const AdminComplaint = () => {
           </>
         );
       },
-      responsive: ["sm", "xs", "md"],
     },
   ];
 
@@ -230,7 +170,7 @@ const AdminComplaint = () => {
             policyName: data.userPolicy.policy.policyName,
             date: data.complaintDate,
             status: data.verifyStatus,
-            agent: data.userPolicy.agent.firstName,
+            description: data.description,
           };
           console.log(value);
           tableDataArr.push(value);
@@ -266,11 +206,10 @@ const AdminComplaint = () => {
     }
     return tableDataArr;
   };
-  const handleClick = (status) => {
+  const handleClick = (type) => {
     const ComplaintfilterData = complaintListArray.filter(
-      (data) => data.verifyStatus === status
+      (data) => data.verifyStatus === type
     );
-    console.log("fildata", ComplaintfilterData);
     const filterData = handleFilterData(ComplaintfilterData);
     setTableData(filterData);
   };
@@ -289,11 +228,11 @@ const AdminComplaint = () => {
     const complainttableDataArray = complaintListArray && complaintListArray;
     if (complainttableDataArray) {
       ComplaintListData.push(
-        "Complaint Id,Policy Holder,Policy,Complaint Date ,Status,Assigned By\n"
+        "Complaint Id,Policy Holder,Policy,Complaint Date,Status,description\n"
       );
       complainttableDataArray.map((excelData) => {
         ComplaintListData.push(
-          `${excelData.complaintCode}, ${excelData.userPolicy.user.firstName}, ${excelData.userPolicy.policy.PolicyName},${excelData.complaintDate},${excelData.verifyStatus},${excelData.userPolicy.agent.firstName}\n`
+          `${excelData.complaintCode}, ${excelData.userPolicy.user.firstName}, ${excelData.userPolicy.policy.policyName},${excelData.complaintDate},${excelData.verifyStatus},${excelData.description}\n`
         );
       });
     }
@@ -303,51 +242,60 @@ const AdminComplaint = () => {
 
   return (
     <>
-      {adcomplaintTablepage && (
+      {hrComplaintsTablepage && (
         <div className="container-fluid">
           <div
+            className="row"
             style={{
               marginTop: "20px",
-              marginBottom: "25px",
               display: "flex",
               justifyContent: "space-between",
               flexDirection: "row",
             }}
           >
-            <div>
+            <div className="col-12 col-sm-4 col-md-4">
               <h3>Complaint Management</h3>
             </div>
-            <div style={{ display: "flex", flexDirection: "row" }}>
-              <Search
-                placeholder="search Policy"
-                onSearch={onSearch}
-                style={{
-                  width: 300,
-                  borderRadius: "25px",
-                  marginRight: "10px",
-                }}
-              />
-
-              <Dropdown placement="bottomCenter" overlay={content} arrow>
-                <Button
+            <div className="nav justify-content-center">
+              <div
+                className="col-12 col-sm-5 col-md-5"
+                style={{ display: "flex", flexDirection: "row" }}
+              >
+                <Search
+                  placeholder="search Policy"
+                  onSearch={onSearch}
                   style={{
-                    borderRadius: "5px",
-                    marginRight: "10px",
-                    backgroundColor: "#61b33b",
-                    color: "white",
+                    borderRadius: "25px",
                   }}
-                >
-                  <FilterOutlined /> Add Filters
-                </Button>
-              </Dropdown>
-              <div>
+                />
+              </div>
+              <div
+                className="col-12 col-sm-3 col-md-3"
+                style={{ display: "flex", flexDirection: "row" }}
+              >
+                <Dropdown placement="bottomCenter" overlay={content} arrow>
+                  <Button
+                    style={{
+                      borderRadius: "5px",
+                      backgroundColor: "#61b33b",
+                      color: "white",
+                    }}
+                  >
+                    <FilterOutlined /> Add Filters
+                  </Button>
+                </Dropdown>
+              </div>
+              <div
+                className="col-12 col-sm-3 col-md-3"
+                style={{ display: "flex", flexDirection: "row" }}
+              >
                 <Button
                   style={{
                     color: "#ffffff",
                     backgroundColor: "#000089",
+                    borderRadius: "5px",
                   }}
                 >
-                  {/* Download PDF/CSV */}
                   <CSVLink data={complaintCSV} target="_blank">
                     Download PDF/CSV
                   </CSVLink>
@@ -355,25 +303,28 @@ const AdminComplaint = () => {
               </div>
             </div>
           </div>
-          <Table
-            columns={columns}
-            dataSource={tableData}
-            //onChange={this.handleChange}
-            pagination={true}
-            total={10}
-          />
+          <div className="Container-fluid">
+          <div className="DataTable" style={{ justifyContent: "center" }}>
+            <Table
+              style={{ marginTop: "10px" }}
+              columns={columns}
+              dataSource={tableData}
+              //onChange={this.handleChange}
+              pagination={true}
+              total={10}
+            />
+          </div>
+          </div>
         </div>
       )}
-      {adcomplaintsDetailspage && (
+
+      {hrcomplaintsDetailspage && (
         <AdComplaintDetails
           selectedRecord={selectedRecord}
           data={complaintListArray}
           handleBack={handleBack}
         />
       )}
-      {/* <ApproveModal/> */}
-      {/* 
- {ApproveModalPage && <ApproveModal handleBack={handleDone}/>} */}
     </>
   );
 };

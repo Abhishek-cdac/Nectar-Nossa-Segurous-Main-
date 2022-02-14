@@ -81,48 +81,7 @@ const HrRecievedClaims = () => {
   );
 
   const columns = [
-    // This section is written to make the table responsive
-    {
-      title: "ClaimID | PolicyHolder",
-      render: (record) => (
-        <React.Fragment>
-          {record.id}
-          <br />
-          <hr />
-          {record.name}
-        </React.Fragment>
-      ),
-      responsive: ["xs"],
-    },
-    {
-      title: "PolicyName | PolicyCode",
-      render: (record) => (
-        <React.Fragment>
-          {record.policyname}
-          <br />
-          <hr />
-          {record.code}
-        </React.Fragment>
-      ),
-      responsive: ["xs"],
-    },
-    {
-      title: "RequestedDate | Status | Description",
-      render: (record) => (
-        <React.Fragment>
-          {record.date}
-          <br />
-          <hr />
-          {record.status}
-          <br />
-          <hr />
-          {record.descreption}
-        </React.Fragment>
-      ),
-      responsive: ["xs"],
-    },
-
-    // Actual Columns of tables starts from here
+   
     {
       title: "Claim ID",
       dataIndex: "id",

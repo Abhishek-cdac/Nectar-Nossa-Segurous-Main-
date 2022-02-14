@@ -237,7 +237,7 @@ const NewComplaint = (props) => {
                         </label>
                         <Form.Item
                           name="description"
-                          style={{ width: "630px" }}
+                          style={{ width: "300px" }}
                           rules={[
                             {
                               required: true,
@@ -246,7 +246,7 @@ const NewComplaint = (props) => {
                           ]}
                         >
                           <TextArea
-                            style={{ width: "630px" }}
+                            // style={{ width: "630px" }}
                             type="text"
                             className="form-control"
                             id="exampleInputHolderName"

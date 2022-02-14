@@ -494,51 +494,13 @@ const Reimbusrment = () => {
       {ReimbursmentPage && (
         <div>
           <div className="row d-flex align-items-center justify-content-between">
-            <div className="col-lg-12 text-left">
+            <div className="col-lg-2 text-left">
               <h3 className="mt-0 mb-4 my-2">Reimbursement</h3>
             </div>
-          </div>
-
-          <div className="row d-flex align-items-center justify-content-between border-bottom pb-2">
-            <div className="col-12 col-lg-4 col-md-4 text-left">
-              <ul className="nav nav-tabs table-nav" id="myTab" role="tablist">
-                <li className="nav-item" role="presentation">
-                  <a
-                    className={`nav-link ${!step ? "active" : ""}`}
-                    id="clinic-list-tab"
-                    data-toggle="tab"
-                    onClick={() => {
-                      setStep(0);
-                    }}
-                    role="tab"
-                    aria-controls="clinic-list"
-                    aria-selected="true"
-                  >
-                    Clinic List
-                  </a>
-                </li>
-                <li className="nav-item" role="presentation">
-                  <a
-                    className={`nav-link ${step ? "active" : ""}`}
-                    // className="nav-link"
-                    id="pharmacies-list-tab"
-                    data-toggle="tab"
-                    onClick={() => {
-                      setStep(1);
-                    }}
-                    role="tab"
-                    aria-controls="pharmacies-list"
-                    aria-selected="false"
-                  >
-                    Pharmacies List
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div className="col-12 col-lg-8 col-md-8 text-right">
+            <div className="col-12 col-lg-8 col-md-4 text-right">
               <div className="search-btn">
                 <div className="search-btn">
-                  <div className="input-group">
+                  <div className="input-group" style={{width:"25%"}}>
                     <input
                       type="text"
                       className="form-control my-3"
@@ -744,6 +706,45 @@ const Reimbusrment = () => {
                 </div>
               </div>
             </div>
+          </div>
+
+          <div className="row d-flex align-items-center justify-content-between border-bottom pb-2">
+            <div className="col-12 col-lg-6 col-md-6 text-left">
+              <ul className="nav nav-tabs table-nav" id="myTab" role="tablist">
+                <li className="nav-item" role="presentation">
+                  <a
+                    className={`nav-link ${!step ? "active" : ""}`}
+                    id="clinic-list-tab"
+                    data-toggle="tab"
+                    onClick={() => {
+                      setStep(0);
+                    }}
+                    role="tab"
+                    aria-controls="clinic-list"
+                    aria-selected="true"
+                  >
+                    Clinic List
+                  </a>
+                </li>
+                <li className="nav-item" role="presentation">
+                  <a
+                    className={`nav-link ${step ? "active" : ""}`}
+                    // className="nav-link"
+                    id="pharmacies-list-tab"
+                    data-toggle="tab"
+                    onClick={() => {
+                      setStep(1);
+                    }}
+                    role="tab"
+                    aria-controls="pharmacies-list"
+                    aria-selected="false"
+                  >
+                    Pharmacies List
+                  </a>
+                </li>
+              </ul>
+            </div>
+            
           </div>
           <div className="tab-content table-custome mt-3" id="myTabContent">
             <div

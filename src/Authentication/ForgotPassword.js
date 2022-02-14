@@ -35,10 +35,10 @@ export default function ResetAccount() {
   };
 
   return (
-    <body>
+    <div>
       <div className="container">
       <div className="row justify-content-center" style={{padding:"20px"}}>
-        <div className="col-12 col-sm-6 col-md-6">
+        <div className="col-12 col-sm-6 col-md-6" style={{paddingLeft:"0px"}}>
         <div className="form-container">
         <div className="logo justify-content-center">
           <img
@@ -108,6 +108,6 @@ export default function ResetAccount() {
         </div>
       </div>
       </div>
-    </body>
+    </div>
   );
 }

@@ -44,6 +44,8 @@ function HrServices() {
   const[selectedRecord,setselectedRecord]=useState('')
   let navigate = useNavigate();
 
+  const { Search } = Input;
+
   ///LIST API SERVICE CALL AND FUNCTIONALITY STARTED
 
   const handleGetServiceRequestCall = async (data) => {
@@ -390,12 +392,17 @@ const handlesubmit = ()=>{
               </div>
             </div>
           </div>
-          <div>
+          <div className="Container-fluid">
+          <div className="row DataTable" style={{ justifyContent: "center" }}>
             <Table
-              rowClassName={() => "rowClassName1"}
+              style={{ marginTop: "10px" }}
               columns={columns}
               dataSource={TableData}
+              //onChange={this.handleChange}
+              pagination={true}
+              total={10}
             />
+          </div>
           </div>
           <div>
             <span>shown Results {ServiceListArray.length} </span>

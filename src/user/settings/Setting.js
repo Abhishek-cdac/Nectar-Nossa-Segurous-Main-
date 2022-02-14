@@ -83,14 +83,7 @@ export default function Setting() {
   }, []);
 
   const handleGetAddNotification = async (payload, type) => {
-    // else if(index === i && type == "text"){
-    //   payload = {
-    //     notification_id: item.notification_id,
-    //     textStatus: item.textStatus,
-    //     // emailStatus: item.emailStatus,
-    //     user_id: item.user_id,
-    //   };
-    // }
+   
     console.log("payload", payload);
     try {
       const userAddNotiResp = await getAddUserNotificationService(payload);
@@ -121,64 +114,7 @@ export default function Setting() {
     }
   };
 
-  const handleNotification = async() =>{
-    console.log('service is hitting')
-    try {
-      const userNotificationResp = await getUserNotificationService();
-      const notificationResp = await getNotificationService();
-      // console.log('userNotificationResp',notificationResp , userNotificationResp);
-      setUserNotification(userNotificationResp.data)
-      setnotification(notificationResp.data)
-    } catch (error) {
-      /**
-       * Error logic here
-       * we need to do based on the error
-       */
-      alert('naga sai',JSON.stringify(error.message));
-    }
-    }
-  useEffect(() => {
-    // async function handleverficationCall() {
-    //   const resp = await resetPasswordVerification(Token);
-    //   console.log("resfasdfas", resp);
-    //   if (resp) {
-    //     setsucessPage(true);
-    //   } else {
-    //     setSettingsPage(false);
-    //   }
-    // }
-    // handleverficationCall();
-    handleNotification()
-  }, [serviceCallStatus]);
-
-  const handletoggleChange = async(data,userNoti,type) =>{
-    let payload ={ }
-    // console.log('notoficatio data',data,userNoti)
-    if(type === 'mobile'){
-      payload ={ "notification_id": userNoti.notification_id ,
-        "textStatus": !userNoti.textStatus,
-        'user_id':loginDetailsUserId
-       }
-    }else{
-       payload ={"notification_id": userNoti.notification_id ,
-        "emailStatus": !userNoti.emailStatus,
-        'user_id':loginDetailsUserId
-       }
-    }
-    // console.log('payload',payload , type , data)
-    try {
-      const userAddNotiResp = await getAddUserNotificationService(payload);
-      // console.log('userAddNotiResp',userAddNotiResp);
-      setServiceCallStatus(false)
-    } catch (error) {
-      /**
-       * Error logic here
-       * we need to do based on the error
-       */
-      alert('naga sai',JSON.stringify(error.message));
-    }
-  }
-
+ 
   const handleback = () => {
     setsucessPage(false);
     setSettingsPage(true);
@@ -271,6 +207,7 @@ export default function Setting() {
                           name="newPassword"
                           placeholder=" Enter new Password"
                           onChange={handleChange}
+                          
                         />
                       </Form.Group>
 
@@ -292,12 +229,7 @@ export default function Setting() {
                         className="bttn"
                         style={{ marginTop: "50px", borderRadius: "10px" }}
                       >
-                        {/* <Button variant="primary" type="submit">
-                    Update Password
-                  </Button>
-                  <Button variant="primary" type="submit">
-                    Cancel
-                  </Button> */}
+                    
                         <button
                           type="button"
                           className="btn btn-primary btn-lg"

@@ -34,11 +34,12 @@ export default function AdSetting() {
   const [sucessPage, setsucessPage] = useState("");
   const [settingsPage, setSettingsPage] = useState(true);
   const Token = window.localStorage.getItem("token");
+  const email = window.localStorage.getItem("email");
   const { Option } = Select;
   console.log("Token in list", Token);
 
   const {
-    email,
+    
     confirmPassword,
     oldPassword,
     newPassword,
@@ -245,7 +246,7 @@ export default function AdSetting() {
                       <Tab>Manage Notification</Tab>
                     </TabList>
 
-                    <TabPanel>
+                    <TabPanel style={{marginLeft:"-30px"}} >
                       <div
                         style={{
                          
@@ -254,16 +255,6 @@ export default function AdSetting() {
                           marginLeft: "20px",
                         }}
                       >
-                        <Form.Group className="mb-3 p-2" controlId="formBasicEmail">
-                          <Form.Label>Email</Form.Label>
-                          <Form.Control
-                            type="email"
-                            name="email"
-                            value={email}
-                            placeholder="Enter Email"
-                            onChange={handleChange}
-                          />
-                        </Form.Group>
                         <Form.Group className="mb-2 p-2" controlId="formBasicEmail">
                           <Form.Label>Old Password</Form.Label>
                           <Form.Control

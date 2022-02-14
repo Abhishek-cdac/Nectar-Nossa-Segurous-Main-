@@ -25,21 +25,10 @@ import {
   deletePolicyList,
   editPolicyList,
 } from "../../services/authentication";
+import ModalHeader from "react-bootstrap/esm/ModalHeader";
 
 const { Search } = Input;
 
-// "id": 2,
-//             "policyName": "JIVAN BIMA Policy 2",
-//             "policyCode": "NS0000000011",
-//             "registration": "190475648325",
-//             "policyType": "Health",
-//             "policyDuration": "5.00",
-//             "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-//             "activStatus": true,
-//             "status": true,
-//             "createdAt": "2022-01-06T13:30:54.000Z",
-//             "updatedAt": "2022-01-10T04:35:13.000Z",
-//             "totalcount": 0
 
 const AdListedPolocies = () => {
   let navigate = useNavigate();
@@ -187,6 +176,7 @@ const AdListedPolocies = () => {
     setIsModalVisible(true);
   };
   const handleCancel = () => {
+    rsestForm()
     setIsModalVisible(false);
   };
   const handleEditShowModal = (text, record) => {
@@ -240,6 +230,7 @@ const AdListedPolocies = () => {
   const onFinish = (values) => {
     setAddPolicyData(values);
     handleAddPolicyListAPI(values);
+    resetForm()
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed", errorInfo);
@@ -296,50 +287,13 @@ const AdListedPolocies = () => {
 
   const columns = [
     // This section is made for responsiveness
-    {
-      title: "PolicyName | PolicyCode ",
-      render: (record) => (
-        <React.Fragment>
-          {record.name}
-          <br />
-          <hr />
-          {record.code}
-        </React.Fragment>
-      ),
-      responsive: ["xs"],
-    },
-    {
-      title: "Registration | PolicyType",
-      render: (record) => (
-        <React.Fragment>
-          {record.number}
-          <br />
-          <hr />
-          {record.type}
-        </React.Fragment>
-      ),
-      responsive: ["xs"],
-    },
-    {
-      title: "ActiveCount | Actions",
-      render: (record) => (
-        <React.Fragment>
-          {record.count}
-          <br />
-          <hr />
-          {record.count}
-          <br />
-        </React.Fragment>
-      ),
-      responsive: ["xs"],
-    },
 
     // Actual columns starts from here
     {
       title: "Policy Name",
       dataIndex: "name",
       key: "name",
-      ellipsis: true,
+
       sorter: (a, b) => a.name.length - b.name.length,
       render: (text, record) => (
         <a
@@ -349,41 +303,32 @@ const AdListedPolocies = () => {
           {text}
         </a>
       ),
-      responsive: ["sm"],
     },
 
     {
       title: "Policy Code",
       dataIndex: "code",
       key: "code",
-      ellipsis: true,
-      responsive: ["sm"],
     },
     {
       title: "Registration",
       dataIndex: "number",
       key: "number",
-      ellipsis: true,
-      responsive: ["sm"],
     },
     {
       title: "Policy Type",
       dataIndex: "type",
       key: "type",
-      ellipsis: true,
-      responsive: ["sm"],
     },
     {
       title: "Active Count",
       dataIndex: "count",
       key: "count",
-      ellipsis: true,
-      responsive: ["sm"],
     },
     {
       title: "Actions",
       key: "action",
-      ellipsis: true,
+
       render: (text, record) => {
         return (
           <>
@@ -398,7 +343,6 @@ const AdListedPolocies = () => {
           </>
         );
       },
-      responsive: ["sm"],
     },
   ];
 
@@ -410,11 +354,12 @@ const AdListedPolocies = () => {
   return (
     <>
       {policyListStatus && (
-        <div className="container-fluid">
+       <div>
           <Breadcrumb style={{ marginTop: "20px" }}>
             <Breadcrumb.Item onClick={handeleBackButton}>Home</Breadcrumb.Item>
             <Breadcrumb.Item>ListedPolocies</Breadcrumb.Item>
           </Breadcrumb>
+          <div className="container-fluid">
           <div
             className="row"
             style={{
@@ -428,49 +373,45 @@ const AdListedPolocies = () => {
             <div className="col-12 col-sm-3 col-md-3 ">
               <h3>Listed Polocies</h3>
             </div>
-            <div className="nav">
+
             <div
               className="col-12 col-sm-3 col-md-3"
               style={{ display: "flex", flexDirection: "row" }}
             >
-              <Search
-                placeholder="search Policy"
-                onSearch={onSearch}
-              />
+              <Search placeholder="search Policy" onSearch={onSearch} />
             </div>
-            <div className="col-12 col-md-3 col-md-3">
+            <div className="col-12 col-sm-2 col-md-">
               <Button
                 style={{
                   borderRadius: "5px",
                   backgroundColor: "#61b33b",
                   color: "white",
-                  
                 }}
                 onClick={handleShowModal}
               >
                 <PlusOutlined style={{ paddingTop: "5px" }} /> Add New Policy
               </Button>
             </div>
-            <div className="col-12 col-md-3 col-md-3">
+            <div className="col-12 col-sm-2 col-md-">
               <Dropdown placement="bottomCenter" overlay={content} arrow>
                 <Button
                   style={{
                     borderRadius: "5px",
                     backgroundColor: "#61b33b",
                     color: "white",
-                    width: "150px"
+                    width: "150px",
                   }}
                 >
                   <FilterOutlined /> Add Filters
                 </Button>
               </Dropdown>
             </div>
-            <div className="col-12 col-sm-3 col-md-3">
+            <div className="col-12 col-sm-2 col-md-">
               <Button
                 style={{
                   color: "#ffffff",
                   backgroundColor: "#000089",
-                  borderRadius: "5px"
+                  borderRadius: "5px",
                 }}
               >
                 {/* Download PDF/CSV */}
@@ -479,85 +420,115 @@ const AdListedPolocies = () => {
                 </CSVLink>
               </Button>
             </div>
+          </div>
+          </div>
+          <div className="Container">
+            <div className="DataTable" style={{ justifyContent: "center" }}>
+              <Table
+                style={{ marginTop: "10px" }}
+                columns={columns}
+                dataSource={tableData}
+                //onChange={this.handleChange}
+                pagination={true}
+                total={10}
+              />
             </div>
           </div>
-          <Table
-            columns={columns}
-            dataSource={tableData}
-            //onChange={this.handleChange}
-            pagination={true}
-            total={10}
-          />
-          <div><span>shown Results {policyListArray.length}</span></div>
-          <Modal title='Add Policy' visible={isModalVisible} footer={null} onCancel={handleCancel} okText="Create">
-           <Form  onFinish={onFinish} onFinishFailed={onFinishFailed}
-               
-           >
-             <Form.Item
-               name={'policyName'}
-               label="Policy Name"
-               style={{marginLeft:"20px"}}
+          <div>
+            <span>shown Results {policyListArray.length}</span>
+          </div>
+          <Modal
+            title="Add Policy"
+            visible={isModalVisible}
+            footer={null}
+            onCancel={handleCancel}
+            okText="Create"
+          >
+            <Form
+              onFinish={onFinish}
+              onFinishFailed={onFinishFailed}
+              labelCol={{
+                span: 8,
+              }}
+              wrapperCol={{
+                span: 16,
+              }}
+            >
+              <Form.Item
+                name={"policyName"}
+                label="Policy Name"
+                //  style={{marginLeft:"20px"}}
 
-               rules={[
-                {
-                  required: true,
-                  message: 'Please Enter the Policy name',
-                },
-              ]}>
-                     <Input/>
-               </Form.Item>   
-        
-               <Form.Item
-               name={'policyRegistration'}
-               label="Registration"
-               rules={[
-                {
-                  required: true,
-                  message: 'Please Enter the registration',
-                },
-              ]}>
-                   <Input/>
-               </Form.Item>  
-               <Form.Item
-               name={'policyType'}
-               label="Policy Type"
-               rules={[
-                {
-                  required: true,
-                  message: 'Please Enter the policy Type',
-                },
-              ]}>
-                   <Input style={{height:"30px",width:"300px",marginTop:"10px"}}/>
-               </Form.Item>  
-               <Form.Item
-               name={'policyDuration'}
-               label="Policy Duration"
-               rules={[
-                {
-                  required: true,
-                  message: 'Please Enter the policy Duration',
-                },
-                {
-                  pattern:/^(?:\d*)$/,
-                  message:'Please enter numbers only'
-                }
-              ]}>
-                   <InputNumber style={{height:"30px",width:"300px",marginTop:"10px"}}
-/>
-               </Form.Item>
-               <Form.Item
-               name={'policyDescription'}
-               label="Description"
-               rules={[
-                {
-                  required: true,
-                  message: 'Please Enter the Description',
-                },
-              ]}>
-                   <Input.TextArea/>
-               </Form.Item>   
-               <div style={{display:"flex",flexDirection:"row",justifyContent:"flex-mailnd"}}> 
-               <Form.Item>
+                rules={[
+                  {
+                    required: true,
+                    message: "Please Enter the Policy name",
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+
+              <Form.Item
+                name={"policyRegistration"}
+                label="Registration"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please Enter the registration",
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                name={"policyType"}
+                label="Policy Type"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please Enter the policy Type",
+                  },
+                ]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                name={"policyDuration"}
+                label="Policy Duration"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please Enter the policy Duration",
+                  },
+                  {
+                    pattern: /^(?:\d*)$/,
+                    message: "Please enter numbers only",
+                  },
+                ]}
+              >
+                <InputNumber />
+              </Form.Item>
+              <Form.Item
+                name={"policyDescription"}
+                label="Description"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please Enter the Description",
+                  },
+                ]}
+              >
+                <Input.TextArea />
+              </Form.Item>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "flex-mailnd",
+                }}
+              >
+                <Form.Item>
                   <Button type="primary" htmlType="submit">
                     Submit
                   </Button>
@@ -580,65 +551,64 @@ const AdListedPolocies = () => {
             onOk={handleEditPolicyListAPI}
             onCancel={handelEditCancel}
           >
-            <input
+            <ModalHeader
               style={{
-                height: "30px",
-                width: "300px",
-                marginTop: "10px",
-                marginLeft: "80px",
+                justifyContent: "center",
+                fontSize: "22px",
+                fontWeight: "bolder",
+                color: "#000089",
               }}
-              type="name"
-              placeholder="Policy Name"
-              value={policyName}
-              onChange={(e) => setPolicyName(e.target.value)}
-            />
-            <br />
-            <input
-              style={{
-                height: "30px",
-                width: "300px",
-                marginTop: "10px",
-                marginLeft: "80px",
-              }}
-              type="number"
-              placeholder="Registration Number"
-              value={registration}
-              onChange={(e) => setRegistration(e.target.value)}
-            />
-            <br />
-            <input
-              style={{
-                height: "30px",
-                width: "300px",
-                marginTop: "10px",
-                marginLeft: "80px",
-              }}
-              type="type"
-              placeholder="Policy Type"
-              value={policyType}
-              onChange={(e) => setPolicyType(e.target.value)}
-            />
-            <br />
-            <input
-              style={{
-                height: "30px",
-                width: "300px",
-                marginTop: "10px",
-                marginLeft: "80px",
-              }}
-              type="Duration"
-              placeholder="Policy Duration"
-              value={policyDuration}
-              onChange={(e) => setPolicyDuration(e.target.value)}
-            />
-            <br />
-            <textarea
-              style={{ width: "300px", marginTop: "10px", marginLeft: "80px" }}
-              type="Textarea"
-              placeholder="Policy Description"
-              value={policyDescription}
-              onChange={(e) => setPolicyDescription(e.target.value)}
-            />
+            >
+              Edit Policy
+            </ModalHeader>
+
+            <form className="col-12">
+              <div className="form-group mb-4">
+                <input
+                  className="col-xs-12 w-100"
+                  type="name"
+                  placeholder="Policy Name"
+                  value={policyName}
+                  onChange={(e) => setPolicyName(e.target.value)}
+                />
+              </div>
+              <div className="form-group mb-4">
+                <input
+                  className="col-xs-12 w-100"
+                type="number"
+                placeholder="Registration Number"
+                value={registration}
+                onChange={(e) => setRegistration(e.target.value)}
+              />
+              </div>
+              <div className="form-group mb-4">
+                <input
+                  className="col-xs-12 w-100"
+                type="type"
+                placeholder="Policy Type"
+                value={policyType}
+                onChange={(e) => setPolicyType(e.target.value)}
+              />
+              </div>
+              <div className="form-group mb-4">
+                <input
+                  className="col-xs-12 w-100"
+                type="Duration"
+                placeholder="Policy Duration"
+                value={policyDuration}
+                onChange={(e) => setPolicyDuration(e.target.value)}
+              />
+            </div>
+            <div className="form-group mb-4">
+                <textarea
+                  className="col-xs-12 w-100"
+                type="Textarea"
+                placeholder="Policy Description"
+                value={policyDescription}
+                onChange={(e) => setPolicyDescription(e.target.value)}
+              />
+              </div>
+            </form>
           </Modal>
         </div>
       )}

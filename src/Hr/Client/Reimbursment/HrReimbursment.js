@@ -251,8 +251,92 @@ const HrReimbursment = () => {
       {ReimbursmentPage && (
         <div>
           <div className="row d-flex align-items-center justify-content-between">
-            <div className="col-lg-12 text-left">
+            <div className="col-lg-2 text-left">
               <h3 className="mt-0 mb-4 my-2">Reimbursement</h3>
+            </div>
+
+            <div className="col-12 col-lg-8 col-md-4 text-right">
+              <div className="search-btn">
+                <div className="search-btn">
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      className="form-control my-3"
+                      placeholder="Search Hospital"
+                      value={searchValue}
+                      onChange={(e) => setSearchValue(e.target.value)}
+                    />
+                    <div className="input-group-append">
+                      <button
+                        className="btn btn-secondary my-3"
+                        type="button"
+                        onClick={() => handleOnSearch()}
+                      >
+                        <i className="fa fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div className="btn-group hover_drop_down">
+                    <button
+                      type="button"
+                      class="btn btn-success btn-sm my-3 mx-2"
+                      data-toggle="dropdown"
+                      style={{
+                        width: "160px",
+                        borderRadius: "5px",
+                        backgroundColor: "#8EC131",
+                        border: "1px solid #8EC131",
+                        height:"40px"
+                      }}
+                    >
+                      <i className="fas fa-filter"></i> Add Filters
+                    </button>
+                    <ul className="dropdown-menu" role="menu">
+                      <li>
+                        <a
+                          onClick={() => {
+                            handleclick("provincial");
+                          }}
+                        >
+                          provincial{" "}
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          onClick={() => {
+                            handleclick("public");
+                          }}
+                        >
+                          public
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          onClick={() => {
+                            handleclick("municipal");
+                          }}
+                        >
+                          Municipal
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="btn-group">
+                    <button
+                      type="button"
+                      className="btn btn-primary btn-md my-3 mx-2"
+                    >
+                      <CSVLink
+                        data={ReimbursmentCSV}
+                        target="_blank"
+                        style={{ color: "white" }}
+                      >
+                        Download PDF/CSV
+                      </CSVLink>
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -292,88 +376,7 @@ const HrReimbursment = () => {
                 </li>
               </ul>
             </div>
-            <div className="col-12 col-lg-6 col-md-6 text-right">
-              <div className="search-btn">
-                <div className="search-btn">
-                  <div className="input-group">
-                    <input
-                      type="text"
-                      className="form-control my-3"
-                      placeholder="Search Hospital"
-                      value={searchValue}
-                      onChange={(e) => setSearchValue(e.target.value)}
-                    />
-                    <div className="input-group-append">
-                      <button
-                        className="btn btn-secondary my-3"
-                        type="button"
-                        onClick={() => handleOnSearch()}
-                      >
-                        <i className="fa fa-search"></i>
-                      </button>
-                    </div>
-                  </div>
-                  <div class="btn-group hover_drop_down">
-                    <button
-                      type="button"
-                      class="btn btn-success btn-md my-3 mx-2"
-                      data-toggle="dropdown"
-                      style={{
-                        width: "160px",
-                        borderRadius: "5px",
-                        backgroundColor: "#8EC131",
-                        border: "1px solid #8EC131",
-                      }}
-                    >
-                      <i class="fas fa-filter"></i> Add Filters
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                      <li>
-                        <a
-                          onClick={() => {
-                            handleclick("provincial");
-                          }}
-                        >
-                          provincial{" "}
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          onClick={() => {
-                            handleclick("public");
-                          }}
-                        >
-                          public
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          onClick={() => {
-                            handleclick("municipal");
-                          }}
-                        >
-                          Municipal
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="btn-group">
-                    <button
-                      type="button"
-                      class="btn btn-primary btn-md my-3 mx-2"
-                    >
-                      <CSVLink
-                        data={ReimbursmentCSV}
-                        target="_blank"
-                        style={{ color: "white" }}
-                      >
-                        Download PDF/CSV
-                      </CSVLink>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+           
           </div>
           <div className="tab-content table-custome mt-3" id="myTabContent">
             <div

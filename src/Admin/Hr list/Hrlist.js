@@ -378,7 +378,7 @@ const HrList = () => {
             </div>
           </div>
           <div className="container-fluid">
-            <div className="row DataTable" style={{justifyContent:"center"}}>
+            <div className=" DataTable" style={{justifyContent:"center"}}>
               <Table
                 style={{ fontSize: "28px", fontWeight: "bolder" }}
                 columns={columns}

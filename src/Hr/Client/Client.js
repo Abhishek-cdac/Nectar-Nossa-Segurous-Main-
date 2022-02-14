@@ -144,7 +144,7 @@ const Client = () => {
             </div>
             <div className="col-12 col-lg-9 col-md-9 text-right">
               <div className="search-btn">
-                <div className="input-group" style={{ paddingTop: "10px" }}>
+                <div className="input-group" style={{ paddingTop: "15px",width:"30%"}}>
                   <input
                     value={policyTypeSearch}
                     onChange={handlesearch}
@@ -167,7 +167,7 @@ const Client = () => {
                
                 <a
                   onClick={() => handleNewClient()}
-                  className="print-card-btn green-btn float-left"
+                  className="print-card-btn green-btn float-left" style={{marginLeft:"30px",marginTop:"15px"}}
                 >
                   <button className="fas fa-plus-circle"></button> Add New
                   Client
@@ -179,7 +179,7 @@ const Client = () => {
                   type="button"
                   className="btn btn-success btn-sm my-3"
                   data-toggle="dropdown"
-                  style={{ width: "130px" }}
+                  style={{ width: "150px",marginRight:"30px" }}
                 >
                   <i className="fas fa-filter"></i> Add Filters
                 </button>
@@ -274,37 +274,7 @@ const Client = () => {
                 <div className="col-md-6 col-sm-6 col-12">
                   <small>Showing Results{ClientListArray.length}</small>
                 </div>
-                {/* <div className="col-md-6 col-sm-6 col-12">
-              <div className="pagination-custom">
-                <nav aria-label="Page navigation example">
-                  <ul className="pagination justify-content-end">
-                    <li className="page-item disabled">
-                      <a className="page-link w-100">Previous</a>
-                    </li>
-                    <li className="page-item">
-                      <a className="page-link" href="#">
-                        1
-                      </a>
-                    </li>
-                    <li className="page-item">
-                      <a className="page-link active" href="#">
-                        2
-                      </a>
-                    </li>
-                    <li className="page-item">
-                      <a className="page-link" href="#">
-                        3
-                      </a>
-                    </li>
-                    <li className="page-item">
-                      <a className="page-link w-100" href="#">
-                        Next
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-            </div> */}
+               
               </div>
             </div>
           </div>

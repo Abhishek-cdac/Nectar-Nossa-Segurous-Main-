@@ -105,7 +105,6 @@ const AdminComplaint = () => {
       title: "Complaint ID",
       dataIndex: "Id",
       key: "Id",
-      ellipsis: true,
 
       render: (text, record) => (
         <a
@@ -120,37 +119,32 @@ const AdminComplaint = () => {
       title: "Policy Holder",
       dataIndex: "policyHolder",
       key: "policyHolder",
-      ellipsis: true,
     },
 
     {
       title: "Policy ",
       dataIndex: "policyName",
       key: "policyName",
-      ellipsis: true,
     },
     {
       title: "Complaint Date",
       dataIndex: "date",
       key: "date",
-      ellipsis: true,
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      ellipsis: true,
     },
     {
       title: "Description",
       dataIndex: "description",
       key: "description",
-      ellipsis: true,
     },
     {
       title: "Actions",
       key: "action",
-      ellipsis: true,
+
       render: (text, record) => {
         return (
           <>
@@ -307,15 +301,19 @@ const AdminComplaint = () => {
                 </Button>
               </div>
             </div>
-            <Table style={{marginTop:"10px"}}
-            columns={columns}
-            dataSource={tableData}
-            //onChange={this.handleChange}
-            pagination={true}
-            total={10}
-          />
           </div>
-          
+          <div className="Container-fluid">
+          <div className=" DataTable" style={{ justifyContent: "center" }}>
+            <Table
+              style={{ marginTop: "10px" }}
+              columns={columns}
+              dataSource={tableData}
+              //onChange={this.handleChange}
+              pagination={true}
+              total={10}
+            />
+          </div>
+          </div>
         </div>
       )}
 

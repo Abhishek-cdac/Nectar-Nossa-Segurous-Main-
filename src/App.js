@@ -22,7 +22,7 @@ import Reimbusrment from "./user/Reimbursment/Reimbursment";
 import Hrlisted from "./Hr/Listedpolices/Hrlistedpolices";
 import HrRecievedClaims from "./Hr/HrClaims/HrRecievedClaims";
 import HrComplaint from "./Hr/Complaints/HrComplaint";
-import HrServices from "./Admin/services/AdServiceReq";
+import HrServices from "./Hr/Services/Hrservice"
 import Receivedpremium from "./Hr/HrRecievedPremium";
 import Client from "./Hr/Client/Client";
 import AdDashboard from "./Admin/AdminDashboard";
@@ -31,7 +31,7 @@ import AdReceivedpremium from "./Admin/Premium/Receivedpremium";
 import AdServices from "./Admin/services/AdServiceReq";
 import HrList from "./Admin/Hr list/Hrlist";
 import AdListedPolocies from "./Admin/Listed polices/listedpolocies";
-import AdminComplaint from "./Hr/Complaints/HrComplaint";
+import AdminComplaint from  "./Admin/complaints/AdminComplaint"
 import HrReimbursment from "./Hr/Client/Reimbursment/HrReimbursment";
 import AdReimbursment from "./Admin/Reimbursment/AdReimbursment";
 import AdHolidays from "./Admin/Holiday/Holidays";
@@ -94,7 +94,7 @@ function App() {
             <Route path="dashboard" element={<AdDashboard />} />
             <Route path="listedPolices" element={<AdListedPolocies />} />
             <Route path="newClaim" element={<AdminClaims />} />
-            <Route path="paypremium" element={<Rp />} />
+            <Route path="paypremium" element={<AdReceivedpremium />} />
             <Route path="HrList" element={<HrList />} />
             <Route path="complaint" element={<AdminComplaint />} />
             <Route path="servicerequest" element={<AdServices />} />

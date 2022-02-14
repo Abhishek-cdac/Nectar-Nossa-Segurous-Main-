@@ -68,44 +68,6 @@ const Claims = () => {
   }, []);
 
   const columns = [
-    //responsive
-    // {
-    //   title: "ID. PolicyName",
-    //   render: (record) => (
-    //     <React.Fragment>
-    //       {record.id}
-    //       <br />
-    //       <hr />
-    //       {record.name}
-    //     </React.Fragment>
-    //   ),
-    //   responsive: ["xs"],
-    // },
-    // {
-    //   title: "Code RequestDate",
-    //   render: (record) => (
-    //     <React.Fragment>
-    //       {record.code}
-    //       <br />
-    //       <hr />
-    //       {record.date}
-    //     </React.Fragment>
-    //   ),
-    //   responsive: ["xs"],
-    // },
-    // {
-    //   title: "Status",
-    //   render: (record) => (
-    //     <React.Fragment>
-    //       {record.status}
-    //       <br />
-    //       <hr />
-    //       {record.amount}
-    //     </React.Fragment>
-    //   ),
-    //   responsive: ["xs"],
-    // },
-
     {
       title: "Claim Id",
       dataIndex: "id",
@@ -212,19 +174,9 @@ const Claims = () => {
               </div>
             </div>
           </div>
-        
-            <div className="DataTable" >
-              <Table
-                columns={columns}
-                dataSource={TableData}
-                pagination={true}
-                total={10}
-              />
-            <div>
-              <span>shown Results {ClaimsListArray.length}</span>
-            </div>
-          </div>
-          <Table style={{padding:"10px"}}
+
+          <div className="DataTable">
+            <Table
               columns={columns}
               dataSource={TableData}
               pagination={true}
@@ -233,6 +185,10 @@ const Claims = () => {
             <div>
               <span>shown Results {ClaimsListArray.length}</span>
             </div>
+          </div>
+          <div>
+            <span>shown Results {ClaimsListArray.length}</span>
+          </div>
         </div>
       )}
       {addClaim && (

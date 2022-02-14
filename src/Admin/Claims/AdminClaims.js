@@ -253,53 +253,13 @@ const AdminClaims = () => {
   );
   const RecievedColumns = [
     // This section is written to make the table responsive
-    {
-      title: "ClaimID | PolicyHolder",
-      render: (record) => (
-        <React.Fragment>
-          {record.id}
-          <br />
-          <hr />
-          {record.policyHolder}
-        </React.Fragment>
-      ),
-      responsive: ["xs"],
-    },
-    {
-      title: "PolicyName | ClaimAmount",
-      render: (record) => (
-        <React.Fragment>
-          {record.policyName}
-          <br />
-          <hr />
-          {record.amount}
-        </React.Fragment>
-      ),
-      responsive: ["xs"],
-    },
-    {
-      title: "RequestedDate | Status | AssignedBy",
-      render: (record) => (
-        <React.Fragment>
-          {record.date}
-          <br />
-          <hr />
-          {record.status}
-          <br />
-          <hr />
-          {record.agent}
-        </React.Fragment>
-      ),
-      responsive: ["xs"],
-    },
 
     // Actual Columns of tables starts from here
     {
       title: "Claim ID",
       dataIndex: "id",
       key: "id",
-      ellipsis: true,
-      responsive: ["sm"],
+
       render: (text, record) => (
         <a
           style={{ color: "#4cbb17" }}
@@ -313,48 +273,37 @@ const AdminClaims = () => {
       title: "Policy Holder",
       dataIndex: "policyHolder",
       key: "policyHolder",
-      ellipsis: true,
-      responsive: ["sm"],
     },
 
     {
       title: "Policy Name",
       dataIndex: "policyName",
       key: "policyName",
-      ellipsis: true,
     },
     {
       title: "Claim Amt",
       dataIndex: "amount",
       key: "amount",
-      ellipsis: true,
-      responsive: ["sm"],
     },
     {
       title: "Request Date",
       dataIndex: "date",
       key: "date",
-      ellipsis: true,
-      responsive: ["sm"],
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      ellipsis: true,
-      responsive: ["sm"],
     },
     {
       title: "Assigned By",
       dataIndex: "agent",
       key: "agent",
-      ellipsis: true,
-      responsive: ["sm"],
     },
     {
       title: "Action",
       key: "action",
-      ellipsis: true,
+
       render: (text, record) => {
         return (
           <>
@@ -367,62 +316,18 @@ const AdminClaims = () => {
           </>
         );
       },
-      responsive: ["sm", "xs", "md"],
     },
   ];
 
   const SettledColumns = [
     // This section is written to make the table responsive
-    {
-      title: "ClaimID | PolicyHolder",
-      render: (record) => (
-        <React.Fragment>
-          {record.id}
-          <br />
-          <hr />
-          {record.policyHolder}
-        </React.Fragment>
-      ),
-      responsive: ["xs"],
-    },
-    {
-      title: "PolicyName | PolicyCode | RequestedDate",
-      render: (record) => (
-        <React.Fragment>
-          {record.policyName}
-          <br />
-          <hr />
-          {record.code}
-          <br />
-          <hr />
-          {record.date}
-        </React.Fragment>
-      ),
-      responsive: ["xs"],
-    },
-    {
-      title: "ClaimAmount | Status | Approved",
-      render: (record) => (
-        <React.Fragment>
-          {record.amount}
-          <br />
-          <hr />
-          {record.status}
-          <br />
-          <hr />
-          {record.amount}
-        </React.Fragment>
-      ),
-      responsive: ["xs"],
-    },
 
     // Actual Columns of tables starts from here
     {
       title: "Claim ID",
       dataIndex: "id",
       key: "id",
-      ellipsis: true,
-      responsive: ["sm"],
+
       render: (text, record) => (
         <a
           style={{ color: "#4cbb17" }}
@@ -436,59 +341,45 @@ const AdminClaims = () => {
       title: "Policy Holder",
       dataIndex: "policyHolder",
       key: "policyHolder",
-      ellipsis: true,
-      responsive: ["sm"],
     },
 
     {
       title: "Policy Name",
       dataIndex: "policyName",
       key: "policyName",
-      ellipsis: true,
-      responsive: ["sm"],
     },
 
     {
       title: "Policy code",
       dataIndex: "code",
       key: "code ",
-      ellipsis: true,
-      responsive: ["sm"],
     },
 
     {
       title: "Request Date",
       dataIndex: "date",
       key: "date",
-      ellipsis: true,
-      responsive: ["sm"],
     },
     {
       title: "Claim Amt",
       dataIndex: "amount",
       key: "amount",
-      ellipsis: true,
-      responsive: ["sm"],
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      ellipsis: true,
-      responsive: ["sm"],
     },
 
     {
       title: "Approved",
       dataIndex: "amount",
       key: "amount",
-      ellipsis: true,
-      responsive: ["sm"],
     },
     {
       title: "Actions",
       key: "action",
-      ellipsis: true,
+
       render: (text, record) => {
         return (
           <>
@@ -501,7 +392,6 @@ const AdminClaims = () => {
           </>
         );
       },
-      responsive: ["sm", "xs", "md"],
     },
   ];
 
@@ -512,7 +402,7 @@ const AdminClaims = () => {
           <div
             className="row"
             style={{
-              padding:"15px",
+              padding: "15px",
               display: "flex",
               justifyContent: "space-between",
               flexDirection: "row",
@@ -569,16 +459,19 @@ const AdminClaims = () => {
             </div>
           </div>
 
-          <div style={{ display: "flex", flexDirection: "row" }}>
-            <div>
-              <Tabs
-                defaultActiveKey="1"
-                style={{ fontSize: "30px" }}
-                size="Large"
-                onChange={handleTabStatus}
-              >
-                <TabPane tab="Recieved Claims" key="Recieved">
-                  <div>
+          <div>
+            <Tabs
+              defaultActiveKey="1"
+              style={{ fontSize: "30px" }}
+              size="Large"
+              onChange={handleTabStatus}
+            >
+              <TabPane tab="Recieved Claims" key="Recieved">
+                <div className="container">
+                  <div
+                    className="row DataTable"
+                    style={{ justifyContent: "center" }}
+                  >
                     <Table
                       columns={RecievedColumns}
                       dataSource={recievedTableData}
@@ -586,9 +479,14 @@ const AdminClaims = () => {
                       total={10}
                     ></Table>
                   </div>
-                </TabPane>
-                <TabPane tab="Settled Claims" key="Settled">
-                  <div>
+                </div>
+              </TabPane>
+              <TabPane tab="Settled Claims" key="Settled">
+                <div className="container">
+                  <div
+                    className="row DataTable"
+                    style={{ justifyContent: "center" }}
+                  >
                     <Table
                       columns={SettledColumns}
                       dataSource={settledTableData}
@@ -596,9 +494,9 @@ const AdminClaims = () => {
                       total={10}
                     ></Table>
                   </div>
-                </TabPane>
-              </Tabs>
-            </div>
+                </div>
+              </TabPane>
+            </Tabs>
           </div>
         </div>
       )}

@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import {
   EyeOutlined,
   VerticalAlignBottomOutlined,
-  PlusOutlined,
   FilterOutlined,
 } from "@ant-design/icons";
 import { CSVLink } from "react-csv";
@@ -135,98 +134,62 @@ const AdReceivedpremium = () => {
 
   const columns = [
     // This section is written to make the table responsive
-    {
-      title: "InvoiceNo. | PolicyHolder",
-      render: (record) => (
-        <React.Fragment>
-          {record.code}
-          <br />
-          <hr />
-          {record.name}
-        </React.Fragment>
-      ),
-      responsive: ["xs"],
-    },
-    {
-      title: "PolicyName | PremiumPlan",
-      render: (record) => (
-        <React.Fragment>
-          {record.policy}
-          <br />
-          <hr />
-          {record.type}
-        </React.Fragment>
-      ),
-      responsive: ["xs"],
-    },
-    {
-      title: "RecievedDate | Amount",
-      render: (record) => (
-        <React.Fragment>
-          {record.date}
-          <br />
-          <hr />
-          {record.amount}
-        </React.Fragment>
-      ),
-      responsive: ["xs"],
-    },
-
+   
     // Actual Columns of tables starts from here
     {
       title: "Invoice Number",
       dataIndex: "code",
       key: "code",
-      ellipsis: true,
+      
       sorter: (a, b) => a.code.length - b.code.length,
       render: (text) => <a style={{ color: "#4cbb17" }}>{text}</a>,
-      responsive: ["sm"],
+     
     },
 
     {
       title: "Policy Holder",
       dataIndex: "name",
       key: "name",
-      ellipsis: true,
+      
       sorter: (a, b) => a.name.length - b.name.length,
-      responsive: ["sm"],
+     
     },
 
     {
       title: "Policy Name",
       dataIndex: "policy",
       key: "policy",
-      ellipsis: true,
+      
       sorter: (a, b) => a.name.length - b.name.length,
-      responsive: ["sm"],
+     
     },
     {
       title: "Premium plan",
       dataIndex: "type",
       key: "type",
-      ellipsis: true,
-      responsive: ["sm"],
+      
+     
     },
     {
       title: "Payment Received Date",
       dataIndex: "date",
       key: "date",
-      ellipsis: true,
-      responsive: ["sm"],
+      
+     
     },
 
     {
       title: "Amount",
       dataIndex: "amount",
       key: "amount",
-      ellipsis: true,
-      responsive: ["sm"],
+      
+     
     },
 
     {
       title: "Download Invoice",
       key: "option",
-      ellipsis: true,
+      
       render: (record) => {
         return (
           <>
@@ -235,7 +198,7 @@ const AdReceivedpremium = () => {
           </>
         );
       },
-      responsive: ["sm", "xs", "md"],
+     
     },
   ];
 
@@ -295,7 +258,8 @@ const AdReceivedpremium = () => {
       </div>
       <div className="container-fluid">
         
-      <div className="row">
+      <div className="row DataTable">
+
       <Table
         columns={columns}
         dataSource={TableData}
