@@ -81,54 +81,12 @@ const HrRecievedClaims = () => {
   );
 
   const columns = [
-    // This section is written to make the table responsive
-    {
-      title: "ClaimID | PolicyHolder",
-      render: (record) => (
-        <React.Fragment>
-          {record.id}
-          <br />
-          <hr />
-          {record.name}
-        </React.Fragment>
-      ),
-      responsive: ["xs"],
-    },
-    {
-      title: "PolicyName | PolicyCode",
-      render: (record) => (
-        <React.Fragment>
-          {record.policyname}
-          <br />
-          <hr />
-          {record.code}
-        </React.Fragment>
-      ),
-      responsive: ["xs"],
-    },
-    {
-      title: "RequestedDate | Status | Description",
-      render: (record) => (
-        <React.Fragment>
-          {record.date}
-          <br />
-          <hr />
-          {record.status}
-          <br />
-          <hr />
-          {record.descreption}
-        </React.Fragment>
-      ),
-      responsive: ["xs"],
-    },
-
-    // Actual Columns of tables starts from here
+   
     {
       title: "Claim ID",
       dataIndex: "id",
       key: "id",
-      ellipsis: true,
-      responsive: ["sm"],
+     
       render: (text, record) => (
         <a
           style={{ color: "#4cbb17" }}
@@ -142,50 +100,44 @@ const HrRecievedClaims = () => {
       title: "Policy Holder",
       dataIndex: "name",
       key: "name",
-      ellipsis: true,
-      responsive: ["sm"],
+    
     },
 
     {
       title: "Policy Name",
       dataIndex: "policyname",
       key: "name",
-      ellipsis: true,
-      responsive: ["sm"],
+    
     },
     {
       title: "Policy code",
       dataIndex: "code",
       key: "code",
-      ellipsis: true,
-      responsive: ["sm"],
+    
     },
     {
       title: "Request Date",
       dataIndex: "date",
       key: "date",
-      ellipsis: true,
-      responsive: ["sm"],
+     
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      ellipsis: true,
-      responsive: ["sm"],
+     
     },
 
     {
       title: "Description",
       dataIndex: "description",
       key: "description",
-      ellipsis: true,
-      responsive: ["sm"],
+     
     },
     {
       title: "Actions",
       key: "action",
-      ellipsis: true,
+     
       render: (text, record) => {
         return (
           <>
@@ -298,22 +250,23 @@ const HrRecievedClaims = () => {
   };
   return (
     <>
-      {HrClaimsTablePage && (
-        <div className="container-fluid">
-          {" "}
-          <div
-            className="row"
-            style={{
-              padding:"15px",
-              display: "flex",
-              justifyContent: "space-between",
-              flexDirection: "row",
-            }}
-          >
-            <div className="col-12 col-sm-3 col-md-3">
-              <h3>Received Claims</h3>
-            </div>
-            <div className="nav justify-content-center">
+      <div className="container-fluid">
+        {HrClaimsTablePage && (
+          <div>
+            <div
+              className="row"
+              style={{
+                marginTop: "20px",
+                marginBottom: "25px",
+                display: "flex",
+                justifyContent: "space-between",
+                flexDirection: "row",
+              }}
+            >
+               <div className="col-12 col-sm-3 col-md-3">
+                <h3>Recieved Claims</h3>
+              </div>
+              <div className="nav justify-content-center">
               <div
                 className="col-12 col-sm-5 col-md-5"
                 style={{ display: "flex", flexDirection: "row" }}
@@ -322,11 +275,13 @@ const HrRecievedClaims = () => {
                   placeholder="search Policy"
                   onSearch={onSearch}
                   style={{
+                    width: 300,
                     borderRadius: "25px",
+                    marginRight: "10px",
                   }}
                 />
-              </div>
-              <div
+                </div>
+                <div
                 className="col-12 col-sm-3 col-md-3"
                 style={{ display: "flex", flexDirection: "row" }}
               >
@@ -334,6 +289,7 @@ const HrRecievedClaims = () => {
                   <Button
                     style={{
                       borderRadius: "5px",
+                      marginRight: "10px",
                       backgroundColor: "#61b33b",
                       color: "white",
                     }}
@@ -341,35 +297,38 @@ const HrRecievedClaims = () => {
                     <FilterOutlined /> Add Filters
                   </Button>
                 </Dropdown>
-              </div>
-              <div
+                </div>
+                <div
                 className="col-12 col-sm-3 col-md-3"
                 style={{ display: "flex", flexDirection: "row" }}
               >
-                <Button
-                  style={{
-                    color: "#ffffff",
-                    backgroundColor: "#000089",
-                    borderRadius: "5px",
-                  }}
-                >
-                  <CSVLink data={HrRecievedCSV} target="_blank">
-                    Download PDF/CSV
-                  </CSVLink>
-                </Button>
+                  <Button
+                    style={{
+                      color: "#ffffff",
+                      backgroundColor: "#000089",
+                    }}
+                  >
+                    {/* Download PDF/CSV */}
+                    <CSVLink data={HrRecievedCSV} target="_blank">
+                      Download PDF/CSV
+                    </CSVLink>
+                  </Button>
+                </div>
               </div>
             </div>
+            <div className="DataTable">
+            <Table
+              columns={columns}
+              dataSource={ClaimsData}
+              //onChange={this.handleChange}
+              pagination={true}
+              total={10}
+            />
+            </div>
+            Shown Results{allHrRecievedListArray.length}
           </div>
-          <Table
-            columns={columns}
-            dataSource={ClaimsData}
-            //onChange={this.handleChange}
-            pagination={true}
-            total={10}
-          />
-        </div>
-      )}
-
+        )}
+      </div>
       {HrClaimDetailsPage && (
         <HrClaimDetails
           selectedRecord={selectedRecord}

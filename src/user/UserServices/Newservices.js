@@ -102,7 +102,7 @@ const Newservice = () => {
   return (
     <>
       {NewSerevicePage && (
-        <div>
+        <div className="container-fluid" style={{paddingTop:"50px"}}>
           <div className="row d-flex align-items-center justify-content-between">
             <div className="col-12">
               <div className="heading-with-box mb-2">
@@ -110,9 +110,9 @@ const Newservice = () => {
                   <div className="col-lg-6 col-md-6 text-left">
                     <h3>Request Statement</h3>
                   </div>
-                  {/* <div className="col-lg-6 col-md-6 text-right">
-                <a href="" className="btn" data-toggle="modal" data-target="#addPolicyList">Status : Not Submited</a>
-            </div> */}
+                  <div className="col-lg-6 col-md-6 text-right">
+                <a className="btn" data-toggle="modal" data-target="#addPolicyList">Status : Not Submited</a>
+            </div>
                 </div>
               </div>
             </div>
@@ -129,7 +129,7 @@ const Newservice = () => {
                         </label>
                         <Form.Item
                           name="policy_No"
-                          style={{ width: "300px" }}
+                          
                           rules={[
                             {
                               required: true,
@@ -157,7 +157,7 @@ const Newservice = () => {
                         </label>
                         <Form.Item
                           name="policyName"
-                          style={{ width: "300px" }}
+                          // style={{ width: "300px" }}
                           rules={[
                             {
                               required: true,
@@ -186,7 +186,7 @@ const Newservice = () => {
 
                         <Form.Item
                           name="Statement_Type"
-                          style={{ width: "300px" }}
+                          // style={{ width: "300px" }}
                           rules={[
                             {
                               required: true,
@@ -216,7 +216,7 @@ const Newservice = () => {
                         </label>
                         <Form.Item
                           name="description"
-                          style={{ width: "630px" }}
+                          // style={{ width: "630px" }}
                           rules={[
                             {
                               required: true,
@@ -225,7 +225,7 @@ const Newservice = () => {
                           ]}
                         >
                           <TextArea
-                            style={{ width: "350px" }}
+                            // style={{ width: "350px" }}
                             className="form-control"
                             rows="4"
                           ></TextArea>
@@ -233,11 +233,12 @@ const Newservice = () => {
                       </div>
                     </div>
                   </div>
-                  <div>
+                  <div className="col-md-4" style={{paddingLeft:"30px"}}>
                     <Button
                       type="submit"
                       htmlType="submit"
                       className="btn btn-primary"
+                      style={{paddingTop:"5px"}}
                     >
                       Submit Complaint
                     </Button>
@@ -252,9 +253,9 @@ const Newservice = () => {
                       Copyright &copy; Nossa 2020
                     </div>
                     <div>
-                      <a href="#">Privacy Policy</a>
+                      <a>Privacy Policy</a>
                       &middot;
-                      <a href="#">Terms &amp; Conditions</a>
+                      <a>Terms &amp; Conditions</a>
                     </div>
                   </div>
                 </div>

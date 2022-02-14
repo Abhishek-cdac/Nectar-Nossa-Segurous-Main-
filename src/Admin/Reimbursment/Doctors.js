@@ -203,7 +203,7 @@ const Doctors = () =>{
         <>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-xl-7  col-lg-4 col-md-4 col-sm-3">
+          <div className="col-xl-7 col-lg-4 col-md-4 col-sm-4">
             <h4 id="head" className="my-3 mx-5">
               Doctors List
             </h4>
@@ -212,22 +212,22 @@ const Doctors = () =>{
             <div className="header">
               <button
                 type="button"
-                class="btn btn-success btn-sm my-3"
+                className="btn btn-success btn-sm my-3"
                 style={{ width: "130px" }}
                 onClick={handleShow}
               >
-                <i class="fas fa-plus-circle"></i> Add Doctors List
+                <i className="fas fa-plus-circle"></i> Add Doctors List
               </button>
               <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                   <Modal.Title
-                    style={{ color: "#61B33B", marginLeft: "130px" }}
+                    style={{ color: "#61B33B", marginLeft: "" }}
                   >
-                    Add Holiday List
+                    Add Doctors List
                   </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                <div class="container">
+                <div className="container">
                     <Form.Group>
                      <Form.Label>Doctors Name</Form.Label>
                     <Form.Control type="text" value={Name} name="Name" onChange={handleChange}></Form.Control>
@@ -255,16 +255,16 @@ const Doctors = () =>{
             </label>
                 </Modal.Footer>
               </Modal>
-              <div class="btn-group hover_drop_down">
+              <div className="btn-group hover_drop_down">
                 {/* <button
                   type="button"
-                  class="btn btn-success btn-sm my-3"
+                  className="btn btn-success btn-sm my-3"
                   data-toggle="dropdown"
                   style={{ width: "130px" }}
                 >
-                  <i class="fas fa-filter"></i> Add Filters
+                  <i className="fas fa-filter"></i> Add Filters
                 </button>
-                <ul class="dropdown-menu" role="menu" onClick={HandleClick}>
+                <ul className="dropdown-menu" role="menu" onClick={HandleClick}>
                   <li>
                     <a onClick={() =>{handleclick("Public Holiday")}}>Public Holiday </a>
                   </li>
@@ -275,7 +275,7 @@ const Doctors = () =>{
                     <a onClick={() =>{handleclick("seasonal Holiday")}}>seasonal Holiday</a>
                   </li>
                 </ul> */}
-              <button type="button" class="btn btn-primary btn-sm my-3">
+              <button type="button" className="btn btn-primary btn-sm my-3">
               <CSVLink data={DoctorsCSV} target="_blank">
                     Download PDF/CSV
                   </CSVLink>
@@ -326,19 +326,19 @@ const Doctors = () =>{
           </div>
           <div className="col-xl-3  col-lg-3 col-md-2 col-sm-1">
             <nav aria-label="Page navigation example">
-              <ul class="pagination">
-                <li class="page-item">
-                  <a class="page-link" href="#">
+              <ul className="pagination">
+                <li className="page-item">
+                  <a className="page-link" href="#">
                     Prev
                   </a>
                 </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">
+                <li className="page-item">
+                  <a className="page-link" href="#">
                     1
                   </a>
                 </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">
+                <li className="page-item">
+                  <a className="page-link" href="#">
                     Next
                   </a>
                 </li>
@@ -357,7 +357,7 @@ const Doctors = () =>{
                   </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <div class="container">
+                  <div className="container">
                     <Form.Group>
                     <Form.Label>Id</Form.Label>
                     <Form.Control type="id" value={id} name="id" onChange={handleChange}></Form.Control> 

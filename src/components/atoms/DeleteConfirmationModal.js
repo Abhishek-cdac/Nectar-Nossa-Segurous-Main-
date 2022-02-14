@@ -7,7 +7,7 @@ function DeleteConfirmationModal({label, show, handleClose, onConfirm}) {
     <Modal show={show} onHide={handleClose} className="text-center p-3">
       <Modal.Header>
           <Modal.Title className="mb-1 mt-2"><strong>WANT TO DELETE</strong></Modal.Title>
-          <button type="button" class="close" onClick={handleClose}><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+          <button type="button" className="close" onClick={handleClose}><span aria-hidden="true">×</span><span className="sr-only">Close</span></button>
         </Modal.Header>
       <Modal.Body>
         <i className="far fa-trash-alt fa-5x m-3 text-danger"></i>

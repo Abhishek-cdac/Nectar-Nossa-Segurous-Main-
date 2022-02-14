@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import AdClinicData from "../../Admin/Reimbursment/AdClinicDetails";
-import fileDownload1 from "../../assets/img/fileDownload1.png"
+import fileDownload1 from "../../assets/img/fileDownload1.png";
 import {
   getReimbursmentList,
   getReimbursmentListSearch,
-} from "../.././services/authentication"
+} from "../.././services/authentication";
 import { CSVLink } from "react-csv";
 
 const HrReimbursment = () => {
@@ -12,7 +12,7 @@ const HrReimbursment = () => {
   const [ClinicDataPage, setClinicDataPage] = useState("");
   const [step, setStep] = useState(0);
   const [searchValue, setSearchValue] = useState("");
- const[selectedrecord,setSelectedrecord]=useState('')
+  const [selectedrecord, setSelectedrecord] = useState("");
   const [ClinicalData, setClinicalData] = useState("");
   const [PharmacyData, setPharmacyData] = useState("");
   const [ClinicTableData, setClinicTableData] = useState("");
@@ -89,7 +89,7 @@ const HrReimbursment = () => {
   const handleChange = (item) => {
     setReimbursmentPage(false);
     setClinicDataPage(true);
-    setSelectedrecord(item)
+    setSelectedrecord(item);
   };
   const handleBack = () => {
     setReimbursmentPage(true);
@@ -123,7 +123,7 @@ const HrReimbursment = () => {
             tableDataArr.push(value);
           });
         setClinicTableData(tableDataArr);
-        setClinicalData(tableDataArr)
+        setClinicalData(tableDataArr);
       } catch (error) {
         console.log("error", error);
         // showAlert('In valide data', "error");
@@ -151,7 +151,7 @@ const HrReimbursment = () => {
             tableDataArr.push(value);
           });
         setPharmacyTableData(tableDataArr);
-        setPharmacyData(tableDataArr)
+        setPharmacyData(tableDataArr);
       } catch (error) {
         console.log("error", error);
         // showAlert('In valide data', "error");
@@ -159,14 +159,12 @@ const HrReimbursment = () => {
     }
   };
 
-
   const handleFilterData = (filterData) => {
     const tableDataArr = [];
     console.log("tr", tableDataArr);
     console.log("filterData", filterData);
     if (filterData.length > 0) {
       if (step === 0) {
-        
         filterData.map((data, i) => {
           const value = {
             SrNo: i,
@@ -201,15 +199,14 @@ const HrReimbursment = () => {
   };
 
   const handleclick = (type) => {
-
     if (step === 0) {
       const ClinicalfilterData =
         ClinicalData &&
         ClinicalData.filter((data) => data.hospitalType === type);
       const Clinic = handleFilterData(ClinicalfilterData);
-      console.log("ClinicalfilterData",ClinicalfilterData, Clinic);
+      console.log("ClinicalfilterData", ClinicalfilterData, Clinic);
       setClinicTableData(Clinic);
-      setClinicalData(Clinic)
+      setClinicalData(Clinic);
     } else {
       const PharmacyfilterData =
         PharmacyData &&
@@ -217,7 +214,7 @@ const HrReimbursment = () => {
       const Pharmacy = handleFilterData(PharmacyfilterData);
       console.log("PharmacyfilterData", Pharmacy);
       setPharmacyTableData(Pharmacy);
-      setPharmacyData(Pharmacy)
+      setPharmacyData(Pharmacy);
     }
   };
 
@@ -254,14 +251,96 @@ const HrReimbursment = () => {
   const ReimbursmentCSV = ReimbursmentCSVData();
   // // CSV END
 
-
   return (
     <>
       {ReimbursmentPage && (
         <div className="container-fluid">
           <div className="row d-flex align-items-center justify-content-between">
-            <div className="col-lg-12 text-left">
+            <div className="col-lg-2 text-left">
               <h3 className="mt-0 mb-4 my-3">Reimbursement</h3>
+            </div>
+            <div className="col-12 col-lg-8 col-md-4 text-right">
+              <div className="search-btn">
+                <div className="search-btn">
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      className="form-control my-3"
+                      placeholder="Search Hospital"
+                      value={searchValue}
+                      onChange={(e) => setSearchValue(e.target.value)}
+                    />
+                    <div className="input-group-append">
+                      <button
+                        className="btn btn-secondary my-3"
+                        type="button"
+                        onClick={() => handleOnSearch()}
+                      >
+                        <i className="fa fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div className="btn-group hover_drop_down">
+                    <button
+                      type="button"
+                      class="btn btn-success btn-sm my-3 mx-2"
+                      data-toggle="dropdown"
+                      style={{
+                        width: "160px",
+                        borderRadius: "5px",
+                        backgroundColor: "#8EC131",
+                        border: "1px solid #8EC131",
+                        height:"40px"
+                      }}
+                    >
+                      <i className="fas fa-filter"></i> Add Filters
+                    </button>
+                    <ul className="dropdown-menu" role="menu">
+                      <li>
+                        <a
+                          onClick={() => {
+                            handleclick("provincial");
+                          }}
+                        >
+                          provincial{" "}
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          onClick={() => {
+                            handleclick("public");
+                          }}
+                        >
+                          public
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          onClick={() => {
+                            handleclick("municipal");
+                          }}
+                        >
+                          Municipal
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="btn-group">
+                    <button
+                      type="button"
+                      className="btn btn-primary btn-md my-3 mx-2"
+                    >
+                      <CSVLink
+                        data={ReimbursmentCSV}
+                        target="_blank"
+                        style={{ color: "white" }}
+                      >
+                        Download PDF/CSV
+                      </CSVLink>
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -301,76 +380,7 @@ const HrReimbursment = () => {
                 </li>
               </ul>
             </div>
-            <div className="col-12 col-lg-6 col-md-6 text-right">
-              <div className="search-btn">
-              <div className="search-btn">
-                <div className="input-group">
-                  <input
-                    type="text"
-                    className="form-control my-3"
-                    placeholder="Search Hospital"
-                    value={searchValue}
-                    onChange={(e) => setSearchValue(e.target.value)}
-                  />
-                  <div className="input-group-append">
-                    <button
-                      className="btn btn-secondary my-3"
-                      type="button"
-                      onClick={() => handleOnSearch()}
-                    >
-                      <i className="fa fa-search"></i>
-                    </button>
-                  </div>
-                </div>
-                <div class="btn-group hover_drop_down">
-                  <button
-                    type="button"
-                    class="btn btn-success btn-md my-3 mx-2"
-                    data-toggle="dropdown"
-                    style={{ width: "160px", borderRadius:"5px", backgroundColor: "#8EC131", border: "1px solid #8EC131" }}
-                  >
-                    <i class="fas fa-filter"></i> Add Filters
-                  </button>
-                  <ul class="dropdown-menu" role="menu">
-                    <li>
-                      <a
-                        onClick={() => {
-                          handleclick("provincial");
-                        }}
-                      >
-                        provincial{" "}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        onClick={() => {
-                          handleclick("public");
-                        }}
-                      >
-                        public
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        onClick={() => {
-                          handleclick("municipal");
-                        }}
-                      >
-                        Municipal
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div className="btn-group">
-                <button type="button" class="btn btn-primary btn-md my-3 mx-2">
-                    <CSVLink data={ReimbursmentCSV} target="_blank" style={{color:"white"}}>
-                      Download PDF/CSV
-                    </CSVLink>
-                  </button>
-                </div>
-            </div>
-              </div>
-            </div>
+           
           </div>
           <div className="tab-content table-custome mt-3" id="myTabContent">
             <div
@@ -385,19 +395,18 @@ const HrReimbursment = () => {
                   <thead className="green-bg">
                     <tr>
                       <th>Sr.No</th>
-                      <th>Ref No</th>
-                      <th>Clinic Name</th>
+                      <th>Ref_No</th>
+                      <th>Clinic_Name</th>
                       <th>Address</th>
                       <th>Area</th>
-                      <th>Contact No</th>
-                      <th>Hospital Type</th>
+                      <th>Contact_No</th>
+                      <th>Hospital_Type</th>
                     </tr>
                   </thead>
                   {ClinicalData &&
                     ClinicalData.map((item) => (
                       <tbody>
                         <tr>
-                          {/* {console.log("item",item)} */}
                           <td>{item.SrNo}</td>
                           <td>{item.referenceNumber}</td>
                           <td>
@@ -531,9 +540,13 @@ const HrReimbursment = () => {
           </div>
         </div>
       )}
-      {ClinicDataPage && <AdClinicData  selectedrecord={selectedrecord}
+      {ClinicDataPage && (
+        <AdClinicData
+          selectedrecord={selectedrecord}
           data={ClinicalData}
-          handleBack={handleBack} />}
+          handleBack={handleBack}
+        />
+      )}
     </>
   );
 };

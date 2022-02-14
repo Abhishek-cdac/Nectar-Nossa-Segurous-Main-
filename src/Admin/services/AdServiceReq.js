@@ -232,42 +232,7 @@ function AdServices() {
   // Table for Service Requested ( Columns )
 
   const columns = [
-    // This section is made for responsivness
-    {
-      title: "ServiceID | ServiceName | RequestedBy",
-      render: (record) => (
-        <React.Fragment>
-          {record.serviceid}
-          <br />
-          <hr />
-          {record.servicename}
-          <br />
-          <hr />
-          {record.name}
-        </React.Fragment>
-      ),
-      responsive: ["xs"],
-    },
-    {
-      title: "RequestedDate | Priority | Status | OwnedBy",
-      render: (record) => (
-        <React.Fragment>
-          {record.reqesteddate}
-          <br />
-          <hr />
-          {record.tags}
-          <br />
-          <hr />
-          {record.status}
-          <br />
-          <hr />
-          {record.owner}
-        </React.Fragment>
-      ),
-      responsive: ["xs"],
-    },
-
-    // Actual Table Columns
+   
     {
       title: "Service ID.",
       dataIndex: "serviceid",
@@ -275,34 +240,34 @@ function AdServices() {
       render: (text, record) => {
         return <a onClick={() => handleServiceIdClick(text, record)}>{text}</a>;
       },
-      responsive: ["sm"],
+     
     },
     {
       title: "Service Name",
       dataIndex: "servicename",
       key: "servicename",
       render: (text) => <p>{text}</p>,
-      responsive: ["sm"],
+     
     },
     {
       title: "Requested By",
       dataIndex: "requestedby",
       key: "requestedby",
       render: (text) => <p>{text}</p>,
-      responsive: ["sm"],
+     
     },
     {
       title: "Requested Date",
       dataIndex: "reqesteddate",
       key: "requesteddate",
       render: (text) => <p>{text}</p>,
-      responsive: ["sm"],
+     
     },
     {
       title: "Priority",
       key: "priority",
       dataIndex: "priority",
-      responsive: ["sm"],
+     
       // render: (tags) => (
       //   <>
       //     {tags.map((tag) => {
@@ -327,14 +292,14 @@ function AdServices() {
       dataIndex: "status",
       key: "status",
       render: (text) => <p>{text}</p>,
-      responsive: ["sm"],
+     
     },
     {
       title: "Owned By",
       dataIndex: "owner",
       key: "owner",
       render: (text) => <p>{text}</p>,
-      responsive: ["sm"],
+     
     },
     {
       title: "Action",
@@ -346,7 +311,7 @@ function AdServices() {
           </a>
         </Dropdown>
       ),
-      responsive: ["sm", "xs", "md"],
+     
     },
   ];
 
@@ -426,9 +391,9 @@ function AdServices() {
               </div>
             </div>
           </div>
-          <div>
+          <div className="Row DataTable" >
             <Table
-              rowClassName={() => "rowClassName1"}
+              // rowClassName={() => "rowClassName1"}
               columns={columns}
               dataSource={TableData}
             />

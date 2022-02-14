@@ -22,7 +22,7 @@ import Reimbusrment from "./user/Reimbursment/Reimbursment";
 import Hrlisted from "./Hr/Listedpolices/Hrlistedpolices";
 import HrRecievedClaims from "./Hr/HrClaims/HrRecievedClaims";
 import HrComplaint from "./Hr/Complaints/HrComplaint";
-import HrServices from "./Admin/services/AdServiceReq";
+import HrServices from "./Hr/Services/Hrservice"
 import Receivedpremium from "./Hr/HrRecievedPremium";
 import Client from "./Hr/Client/Client";
 import AdDashboard from "./Admin/AdminDashboard";
@@ -31,7 +31,7 @@ import AdReceivedpremium from "./Admin/Premium/Receivedpremium";
 import AdServices from "./Admin/services/AdServiceReq";
 import HrList from "./Admin/Hr list/Hrlist";
 import AdListedPolocies from "./Admin/Listed polices/listedpolocies";
-import AdminComplaint from "./Hr/Complaints/HrComplaint";
+import AdminComplaint from  "./Admin/complaints/AdminComplaint"
 import HrReimbursment from "./Hr/Client/Reimbursment/HrReimbursment";
 import AdReimbursment from "./Admin/Reimbursment/AdReimbursment";
 import AdHolidays from "./Admin/Holiday/Holidays";
@@ -44,13 +44,16 @@ import AdHelpAndSupport from "./Admin/AdHelp&&support/Help&support";
 import HrSetting from "./Hr/settings/HrSettings";
 import HrHelp from "./Hr/settings/HrHelp&support/HrHelp&Support";
 import HrDashboard2 from "./Hr/HrDashBoard2";
-
+import Rp from "./example"
+import Doctors from "./Admin/Reimbursment/Doctors";
+import Services from "./Admin/Reimbursment/Services";
 function App() {
   return (
     <div>
       {/* <h1>data</h1> */}
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<Login />}/>
           <Route path="/login" element={<Login />}/>
             <Route path="signup" element={<CreateAccount />} />
             <Route path="forgetPassword" element={<ForgetPass />} />
@@ -96,9 +99,15 @@ function App() {
             <Route path="complaint" element={<AdminComplaint />} />
             <Route path="servicerequest" element={<AdServices />} />
             <Route path="holidays" element={<AdHolidays />} />
-            <Route path="reimbursement" element={<AdReimbursment />} />
+            <Route path="reimbursement" element={<AdReimbursment />}/>
+            <Route path="reimbursement/doctors" element={<Doctors/>}/>
+            <Route path="reimbursement/service" element={<Services/>}/>
             <Route path="setting" element={<AdSetting/>} />
             <Route path="helpandsupport" element={<AdHelpAndSupport/>}/>
+            
+
+
+
             {/* passwordRoutes */}
 
             <Route path="listedpolocies" element={<ListedPolocies />} />

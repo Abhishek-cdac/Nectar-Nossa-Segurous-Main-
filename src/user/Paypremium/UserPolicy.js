@@ -45,28 +45,27 @@ const UserPolicy = (props) => {
             </a>
           </div>
 
-          <div class="row d-flex align-items-center justify-content-between">
-            <div class="col-12">
-              <div class="heading-with-box">
-                <div class="row">
-                  <div class="col-lg-6 col-md-6 text-left">
+          <div className="row d-flex align-items-center justify-content-between">
+            <div className="col-12">
+              <div className="heading-with-box">
+                <div className="row">
+                  <div className="col-lg-6 col-md-6 text-left">
                     <h3>
                       Policies No. :{" "}
-                      <span class="color-green">
+                      <span className="color-green">
                         {policyList && policyList.policy.policyCode}
                       </span>
                     </h3>
                   </div>
 
-                  <div class="col-lg-6 col-md-6 text-right">
+                  <div className="col-lg-6 col-md-6 text-right">
                     <a
-                      href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html"
-                      class="danger-color"
+                      href=""
+                      className="danger-color"
                       data-toggle="modal"
                       data-target="#addPolicyList"
                     >
                       Status: Premium Due
-                      {/* <img src="file:///D:/ReactNasso/nasso/src/user/Paypremium/assets/img/warning.svg"/> */}
                     </a>
                   </div>
                 </div>
@@ -74,10 +73,10 @@ const UserPolicy = (props) => {
             </div>
           </div>
 
-          <div class="policy-box">
-            <div class="row">
-              <div class="col-12">
-                <div class="table-data">
+          <div className="policy-box">
+            <div className="row">
+              <div className="col-12">
+                <div className="table-data">
                   <span>Policy Holder Name</span>
                   <b>
                     {policyList && policyList.user.firstName}{" "}
@@ -85,70 +84,70 @@ const UserPolicy = (props) => {
                   </b>
                 </div>
               </div>
-              <div class="clearfix"></div>
-              <div class="col-12 col-md-3 col-sm-3">
-                <div class="table-data">
+              <div className="clearfix"></div>
+              <div className="col-12 col-md-3 col-sm-3">
+                <div className="table-data">
                   <span>Policy</span>
                   <b>{policyList && policyList.policy.policyName}</b>
                 </div>
               </div>
-              <div class="col-12 col-md-3 col-sm-3">
-                <div class="table-data">
+              <div className="col-12 col-md-3 col-sm-3">
+                <div className="table-data">
                   <span>Policy Type</span>
                   <b>{policyList && policyList.policy.policyType}</b>
                 </div>
               </div>
-              <div class="col-12 col-md-3 col-sm-3">
-                <div class="table-data">
+              <div className="col-12 col-md-3 col-sm-3">
+                <div className="table-data">
                   <span>Policy Start date</span>
                   <b>{policyList && policyList.createdAt}</b>
                 </div>
               </div>
-              <div class="col-12 col-md-3 col-sm-3">
-                <div class="table-data">
+              <div className="col-12 col-md-3 col-sm-3">
+                <div className="table-data">
                   <span>Maturity date</span>
                   <b>{policyList && policyList.policyMaturityDate}</b>
                 </div>
               </div>
-              <div class="clearfix"></div>
-              <div class="col-12 col-md-3 col-sm-3">
-                <div class="table-data">
+              <div className="clearfix"></div>
+              <div className="col-12 col-md-3 col-sm-3">
+                <div className="table-data">
                   <span>Premium plan</span>
                   <b>{policyList && policyList.premiumPlan}</b>
                 </div>
               </div>
-              <div class="col-12 col-md-3 col-sm-3">
-                <div class="table-data">
+              <div className="col-12 col-md-3 col-sm-3">
+                <div className="table-data">
                   <span>Premium</span>
                   <b>{policyList && policyList.premiumAmount}</b>
                 </div>
               </div>
-              <div class="col-12 col-md-3 col-sm-3">
-                <div class="table-data">
+              <div className="col-12 col-md-3 col-sm-3">
+                <div className="table-data">
                   <span>Premium Due date</span>
                   <b>{policyList && policyList.updatedAt}</b>
                 </div>
               </div>
-              <div class="col-12 col-md-3 col-sm-3">
-                <div class="table-data">&nbsp;</div>
+              <div className="col-12 col-md-3 col-sm-3">
+                <div className="table-data">&nbsp;</div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-12 col-md-10">
-                <div class="table-data">
+            <div className="row">
+              <div className="col-12 col-md-10">
+                <div className="table-data">
                   <span>Details</span>
                   <p>{policyList && policyList.policy.description}</p>
                   <a
                     data-toggle="collapse"
-                    href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#collapseExample"
+                    href=""
                     role="button"
                     aria-expanded="false"
                     aria-controls="collapseExample"
                   >
                     see more
                   </a>
-                  {/* <div class="collapse" id="collapseExample">
-                                            <p class="mt-2">
+                  {/* <div className="collapse" id="collapseExample">
+                                            <p className="mt-2">
                                             {policyList && policyList.policy.policyCode}
                                             </p>
                                         </div> */}
@@ -158,34 +157,32 @@ const UserPolicy = (props) => {
             <div>
               {status && (
                 <div
-                  class="row"
+                  className="row"
                   style={{ display: "flex", flexDirection: "row" }}
                 >
                   {" "}
-                  <div class="col-12 col-md-2">
+                  <div className="col-12 col-md-2">
                     <a
-                      href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#"
-                      class="btn-close"
+                      href=""
+                      className="btn-close"
                     >
                       Close Policy
                     </a>
                   </div>
-                  {/* <div class="col-12 col-md-2">
-                                //     <a href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#" class="btn-close renew-btn">Renew Policy</a>
-                                // </div> */}
-                  <div class="col-12 col-md-2">
+               
+                  <div className="col-12 col-md-2">
                     <a
-                      href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#"
-                      class="btn-close premium-btn"
+                      href="#"
+                      className="btn-close premium-btn"
                       onClick={() => handlePayment()}
                     >
                       Pay Premium
                     </a>
                   </div>
-                  <div class="col-12 col-md-2">
+                  <div className="col-12 col-md-2">
                     <a
-                      href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#"
-                      class="btn-close claim-btn"
+                      href="#"
+                      className="btn-close claim-btn"
                       onClick={() => handleClaimRequest()}
                     >
                       Claim Request
@@ -194,10 +191,10 @@ const UserPolicy = (props) => {
                 </div>
               )}
               {!status && (
-                <div class="col-12 col-md-2">
+                <div className="col-12 col-md-2">
                   <a
-                    href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#"
-                    class="btn-close renew-btn"
+                    href="#"
+                    className="btn-close renew-btn"
                   >
                     Renew Policy
                   </a>
@@ -206,16 +203,16 @@ const UserPolicy = (props) => {
             </div>
           </div>
 
-          <footer class="py-4 bg-light mt-auto">
-            <div class="container-fluid">
-              <div class="d-flex align-items-center justify-content-between small">
-                <div class="text-muted">Copyright © Nossa 2020</div>
+          <footer className="py-4 bg-light mt-auto">
+            <div className="container-fluid">
+              <div className="d-flex align-items-center justify-content-between small">
+                <div className="text-muted">Copyright © Nossa 2020</div>
                 <div>
-                  <a href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#">
+                  <a href="#">
                     Privacy Policy
                   </a>
                   ·
-                  <a href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#">
+                  <a href="#">
                     Terms &amp; Conditions
                   </a>
                 </div>
@@ -223,15 +220,7 @@ const UserPolicy = (props) => {
             </div>
           </footer>
 
-          {/* <script src="./userpolicy_files/jquery-3.5.1.slim.min.js.download" crossorigin="anonymous"></script>
-        <script src="./userpolicy_files/bootstrap.bundle.min.js.download" crossorigin="anonymous"></script>
-        <script src="file:///D:/ReactNasso/nasso/src/user/Paypremium/js/scripts.js"></script>
-        <script src="./userpolicy_files/Chart.min.js.download" crossorigin="anonymous"></script>
-        <script src="file:///D:/ReactNasso/nasso/src/user/Paypremium/assets/demo/chart-area-demo.js"></script>
-        <script src="file:///D:/ReactNasso/nasso/src/user/Paypremium/assets/demo/chart-bar-demo.js"></script>
-        <script src="./userpolicy_files/jquery.dataTables.min.js.download" crossorigin="anonymous"></script>
-        <script src="./userpolicy_files/dataTables.bootstrap4.min.js.download" crossorigin="anonymous"></script>
-        <script src="file:///D:/ReactNasso/nasso/src/user/Paypremium/assets/demo/datatables-demo.js"></script> */}
+  
         </div>
       )}
       {paymentPage && (

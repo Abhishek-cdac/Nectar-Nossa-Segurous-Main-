@@ -494,13 +494,51 @@ const Reimbusrment = () => {
       {ReimbursmentPage && (
         <div>
           <div className="row d-flex align-items-center justify-content-between">
-            <div className="col-lg-2 text-left">
+            <div className="col-lg-12 text-left">
               <h3 className="mt-0 mb-4 my-2">Reimbursement</h3>
             </div>
-            <div className="col-12 col-lg-8 col-md-4 text-right">
+          </div>
+
+          <div className="row d-flex align-items-center justify-content-between border-bottom pb-2">
+            <div className="col-12 col-lg-4 col-md-4 text-left">
+              <ul className="nav nav-tabs table-nav" id="myTab" role="tablist">
+                <li className="nav-item" role="presentation">
+                  <a
+                    className={`nav-link ${!step ? "active" : ""}`}
+                    id="clinic-list-tab"
+                    data-toggle="tab"
+                    onClick={() => {
+                      setStep(0);
+                    }}
+                    role="tab"
+                    aria-controls="clinic-list"
+                    aria-selected="true"
+                  >
+                    Clinic List
+                  </a>
+                </li>
+                <li className="nav-item" role="presentation">
+                  <a
+                    className={`nav-link ${step ? "active" : ""}`}
+                    // className="nav-link"
+                    id="pharmacies-list-tab"
+                    data-toggle="tab"
+                    onClick={() => {
+                      setStep(1);
+                    }}
+                    role="tab"
+                    aria-controls="pharmacies-list"
+                    aria-selected="false"
+                  >
+                    Pharmacies List
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div className="col-12 col-lg-8 col-md-8 text-right">
               <div className="search-btn">
                 <div className="search-btn">
-                  <div className="input-group" style={{width:"25%"}}>
+                  <div className="input-group">
                     <input
                       type="text"
                       className="form-control my-3"
@@ -704,47 +742,176 @@ const Reimbusrment = () => {
                     </button>
                   </div>
                 </div>
+<<<<<<< HEAD
+                <div>
+                  <button
+                    type="button"
+                    className="btn btn-success btn-sm my-3"
+                    style={{ width: "130px" }}
+                    onClick={handleShow}
+                  >
+                    <i className="fas fa-plus-circle"></i> Add Holiday List
+                  </button>
+                  <div className="header">
+                    <Modal show={ShowModal} onHide={handleCancel} size="lg">
+                      <Modal.Header closeButton>
+                        <Modal.Title
+                          style={{ color: "#61B33B", marginLeft: "130px" }}
+                        >
+                          Add Reimbursment List
+                        </Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        <div className="container">
+                          <Form.Group>
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control
+                              type="text"
+                              value={name}
+                              name="name"
+                              onChange={handleChange}
+                            ></Form.Control>
+                            <Form.Label>Type</Form.Label>
+                            <Form.Control
+                              type="text"
+                              value={type}
+                              name="type"
+                              onChange={handleChange}
+                            ></Form.Control>
+                            <Form.Label>Adress</Form.Label>
+                            <Form.Control
+                              type="textArea"
+                              value={address}
+                              name="address"
+                              onChange={handleChange}
+                            ></Form.Control>
+                            <Form.Label>Area</Form.Label>
+                            <Form.Control
+                              type="text"
+                              value={area}
+                              name="area"
+                              onChange={handleChange}
+                            ></Form.Control>
+                            <Form.Label>Contact</Form.Label>
+                            <Form.Control
+                              type="number"
+                              value={contact}
+                              name="contact"
+                              onChange={handleChange}
+                            ></Form.Control>
+                            <Form.Label>Service_offered</Form.Label>
+                            <Form.Control
+                              type="text"
+                              value={serviceOffered}
+                              name="serviceOffered"
+                              onChange={handleChange}
+                            ></Form.Control>
+                            <Form.Label>Doctors Selected</Form.Label>
+                            <Form.Control
+                              as="select"
+                              multiple
+                              value={doctors}
+                              onChange={(e) =>
+                                setDoctors(
+                                  [].slice
+                                    .call(e.target.selectedOptions)
+                                    .map((item) => item.value)
+                                )
+                              }
+                            >
+                              {/* <Form.Control as="select" multiple value={doctors}> */}
+                              {DoctorsName &&
+                                DoctorsName.map((data) => (
+                                  <option value={data.DoctorsName}>
+                                    {data.DoctorsName}
+                                  </option>
+                                ))}
+                            </Form.Control>
+                            <Form.Label>Services Selected</Form.Label>
+                            <Form.Control as="select" multiple value={services}>
+                              {ServiceName &&
+                                ServiceName.map((data) => (
+                                  <option value={data.ServiceName}>
+                                    {data.ServiceName}
+                                  </option>
+                                ))}
+                            </Form.Control>
+                            <Form.Label>description</Form.Label>
+                            <Form.Control
+                              type="textArea"
+                              value={description}
+                              name="description"
+                              onChange={handleChange}
+                            ></Form.Control>
+                          </Form.Group>
+                        </div>
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button
+                          variant="primary"
+                          size="md"
+                          onClick={handleAddRemList}
+                          style={{ width: "200%" }}
+                        >
+                          Submit
+                        </Button>
+                        <label
+                          style={{ color: "red", justifyContent: "center" }}
+                        >
+                          {errorMsg}
+                        </label>
+                      </Modal.Footer>
+                    </Modal>
+                  </div>
+                </div>
+                <div className="btn-group hover_drop_down">
+                  <button
+                    type="button"
+                    className="btn btn-success btn-sm my-3"
+                    data-toggle="dropdown"
+                    style={{ width: "130px" }}
+                  >
+                    <i className="fas fa-filter"></i> Add Filters
+                  </button>
+                  <ul className="dropdown-menu" role="menu">
+                    <li>
+                      <a
+                        onClick={() => {
+                          handleclick("provincial");
+                        }}
+                      >
+                        provincial{" "}
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        onClick={() => {
+                          handleclick("public");
+                        }}
+                      >
+                        public
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        onClick={() => {
+                          handleclick("municipal");
+                        }}
+                      >
+                        Municipal
+                      </a>
+                    </li>
+                  </ul>
+                  <button type="button" className="btn btn-primary btn-sm my-3">
+                    <CSVLink data={ReimbursmentCSV} target="_blank">
+                      Download PDF/CSV
+                    </CSVLink>
+                  </button>
+                </div>
+=======
+>>>>>>> origin/akash
               </div>
             </div>
-          </div>
-
-          <div className="row d-flex align-items-center justify-content-between border-bottom pb-2">
-            <div className="col-12 col-lg-6 col-md-6 text-left">
-              <ul className="nav nav-tabs table-nav" id="myTab" role="tablist">
-                <li className="nav-item" role="presentation">
-                  <a
-                    className={`nav-link ${!step ? "active" : ""}`}
-                    id="clinic-list-tab"
-                    data-toggle="tab"
-                    onClick={() => {
-                      setStep(0);
-                    }}
-                    role="tab"
-                    aria-controls="clinic-list"
-                    aria-selected="true"
-                  >
-                    Clinic List
-                  </a>
-                </li>
-                <li className="nav-item" role="presentation">
-                  <a
-                    className={`nav-link ${step ? "active" : ""}`}
-                    // className="nav-link"
-                    id="pharmacies-list-tab"
-                    data-toggle="tab"
-                    onClick={() => {
-                      setStep(1);
-                    }}
-                    role="tab"
-                    aria-controls="pharmacies-list"
-                    aria-selected="false"
-                  >
-                    Pharmacies List
-                  </a>
-                </li>
-              </ul>
-            </div>
-            
           </div>
           <div className="tab-content table-custome mt-3" id="myTabContent">
             <div

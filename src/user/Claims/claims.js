@@ -1,21 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  Table,
-  Input,
-  Button,
-  Breadcrumb,
-  Dropdown,
-  Modal,
-  Menu,
-  Form,
-} from "antd";
+import { Table, Button, Breadcrumb } from "antd";
 import { CSVLink } from "react-csv";
-import {
-  DeleteOutlined,
-  PlusOutlined,
-  FilterOutlined,
-  EditOutlined,
-} from "@ant-design/icons";
+import { PlusOutlined } from "@ant-design/icons";
 import { useNavigate, useLocation } from "react-router-dom";
 import NewClaim from "./Newclaim";
 import UserClaim from "./UserClaim";
@@ -86,7 +72,8 @@ const Claims = () => {
       title: "Claim Id",
       dataIndex: "id",
       key: "id",
-      ellipsis: true,
+      // ellipsis: true,
+      // responsive: ["sm"],
       render: (text, record) => (
         <a
           style={{ color: "#4cbb17" }}
@@ -101,27 +88,31 @@ const Claims = () => {
       title: "Policy Name",
       dataIndex: "policyName",
       key: "policyName",
-      ellipsis: true,
+      // ellipsis: true,
+      // responsive: ["sm"],
     },
 
     {
       title: "Policy Code",
       dataIndex: "code",
       key: "code",
-      ellipsis: true,
+      // ellipsis: true,
+      // responsive: ["sm"],
     },
     {
       title: "Request Date",
       dataIndex: "date",
       key: "date",
-      ellipsis: true,
+      // ellipsis: true,
+      // responsive: ["sm"],
     },
 
     {
       title: "Staus",
       dataIndex: "status",
       key: "status",
-      ellipsis: true,
+      // ellipsis: true,
+      // responsive: ["sm"],
     },
   ];
 
@@ -133,58 +124,59 @@ const Claims = () => {
   return (
     <div>
       {claimTablePage && (
-        <div className="container-fluid">
+        <div>
           <Breadcrumb style={{ marginTop: "20px" }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
             <Breadcrumb.Item>claims</Breadcrumb.Item>
           </Breadcrumb>
-          <div
-            className="row"
-            style={{
-              marginTop: "20px",
-              marginBottom: "25px",
-              display: "flex",
-              justifyContent: "space-between",
-              flexDirection: "row",
-            }}
-          >
-            <div className="col-12 col-sm-4 col-md-4">
-              <h3>Claim Requests</h3>
-            </div>
-            <div className="nav justify-content-left">
+          <div className="container-fluid">
             <div
-              className="col-12 col-sm-6 col-md-6"
-              style={{ display: "flex", flexDirection: "row" }}
+              className="ant-row"
+              style={{
+                marginTop: "20px",
+                marginBottom: "25px",
+                display: "flex",
+                justifyContent: "space-between",
+                flexDirection: "row",
+              }}
             >
-              <Button
-                style={{
-                  borderRadius: "5px",
-                  backgroundColor: "#61b33b",
-                  color: "white",
-                }}
-                onClick={() => handleAddClaims()}
-              >
-                <PlusOutlined style={{ paddingTop: "5px" }} /> New Claim Request
-              </Button>
+              <div className="col-12 col-sm-3 col-md-3">
+                <h3>Claim Requests</h3>
+              </div>
+
+              <div className="col-12 col-sm-3 col-md-3">
+                <Button
+                  style={{
+                    borderRadius: "5px",
+                    // marginRight: "30px",
+                    backgroundColor: "#61b33b",
+                    color: "white",
+                  }}
+                  onClick={() => handleAddClaims()}
+                >
+                  <PlusOutlined style={{ paddingTop: "5px" }} /> New Claim
+                  Request
+                </Button>
+              </div>
+
+              <div className="col-12 col-sm-3 col-md-3">
+                <Button
+                  style={{
+                    color: "#ffffff",
+                    backgroundColor: "#000089",
+                  }}
+                >
+                  {/* Download PDF/CSV */}
+                  <CSVLink data={""} target="_blank">
+                    Download PDF/CSV
+                  </CSVLink>
+                </Button>
+              </div>
             </div>
-            <div className="col-12 col-sm-6 col-md-6">
-              <Button
-                style={{
-                  color: "#ffffff",
-                  backgroundColor: "#000089",
-                  borderRadius: "5px",
-                }}
-              >
-                {/* Download PDF/CSV */}
-                <CSVLink data={""} target="_blank">
-                  Download PDF/CSV
-                </CSVLink>
-              </Button>
-            </div>
-            </div>
-            
           </div>
-          <Table style={{padding:"10px"}}
+
+          <div className="DataTable">
+            <Table
               columns={columns}
               dataSource={TableData}
               pagination={true}
@@ -193,6 +185,10 @@ const Claims = () => {
             <div>
               <span>shown Results {ClaimsListArray.length}</span>
             </div>
+          </div>
+          <div>
+            <span>shown Results {ClaimsListArray.length}</span>
+          </div>
         </div>
       )}
       {addClaim && (

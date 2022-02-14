@@ -27,18 +27,18 @@ export default function Noosa() {
     let navigate = useNavigate();
     const location = useLocation();
     return (
-        <div class="sb-nav-fixed bg-light">
+        <div className="sb-nav-fixed bg-light">
 
 
             <AppHeader />
             <div id="layoutSidenav">
                 <div id="layoutSidenav_nav">
-                    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                        <div class="sb-sidenav-menu">
-                            <div class="nav mt-4">
+                    <nav className="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                        <div className="sb-sidenav-menu">
+                            <div className="nav mt-4">
                                 {Tabs.map(({label,link})=>{
                                     const isActive = location.pathname.split("/")[1] === link;
-                                    return(<a class= {`nav-link ${isActive ? 'active' : ''}`} key={link} onClick={()=>navigate(`/${link}`)}>
+                                    return(<a className= {`nav-link ${isActive ? 'active' : ''}`} key={link} onClick={()=>navigate(`/${link}`)}>
 
                                     {label}
                                 </a>)
@@ -51,7 +51,7 @@ export default function Noosa() {
                     </nav>
                 </div>Complaint
                 <div id="layoutSidenav_content">
-                    <div class="container-fluid">
+                    <div className="container-fluid">
                         <Outlet/>
                         </div>
                         </div>

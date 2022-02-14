@@ -1,418 +1,371 @@
-import React ,{useState} from "react";
-import { Card, Row, Col, Button, Tabs, Divider } from "antd";
-import { ArrowRightOutlined, ArrowDownOutlined } from "@ant-design/icons";
-import "antd/dist/antd.css";
+import React, { useState, useEffect } from "react";
+import { getDashboardAPI,getAllUserPolicyList } from ".././services/authentication";
+import ic_file_download from "../assets/img/ic_file_download.png";
+import ic_notifications from "../assets/img/ic_notifications.png";
 
-const { TabPane } = Tabs;
+const Dashboard = () => {
+  const [dashBoardListArray, setDashBoardListArray] = useState("");
+  const [getAllUsersList,setgetAllUsersList]=useState('')
+ const loginDetailsUserId = window.localStorage.getItem("loginDetailsUserId");
+ 
+  const handleDashboardApI = async () => {
+    try{
+    const resp = await getDashboardAPI();
+    setDashBoardListArray(resp);
+    console.log("resp", resp);
+    }
+    
+      catch (error) {
+        console.log("error", error);
+    }
+  };
+  useEffect(() => {
+    handleDashboardApI();
+  }, []);
 
-export default function Dashboard() {
-  const [show,setShow] = useState(false)
-  const mouseHover = () => setShow(prev => !prev)
+
+  const handleGetPolicyListServiceCall = async () => {
+    const data ={
+      user_id:loginDetailsUserId
+    }
+    try {
+      const resp = await getAllUserPolicyList(data);
+      console.log("resssss", resp);
+      setgetAllUsersList(resp.data);
+    } catch (error) {
+      console.log("err", error);
+    }
+  };
+  useEffect(() => {
+    handleGetPolicyListServiceCall();
+  }, []);
+
   return (
-    <div className="container-fluid">
-      <div style={{ margin: "20px" }}>
-        <h2>Dashboard</h2>
-        <div className="site-card-wrapper">
-          <Row gutter={16}>
-            <Col xs={24} md={12} lg={4} xl={4}>
-               <Card  
-              // actions={ show ? [
-              // //  <div>
-              // //    <p> nagasai nassso </p>
-              // //   </div> 
-              // ] : null}
-              //  extra={show ? <Button type="link"> Download </Button> : null}
-              onMouseEnter={mouseHover}
-              onMouseLeave={mouseHover}>
-                <div>
-                  <Row>
-                  <Col xs={24} md={12} lg={4}>
-                      <div>Active</div>
-                      <div>Policies</div>
-                    </Col>
-                    <Col
-                      span={4}
-                      style={{
-                        color: "#61b33b",
-                        fontSize: "24px",
-                        fontWeight: 600,
-                      }}
-                    >
-                      05
-                    </Col>
-                  </Row>
+    <div
+      id="layoutSidenav_content"
+      style={{ paddingLeft: "80px", marginLeft: "-75px" }}
+    >
+      <div className="container-fluid">
+        <h3 className="mt-4 mb-4">Dashboard</h3>
+        <div className="row">
+          <div className="col-12 col-md-6 col-sm-6 col-lg-3 mb-2">
+            <div className="card card-custom">
+              <div className="row">
+                <div className="col-6 col-md-6 col-sm-6 text-left">
+                  <p className="pl-4 pt-4">
+                    Active
+                    <br />
+                    Policies{" "}
+                  </p>
                 </div>
-                <Divider />
-                <div style={{ float: "right" }}>
-                  {show ? <ArrowDownOutlined style={{ color: "#61b33b" }}/> : <ArrowRightOutlined style={{ color: "#61b33b" }} /> }
+                <div className="col-6 col-md-6 col-sm-6 text-right">
+                  <h3 className="pr-4 pt-4">
+                    {dashBoardListArray && dashBoardListArray.data.totalPolicy}
+                  </h3>
+                  {console.log("dashBoardListArray", dashBoardListArray)}
                 </div>
-              </Card> 
-            </Col>
-            <Col span={6}>
-              <Card>
-                <div>
-                  <Row>
-                    <Col span={20}>
-                      <div>Payment</div>
-                      <div>History</div>
-                    </Col>
-                    <Col span={4}></Col>
-                  </Row>
+              </div>
+              <hr />
+              <div className="row">
+                <div className="col-9 col-md-9 col-sm-9 text-left">
+                  <small className="pl-4 pt-0 pb-3 d-block">&nbsp;</small>
                 </div>
-                <Divider />
-                <div style={{ float: "right" }}>
-                  <ArrowRightOutlined style={{ color: "#61b33b" }} />
+                <div className="col-3 col-md-3 col-sm-3 text-right">
+                  <a href="" className="pr-4 pt-0 pb-3 d-block">
+                    <i className="fas fa-arrow-right"></i>
+                  </a>
                 </div>
-              </Card>
-            </Col>
-            <Col span={6}>
-              <Card>
-                <div>
-                  <Row>
-                    <Col span={20}>
-                      <div>Your</div>
-                      <div>Claims</div>
-                    </Col>
-                    <Col
-                      span={4}
-                      style={{
-                        color: "#61b33b",
-                        fontSize: "24px",
-                        fontWeight: 600,
-                      }}
-                    >
-                      05
-                    </Col>
-                  </Row>
+              </div>
+            </div>
+          </div>
+          <div className="col-12 col-md-6 col-sm-6 col-lg-3 mb-2">
+            <div className="card card-custom">
+              <div className="row">
+                <div className="col-6 col-md-6 col-sm-6 text-left">
+                  <p className="pl-4 pt-4">
+                    Payment
+                    <br />
+                    History{" "}
+                  </p>
                 </div>
-                <Divider />
-                <div style={{ float: "right" }}>
-                  <ArrowRightOutlined style={{ color: "#61b33b" }} />
+                <div className="col-6 col-md-6 col-sm-6 text-right">
+                  <h3 className="pr-4 pt-4">
+                    {dashBoardListArray && dashBoardListArray.data.payment}
+                  </h3>
                 </div>
-              </Card>
-            </Col>
-            <Col span={6}>
-              <Card>
-                <div>
-                  <Row>
-                    <Col span={20}>
-                      <div>Service</div>
-                      <div>Requests</div>
-                    </Col>
-                    <Col
-                      span={4}
-                      style={{
-                        color: "#61b33b",
-                        fontSize: "24px",
-                        fontWeight: 600,
-                      }}
-                    >
-                      05
-                    </Col>
-                  </Row>
+              </div>
+              <hr />
+              <div className="row">
+                <div className="col-9 col-md-9 col-sm-9 text-left">
+                  <small className="pl-4 pt-0 pb-3 d-block">&nbsp;</small>
                 </div>
-                <Divider />
-                <div style={{ float: "right" }}>
-                  <ArrowRightOutlined style={{ color: "#61b33b" }} />
+                <div className="col-3 col-md-3 col-sm-3 text-right">
+                  <a href="" className="pr-4 pt-0 pb-3 d-block">
+                    <i className="fas fa-arrow-right"></i>
+                  </a>
                 </div>
-              </Card>
-            </Col>
-          </Row>
+              </div>
+            </div>
+          </div>
+          <div className="col-12 col-md-6 col-sm-6 col-lg-3 mb-2">
+            <div className="card card-custom">
+              <div className="row">
+                <div className="col-6 col-md-6 col-sm-6 text-left">
+                  <p className="pl-4 pt-4">
+                    Your
+                    <br />
+                    Claims{" "}
+                  </p>
+                </div>
+                <div className="col-6 col-md-6 col-sm-6 text-right">
+                  <h3 className="pr-4 pt-4">
+                    {dashBoardListArray && dashBoardListArray.data.totalClaims}
+                  </h3>
+                </div>
+              </div>
+              <hr />
+              <div className="row">
+                <div className="col-9 col-md-9 col-sm-9 text-left">
+                  <small className="pl-4 pt-0 pb-3 d-block">&nbsp;</small>
+                </div>
+                <div className="col-3 col-md-3 col-sm-3 text-right">
+                  <a href="" className="pr-4 pt-0 pb-3 d-block">
+                    <i className="fas fa-arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="col-12 col-md-6 col-sm-6 col-lg-3 mb-2">
+            <div className="card card-custom">
+              <div className="row">
+                <div className="col-6 col-md-6 col-sm-6 text-left">
+                  <p className="pl-4 pt-4">
+                    Service
+                    <br />
+                    Requests{" "}
+                  </p>
+                </div>
+                <div className="col-6 col-md-6 col-sm-6 text-right">
+                  <h3 className="pr-4 pt-4">
+                    {dashBoardListArray &&
+                      dashBoardListArray.data.totalServiceRequest}
+                  </h3>
+                </div>
+              </div>
+              <hr />
+              <div className="row">
+                <div className="col-9 col-md-9 col-sm-9 text-left">
+                  <small className="pl-4 pt-0 pb-3 d-block"></small>
+                </div>
+                <div className="col-3 col-md-3 col-sm-3 text-right">
+                  <a href="" className="pr-4 pt-0 pb-3 d-block">
+                    <i className="fas fa-arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div style={{ margin: "20px" }}>
-        <div className="site-card-wrapper">
-          <Row gutter={16}>
-            <Col span={14}>
-              <Card>
-                <Row gutter={16}>
-                  <Col span={20}>
-                    <h4>My Policies</h4>
-                  </Col>
-                  <Col span={4}>
-                    <span
-                      style={{
-                        fontSize: "10px",
-                        color: "#61b33b",
-                      }}
+
+        <div className="row">
+          <div className="col-12 col-lg-7 mb-4">
+            <div className="heading-with-box white-bg mb-1">
+              <div className="row">
+                <div className="col-lg-6 col-md-6 text-left">
+                  <h3>My Policies </h3>
+                </div>
+                <div className="col-lg-6 col-md-6 text-right">
+                  <a href="" data-toggle="modal" data-target="#addPolicyList">
+                    View All
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-12 col-lg-12 mb-4">
+                <div className="table-responsive" style={{width:"100%"}}>
+                  <table className="table table-bordered">
+                    <thead
+                      className="white-bg"
+                      style={{ backgroundColor: "#8ec131" }}
                     >
-                      View All
-                    </span>
-                  </Col>
-                </Row>
-              </Card>
-              <Card
-                style={{
-                  backgroundColor: "#F5F5F5",
-                  fontSize: "12px",
-                }}
+                      <tr>
+                        <th>Policy Name</th>
+                        <th>Policy code</th>
+                        <th>Policy Type</th>
+                        <th>Total Sales</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {getAllUsersList &&
+                        getAllUsersList.map((item) => (
+                          <tr className="grey-box">
+                            <td className="green-text">{item.policyName}</td>
+                            <td>{item.policyCode}</td>
+                            <td>{item.policyType}</td>
+                            <td className="green-text">{item.totalSales}</td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="col-12 col-lg-5 mb-4">
+            <div className="green-box">
+              <div className="row d-flex align-items-center justify-content-between">
+                <div className="col-12 col-lg-9">
+                  <lable style={{ marginTop: "10px" }}>
+                    {" "}
+                    <img src={ic_notifications} alt="" />
+                  </lable>
+                  <p className="bell-text">
+                    Your premium payment of $ 2500 is pending for policy number
+                    of <b>NS00011122</b>{" "}
+                  </p>
+                </div>
+                <div className="col-12 col-lg-3">
+                  <a href="#" className="btn btn-primary pay-now">
+                    Pay Now
+                  </a>
+                </div>
+              </div>
+            </div>
+            <a href="#" className="text-right w-100 d-block mt-2">
+              View All
+            </a>
+
+            <div className="row d-flex align-items-center justify-content-between">
+              <div className="col-12">
+                <h3 className="mt-2 mb-0">Recommended for you</h3>
+              </div>
+            </div>
+            <div className="row d-flex align-items-center justify-content-between">
+              <div className="col-12 text-left">
+                <ul
+                  className="nav nav-tabs table-nav mt-3"
+                  id="myTab"
+                  role="tablist"
+                >
+                  <li className="nav-item" role="presentation">
+                    <a
+                      className="nav-link active"
+                      id="recommended-policies-tab"
+                      data-toggle="tab"
+                      href="#recommended-policies"
+                      role="tab"
+                      aria-controls="recommended-policies"
+                      aria-selected="true"
+                    >
+                      Recommended Policies
+                    </a>
+                  </li>
+                  <li className="nav-item" role="presentation">
+                    <a
+                      className="nav-link"
+                      id="all-policies-tab"
+                      data-toggle="tab"
+                      href="#all-policies"
+                      role="tab"
+                      aria-controls="all-policies"
+                      aria-selected="false"
+                    >
+                      All Policies
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="tab-content table-bordered" id="myTabContent">
+              <div
+                className="tab-pane fade show active"
+                id="recommended-policies"
+                role="tabpanel"
+                aria-labelledby="recommended-policies-tab"
               >
-                <Row gutter={16}>
-                  <Col span={10}>
-                    <div>Accidents at Work</div>
-                    <div style={{ color: "#61B33B" }}>
-                      {" "}
-                      Policy Number : NS00011122
-                    </div>
-                  </Col>
-                  <Col span={6}>
-                    <div>Due Date:</div>
-                    <div style={{ color: "#61B33B" }}>20th April 2021</div>
-                  </Col>
-                  <Col span={6}>
-                    <div>Premium</div>
-                    <div style={{ color: "#61B33B" }}>$ 2500 / Month</div>
-                  </Col>
-                  <Col span={2}>...</Col>
-                </Row>
-              </Card>
-              <Card
-                style={{
-                  backgroundColor: "#F5F5F5",
-                  fontSize: "12px",
-                }}
-              >
-                <Row gutter={16}>
-                  <Col span={10}>
-                    <div>Accidents at Work</div>
-                    <div style={{ color: "#61B33B" }}>
-                      {" "}
-                      Policy Number : NS00011122
-                    </div>
-                  </Col>
-                  <Col span={6}>
-                    <div>Due Date:</div>
-                    <div style={{ color: "#61B33B" }}>20th April 2021</div>
-                  </Col>
-                  <Col span={6}>
-                    <div>Premium</div>
-                    <div style={{ color: "#61B33B" }}>$ 2500 / Month</div>
-                  </Col>
-                  <Col span={2}>...</Col>
-                </Row>
-              </Card>
-              <Card
-                style={{
-                  backgroundColor: "#F5F5F5",
-                  fontSize: "12px",
-                }}
-              >
-                <Row gutter={16}>
-                  <Col span={10}>
-                    <div>Accidents at Work</div>
-                    <div style={{ color: "#61B33B" }}>
-                      {" "}
-                      Policy Number : NS00011122
-                    </div>
-                  </Col>
-                  <Col span={6}>
-                    <div>Due Date:</div>
-                    <div style={{ color: "#61B33B" }}>20th April 2021</div>
-                  </Col>
-                  <Col span={6}>
-                    <div>Premium</div>
-                    <div style={{ color: "#61B33B" }}>$ 2500 / Month</div>
-                  </Col>
-                  <Col span={2}>...</Col>
-                </Row>
-              </Card>
-              <Card
-                style={{
-                  backgroundColor: "#F5F5F5",
-                  fontSize: "12px",
-                }}
-              >
-                <Row gutter={16}>
-                  <Col span={10}>
-                    <div>Accidents at Work</div>
-                    <div style={{ color: "#61B33B" }}>
-                      {" "}
-                      Policy Number : NS00011122
-                    </div>
-                  </Col>
-                  <Col span={6}>
-                    <div>Due Date:</div>
-                    <div style={{ color: "#61B33B" }}>20th April 2021</div>
-                  </Col>
-                  <Col span={6}>
-                    <div>Premium</div>
-                    <div style={{ color: "#61B33B" }}>$ 2500 / Month</div>
-                  </Col>
-                  <Col span={2}>...</Col>
-                </Row>
-              </Card>
-            </Col>
-            <Col span={10}>
-              <Card
-                style={{
-                  backgroundColor: "#61b33b",
-                  fontSize: "10px",
-                  color: "#ffffff",
-                  borderRadius: "5px",
-                }}
-              >
-                <Row gutter={16}>
-                  <Col span={3}>
-                    <span>NI</span>
-                  </Col>
-                  <Col span={16}>
+                <div className="row d-flex align-items-center justify-content-between recommended-policies-box">
+                  <div className="col-12 col-lg-8">
                     <span>
-                      Your premium payment of $ 2500 is pending for policy
-                      number of NS00011122
+                      <small>Type : Vehicle</small>
+                      <br />
+                      Nossa Seguros Auto-insurance
                     </span>
-                  </Col>
-                  <Col span={3}>
+                  </div>
+                  <div className="col-12 col-lg-4">
+                    <a href="#" className="btn btn-primary">
+                      View
+                    </a>
+                    <a href="#" className="btn btn-secondary">
+                      <img src={ic_file_download} alt="" />
+                    </a>
+                  </div>
+                </div>
+                <div className="row d-flex align-items-center justify-content-between recommended-policies-box">
+                  <div className="col-12 col-lg-8">
                     <span>
-                      <Button
-                        style={{
-                          backgroundColor: "#00008B",
-                          color: "#ffffff",
-                          borderRadius: "25px",
-                          border: "1px solid",
-                          height: "24px",
-                          width: "76px",
-                          fontSize: "10px",
-                        }}
-                      >
-                        Pay Now
-                      </Button>
+                      <small>Type : Personal</small>
+                      <br />
+                      Nossa Seguros Acidenttes de Trabalho
                     </span>
-                  </Col>
-                </Row>
-              </Card>
-              <h3>Recomended for you</h3>
-              <Card>
-                <Tabs tabPosition="top">
-                  <TabPane tab="Recommended Policies" key="recommendedpolicies">
-                    <Row>
-                      <Col span={16}>
-                        <div
-                          style={{
-                            fontSize: "10px",
-                          }}
-                        >
-                          Type : Vehical
-                        </div>
-                        <div>Noosa Seguros Auto-insurance</div>
-                      </Col>
-                      <Col span={4}>
-                        {" "}
-                        <Button
-                          style={{
-                            backgroundColor: "#00008B",
-                            color: "#ffffff",
-                            borderRadius: "25px",
-                            border: "1px solid",
-                            height: "24px",
-                            width: "50px",
-                            fontSize: "10px",
-                          }}
-                        >
-                          View
-                        </Button>
-                      </Col>
-                      <Col span={4}>
-                        {" "}
-                        <Button
-                          style={{
-                            backgroundColor: "#00008B",
-                            color: "#ffffff",
-                            borderRadius: "25px",
-                            border: "1px solid",
-                            height: "24px",
-                            width: "50px",
-                            fontSize: "10px",
-                          }}
-                        >
-                          <ArrowDownOutlined />
-                        </Button>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col span={16}>
-                        <div
-                          style={{
-                            fontSize: "10px",
-                          }}
-                        >
-                          Type : Vehical
-                        </div>
-                        <div>Noosa Seguros Auto-insurance</div>
-                      </Col>
-                      <Col span={4}>
-                        {" "}
-                        <Button
-                          style={{
-                            backgroundColor: "#00008B",
-                            color: "#ffffff",
-                            borderRadius: "25px",
-                            border: "1px solid",
-                            height: "24px",
-                            width: "50px",
-                            fontSize: "10px",
-                          }}
-                        >
-                          View
-                        </Button>
-                      </Col>
-                      <Col span={4}>
-                        {" "}
-                        <Button
-                          style={{
-                            backgroundColor: "#00008B",
-                            color: "#ffffff",
-                            borderRadius: "25px",
-                            border: "1px solid",
-                            height: "24px",
-                            width: "50px",
-                            fontSize: "10px",
-                          }}
-                        >
-                          <ArrowDownOutlined />
-                        </Button>
-                      </Col>
-                    </Row>
-                  </TabPane>
-                  <TabPane tab="All Policies" key="allpolicies">
-                    <Card>
-                      {" "}
-                      <Row>
-                        <Col span={16}>
-                          <div
-                            style={{
-                              fontSize: "10px",
-                            }}
-                          >
-                            Type : Vehical
-                          </div>
-                        </Col>
-                        <Col span={4}>
-                          {" "}
-                          <Button
-                            style={{
-                              backgroundColor: "#00008B",
-                              color: "#ffffff",
-                              borderRadius: "25px",
-                              border: "1px solid",
-                              height: "24px",
-                              width: "76px",
-                              fontSize: "10px",
-                            }}
-                          >
-                            View
-                          </Button>
-                        </Col>
-                        <Col span={4}></Col>
-                      </Row>
-                    </Card>
-                    <Card style={{ margin: "5px" }}> </Card>
-                  </TabPane>
-                </Tabs>
-              </Card>
-            </Col>
-          </Row>
+                  </div>
+                  <div className="col-12 col-lg-4">
+                    <a href="#" className="btn btn-primary">
+                      View
+                    </a>
+                    <a href="#" className="btn btn-secondary">
+                      <img src={ic_file_download} alt="" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="tab-pane fade"
+                id="all-policies"
+                role="tabpanel"
+                aria-labelledby="all-policies-tab"
+              >
+                <div className="row d-flex align-items-center justify-content-between recommended-policies-box">
+                  <div className="col-12 col-lg-8">
+                    <span>
+                      <small>Type : Personal</small>
+                      <br />
+                      Nossa Seguros Acidenttes de Trabalho
+                    </span>
+                  </div>
+                  <div className="col-12 col-lg-4">
+                    <a href="#" className="btn btn-primary">
+                      View
+                    </a>
+                    <a href="#" className="btn btn-secondary">
+                      <img src={ic_file_download} alt="" />
+                    </a>
+                  </div>
+                </div>
+                <div className="row d-flex align-items-center justify-content-between recommended-policies-box">
+                  <div className="col-12 col-lg-8">
+                    <span>
+                      <small>Type : Vehicle</small>
+                      <br />
+                      Nossa Seguros Auto-insurance
+                    </span>
+                  </div>
+                  <div className="col-12 col-lg-4">
+                    <a href="#" className="btn btn-primary">
+                      View
+                    </a>
+                    <a href="#" className="btn btn-secondary">
+                      <img src={ic_file_download} alt="" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
-}
+};
+export default Dashboard;

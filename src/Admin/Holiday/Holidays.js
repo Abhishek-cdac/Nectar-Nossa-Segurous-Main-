@@ -9,8 +9,7 @@ import { getEditHoliday,getDeleteHoliday,getAddHoliday } from "../../services/au
 import {CSVLink} from "react-csv";
 
 //test
-import Doctors from "../Reimbursment/Doctors"
-import Services from "../Reimbursment/Services";
+
 import { parse } from "papaparse";
 
 
@@ -149,32 +148,31 @@ const payload ={
     console.log('uploadedData',uploadedData.data)
     if(uploadedData.data.length > 0){
       console.log(uploadedData)
-      // let value={}
+      let value={}
      uploadedData.data.map((data, i) => {
-       const value = {
+       if(data.Id){
+      value = {
         id:data.Id,
         Name:data.Name,
         Date:data.Date,
         Day:data.Day,
         Type:data.Type,
       };
-
-  
-      try {
-        console.log("value",value)
-        const resp =  getAddHoliday(value);
-        console.log("sucess", resp);
-      tableDataArr.push(value);
-      setHolidaysData(value)
-      setTableData(tableDataArr);
-      setShow(false) 
-      console.log("tdr", tableDataArr);
-      }
-      catch (error) {
-        console.log("error", error);
-      }
+    }
     });  
-
+    try {
+      console.log("value",value)
+      const resp =  getAddHoliday(value);
+      console.log("sucess", resp);
+    tableDataArr.push(value);
+    setHolidaysData(value)
+    setTableData(tableDataArr);
+    setShow(false) 
+    console.log("tdr", tableDataArr);
+    }
+    catch (error) {
+      console.log("error", error);
+    }
   }
   }
 
@@ -248,11 +246,11 @@ const payload ={
             <div className="header">
               <button
                 type="button"
-                class="btn btn-success btn-sm my-3"
+                className="btn btn-success btn-sm my-3"
                 style={{ width: "130px" }}
                 onClick={handleShow}
               >
-                <i class="fas fa-plus-circle"></i> Add Holiday List
+                <i className="fas fa-plus-circle"></i> Add Holiday List
               </button>
               <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
@@ -264,8 +262,8 @@ const payload ={
                 </Modal.Header>
                 <Modal.Body>
                  {uploadedStatus ? <div><h5>Upload CSV</h5>
-                  <div class="container">
-                    <div class="droptarget"
+                  <div className="container">
+                    <div className="droptarget"
                      onDragOver={(e)=>{
                        e.preventDefault();
                      }}
@@ -285,7 +283,7 @@ const payload ={
                      >
                  
                       <i
-                        class="fas fa-upload"
+                        className="fas fa-upload"
                         style={{ justifyContent: "center", display: "flex" }}
                       ></i>
                       <span style={{ fontSize: "1rem" }}>
@@ -295,7 +293,7 @@ const payload ={
                   </div> 
                   </div>
                   :
-                  <div class="container">
+                  <div className="container">
                       <h5>Uploaded CSV file sucessfully</h5>
                   </div>
                   }
@@ -321,16 +319,16 @@ const payload ={
                   </Button>
                 </Modal.Footer>
               </Modal>
-              <div class="btn-group hover_drop_down">
+              <div className="btn-group hover_drop_down">
                 <button
                   type="button"
-                  class="btn btn-success btn-sm my-3"
+                  className="btn btn-success btn-sm my-3"
                   data-toggle="dropdown"
                   style={{ width: "130px" }}
                 >
-                  <i class="fas fa-filter"></i> Add Filters
+                  <i className="fas fa-filter"></i> Add Filters
                 </button>
-                <ul class="dropdown-menu" role="menu" onClick={HandleClick}>
+                <ul className="dropdown-menu" role="menu" onClick={HandleClick}>
                   <li>
                     <a onClick={() =>{handleclick("Public Holiday")}}>Public Holiday </a>
                   </li>
@@ -341,7 +339,7 @@ const payload ={
                     <a onClick={() =>{handleclick("seasonal Holiday")}}>seasonal Holiday</a>
                   </li>
                 </ul>
-              <button type="button" class="btn btn-primary btn-sm my-3">
+              <button type="button" className="btn btn-primary btn-sm my-3">
               <CSVLink data={HolidayCSV} target="_blank">
                     Download PDF/CSV
                   </CSVLink>
@@ -391,19 +389,19 @@ const payload ={
           </div>
           <div className="col-xl-3  col-lg-3 col-md-2 col-sm-1">
             <nav aria-label="Page navigation example">
-              <ul class="pagination">
-                <li class="page-item">
-                  <a class="page-link" href="#">
+              <ul className="pagination">
+                <li className="page-item">
+                  <a className="page-link" href="#">
                     Prev
                   </a>
                 </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">
+                <li className="page-item">
+                  <a className="page-link" href="#">
                     1
                   </a>
                 </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">
+                <li className="page-item">
+                  <a className="page-link" href="#">
                     Next
                   </a>
                 </li>
@@ -422,7 +420,7 @@ const payload ={
                   </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <div class="container">
+                  <div className="container">
                     <Form.Group>
                     <Form.Label>Id</Form.Label>
                     <Form.Control type="id" value={id} name="id" onChange={handleChange}></Form.Control> 
@@ -451,8 +449,6 @@ const payload ={
             </div>
           </div>
       </div>
-      <Doctors/>
-      <Services/>
     </>
   );
 }

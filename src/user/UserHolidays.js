@@ -109,16 +109,16 @@ function UserHolidays() {
           </div>
           <div className="col-xl-5  col-lg-4 col-md-3 col-sm-2">
             <div className="header">
-              <div class="btn-group hover_drop_down">
+              <div className="btn-group hover_drop_down">
                 <button
                   type="button"
-                  class="btn btn-success btn-sm my-3"
+                  className="btn btn-success btn-sm my-3"
                   data-toggle="dropdown"
                   style={{ width: "130px" }}
                 >
-                  <i class="fas fa-filter"></i> Add Filters
+                  <i className="fas fa-filter"></i> Add Filters
                 </button>
-                <ul class="dropdown-menu" role="menu">
+                <ul className="dropdown-menu" role="menu">
                   <li>
                     <a
                       onClick={() => {
@@ -147,7 +147,7 @@ function UserHolidays() {
                     </a>
                   </li>
                 </ul>
-                <button type="button" class="btn btn-primary btn-sm my-3">
+                <button type="button" className="btn btn-primary btn-sm my-3">
                   <CSVLink data={HolidayCSV} target="_blank">
                     Download PDF/CSV
                   </CSVLink>
@@ -190,19 +190,19 @@ function UserHolidays() {
           </div>
           <div className="col-xl-3  col-lg-3 col-md-2 col-sm-1">
             <nav aria-label="Page navigation example">
-              <ul class="pagination">
-                <li class="page-item">
-                  <a class="page-link" href="#">
+              <ul className="pagination">
+                <li className="page-item">
+                  <a className="page-link" href="#">
                     Prev
                   </a>
                 </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">
+                <li className="page-item">
+                  <a className="page-link" href="#">
                     1
                   </a>
                 </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">
+                <li className="page-item">
+                  <a className="page-link" href="#">
                     Next
                   </a>
                 </li>
