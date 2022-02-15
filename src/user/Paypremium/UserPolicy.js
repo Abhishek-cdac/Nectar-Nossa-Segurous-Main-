@@ -22,7 +22,7 @@ const UserPolicy = (props) => {
     setpaymentPage(true);
   };
   const handleClaimRequest = () => {
-    navigate("/claim");
+    window.location.href ="NewClaim"
   };
   const handleBackToUserPolicy = () => {
     setpolicyDetailsPage(true);
@@ -181,11 +181,11 @@ const UserPolicy = (props) => {
                   </div>
                   <div className="col-12 col-md-2">
                     <a
-                      href="#"
+                      
                       className="btn-close claim-btn"
                       onClick={() => handleClaimRequest()}
                     >
-                      Claim Request
+                      ClaimRequest
                     </a>
                   </div>
                 </div>
@@ -193,7 +193,7 @@ const UserPolicy = (props) => {
               {!status && (
                 <div className="col-12 col-md-2">
                   <a
-                    href="#"
+                    
                     className="btn-close renew-btn"
                   >
                     Renew Policy

@@ -186,9 +186,6 @@ const Claims = () => {
               <span>shown Results {ClaimsListArray.length}</span>
             </div>
           </div>
-          <div>
-            <span>shown Results {ClaimsListArray.length}</span>
-          </div>
         </div>
       )}
       {addClaim && (

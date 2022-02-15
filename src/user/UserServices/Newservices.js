@@ -124,7 +124,7 @@ const Newservice = () => {
                   <div className="row">
                     <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                       <div className="form-group">
-                        <label for="exampleInputtext" className="mb-1">
+                        <label htmlFor="exampleInputtext" className="mb-1">
                           Policy No.<em>*</em>
                         </label>
                         <Form.Item
@@ -152,7 +152,7 @@ const Newservice = () => {
                     </div>
                     <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                       <div className="form-group">
-                        <label for="exampleInputtext" className="mb-1">
+                        <label htmlFor="exampleInputtext" className="mb-1">
                           Policy<em>*</em>
                         </label>
                         <Form.Item
@@ -180,7 +180,7 @@ const Newservice = () => {
                     </div>
                     <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                       <div className="form-group">
-                        <label for="exampleInputHolderName" className="mb-1">
+                        <label htmlFor="exampleInputHolderName" className="mb-1">
                           Statement <em>*</em>
                         </label>
 
@@ -211,7 +211,7 @@ const Newservice = () => {
                     </div>
                     <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                       <div className="form-group">
-                        <label for="exampleInputHolderName" className="mb-1">
+                        <label htmlFor="exampleInputHolderName" className="mb-1">
                           Description<em>*</em>
                         </label>
                         <Form.Item

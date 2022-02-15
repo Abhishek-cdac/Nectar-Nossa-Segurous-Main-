@@ -6,9 +6,13 @@ export const baseurl =  "http://159.65.145.21:3001";
 // "https://8170-103-246-40-178.ngrok.io";
 const Token =  localStorage.getItem('token')
 console.log('Header',Token)
-const header = () => ({
-  Authorization:localStorage.getItem('token')
-  ,
+const header2 = () => ({
+  Authorization:localStorage.getItem('token'),
+});
+
+const header = () =>({
+  Authorization:localStorage.getItem('token'),
+  'content-type': 'multipart/form-data' 
 });
 
 export const doGet = async (path) => {
@@ -19,11 +23,20 @@ export const doGet = async (path) => {
   return response.data;
 };
 
+const handleHeaderReq = (path)=>{
+  console.log("path",path)
+  if(path === 'claim/add'){
+    return header()
+  }else{
+    return header2()
+  }
+}
+
 export const doPost = async (path, data) => {
   return new Promise(async (resolve, reject) => {
     try {
       const response = await axios.post(`${baseurl}/${path}`, data, {
-        headers: header(),
+        headers: handleHeaderReq(path),
       });
       if ([200, 201].includes(response.status)) {
         return resolve(response);

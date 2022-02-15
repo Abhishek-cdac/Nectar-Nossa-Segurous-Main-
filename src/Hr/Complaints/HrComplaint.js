@@ -45,16 +45,16 @@ const AdminComplaint = () => {
         <a
           target="_blank"
           rel="noopener norefer"
-          onClick={() => handleClick("Resolved")}
+          onClick={() => handleClick("Resolve")}
         >
-          Resolved
+          Resolve
         </a>
       </Menu.Item>
       <Menu.Item>
         <a
           target="_blank"
           rel="noopener norefer"
-          onClick={() => handleClick("Reject")}
+          onClick={() => handleClick("Rejected")}
         >
           Reject
         </a>

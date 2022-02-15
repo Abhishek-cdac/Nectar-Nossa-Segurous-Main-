@@ -60,7 +60,7 @@ function App() {
             <Route path="resetpassword/:token" element={<ResetAccountCode />} />
          
           <Route path="/user" element={<Noosa />}>
-            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="" element={<Dashboard />} />
             <Route path="newClaim" element={<Claims />} />
             <Route path="paypremium" element={<Paypremium />} />
             <Route path="noosacard" element={<NossaCard />} />
@@ -76,7 +76,7 @@ function App() {
 
           <Route path="/hr" element={<Hrnoosa />}>
             {/* <Route path="hr" element={<Hrnoosa />} /> */}
-            <Route path="dashboard" element={<HrDashboard2/>} />
+            <Route path="" element={<HrDashboard2/>} />
             <Route path="listedPolices" element={<Hrlisted />} />
             <Route path="newClaim" element={<HrRecievedClaims />} />
             <Route path="paypremium" element={<Receivedpremium />} />
@@ -91,7 +91,7 @@ function App() {
           </Route>
 
           <Route path="/admin" element={<Adminnoosa />}>
-            <Route path="dashboard" element={<AdDashboard />} />
+            <Route path="" element={<AdDashboard />} />
             <Route path="listedPolices" element={<AdListedPolocies />} />
             <Route path="newClaim" element={<AdminClaims />} />
             <Route path="paypremium" element={<AdReceivedpremium />} />

@@ -4,10 +4,12 @@ import 'antd/dist/antd.css';
 import AppHeader from './Header/AppHeader';
 import { Outlet, useNavigate,useLocation } from "react-router-dom";
 import { Tab } from '@material-ui/core';
+import Dashboard from "./Dashboard"
 
 
 // const { TabPane } = Tabs;
-const Tabs =Object.freeze([{label:"Dashboard", link:"user/dashboard"},
+const Tabs =Object.freeze([
+{label:"Dashboard", link:"user/"},
 {label:"PayPremium", link:"user/paypremium"},
 {label:"Claims", link:"user/newClaim"},
 {label:"Complaint", link:"user/complaint"},
@@ -29,7 +31,7 @@ export default function Noosa() {
     return (
         <div className="sb-nav-fixed bg-light">
 
-
+            
             <AppHeader />
             <div id="layoutSidenav">
                 <div id="layoutSidenav_nav">
@@ -37,6 +39,7 @@ export default function Noosa() {
                         <div className="sb-sidenav-menu">
                             <div className="nav mt-4">
                                 {Tabs.map(({label,link})=>{
+                                    console.log('naga sai fasdkjfaskjfkjasbfkasd')
                                     const isActive = location.pathname.split("/")[1] === link;
                                     return(<a className= {`nav-link ${isActive ? 'active' : ''}`} key={link} onClick={()=>navigate(`/${link}`)}>
 
@@ -54,6 +57,9 @@ export default function Noosa() {
                     <div className="container-fluid">
                         <Outlet/>
                         </div>
+                        {/* <div>
+                            <Dashboard/>
+                        </div> */}
                         </div>
             </div>
         </div>

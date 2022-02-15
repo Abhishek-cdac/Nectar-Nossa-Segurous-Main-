@@ -4,6 +4,7 @@ import { CaretDownOutlined,BellFilled,DownOutlined } from '@ant-design/icons';
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/img/logo.png";
 import thumb from "../../assets/img/thumb.png";
+import GoogleTranslate from "../../components/atoms/Google";
 
 const { Header } = Layout;
 const { Search } = Input;
@@ -51,12 +52,12 @@ export default function AppHeader() {
 
   return (
     <nav className="sb-topnav navbar navbar-expand ">
-      <a className="navbar-brand" href="index.html">
+      <a className="navbar-brand" href="">
         <img className="img-fluid" src={logo} alt="" width="80%" />
       </a>
       <button
         className="btn btn-link btn-lg order-1 order-lg-0"
-        id="sidebarToggle"
+        id="sidebarToggle" data-target="#navbarSupportedContent"
         href="#"
       >
         <svg
@@ -92,8 +93,8 @@ export default function AppHeader() {
             </button>
           </div>
         </div>
-      </form>
-
+      </form>   
+    <GoogleTranslate/>
       <ul className="navbar-nav ml-auto ml-md-0">
         <li className="nav-item dropdown">
           <Dropdown overlay={menu}>
@@ -101,7 +102,7 @@ export default function AppHeader() {
               className="ant-dropdown-link"
               onClick={(e) => e.preventDefault()}
             >
-          <BellFilled /><CaretDownOutlined />
+          <BellFilled style={{paddingLeft:"10px"}} /><CaretDownOutlined />
             </a>
           </Dropdown>
         </li>

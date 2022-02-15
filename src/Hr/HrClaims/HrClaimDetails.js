@@ -24,13 +24,14 @@ const HrClaimDetails = (props) =>{
  const handleverifyAPI =async(verifyStatus)=>{
     const data={
      "id":ClaimList.id,
-     "verifyStatus":  verifyStatus,
+     "verifyStatus":verifyStatus,
     //  "priorityStatus":ClaimList.priorityStatus
     }
     try{
       const resp = await verifyClaimList(data);
       console.log("respppp",resp)
-      handlesubmit()
+      handleBack()
+    //   handlesubmit()
     }
     catch(error){
       console.log("error",error)
@@ -38,9 +39,9 @@ const HrClaimDetails = (props) =>{
  
   }
  
-   const handlesubmit = ()=>{
-      props.handlesubmit()
-   }
+//    const handlesubmit = ()=>{
+//       props.handlesubmit()
+//    }
  
    
    const handleBack = ()=>{
@@ -385,10 +386,10 @@ const HrClaimDetails = (props) =>{
                                 <Button className="btn btn-back mb-2" type="submit" style={{width: "180px",color:"white",backgroundColor:"black"}} onClick={props.handleBack}>Back</Button>
                             </div>
                             <div className="col-12 col-md-2 col-sm-2">
-                                <Button className="btn btn-approve-claim mb-2" type="submit" style={{width: "180px",color:"white",backgroundColor:"red"}} onClick={handleverifyAPI('Reject')}>Reject Claim</Button>
+                                <Button className="btn btn-approve-claim mb-2" type="submit" style={{width: "180px",color:"white",backgroundColor:"red"}} onClick={()=>handleverifyAPI('Rejected')}>Reject Claim</Button>
                             </div>
                             <div className="col-12 col-md-2 col-sm-2">
-                                <Button className="btn btn-reject-claim mb-2" type="submit" style={{width: "180px",color:"white",backgroundColor:"#000089"}} onClick={handleverifyAPI('Approve')}>Approve Claim</Button>
+                                <Button className="btn btn-reject-claim mb-2" type="submit" style={{width: "180px",color:"white",backgroundColor:"#000089"}} onClick={()=>handleverifyAPI('Approved')}>Approve Claim</Button>
                             </div>
                             
                         </div>

@@ -7,7 +7,7 @@ import { Tab } from '@material-ui/core';
 
 
 // const { TabPane } = Tabs;
-const Tabs =Object.freeze([{label:"Dashboard", link:"hr/dashboard"},
+const Tabs =Object.freeze([{label:"Dashboard", link:"hr/"},
 {label:"ListedPolices", link:"hr/listedPolices"},
 {label:"Client", link:"hr/client"},
 {label:"Premium", link:"hr/paypremium"},

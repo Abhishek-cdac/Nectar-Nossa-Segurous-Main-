@@ -55,6 +55,7 @@ const AdListedPolocies = () => {
     type: "",
     id: "",
   };
+  const [form] = Form.useForm();
   const onSearch = (value) => {
     const searchData = {
       search: value,
@@ -176,7 +177,7 @@ const AdListedPolocies = () => {
     setIsModalVisible(true);
   };
   const handleCancel = () => {
-    rsestForm()
+    form.resetFields();
     setIsModalVisible(false);
   };
   const handleEditShowModal = (text, record) => {
@@ -230,7 +231,7 @@ const AdListedPolocies = () => {
   const onFinish = (values) => {
     setAddPolicyData(values);
     handleAddPolicyListAPI(values);
-    resetForm()
+    form.resetFields(values);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed", errorInfo);
@@ -254,6 +255,7 @@ const AdListedPolocies = () => {
       console.log("success");
       resp && handleGetPolicyListServiceCall(data);
       setListAPIupdateStatus(true);
+      setIsEditModalVisible(false)
     } catch (error) {
       console.log("error", error);
       // showAlert('In valide data', "error");
@@ -546,7 +548,6 @@ const AdListedPolocies = () => {
             </Form>
           </Modal>
           <Modal
-            title="Edit Policy"
             visible={isEditModalVisible}
             onOk={handleEditPolicyListAPI}
             onCancel={handelEditCancel}
@@ -554,9 +555,10 @@ const AdListedPolocies = () => {
             <ModalHeader
               style={{
                 justifyContent: "center",
-                fontSize: "22px",
+                fontSize: "18px",
                 fontWeight: "bolder",
-                color: "#000089",
+                color: "#000089", 
+                paddingBottom:"10px"
               }}
             >
               Edit Policy

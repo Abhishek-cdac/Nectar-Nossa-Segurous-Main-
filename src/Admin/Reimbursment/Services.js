@@ -187,12 +187,12 @@ const Services = () => {
 
   const handleSubmit = async () => {
     const Payload = {
-      service: serviceName,
-      description: description,
-      //need to add
+      service:serviceName,
+      description:description,
+      Testfile:TestFile
     };
 
-    if (description === "" || serviceName === "") {
+    if (description === "" || serviceName === "" || TestFile === "") {
       seterrorMsg("Please Fill all fileds.");
     } else {
       try {

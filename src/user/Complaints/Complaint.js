@@ -12,6 +12,7 @@ import {
 } from "../../services/authentication";
 import ComplaintDetails from "./ComplaintDetails";
 import NewComplaint from "./NewComplaint";
+import ModalHeader from "react-bootstrap/esm/ModalHeader";
 
 
 const Complaint = () => {
@@ -315,63 +316,65 @@ const Complaint = () => {
 
           <div>
             <Modal
-              title="Edit Complaint"
               visible={IsEditModalVisible}
               onOk={handleEditComplaintListAPI}
               onCancel={handelEditCancel}
             >
-              <input
-                style={{
-                  height: "30px",
-                  width: "300px",
-                  marginTop: "10px",
-                  marginLeft: "80px",
-                }}
+                 <ModalHeader
+              style={{
+                justifyContent: "center",
+                fontSize: "18px",
+                fontWeight: "bolder",
+                color: "#000089", 
+                paddingBottom:"10px"
+              }}
+            >
+              Edit Complaint
+            </ModalHeader>
+
+              <form className="col-12">
+              <div className="form-group mb-4">
+                <input
+                key={id}
+                  className="col-xs-12 w-100"
                 type="Id"
                 placeholder="Id"
                 value={id}
                 onChange={(e) => setID(e.target.value)}
               />
-              <br />
-
-              <input
-                style={{
-                  height: "30px",
-                  width: "300px",
-                  marginTop: "10px",
-                  marginLeft: "80px",
-                }}
+              </div>
+              <div className="form-group mb-4">
+                <input
+                key={subject}
+                  className="col-xs-12 w-100"
                 type="subject"
                 placeholder="subject"
                 value={subject}
                 onChange={(e) => setsubject(e.target.value)}
               />
-              <br />
-              <input
-                style={{
-                  height: "30px",
-                  width: "300px",
-                  marginTop: "10px",
-                  marginLeft: "80px",
-                }}
+            </div>
+            <div className="form-group mb-4">
+                <input
+                key={complaintDate}
+                className="col-xs-12 w-100"
                 type="Date"
                 placeholder="Complaint Date"
                 value={complaintDate}
                 onChange={(e) => setComplaintDate(e.target.value)}
               />
-              <br />
+            </div>
 
-              <textarea
-                style={{
-                  width: "230px",
-                  marginTop: "10px",
-                  marginLeft: "80px",
-                }}
+            <div className="form-group mb-4">
+                <textarea
+                key={complaintDescription}
+                  className="col-xs-12 w-100"
                 type="Textarea"
                 placeholder="complaint Description"
                 value={complaintDescription}
                 onChange={(e) => setComplaintDescription(e.target.value)}
               />
+              </div>
+              </form>
             </Modal>
           </div>
         </div>

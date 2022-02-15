@@ -404,10 +404,10 @@ const HrReimbursment = () => {
                     </tr>
                   </thead>
                   {ClinicalData &&
-                    ClinicalData.map((item) => (
+                    ClinicalData.map((item,i) => (
                       <tbody>
                         <tr>
-                          <td>{item.SrNo}</td>
+                          <td>{i}</td>
                           <td>{item.referenceNumber}</td>
                           <td>
                             <a onClick={() => handleChange(item)}>

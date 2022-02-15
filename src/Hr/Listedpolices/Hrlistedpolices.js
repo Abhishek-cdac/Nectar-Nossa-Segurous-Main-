@@ -381,7 +381,7 @@ const Hrlisted = () => {
               <TabPane tab="Active" key="Active">
                 <div className="container-fluid">
                   <div
-                    className="row DataTable"
+                    className="DataTable"
                     style={{ justifyContent: "center" }}
                   >
                     <Table
@@ -396,7 +396,7 @@ const Hrlisted = () => {
               <TabPane tab="InActive" key="InActive">
                 <div className="container">
                   <div
-                    className="row DataTable"
+                    className="DataTable"
                     style={{ justifyContent: "center" }}
                   >
                     <Table

@@ -47,16 +47,16 @@ const HrRecievedClaims = () => {
           rel="noopener norefer"
           onClick={() => handleClick("Recieved for Approval")}
         >
-          Recieved for Approval
+         Pending
         </a>
       </Menu.Item>
       <Menu.Item>
         <a
           target="_blank"
           rel="noopener norefer"
-          onClick={() => handleClick("Accepted")}
+          onClick={() => handleClick("Approved")}
         >
-          Accepted
+         Approved
         </a>
       </Menu.Item>
       <Menu.Item>
@@ -74,7 +74,7 @@ const HrRecievedClaims = () => {
           rel="noopener norefer"
           onClick={() => handleClick("Not Submited")}
         >
-          not Submited
+          Not Submited
         </a>
       </Menu.Item>
     </Menu>
@@ -128,12 +128,12 @@ const HrRecievedClaims = () => {
      
     },
 
-    {
-      title: "Description",
-      dataIndex: "description",
-      key: "description",
+    // {
+    //   title: "Description",
+    //   dataIndex: "description",
+    //   key: "description",
      
-    },
+    // },
     {
       title: "Actions",
       key: "action",
@@ -160,12 +160,12 @@ const HrRecievedClaims = () => {
       allHrRecievedListArray && allHrRecievedListArray;
     if (allHrRecievedListArrayData) {
       HrRecievedClaimsData.push(
-        "ID,Policy Holder,Policy Name,Policy Code, Request Date,Status,Description\n"
+        "ID,Policy Holder,Policy Name,Policy Code, Request Date,Status\n"
       );
       allHrRecievedListArrayData.map((excelData) => {
         //console.log("ugugvcgvc",excelData)
         HrRecievedClaimsData.push(
-          `${excelData.id},${excelData.userPolicy.user.firstName}, ${excelData.userPolicy.policy.policyName}, ${excelData.userPolicy.policy.policyCode},${excelData.date},${excelData.verifyStatus},${excelData.userPolicy.policy.description}\n`
+          `${excelData.id},${excelData.userPolicy.user.firstName}, ${excelData.userPolicy.policy.policyName}, ${excelData.userPolicy.policy.policyCode},${excelData.date},${excelData.verifyStatus}\n`
         );
       });
     }
@@ -179,16 +179,15 @@ const HrRecievedClaims = () => {
     try {
       let claimsDataArr = [];
       const resp = await getClaimsList();
-      //console.log("gvgjv",resp)
       setAllHrRecievedListArray(resp && resp.data);
       resp &&
         resp.data.map((data) => {
           const value = {
-            id: data.claim_details.claim_id,
+            id: data.claim_details && data.claim_details.claim_id,
             name: data.userPolicy.user.firstName,
             policyname: data.userPolicy.policy.policyName,
             code: data.userPolicy.policy.policyCode,
-            date: data.claim_details.createdAt,
+            date: data.claim_details && data.claim_details.createdAt,
             status: data.verifyStatus,
             description: data.userPolicy.policy.description,
           };
@@ -216,11 +215,11 @@ const HrRecievedClaims = () => {
     if (filterData.length > 0) {
       filterData.map((data, i) => {
         const value = {
-          id: data.claim_details.claim_id,
+          id: data.claim_details && data.claim_details.claim_id,
           name: data.userPolicy.user.firstName,
           policyname: data.userPolicy.policy.policyName,
           code: data.userPolicy.policy.policyCode,
-          date: data.claim_details.createdAt,
+          date: data.claim_details && data.claim_details.createdAt,
           status: data.verifyStatus,
           description: data.userPolicy.policy.description,
         };
@@ -317,6 +316,7 @@ const HrRecievedClaims = () => {
               </div>
             </div>
             <div className="DataTable">
+              {console.log("cd",ClaimsData)}
             <Table
               columns={columns}
               dataSource={ClaimsData}

@@ -9,7 +9,7 @@ import Services from "./Reimbursment/Services"
 
 // const { TabPane } = Tabs;
 const Tabs = Object.freeze([
-  { label: "Dashboard", link: "admin/dashboard" },
+  { label: "Dashboard", link: "admin/" },
   { label: "ListedPolices", link: "admin/listedPolices" },
   { label: "HrList", link: "admin/HrList" },
   { label: "Premium", link: "admin/paypremium" },

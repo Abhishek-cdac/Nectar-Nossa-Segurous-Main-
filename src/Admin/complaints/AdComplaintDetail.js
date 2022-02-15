@@ -275,19 +275,6 @@ const AdComplaintDetails = (props) => {
                       onChange={(e) => setPolicyName(e.target.value)}
                     />
                     </div>
-                    {/* <button type="primary" >Submit</button> */}
-                    <br />
-                    {/* <div className="col-12 col-sm-6 col-md-6 col-lg-4">
-                      {/* <div className="form-group">
-                        <label for="exampleInputtext" className="mb-1" style={{ marginLeft:"80px",marginTop:"10px"}}>
-                         <h5> Send to approval</h5>
-                        </label>
-                        <select placeholder="Select Admin" style={{width:"230px",height:"50px",marginLeft:"80px"}}>
-                          <options>Admin</options>
-                          <option>Super Admin</option>
-                        </select>
-                      </div> */}
-                    {/* </div>  */}
                    
                     <button type="button" className="btn btn-primary" style={{width:"180px",marginLeft:"130px"}} onClick={handleVerifyAPI}>
                     Submit

@@ -37,10 +37,9 @@ const HrData = (props) => {
   let navigate = useNavigate();
   const HrData = props.data;
   console.log("Hrdata",HrData)
+  const imageURL = HrData.profileImg ? `http://159.65.145.21:3001/images/${HrData.profileImg}` : ''
   const [tableData, setTableData] = useState(props.tableData);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
-  const [loading, SetLoading] = useState(false);
-  const [imageUrl, setImageUrl] = useState("");
   const [permanentAddress, setpermanentAddress] = useState(
     props.data.permanentAddress ? props.data.permanentAddress : ""
   );
@@ -61,11 +60,11 @@ const HrData = (props) => {
   );
   const [errorMsg, seterrorMsg] = useState("");
   const [image, setImage] = useState(
-    props.data.profileImg ? props.data.profileImg : ""
+    props.data.profileImg ? imageURL : ""
   );
   // const[AllHrPolicyListArray,setAllHrPolicyListArray]=useState();
   const [radioButtonValue, setradioButtonValue] = useState(
-    HrData.status === true ? "Active" : "InActive"
+    HrData.activeStatus === true ? "Active" : "InActive"
   );
   let AllHrTabelData = props.AllHrPolicyListArray;
   console.log("AllHrTabelData", props, props.tableData);
@@ -415,7 +414,13 @@ const HrData = (props) => {
                             <div className="row">
                                 <div className="col-12 col-lg-3 col-md-3">
                                     <div className="name-box-img">
-                                    {image && <img src={image} />}
+                                    {imageURL ? 
+                                    <img src={imageURL}/>:
+                                    <div style={{height:'250px',width:'150px',display:'flex',justifyContent:'center',alignItems:'center'}}>
+                                    <strong style={{alignItems:'center'}}>No</strong>
+                                    <strong style={{alignItems:'center'}}>Image</strong>
+                                    </div>
+                                      }
                                     </div>
                                 </div>
                                 <div className="col-12 col-lg-3 col-md-3">
@@ -431,13 +436,13 @@ const HrData = (props) => {
                                       onChange={RadioButtonOnChange}
                                        value={radioButtonValue}>
                                         <small>Status</small>
-                                        if(HrData.activeStatus == "true"?    :   )
+                    
                                         <div className="form-check form-check-inline">
-                                            <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"/>
+                                            <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value={radioButtonValue}/>
                                             <label className="form-check-label" for="inlineRadio1">Active</label>
                                         </div>
                                         <div className="form-check form-check-inline">
-                                            <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"/>
+                                            <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value={radioButtonValue}/>
                                             <label className="form-check-label" for="inlineRadio2">Inactive</label>
                                         </div>
                                     </div>
@@ -793,9 +798,10 @@ const HrData = (props) => {
               onChange={(e) => setpermanentAddress(e.target.value)}
             />
           </div>
-          {image ? (
-            <img src={image} />
-          ) : (
+          {/* {image ? (
+            
+          ) : ( */}
+        <img src={image}/> 
             <div>
               <input
                 id="fileupload"
@@ -804,7 +810,7 @@ const HrData = (props) => {
               />
               <label htmlFor="fileupload">Upload File</label>
             </div>
-          )}
+          {/* )} */}
         
 
         <p style={{ color: "red", marginLeft: "45px" }}>{errorMsg}</p>

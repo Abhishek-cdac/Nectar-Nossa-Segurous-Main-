@@ -188,8 +188,7 @@ const Dashboard = () => {
                   <table className="table table-bordered">
                     <thead
                       className="white-bg"
-                      style={{ backgroundColor: "#8ec131" }}
-                    >
+                      style={{ backgroundColor: "#8ec131" }}>
                       <tr>
                         <th>Policy Name</th>
                         <th>Policy code</th>
@@ -198,8 +197,7 @@ const Dashboard = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {getAllUsersList &&
-                        getAllUsersList.map((item) => (
+                      {getAllUsersList&&getAllUsersList.map((item) => (
                           <tr className="grey-box">
                             <td className="green-text">{item.policyName}</td>
                             <td>{item.policyCode}</td>
@@ -217,10 +215,10 @@ const Dashboard = () => {
             <div className="green-box">
               <div className="row d-flex align-items-center justify-content-between">
                 <div className="col-12 col-lg-9">
-                  <lable style={{ marginTop: "10px" }}>
+                  <label style={{ marginTop: "10px" }}>
                     {" "}
                     <img src={ic_notifications} alt="" />
-                  </lable>
+                  </label>
                   <p className="bell-text">
                     Your premium payment of $ 2500 is pending for policy number
                     of <b>NS00011122</b>{" "}
