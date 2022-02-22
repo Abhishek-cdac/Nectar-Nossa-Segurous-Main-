@@ -1,6 +1,6 @@
 import React from 'react';
 // import { Tabs, Layout } from 'antd';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 import AppHeader from './Header/AppHeader';
 import { Outlet, useNavigate,useLocation } from "react-router-dom";
 import { Tab } from '@material-ui/core';
@@ -28,15 +28,29 @@ const Tabs =Object.freeze([
 export default function Noosa() {
     let navigate = useNavigate();
     const location = useLocation();
+    const handleClick = (value) =>{
+        if(value === true){
+            // document.getElementById("layoutSidenav_nav").style.width = "226px";
+            // document.getElementById("layoutSidenav_nav").style.paddingLeft= "0px";
+            // document.body.style.backgroundColor = "white";
+        }else{
+        // document.getElementById("layoutSidenav_nav").style.width = "0px";
+        // document.getElementById("layoutSidenav_nav").style.paddingLeft= "0px";
+        // document.body.style.backgroundColor = "white";
+        }
+    }
     return (
         <div className="sb-nav-fixed bg-light">
 
             
-            <AppHeader />
+            <AppHeader handleClick={handleClick}/>
             <div id="layoutSidenav">
-                <div id="layoutSidenav_nav">
-                    <nav className="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                        <div className="sb-sidenav-menu">
+                <div id="layoutSidenav_nav" className="open-side-pane">
+                    <nav 
+                    className="sb-sidenav accordion sb-sidenav-dark" 
+                    id="sidenavAccordion"
+                    >
+                        <div className="sb-sidenav-menu" id='sb-sidenav-menu'>
                             <div className="nav mt-4">
                                 {Tabs.map(({label,link})=>{
                                     console.log('naga sai fasdkjfaskjfkjasbfkasd')

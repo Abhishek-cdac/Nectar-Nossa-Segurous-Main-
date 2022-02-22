@@ -26,7 +26,7 @@ export default function Setting() {
   const [userNotification, setUserNotification] = useState([]);
   const [notification, setnotification] = useState([]);
   const [errorMsg, seterrorMsg] = useState("");
-  const [sucessPage, setsucessPage] = useState([]);
+  const [SucessPage, setSucessPage] = useState([]);
   const [settingsPage, setSettingsPage] = useState(true);
   const [emailvalue,setEmailvalue] = useState(false)
   const Token = window.localStorage.getItem("token");
@@ -59,7 +59,7 @@ export default function Setting() {
         const response = await getChangePassword(payload);
         // console.log(response);
         seterrorMsg("");
-        setsucessPage(true);
+        setSucessPage(true);
       } catch (error) {
         alert(JSON.stringify(error.message));
       }
@@ -69,13 +69,13 @@ export default function Setting() {
   //Notification API
   const handleNotification = async () => {
     try {
-      const userNotificationResp = await getUserNotificationService(data);
-      const notificationResp = await getNotificationService(data);
+      const userNotificationResp = await getUserNotificationService();
+      const notificationResp = await getNotificationService();
       // console.log('userNotificationResp',notificationResp , userNotificationResp);
       setUserNotification(userNotificationResp.data);
       setnotification(notificationResp.data);
     } catch (error) {
-      alert("naga sai", JSON.stringify(error.message));
+      alert("Error", JSON.stringify(error.message));
     }
   };
   useEffect(() => {
@@ -116,7 +116,7 @@ export default function Setting() {
 
  
   const handleback = () => {
-    setsucessPage(false);
+    setSucessPage(false);
     setSettingsPage(true);
   };
 
@@ -149,13 +149,13 @@ export default function Setting() {
   return (
     <>
       {settingsPage && (
-        <div className="container-fluid">
+        // <div className="container-fluid">
           <div className="row">
-            <div className="col-xl-12 col-lg-8 col-md-4 col-sm-2 col-xs-1">
+            <div className="col-xl-12 col-lg-8 col-md-8 col-sm-2 col-xs-1">
               <div classpolicy="comppage">
                 <Breadcrumb style={{ marginTop: "20px" }}>
                   <Breadcrumb.Item>Home</Breadcrumb.Item>
-                  <Breadcrumb.Item>claims</Breadcrumb.Item>
+                  <Breadcrumb.Item>Settings</Breadcrumb.Item>
                 </Breadcrumb>
                 <div
                   style={{
@@ -189,6 +189,7 @@ export default function Setting() {
                         <Form.Label>Old Password</Form.Label>
                         <Form.Control
                           type="password"
+                         
                           name="oldPassword"
                           value={oldPassword}
                           placeholder="Enter old Password"
@@ -213,7 +214,7 @@ export default function Setting() {
 
                       <Form.Group
                         className="mb-3 p-2"
-                        controlId="formBasicPassword"
+                        controlId="formBasicnewPassword"
                       >
                         <Form.Label> Confirm New Password</Form.Label>
                         <Form.Control
@@ -254,6 +255,7 @@ export default function Setting() {
                     </div>
                   </TabPanel>
                   <TabPanel>
+                  {/* <div className="container-fluid"> */}
                     <div className="accord mx-3">
                       {notification &&
                         notification.map((data, index) => {
@@ -272,7 +274,7 @@ export default function Setting() {
 
                           return (
                             <Accordion
-                              style={{ width: 800, marginTop: "30px" }}
+                              // style={{ width:"730px", marginTop: "30px" }}
                               key={data.id}
                             >
                               <div
@@ -364,14 +366,15 @@ export default function Setting() {
                           );
                         })}
                     </div>
+                  
                   </TabPanel>
                 </Tabs>
               </div>
             </div>
-          </div>
+          {/* </div> */}
         </div>
       )}
-      {setsucessPage && <setSucess handleback={handleback} />}
+      {setSucessPage && <setSucess handleback={handleback}/>}
     </>
   );
 }

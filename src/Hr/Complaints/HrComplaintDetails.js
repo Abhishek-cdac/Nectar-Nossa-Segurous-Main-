@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Modal } from "antd";
+import { Button, Modal,Breadcrumb } from "antd";
 import { verifyComplaintList } from "../../services/authentication";
 import ApproveModal from "./ApproveModal";
 import ModalHeader from "react-bootstrap/esm/ModalHeader";
@@ -71,6 +71,11 @@ const HrComplaintDetails = (props) => {
     <>
       {complaintsDetailspage && (
         <div>
+           <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Complaint</Breadcrumb.Item>
+            <Breadcrumb.Item>Complaint Details</Breadcrumb.Item>
+          </Breadcrumb>
           <div className="row d-flex align-items-center justify-content-between">
             <div className="col-12">
               <div className="heading-with-box mb-2">

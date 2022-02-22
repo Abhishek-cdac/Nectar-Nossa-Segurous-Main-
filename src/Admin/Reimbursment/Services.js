@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { FormOutlined } from "@ant-design/icons";
-import { Menu, Dropdown, Upload, message } from "antd";
+import { Menu, Dropdown, message, Breadcrumb } from "antd";
 import { Button, Modal, Form, Table } from "react-bootstrap";
 import moment from "moment";
 import { UploadOutlined } from "@ant-design/icons";
+// import {showAlert} from "../../utils/showAlert"
 import {
   getEditServicesList,
   getDeleteServicesList,
@@ -12,12 +13,17 @@ import {
 } from "../../services/authentication";
 import { CSVLink } from "react-csv";
 
+const onUpload = () => {};
+
 const Services = () => {
   const [TableData, setTableData] = useState("");
   const [ShowModal, setShowModal] = useState(false);
   const [ServicesListArray, setServicesListArray] = useState("");
   const [ServicesData, setServicesData] = useState("");
-  const [TestFile, setTestfile] = useState({ selectedFile: null,selectedFileList: []});
+  const [TestFile, setTestfile] = useState({
+    selectedFile: null,
+    selectedFileList: [],
+  });
   const [bloodTest, setBloodTestfile] = useState("");
   const [show, setShow] = useState("");
   const handleClose = () => setShow(false);
@@ -25,6 +31,7 @@ const Services = () => {
   const handleCancel = () => setShowModal(false);
   const [errorMsg, seterrorMsg] = useState("");
 
+  const [file, setFile] = useState(null);
   const [Data, setData] = useState({
     id: "",
     serviceName: "",
@@ -39,57 +46,7 @@ const Services = () => {
     setData({ ...Data, [e.target.name]: e.target.value });
   };
 
-  const values = {
-    name: "file",
-    action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-    maxCount: 1,
-    headers: {
-      authorization: "authorization-text",
-    },
-    beforeUpload: (file) => {
-      var fileTypes = [".png", ".jpg", ".jpeg", ".pdf"];
-      const isPNG = fileTypes.includes(file.type);
-      if (!isPNG) {
-        message.error(`${file.name} is not a png file`);
-      }
-      return isPNG || Upload.LIST_IGNORE;
-    },
-    progress: {
-      strokeColor: {
-        "0%": "#108ee9",
-        "100%": "#87d068",
-      },
-      strokeWidth: 3,
-      format: (percent) => `${parseFloat(percent.toFixed(2))}%`,
-    },
-  };
 
-  const dummyRequest = ({ file, onSuccess }) => {
-    setTimeout(() => {
-      onSuccess("ok");
-    }, 0);
-  };
-  const handledUpload = (info) =>{
-    const nextState = {};
-    switch (info.file.status) {
-      case "uploading":
-        nextState.selectedFileList = [info.file];
-        break;
-      case "done":
-        nextState.selectedFile = info.file;
-        nextState.selectedFileList = [info.file];
-        break;
-      default:
-        // error or removed
-        nextState.selectedFile = null;
-        nextState.selectedFileList = [];
-    }
-    return nextState
-  }
-  const onTestChange = info => {
-    setTestfile(handledUpload(info));
-    // setOthers(true);
-  };
   //List Service API call
 
   const handleServicesList = async () => {
@@ -101,8 +58,7 @@ const Services = () => {
         resp.data.map((data, i) => {
           const value = {
             id: data.id,
-            serviceName: data.serviceName,
-            specialization: data.specialization,
+            serviceName: data.service,
             description: data.description,
             createdAt: data.createdAt,
           };
@@ -129,18 +85,16 @@ const Services = () => {
     const Date = moment(item.date).format("YYYY-MM-DD");
     setData({
       id: item.id,
-      serviceName: item.serviceName,
-      specialization: item.specialization,
+      serviceName: item.service,
       date: Date,
-      description: item.description,
     });
     setShowModal(true);
   };
 
   const handleEditServicesList = async () => {
     const payload = {
-      "Blood test": TestFile,
-      "Cancer treatment": bloodTest,
+      id:id,
+      service:serviceName
     };
     try {
       const resp = await getEditServicesList(payload);
@@ -158,7 +112,7 @@ const Services = () => {
   //Delete API
 
   const handleDeleteInfo = async (item) => {
-    console.log("dd", ServicesData);
+    console.log("dd", ServicesData)
     const payload = {
       id: item.id,
     };
@@ -171,32 +125,29 @@ const Services = () => {
       console.log("error", error);
     }
   };
-  //  const OperationBloodTestRequest = ({ file, onSuccess }) => {
-  //   setBloodTestfile(file)
-  //   setTimeout(() => {
-  //     onSuccess("ok");
-  //   }, 0);
-  // };
-  const OperationCancerTestRequest = ({ file, onSuccess }) => {
-    setTestfile(file);
-    setTimeout(() => {
-      onSuccess("ok");
-      console.log("file", file);
-    }, 0);
+ 
+ 
+
+  const handleFileChange = (event) => {
+    setFile(event.target.files);
+    console.log(file);
   };
+  const handleSubmit = async (event) => {
+    console.log("ffff", file);
+    event.preventDefault();
+    const data = new FormData();
+    for (var x = 0; x < file.length; x++) {
+      data.append("file", file[x]);
+      data.append("service",serviceName)
+    }
+    console.log("data", data);
+  
 
-  const handleSubmit = async () => {
-    const Payload = {
-      service:serviceName,
-      description:description,
-      Testfile:TestFile
-    };
-
-    if (description === "" || serviceName === "" || TestFile === "") {
+    if (description === "" || serviceName === "" || data === "") {
       seterrorMsg("Please Fill all fileds.");
     } else {
       try {
-        const resp = await getAddServicesList(Payload);
+        const resp = await getAddServicesList(data);
         console.log("record added successfuly");
         seterrorMsg("");
         setShow(false);
@@ -212,12 +163,12 @@ const Services = () => {
 
   const ServicesCSVdata = () => {
     let ServicesData = [];
-    console.log("hla", ServicesListArray);
+    // console.log("hla", ServicesListArray);
     const ServicesListArrayData = ServicesListArray && ServicesListArray;
     if (ServicesListArrayData) {
       ServicesData.push("Id,ServiceName,Date,Description\n");
       ServicesListArrayData.map((excelData) => {
-        console.log("excel", excelData);
+        // console.log("excel", excelData);
         ServicesData.push(
           `${excelData.id},${excelData.serviceName}, ${excelData.createdAt}, ${excelData.description}\n`
         );
@@ -254,6 +205,11 @@ const Services = () => {
 
   return (
     <>
+      <Breadcrumb style={{ marginTop: "20px" }}>
+        <Breadcrumb.Item>Home</Breadcrumb.Item>
+        <Breadcrumb.Item>Services</Breadcrumb.Item>
+        {/* <Breadcrumb.Item>claim Details</Breadcrumb.Item> */}
+      </Breadcrumb>
       <div className="container-fluid">
         <div className="row">
           <div className="col-xl-7  col-lg-4 col-md-4 col-sm-3">
@@ -274,7 +230,7 @@ const Services = () => {
               <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                   <Modal.Title
-                    style={{ color: "#61B33B", marginLeft: "130px" }}
+                    style={{ color: "#8ec131", marginLeft: "130px" }}
                   >
                     Add Services List
                   </Modal.Title>
@@ -299,23 +255,14 @@ const Services = () => {
                         name="description"
                         onChange={handleChange}
                       ></Form.Control>
-                    </Form.Group>
-                    <div
-                      style={{ marginBottom: "10px", marginTop: "10px" }}
-                    ></div>
-                    <Upload
-                      fileList={TestFile.selectedFileList}
-                      customRequest={dummyRequest}
-                      onChange={onTestChange}
-                      itemRender={(existingComp, file) => {
-                        return <p style={{ width: "125px" }}>{file.name}</p>;
-                      }}
-                    >
-                      <Button icon={<UploadOutlined />}>Choose File</Button>
-                    </Upload>
-                    {/* <Upload {...values} customRequest={OperationCancerTestRequest}>
-                        <Button icon={<UploadOutlined/>}>Choose File</Button>
-                      </Upload> */}
+                    <Form.Label>Upload</Form.Label>{" "}
+                     <Form.Control
+                      type="file"
+                      id="file"
+                      // className={classes.fileInput}
+                      onChange={handleFileChange}
+                    ></Form.Control>
+                  </Form.Group>
                   </div>
                 </Modal.Body>
                 <Modal.Footer>
@@ -327,6 +274,7 @@ const Services = () => {
                   >
                     submit
                   </Button>
+                 
                   <label style={{ color: "red", justifyContent: "center" }}>
                     {errorMsg}
                   </label>
@@ -368,7 +316,6 @@ const Services = () => {
                 <tr>
                   <th>Id</th>
                   <th> Service Name</th>
-                  <th>Description</th>
                   <th>createdAt</th>
                   <th>Action</th>
                 </tr>
@@ -377,10 +324,9 @@ const Services = () => {
                 {ServicesListArray &&
                   ServicesListArray.map((item) => (
                     <tr>
+                      {console.log("sla",ServicesListArray)}
                       <td>{item.id}</td>
-                      <td>{item.serviceName}</td>
-                      <td>{item.specialization}</td>
-                      <td>{item.description}</td>
+                      <td>{item.service}</td>
                       <td>{item.createdAt}</td>
                       <td>
                         <Dropdown overlay={menu(item)}>
@@ -425,7 +371,7 @@ const Services = () => {
           <div className="header">
             <Modal show={ShowModal} onHide={handleCancel}>
               <Modal.Header closeButton>
-                <Modal.Title style={{ color: "#61B33B" }}>
+                <Modal.Title style={{ color: "#8ec131" }}>
                   Edit Services List
                 </Modal.Title>
               </Modal.Header>
@@ -437,27 +383,12 @@ const Services = () => {
                       type="id"
                       value={id}
                       name="id"
-                      onChange={handleChange}
                     ></Form.Control>
                     <Form.Label>Service Name</Form.Label>
                     <Form.Control
                       type="text"
                       value={serviceName}
                       name="serviceName"
-                      onChange={handleChange}
-                    ></Form.Control>
-                    <Form.Label>specialization</Form.Label>
-                    <Form.Control
-                      type="text"
-                      value={specialization}
-                      name="specilization"
-                      onChange={handleChange}
-                    ></Form.Control>
-                    <Form.Label>Description</Form.Label>
-                    <Form.Control
-                      type="textarea"
-                      value={description}
-                      name="description"
                       onChange={handleChange}
                     ></Form.Control>
                     <Form.Label>Created At</Form.Label>

@@ -5,6 +5,9 @@ import person from "../../assets/img/person.png"
 import qrCode from "../../assets/img/qrCode.png"
 import fileDownload1 from "../../assets/img/fileDownload1.png"
 import print from "../../assets/img/print.png"
+import {Breadcrumb} from "antd"
+import GenericPdfDownloader from "../../components/atoms/PdfDownloader"
+
 
 
 
@@ -37,27 +40,34 @@ console.log("lug",loginDetailsUserId)
         handleGetCardDetailsAPI()
       }, []);
       console.log("cd",CardDetails)
-    
-
-
+     
+   
 
 
     return(
-        <>
+        <div>
+        <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Nossa Card</Breadcrumb.Item>
+          </Breadcrumb>
     
-        <div className="row d-flex align-items-center justify-content-between">
+        <div className="row d-flex align-items-center justify-content-between" style={{padding:"10px"}}>
         <div className="col-lg-6 col-md-6 text-left">
             <h3 className="mt-3 mb-4">Nossa Card</h3>
         </div>
         <div className="col-lg-6 col-md-6 text-right">
             <div className="btn-two">
                 <a href="#" className="print-card-btn" onClick={() =>{window.print()}}>Print Card <img src={print} className="img-fluid" alt=""/></a>
-                <a href="#" className="download-card-btn" download="Nossa Card">Download card <img src={fileDownload1} className="img-fluid" alt=""/></a>
+                {/* <button className="download-card-btn" onClick={saveFile}>Download card <img src={fileDownload1} className="img-fluid" alt=""/></button> */}
+                <GenericPdfDownloader 
+          downloadFileName="NossaPdf" 
+          rootElementId="NossaCard" 
+        />
             </div>
         </div>
     </div>
  
-    <div className="row">
+    <div className="row" id="NossaCard">
         <div className="col-lg-6 col-md- col-12">
             <div className="nossa-card-front">
                 <div className="row">
@@ -115,7 +125,7 @@ console.log("lug",loginDetailsUserId)
             </div>
         </div>
     </div>
-    </>
+    </div>
     )
 }
 export default NossaCard

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Breadcrumb, Select, Menu, Dropdown } from "antd";
+import { Select, Menu, Dropdown,Breadcrumb } from "antd";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import { Form, Button, Modal, Table, DropdownButton } from "react-bootstrap";
+import { Form, Button, Modal, Table} from "react-bootstrap";
 import { FormOutlined } from "@ant-design/icons";
 import {
   getChangePassword,
@@ -216,6 +216,11 @@ export default function AdSetting() {
 
   return (
     <>
+     <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Settings</Breadcrumb.Item>
+            {/* <Breadcrumb.Item>claim Details</Breadcrumb.Item> */}
+          </Breadcrumb>
       {settingsPage && (
         <div>
           <div className="container-fluid">

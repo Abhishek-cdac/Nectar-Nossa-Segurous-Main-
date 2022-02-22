@@ -3,7 +3,7 @@ import { Table, Button, Breadcrumb } from "antd";
 import { CSVLink } from "react-csv";
 import { PlusOutlined } from "@ant-design/icons";
 import { useNavigate, useLocation } from "react-router-dom";
-import NewClaim from "./Newclaim";
+import NewClaim2 from "./NewClaim2";
 import UserClaim from "./UserClaim";
 import moment from "moment";
 import { getClaimsList } from "../../services/authentication";
@@ -36,7 +36,7 @@ const Claims = () => {
     try {
       let tableDataArr = [];
       const resp = await getClaimsList();
-      console.log("resp", resp);
+      //console.log("resp", resp);
       setClaimsListArray(resp && resp.data);
       resp &&
         resp.data.map((data, i) => {
@@ -53,14 +53,14 @@ const Claims = () => {
               : "",
             status: data.verifyStatus ? data.verifyStatus : "",
           };
-          console.log("sasas", value);
+          //console.log("sasas", value);
           tableDataArr.push(value);
         });
-      console.log("tableDataArr in premium", tableDataArr);
+      //console.log("tableDataArr in premium", tableDataArr);
       setTableData(tableDataArr);
-      console.log("resp", resp);
+      //console.log("resp", resp);
     } catch (error) {
-      console.log("error", error);
+      //console.log("error", error);
     }
   };
   useEffect(() => {
@@ -149,7 +149,7 @@ const Claims = () => {
                   style={{
                     borderRadius: "5px",
                     // marginRight: "30px",
-                    backgroundColor: "#61b33b",
+                    backgroundColor: "#8ec131",
                     color: "white",
                   }}
                   onClick={() => handleAddClaims()}
@@ -189,7 +189,7 @@ const Claims = () => {
         </div>
       )}
       {addClaim && (
-        <NewClaim
+        <NewClaim2
           data={ClaimsListArray}
           SelectedRecord={SelectedRecord}
           handleBack={handleAddBack}

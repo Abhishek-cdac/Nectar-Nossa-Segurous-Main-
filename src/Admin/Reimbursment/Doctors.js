@@ -1,7 +1,7 @@
 // import React from "react";
 import React, { useEffect, useState } from "react";
 import { FormOutlined} from "@ant-design/icons";
-import { Menu, Dropdown } from 'antd';
+import { Menu, Dropdown,Breadcrumb } from 'antd';
 import {Button,Modal, Form, Table} from "react-bootstrap";
 import { getDoctorsList } from "../../services/authentication";
 import moment from 'moment';
@@ -94,6 +94,7 @@ const Doctors = () =>{
   
   
   const handleEditDoctorsList = async() =>{
+    console.log("id",id)
    const payload ={
      "id":id,
     "doctorName":Name,
@@ -120,8 +121,7 @@ const Doctors = () =>{
   const handleDeleteInfo = async(item) =>{
     // console.log("dd",DoctorsData)
     const payload ={
-         "id": item.id,
-         
+         "id": item.id, 
       }
       try {
         const resp = await getDeleteDoctorsList(payload);
@@ -201,6 +201,11 @@ const Doctors = () =>{
 
     return(
         <>
+         <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Doctors</Breadcrumb.Item>
+            {/* <Breadcrumb.Item>claim Details</Breadcrumb.Item> */}
+          </Breadcrumb>
       <div className="container-fluid">
         <div className="row">
           <div className="col-xl-7 col-lg-4 col-md-4 col-sm-4">
@@ -256,25 +261,7 @@ const Doctors = () =>{
                 </Modal.Footer>
               </Modal>
               <div className="btn-group hover_drop_down">
-                {/* <button
-                  type="button"
-                  className="btn btn-success btn-sm my-3"
-                  data-toggle="dropdown"
-                  style={{ width: "130px" }}
-                >
-                  <i className="fas fa-filter"></i> Add Filters
-                </button>
-                <ul className="dropdown-menu" role="menu" onClick={HandleClick}>
-                  <li>
-                    <a onClick={() =>{handleclick("Public Holiday")}}>Public Holiday </a>
-                  </li>
-                  <li>
-                    <a onClick={() =>{handleclick("National Holiday")}}>National Holiday</a>
-                  </li>
-                  <li>
-                    <a onClick={() =>{handleclick("seasonal Holiday")}}>seasonal Holiday</a>
-                  </li>
-                </ul> */}
+
               <button type="button" className="btn btn-primary btn-sm my-3">
               <CSVLink data={DoctorsCSV} target="_blank">
                     Download PDF/CSV
@@ -360,7 +347,7 @@ const Doctors = () =>{
                   <div className="container">
                     <Form.Group>
                     <Form.Label>Id</Form.Label>
-                    <Form.Control type="id" value={id} name="id" onChange={handleChange}></Form.Control> 
+                    <Form.Control type="id" value={id} name="id"></Form.Control> 
                      <Form.Label>Doctors Name</Form.Label>
                     <Form.Control type="text" value={Name} name="Name" onChange={handleChange}></Form.Control>
                     <Form.Label>specialization</Form.Label>

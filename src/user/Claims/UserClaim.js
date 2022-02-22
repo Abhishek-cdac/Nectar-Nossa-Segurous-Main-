@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 //import './UserClaim.style.css'
 import { useNavigate } from "react-router-dom";
-import { Button,Modal,Form,DatePicker } from "antd";
+import { Button,Modal,Form,DatePicker,Breadcrumb} from "antd";
 import { getEditClaim,getDeleteClaim } from "../../services/authentication";
 
 const UserClaim = (props) => {
@@ -13,7 +13,7 @@ const UserClaim = (props) => {
 const ClaimList =
         alldata && alldata.filter((data) => data.id === selectedRecord.id)[0];    
     const ClaimListDetails = ClaimList && ClaimList
-    console.log("ClaimListDetails", ClaimListDetails)
+    console.log("ClaimListDetails", ClaimList)
     const [isEditModalVisible, setIsEditModalVisible] = useState(false)
     const [ClaimName, setClaimName] = useState(ClaimListDetails.name ? ClaimListDetails.name : '')
     const [claimEmailId, setClaimEmailId] = useState(ClaimListDetails.email ? ClaimListDetails.email : '')
@@ -143,15 +143,20 @@ const ClaimList =
     return (
         <>
             <div>
+            <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>claims</Breadcrumb.Item>
+            <Breadcrumb.Item>Claim Details</Breadcrumb.Item>
+          </Breadcrumb>
                 <div className="row d-flex align-items-center justify-content-between">
                     <div className="col-12">
                         <div className="heading-with-box">
                             <div className="row">
                                 <div className="col-lg-6 col-md-6 text-left">
-                                    <h3>Claim ID : <span className="color-green">{ClaimList && ClaimList.claim_details.claim_id}</span></h3>
+                                    <h3>Claim ID : <span className="color-green">{ClaimList ? ClaimList.claim_details.claim_id:null}</span></h3>
                                 </div>
                                 <div className="col-lg-6 col-md-6 text-right">
-                                    <a href="" className="grey-color" data-toggle="modal" data-target="#addPolicyList">Status : <span>{ClaimList && ClaimList.verifyStatus}</span></a>
+                                    <a href="" className="grey-color" data-toggle="modal" data-target="#addPolicyList">Status : <span>{ClaimList ? ClaimList.verifyStatus:""}</span></a>
                                 </div>
                             </div>
                         </div>
@@ -172,32 +177,32 @@ const ClaimList =
                             </div>
                             <div className="col-md-3 col-sm-3 col-12">
                                 <b>Policy No</b>
-                                <p>{ClaimList && ClaimList.userPolicy.policy.policyCode}</p>
+                                <p>{ClaimList ? ClaimList.userPolicy.policy.policyCode:""}</p>
 
                             </div>
                             <div className="col-md-2 col-sm-2 col-12">
                                 <b>User Name</b>
                                 <p>
-                                    {ClaimList && ClaimList.userPolicy.user.firstName}{" "}
-                                    {ClaimList && ClaimList.userPolicy.user.lastName}</p>
+                                    {ClaimList ? ClaimList.userPolicy.user.firstName:""}{" "}
+                                    {ClaimList ? ClaimList.userPolicy.user.lastName:""}</p>
                             </div>
                             <div className="col-md-2 col-sm-2 col-12">
                                 <b>Policy Name</b>
-                                <p>{ClaimList && ClaimList.userPolicy.user.policyName}</p>
+                                <p>{ClaimList ? ClaimList.userPolicy.user.policyName:""}</p>
                             </div>
                             <div className="col-md-2 col-sm-2 col-12">
                                 <b>Phone No</b>
-                                <p>{ClaimList && ClaimList.userPolicy.user.phone}</p>
+                                <p>{ClaimList ? ClaimList.userPolicy.user.phone:""}</p>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-3 col-sm-3 col-12">
                                 <b>Email Address</b>
-                                <p>{ClaimList && ClaimList.userPolicy.user.email}</p>
+                                <p>{ClaimList ? ClaimList.userPolicy.user.email:""}</p>
                             </div>
                             <div className="col-md-9 col-sm-9 col-12">
                                 <b>Address</b>
-                                <p>{ClaimList && ClaimList.address} </p>
+                                <p>{ClaimList ? ClaimList.address:""} </p>
                             </div>
                         </div>
                     </div>
@@ -213,23 +218,23 @@ const ClaimList =
                         <div className="row">
                             <div className="col-md-4 col-sm-4 col-12">
                                 <b>Currently covered by any other Mediclaim / Health Insurance</b>
-                                <p>{ClaimList && ClaimList.coveredByOtherInsurance}</p>
+                                <p>{ClaimList ? ClaimList.coveredByOtherInsurance:""}</p>
                             </div>
                             <div className="col-md-2 col-sm-2 col-12">
                                 <b>Diagnosis</b>
-                                <p>{ClaimList && ClaimList.diagnosis}</p>
+                                <p>{ClaimList ? ClaimList.diagnosis:""}</p>
                             </div>
                             <div className="col-md-2 col-sm-2 col-12">
                                 <b>Company Name</b>
-                                <p>{ClaimList && ClaimList.companyName}</p>
+                                <p>{ClaimList ? ClaimList.companyName:""}</p>
                             </div>
                             <div className="col-md-2 col-sm-2 col-12">
                                 <b>Policy No</b>
-                                <p>{ClaimList && ClaimList.policyNo}</p>
+                                <p>{ClaimList ? ClaimList.policyNo:""}</p>
                             </div>
                             <div className="col-md-2 col-sm-2 col-12">
                                 <b>Sum Insured</b>
-                                <p>{ClaimList && ClaimList.sumInsured}</p>
+                                <p>{ClaimList ? ClaimList.sumInsured:""}</p>
                             </div>
                         </div>
                     </div>
@@ -245,38 +250,38 @@ const ClaimList =
                         <div className="row">
                             <div className="col-md-3 col-sm-3 col-12">
                                 <b>Relationship to Primary Insured</b>
-                                <p>{ClaimList && ClaimList.relationWithInsured}</p>
+                                <p>{ClaimList ? ClaimList.relationWithInsured:""}</p>
                             </div>
                             <div className="col-md-2 col-sm-2 col-12">
                                 <b>Name</b>
-                                <p> {ClaimList && ClaimList.relationName
+                                <p> {ClaimList ? ClaimList.relationName:""
                                 }</p>
                             </div>
                             <div className="col-md-2 col-sm-2 col-12">
                                 <b>Gender</b>
-                                <p>{ClaimList && ClaimList.relationGender}</p>
+                                <p>{ClaimList ? ClaimList.relationGender:""}</p>
                             </div>
                             <div className="col-md-2 col-sm-2 col-12">
                                 <b>Date of Birth</b>
-                                <p>{ClaimList && ClaimList.relationDOB}</p>
+                                <p>{ClaimList ? ClaimList.relationDOB:""}</p>
                             </div>
                             <div className="col-md-1 col-sm-1 col-12">
                                 <b>Age</b>
-                                <p>{ClaimList && ClaimList.relationAge}</p>
+                                <p>{ClaimList ? ClaimList.relationAge:""}</p>
                             </div>
                             <div className="col-md-2 col-sm-2 col-12">
                                 <b>Email Address</b>
-                                <p>{ClaimList && ClaimList.relationEmail}</p>
+                                <p>{ClaimList ? ClaimList.relationEmail:""}</p>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-3 col-sm-3 col-12">
                                 <b>Occupation</b>
-                                <p>{ClaimList && ClaimList.relationOccupation}</p>
+                                <p>{ClaimList ? ClaimList.relationOccupation:""}</p>
                             </div>
                             <div className="col-md-9 col-sm-9 col-12">
                                 <b>Phone No</b>
-                                <p>{ClaimList && ClaimList.relationPhone}</p>
+                                <p>{ClaimList ? ClaimList.relationPhone:""}</p>
                             </div>
                         </div>
                     </div>
@@ -292,33 +297,33 @@ const ClaimList =
                         <div className="row">
                             <div className="col-md-3 col-sm-3 col-12">
                                 <b>Name of Hospital where Admited</b>
-                                <p>{ClaimList && ClaimList.claim_details.hospitalName}</p>
+                                <p>{ClaimList ? ClaimList.claim_details.hospitalName:""}</p>
                             </div>
                             <div className="col-md-3 col-sm-3 col-12">
                                 <b>Room Category occupied</b>
-                                <p>{ClaimList && ClaimList.claim_details.roomCategory} </p>
+                                <p>{ClaimList ? ClaimList.claim_details.roomCategory:""} </p>
                             </div>
                             <div className="col-md-2 col-sm-2 col-12">
                                 <b>Hospitalization due to</b>
-                                <p>{ClaimList && ClaimList.claim_details.reason}</p>
+                                <p>{ClaimList ? ClaimList.claim_details.reason:""}</p>
                             </div>
                             <div className="col-md-2 col-sm-2 col-12">
                                 <b>If injury give cause</b>
-                                <p>{ClaimList && ClaimList.claim_details.injuryCause}</p>
+                                <p>{ClaimList ? ClaimList.claim_details.injuryCause:""}</p>
                             </div>
                             <div className="col-md-2 col-sm-2 col-12">
                                 <b>Date of Injury</b>
-                                <p>{ClaimList && ClaimList.claim_details.dateInjury}</p>
+                                <p>{ClaimList ? ClaimList.claim_details.dateInjury:""}</p>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-3 col-sm-3 col-12">
                                 <b>Date of Admission</b>
-                                <p>{ClaimList && ClaimList.claim_details.dateAdmission}</p>
+                                <p>{ClaimList ? ClaimList.claim_details.dateAdmission:""}</p>
                             </div>
                             <div className="col-md-9 col-sm-9 col-12">
                                 <b>Date of Discharge</b>
-                                <p>{ClaimList && ClaimList.claim_details.dateDischarge}</p>
+                                <p>{ClaimList ? ClaimList.claim_details.dateDischarge:""}</p>
                             </div>
                         </div>
                     </div>
@@ -331,33 +336,33 @@ const ClaimList =
                         </div>
                     </div>
                     <div className="detail-box-inner pl-4 pr-4">
-                        <h4 className="dt">{ClaimList && ClaimList.claim_details.dateDischarge}</h4>
+                        <h4 className="dt">{ClaimList ? ClaimList.claim_details.dateDischarge:""}</h4>
                         <div className="row">
                             <div className="col-md-3 col-sm-3 col-12">
                                 <b>Pre -hospitalization expenses</b>
-                                <p>{ClaimList && ClaimList.claim_details.preHospitalExpense}</p>
+                                <p>{ClaimList ? ClaimList.claim_details.preHospitalExpense:""}</p>
                             </div>
                             <div className="col-md-3 col-sm-3 col-12">
                                 <b>Hospitalization expenses</b>
-                                <p>{ClaimList && ClaimList.claim_details.hospitalExpense}</p>
+                                <p>{ClaimList ? ClaimList.claim_details.hospitalExpense:""}</p>
                             </div>
                             <div className="col-md-3 col-sm-3 col-12">
                                 <b>Post-hospitalization expenses</b>
-                                <p>{ClaimList && ClaimList.claim_details.postHospitalExpense}</p>
+                                <p>{ClaimList ? ClaimList.claim_details.postHospitalExpense:""}</p>
                             </div>
                             <div className="col-md-3 col-sm-3 col-12">
                                 <b>Health-Check up cost</b>
-                                <p>{ClaimList && ClaimList.claim_details.healthCheckupExpense}</p>
+                                <p>{ClaimList ? ClaimList.claim_details.healthCheckupExpense:""}</p>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-3 col-sm-3 col-12">
                                 <b>Ambulance Charges</b>
-                                <p>{ClaimList && ClaimList.claim_details.ambulanceExpense}</p>
+                                <p>{ClaimList ? ClaimList.claim_details.ambulanceExpense:""}</p>
                             </div>
                             <div className="col-md-9 col-sm-9 col-12">
                                 <b>Others Charges</b>
-                                <p>{ClaimList && ClaimList.claim_details.otherCharges}</p>
+                                <p>{ClaimList ? ClaimList.claim_details.otherCharges:""}</p>
                             </div>
                         </div>
                         <div className="row">
@@ -368,47 +373,47 @@ const ClaimList =
                         <div className="row">
                             <div className="col-md-3 col-sm-3 col-12">
                                 <b>Pre -hospitalization period</b>
-                                <p>{ClaimList && ClaimList.claim_details.preHospitalDuration}</p>
+                                <p>{ClaimList ? ClaimList.claim_details.preHospitalDuration:""}</p>
                             </div>
                             <div className="col-md-3 col-sm-3 col-12">
                                 <b>Post -hospitalization period</b>
-                                <p>{ClaimList && ClaimList.claim_details.postHospitaDuration}</p>
+                                <p>{ClaimList ? ClaimList.claim_details.postHospitaDuration:""}</p>
                             </div>
                             <div className="col-md-3 col-sm-3 col-12">
                                 <b>Post-hospitalization expenses</b>
-                                <p>Tabl{ClaimList && ClaimList.claim_details.postHospitalExpense}ets</p>
+                                <p>Tabl{ClaimList ? ClaimList.claim_details.postHospitalExpense:""}ets</p>
                             </div>
                             <div className="col-md-3 col-sm-3 col-12">
                                 <b>Hospital Daily cash</b>
-                                <p>{ClaimList && ClaimList.claim_details.hospitalDailyCash}</p>
+                                <p>{ClaimList ? ClaimList.claim_details.hospitalDailyCash:""}</p>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-3 col-sm-3 col-12">
                                 <b>Surgical Cash</b>
-                                <p>{ClaimList && ClaimList.claim_details.surgicalCash}</p>
+                                <p>{ClaimList ? ClaimList.claim_details.surgicalCash:""}</p>
                             </div>
                             <div className="col-md-3 col-sm-3 col-12">
                                 <b>Critical Illness benefit</b>
-                                <p>{ClaimList && ClaimList.claim_details.criticalIllnessbenefit}</p>
+                                <p>{ClaimList ? ClaimList.claim_details.criticalIllnessbenefit:""}</p>
                             </div>
                             <div className="col-md-3 col-sm-3 col-12">
                                 <b>Convalescence</b>
-                                <p>{ClaimList && ClaimList.claim_details.convalescence}</p>
+                                <p>{ClaimList ? ClaimList.claim_details.convalescence:""}</p>
                             </div>
                             <div className="col-md-3 col-sm-3 col-12">
                                 <b>Pre/Post hospitalization Lump sum benefit</b>
-                                <p>{ClaimList && ClaimList.claim_details.lumpSumBenefit}</p>
+                                <p>{ClaimList ? ClaimList.claim_details.lumpSumBenefit:""}</p>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-3 col-sm-3 col-12">
                                 <b>Others Charges</b>
-                                <p>{ClaimList && ClaimList.claim_details.otherCharges}</p>
+                                <p>{ClaimList ? ClaimList.claim_details.otherCharges:""}</p>
                             </div>
                             <div className="col-md-9 col-sm-9 col-12">
                                 <b>Details of Lump sum / cash benefit claimed</b>
-                                <p>{ClaimList && ClaimList.claim_details.lumpSumBenefitDetail}</p>
+                                <p>{ClaimList ? ClaimList.claim_details.lumpSumBenefitDetail:""}</p>
                             </div>
                         </div>
                         <hr className="mt-0" />
@@ -417,7 +422,7 @@ const ClaimList =
                                 <strong className="float-left mb-3">Grand TOTAL</strong>
                             </div>
                             <div className="col-md-6 col-sm-6 col-6">
-                                <strong className="green-text float-right mb-3">{ClaimList && ClaimList.claim_details.dateDischarge}</strong>
+                                <strong className="green-text float-right mb-3">{ClaimList ? ClaimList.claim_details.dateDischarge:""}</strong>
                             </div>
                         </div>
                     </div>
@@ -431,7 +436,21 @@ const ClaimList =
                     </div>
                     <div className="detail-box-inner pl-4 pr-4">
                         <div className="row">
-                            <div className="col-md-2 col-sm-2 col-12">
+                            {
+                                ClaimList.claim_documents.lenght>0 ? ClaimList.claim_documents.map((data)=>{
+                                    console.log("dtadaa",ClaimList)
+                                    return(
+                                <div className="col-md-2 col-sm-2 col-12">
+                                    <div className="detail-pdf-box">
+                                        <img src={`http://159.65.145.21:3001/images/${data.documentFile}`} alt="" className="img-responsive" />
+                                    </div>
+                                    <p className="text-center mt-2">{data.documentName}</p>
+                                </div>
+                                    )
+                                })
+                            :""}
+                            
+                             {/* <div className="col-md-2 col-sm-2 col-12">
                                 <div className="detail-pdf-box">
                                     <img src="assets/img/vrmllewr.png" alt="" className="img-responsive" />
                                 </div>
@@ -454,20 +473,14 @@ const ClaimList =
                                     <img src="assets/img/vrmllewr.png" alt="" className="img-responsive" />
                                 </div>
                                 <p className="text-center mt-2">{ClaimList && ClaimList.claim_documents}</p>
-                            </div>
-                            <div className="col-md-2 col-sm-2 col-12">
-                                <div className="detail-pdf-box">
-                                    <img src="assets/img/vrmllewr.png" alt="" className="img-responsive" />
-                                </div>
-                                <p className="text-center mt-2">{ClaimList && ClaimList.claim_documents}</p>
-                            </div>
-                            <div className="col-md-2 col-sm-2 col-12">
+                            </div>  */}
+                             {/* <div className="col-md-2 col-sm-2 col-12">
                                 <div className="all-pdf-box">
-                                    {ClaimList && ClaimList.claim_documents}
+                                    {ClaimList ? ClaimList.claim_documents:""}
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
-                    </div>
+                    </div> 
                 </div>
                 <div className="row">
                     <div className="col-md-6">&nbsp;</div>
@@ -527,7 +540,7 @@ const ClaimList =
                   />
                   </div>
                    <Form.Item name={'realtionDOB'}>
-                    <DatePicker  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px"}} onChange={(dateString) => setrealtionDOB(dateString)}/>
+                    <DatePicker  onChange={(dateString) => setrealtionDOB(dateString)}/>
                   </Form.Item>
                   <div className="form-group mb-4">       
                   <input className="form-control"
@@ -545,7 +558,7 @@ const ClaimList =
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
                 </select><br/> 
-                <select  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}} 
+                <select   
                          label={'diagnosis'} value={diagnosis} onChange={(e)=> setdiagnosis(e.target.value)}>
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
@@ -607,7 +620,7 @@ const ClaimList =
                   </div>
                   <div className="form-group mb-4">       
                   <select className="form-control"
-                    style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}} 
+                    // style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}} 
                          label={'Relation Occupation'} value={relationOccupation} onChange={(e)=>setrelationOccupation(e.target.value)}>
                 <option value="self">Job</option>
                 <option value="father">Business</option>
@@ -643,7 +656,7 @@ const ClaimList =
                   </div>
                   <div className="form-group mb-4">       
                   <input className="form-control"
-                    style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
+                    // style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px",marginBottom:'25px'}}
                     type="name"
                     placeholder="Hospital Name"
                     value={claimhospitalName}
@@ -758,13 +771,13 @@ const ClaimList =
     onChange={(e) => setsurgicalCash(e.target.value)}
   /></div>
   <Form.Item name={'dateInjury'}>
-  <DatePicker  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px"}} onChange={(dateString) => setdateInjury(dateString)}/>
+  <DatePicker   onChange={(dateString) => setdateInjury(dateString)}/>
 </Form.Item>
  <Form.Item name={'dateAdmission'}>
- <DatePicker  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px"}} onChange={(dateString) => setdateAdmission(dateString)}/>
+ <DatePicker   onChange={(dateString) => setdateAdmission(dateString)}/>
 </Form.Item>
  <Form.Item name={'dateDischarge'}>
- <DatePicker  style={{height:"30px",width:"300px",marginTop:"10px",marginLeft:"80px"}} onChange={(dateString) => setdateDischarge(dateString)}/>
+ <DatePicker   onChange={(dateString) => setdateDischarge(dateString)}/>
 </Form.Item>
 <div className="form-group mb-4">     
 <input className="form-control"

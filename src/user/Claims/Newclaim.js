@@ -124,6 +124,7 @@ const Newclaim = (props) => {
   const [InvestgationReportsFile, setInvestgationReportsfile] = useState({ selectedFile: null,selectedFileList: []});
   const [DoctorprescriptionsFile, setDoctorprescriptionsfile] = useState({ selectedFile: null,selectedFileList: []});
   const [OthersFile, setOthersfile] = useState({ selectedFile: null,selectedFileList: []});
+  const [file,setFile]=useState('')
   const getPolicyPayload = {
     premiumPlan: "",
     policy_id: "",
@@ -136,6 +137,13 @@ const Newclaim = (props) => {
       onSuccess("ok");
     }, 0);
   };
+
+  const handleFileChange = (event)=>{
+      console.log("ff",event)
+      setFile(event.target.files);
+      console.log("ff",file)
+
+  }
   const onFinish = async (values) => {
     const policyNum =
       getAllUserPolicyLI &&
@@ -144,9 +152,7 @@ const Newclaim = (props) => {
       )[0];
     console.log("policyNum", policyNum);
     const formData = new FormData();
-     formData.append('files',OthersFile.selectedFile);
-    //  formData.append("name",values.name);
-    console.log("ot",OthersFile)
+    console.log("ot",file)
     console.log("otfile",formData)
       formData.append("userPolicy_id", policyNum.id);
      formData.append("name",values.name);
@@ -195,8 +201,8 @@ const Newclaim = (props) => {
       formData.append ("claimCopyFormFile",  copyOfClaimFile.selectedFile);
       formData.append ("hospitalMainBillFile" , hospitalMainBillFile.selectedFile);
       formData.append ("hospitalBreakupFile",  hospitalBreakupFile.selectedFile);
-      formData.append ("hospitalBillPaymentFile", hospitalBillPaymentFile.selectedFile);
-      formData.append ("hospitalBillPaymentFile",  hospitalBillPaymentFile.selectedFile);
+      formData.append ("hospitalBillPaymentFile", JSON.stringify(hospitalBillPaymentFile.selectedFile));
+      // formData.append ("hospitalBillPaymentFile",  hospitalBillPaymentFile.selectedFile);
       formData.append ("hospitalDischargeFile" , hospitalDischargeFile.selectedFile);
       formData.append ("pharmacyBillFile",  pharmacyBillFile.selectedFile);
       formData.append ("OperationTheaterFile",  OperationTheaterFile.selectedFile);
@@ -204,7 +210,9 @@ const Newclaim = (props) => {
       formData.append ("DoctorRequestFile" , DoctorRequestFile.selectedFile);
       formData.append ("InvestgationReportsFile",  InvestgationReportsFile.selectedFile);
       formData.append ("DoctorprescriptionsFile", DoctorprescriptionsFile.selectedFile);
-      formData.append ("OthersFile",OthersFile.selectedFile);
+      // formData.append ("OthersFile",OthersFile.selectedFile);
+      formData.append("file",file)
+    
 
     try {
       const resp = await getAddClaim(formData);
@@ -1383,9 +1391,19 @@ const onPrescriptionChange = info =>{
                 Others
               </Checkbox>
               <div style={{display:'flex'}}>
+                {/* <Form.Item
+                       type="file"
+                      id="file"
+                     > */}
+           <Upload  onClick={handleFileChange} customRequest={dummyRequest}><Button>Choose File</Button></Upload>
+                {/* </Form.Item> */}
+              {/* <Form.Item 
+                name="otherfile"
+                 fileList={OthersFile.selectedFileList}>
               <Upload
-                fileList={OthersFile.selectedFileList}
-                customRequest={dummyRequest}
+              accept="Pdf,image/png,image/jpeg"
+               
+                
                 onChange={onChange}
                 itemRender ={(existingComp, file)=>{
                   return <p style={{width:'125px'}}>{file.name}</p>
@@ -1393,6 +1411,7 @@ const onPrescriptionChange = info =>{
               >
                 <Button  icon={<UploadOutlined />}>Choose File</Button>
               </Upload>
+              </Form.Item> */}
               </div>
             </div>
           </Panel>

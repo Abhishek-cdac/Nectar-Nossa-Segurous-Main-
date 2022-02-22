@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import ClinicData from "../../../user/Reimbursment/ClinicData";
-import fileDownload1 from "../../../assets/img/fileDownload1.png";
 import {
   getReimbursmentList,
   getReimbursmentListSearch,
 } from "../../../services/authentication";
 import { CSVLink } from "react-csv";
+import { Breadcrumb } from "antd";
 
 const HrReimbursment = () => {
   const [ReimbursmentPage, setReimbursmentPage] = useState(true);
@@ -250,6 +250,10 @@ const HrReimbursment = () => {
     <>
       {ReimbursmentPage && (
         <div>
+            <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Reimbursment</Breadcrumb.Item>
+          </Breadcrumb>
           <div className="row d-flex align-items-center justify-content-between">
             <div className="col-lg-2 text-left">
               <h3 className="mt-0 mb-4 my-2">Reimbursement</h3>
@@ -276,17 +280,16 @@ const HrReimbursment = () => {
                       </button>
                     </div>
                   </div>
-                  <div className="btn-group hover_drop_down">
+                  {/* <div className="btn-group hover_drop_down"> */}
                     <button
                       type="button"
-                      class="btn btn-success btn-sm my-3 mx-2"
+                      className="btn btn-success btn-sm my-3 mx-3"
                       data-toggle="dropdown"
                       style={{
                         width: "160px",
                         borderRadius: "5px",
                         backgroundColor: "#8EC131",
                         border: "1px solid #8EC131",
-                        height:"40px"
                       }}
                     >
                       <i className="fas fa-filter"></i> Add Filters
@@ -320,7 +323,7 @@ const HrReimbursment = () => {
                         </a>
                       </li>
                     </ul>
-                  </div>
+                  {/* </div> */}
                   <div className="btn-group">
                     <button
                       type="button"

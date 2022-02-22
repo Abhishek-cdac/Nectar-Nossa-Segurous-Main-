@@ -3,6 +3,7 @@ import { getAllClientList } from "../../services/authentication";
 import NewClient from "./NewClient";
 import ClientDetails from "./ClientDetails";
 import { CSVLink } from "react-csv";
+import { Breadcrumb } from "antd";
 
 const Client = () => {
   const [ClientListArray, setClientListArray] = useState("");
@@ -138,13 +139,17 @@ const Client = () => {
     <>
       {ClientPage && (
         <div>
-          <div className="row d-flex align-items-center justify-content-between">
+            <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Client</Breadcrumb.Item>
+          </Breadcrumb>
+          <div className="row d-flex align-items-center justify-content-between" style={{paddingTop:"10px"}}>
             <div className="col-12 col-lg-3 col-md-3 text-left">
               <h3 className="mt-0 mb-4">Clients</h3>
             </div>
             <div className="col-12 col-lg-9 col-md-9 text-right">
               <div className="search-btn">
-                <div className="input-group" style={{ paddingTop: "15px",width:"30%"}}>
+                <div className="input-group mx-1" style={{ paddingTop: "15px",width:"30%"}}>
                   <input
                     value={policyTypeSearch}
                     onChange={handlesearch}
@@ -174,10 +179,10 @@ const Client = () => {
                 </a>
               </div>
 
-              <div className="btn-group hover_drop_down">
+              {/* <div className="btn-group hover_drop_down"> */}
                 <button
                   type="button"
-                  className="btn btn-success btn-sm my-3"
+                  className="btn btn-success btn-sm my-3 mx-2"
                   data-toggle="dropdown"
                   style={{ width: "150px",marginRight:"30px" }}
                 >
@@ -225,7 +230,7 @@ const Client = () => {
                     </a>
                   </li>
                 </ul>
-              </div>
+              
               <button type="button" className="btn btn-primary btn-sm my-3">
                 <CSVLink data={ClientCSV} target="_blank">
                   Download PDF/CSV

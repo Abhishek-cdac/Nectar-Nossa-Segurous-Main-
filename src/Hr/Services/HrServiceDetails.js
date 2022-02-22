@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-// import "../UserPolicy.style.css";
-// import CreditCard from "./Creditcard";
 import { useNavigate, useLocation } from "react-router-dom";
-import { ArrowLeftOutlined } from "@ant-design/icons";
 import { verifyServiceList } from "../../services/authentication";
-import { ContactsOutlined } from "@material-ui/icons";
+import { Breadcrumb } from "antd";
 
 const HrServiceDetails = (props) => {
   const SelectedRecord = props && props.selectedRecord;
@@ -50,7 +47,12 @@ const HrServiceDetails = (props) => {
             <div id="layoutSidenav_content">
               <main>
                 <div>
-                  <div className="row d-flex align-items-center justify-content-between">
+                <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Service</Breadcrumb.Item>
+            <Breadcrumb.Item>Service Details</Breadcrumb.Item>
+          </Breadcrumb>
+                  <div className="row d-flex align-items-center justify-content-between" style={{paddingTop:"10px"}}>
                     <div className="col-12">
                       <div className="heading-with-box">
                         <div className="row">
@@ -191,7 +193,7 @@ const HrServiceDetails = (props) => {
                         {" "}
                         <div
                           className="col-12 col-md-4"
-                          style={{ color: "#61B33B" }}
+                          style={{ color: "#8ec131" }}
                         >
                           <a
                           
@@ -215,7 +217,7 @@ const HrServiceDetails = (props) => {
                                 // </div> */}
                         <div
                           className="col-12 col-md-4"
-                          style={{ color: "#61B33B" }}
+                          style={{ color: "#8ec131" }}
                         >
                           <a
                             

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getDashboardAPI } from ".././services/authentication";
 import LineGraph from "../components/atoms/LineGraph";
+import { useNavigate } from "react-router-dom";
 
-const HrDashboard2 = () => {
+const AdDashboard = () => {
   const [dashBoardListArray, setDashBoardListArray] = useState("");
+  let navigate = useNavigate();
 
   const handleDashboardApI = async () => {
     const resp = await getDashboardAPI();
@@ -11,10 +13,12 @@ const HrDashboard2 = () => {
     console.log("resp", resp);
   };
   useEffect(() => {
+    console.log("cdb", dashBoardListArray);
     handleDashboardApI();
   }, []);
 
   return (
+    <div class="sb-nav-fixed bg-light">
     <div id="layoutSidenavContent">
       <div className="container-fluid">
         <h3 className="mt-4 mb-4">Dashboard</h3>
@@ -24,27 +28,26 @@ const HrDashboard2 = () => {
               <div className="row">
                 <div className="col-6 col-md-6 col-sm-6 text-left">
                   <p className="pl-4 pt-4">
-                    Policies
+                    <strong>Policies</strong>
                     <br />
-                    Sales{" "}
+                    <strong>Sales</strong>{" "}
                   </p>
                 </div>
-                {console.log("cdb", dashBoardListArray)}
                 <div className="col-6 col-md-6 col-sm-6 text-right">
-                  <h3 className="pr-4 pt-4">
+                  <h5 className="pr-4 pt-4">
                     {dashBoardListArray && dashBoardListArray.data.totalPolicy}
-                  </h3>
+                  </h5>
                 </div>
               </div>
               <hr />
               <div className="row">
                 <div className="col-9 col-md-9 col-sm-9 text-left">
                   <small className="pl-4 pt-0 pb-3 d-block">
-                    {dashBoardListArray && dashBoardListArray.data.totalPolicy}
+                  Month:  {dashBoardListArray && dashBoardListArray.data.month}
                   </small>
                 </div>
                 <div className="col-3 col-md-3 col-sm-3 text-right">
-                  <a href="#" className="pr-4 pt-0 pb-3 d-block">
+                  <a onClick={() =>navigate("listedPolices")} className="pr-4 pt-0 pb-3 d-block" style={{color:"#8ec131"}}>
                     <i className="fas fa-arrow-right"></i>
                   </a>
                 </div>
@@ -56,26 +59,26 @@ const HrDashboard2 = () => {
               <div className="row">
                 <div className="col-6 col-md-6 col-sm-6 text-left">
                   <p className="pl-4 pt-4">
-                    Claims
+                    <strong>Claims</strong>
                     <br />
-                    Received{" "}
+                    <strong>Received</strong>
                   </p>
                 </div>
                 <div className="col-6 col-md-6 col-sm-6 text-right">
-                  <h3 className="pr-4 pt-4">
+                  <h5 className="pr-4 pt-4">
                     {dashBoardListArray && dashBoardListArray.data.totalClaims}
-                  </h3>
+                  </h5>
                 </div>
               </div>
               <hr />
               <div className="row">
                 <div className="col-9 col-md-9 col-sm-9 text-left">
                   <small className="pl-4 pt-0 pb-3 d-block">
-                    {dashBoardListArray && dashBoardListArray.data.createdAt}
+                    Month:{dashBoardListArray && dashBoardListArray.data.createdAt}
                   </small>
                 </div>
                 <div className="col-3 col-md-3 col-sm-3 text-right">
-                  <a href="#" className="pr-4 pt-0 pb-3 d-block">
+                  <a onClick={() =>navigate("newClaim")} className="pr-4 pt-0 pb-3 d-block" style={{color:"#8ec131"}}>
                     <i className="fas fa-arrow-right"></i>
                   </a>
                 </div>
@@ -87,27 +90,27 @@ const HrDashboard2 = () => {
               <div className="row">
                 <div className="col-6 col-md-6 col-sm-6 text-left">
                   <p className="pl-4 pt-4">
-                    Claim
+                    <strong>Claim</strong>
                     <br />
-                    Settled{" "}
+                    <strong>Settled</strong>{" "}
                   </p>
                 </div>
                 <div className="col-6 col-md-6 col-sm-6 text-right">
-                  <h3 className="pr-4 pt-4">
+                  <h5 className="pr-4 pt-4">
                     {dashBoardListArray &&
                       dashBoardListArray.data.totalClaimSettled}
-                  </h3>
+                  </h5>
                 </div>
               </div>
               <hr />
               <div className="row">
                 <div className="col-9 col-md-9 col-sm-9 text-left">
                   <small className="pl-4 pt-0 pb-3 d-block">
-                    {dashBoardListArray && dashBoardListArray.data.createdAt}
+                    Month:{dashBoardListArray && dashBoardListArray.data.createdAt}
                   </small>
                 </div>
                 <div className="col-3 col-md-3 col-sm-3 text-right">
-                  <a href="#" className="pr-4 pt-0 pb-3 d-block">
+                  <a onClick={() =>navigate("newClaim")} className="pr-4 pt-0 pb-3 d-block" style={{color:"#8ec131"}}>
                     <i className="fas fa-arrow-right"></i>
                   </a>
                 </div>
@@ -119,27 +122,27 @@ const HrDashboard2 = () => {
               <div className="row">
                 <div className="col-6 col-md-6 col-sm-6 text-left">
                   <p className="pl-4 pt-4">
-                    Service
+                    <strong>Service</strong>
                     <br />
-                    Requests{" "}
+                    <strong>Requests</strong>{" "}
                   </p>
                 </div>
                 <div className="col-6 col-md-6 col-sm-6 text-right">
-                  <h3 className="pr-4 pt-4">
+                  <h5 className="pr-4 pt-4">
                     {dashBoardListArray &&
                       dashBoardListArray.data.totalServiceRequest}
-                  </h3>
+                  </h5>
                 </div>
               </div>
               <hr />
               <div className="row">
                 <div className="col-9 col-md-9 col-sm-9 text-left">
                   <small className="pl-4 pt-0 pb-3 d-block">
-                    {dashBoardListArray && dashBoardListArray.data.totalPolicy}
+                   Month: {dashBoardListArray && dashBoardListArray.data.createdAt}
                   </small>
                 </div>
                 <div className="col-3 col-md-3 col-sm-3 text-right">
-                  <a href="#" className="pr-4 pt-0 pb-3 d-block">
+                  <a onClick={() =>navigate("servicerequest")} className="pr-4 pt-0 pb-3 d-block" style={{color:"#8ec131"}}>
                     <i className="fas fa-arrow-right"></i>
                   </a>
                 </div>
@@ -150,7 +153,7 @@ const HrDashboard2 = () => {
 
         <div className="home-faq-custom">
           <div className="accordion" id="faq">
-            <div className="row">
+            <div className="row" style={{paddingTop:"10px"}}>
               <div className="col-12 col-md-6 col-sm-6 col-lg-3 mb-4">
                 <div
                   className="card card-custom"
@@ -159,16 +162,24 @@ const HrDashboard2 = () => {
                   <div className="row">
                     <div className="col-6 col-md-6 col-sm-6 text-left">
                       <p className="pl-4 pt-4">
-                        Complaints
+                        <strong>Complaint</strong>
                         <br />
-                        Received{" "}
+                        <strong>Received</strong>{" "}
                       </p>
                     </div>
                     <div className="col-6 col-md-6 col-sm-6 text-right">
-                      <h3 className="pr-4 pt-4" style={{ color: "#3D3D3D" }}>
+                      <h5 className="pr-4 pt-4" style={{ color: "#3D3D3D" }}>
                         {dashBoardListArray &&
                           dashBoardListArray.data.totalComplaints}
-                      </h3>
+                      </h5>
+                      <div
+                        className="col-3 col-md-3 col-sm-3 text-right"
+                        style={{ margin: "auto", paddingLeft: "30px" }}
+                      >
+                        <a onClick={() =>navigate("complaint")} className="pr-4 pt-0 pb-3 d-block" style={{color:"white"}}>
+                          <i className="fas fa-arrow-right"></i>
+                        </a>
+                      </div>
                     </div>
                   </div>
                   <div className="card">
@@ -178,15 +189,17 @@ const HrDashboard2 = () => {
                       style={{ background: "#FFACAC" }}
                     >
                       <a
-                        href="#"
+                        href=""
                         className="btn btn-header-link"
                         data-toggle="collapse"
                         data-target="#faq1"
                         aria-expanded="true"
                         aria-controls="faq1"
+                        
                       >
-                        {dashBoardListArray &&
-                          dashBoardListArray.data.totalPolicy}
+                        <i className="fas fa-arrow-down"></i>
+                        {/* {dashBoardListArray &&
+                          dashBoardListArray.data.totalPolicy} */}
                       </a>
                     </div>
 
@@ -228,17 +241,25 @@ const HrDashboard2 = () => {
                 >
                   <div className="row">
                     <div className="col-6 col-md-6 col-sm-6 text-left">
-                      <p className="pl-4 pt-4 text-white">
-                        Complaints
+                      <p className="pl-4 pt-4 ">
+                        <strong>Premium</strong>
                         <br />
-                        Received{" "}
+                        <strong>Received</strong>{" "}
                       </p>
                     </div>
                     <div className="col-6 col-md-6 col-sm-6 text-right">
-                      <h3 className="pr-4 pt-4 text-white">
+                      <h5 className="pr-4 pt-4 ">
                         {dashBoardListArray &&
-                          dashBoardListArray.data.totalComplaints}
-                      </h3>
+                          dashBoardListArray.data.totalAmount}
+                      </h5>
+                      <div
+                        className="col-3 col-md-3 col-sm-3 text-right"
+                        style={{ margin: "auto", paddingLeft: "30px" }}
+                      >
+                        <a onClick={() =>navigate("paypremium")} className="pr-4 pt-0 pb-3 d-block" style={{color:"white"}}>
+                          <i className="fas fa-arrow-right"></i>
+                        </a>
+                      </div>
                     </div>
                   </div>
                   <div className="card">
@@ -255,39 +276,10 @@ const HrDashboard2 = () => {
                         aria-expanded="true"
                         aria-controls="faq2"
                       >
-                        Month :{" "}
+                        <small>Month</small> :{" "}
                         {dashBoardListArray &&
-                          dashBoardListArray.data.totalPolicy}
+                          dashBoardListArray.data.Month}
                       </a>
-                    </div>
-
-                    <div
-                      id="faq2"
-                      className="collapse"
-                      aria-labelledby="faqhead2"
-                      data-parent="#faq"
-                    >
-                      <div className="card-body form-custom pb-0">
-                        <div className="row mb-3">
-                          <div className="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <small className="w-100 d-block mb-2">
-                              Resolved Complaints{" "}
-                              <span className="green-text float-right font-weight-bold">
-                                {dashBoardListArray &&
-                                  dashBoardListArray.data
-                                    .totalResolvedComplaints}
-                              </span>
-                            </small>
-                            <small className="w-100 d-block">
-                              Open Complaints{" "}
-                              <span className="text-black float-right font-weight-bold">
-                                {dashBoardListArray &&
-                                  dashBoardListArray.data.totalOpenComplaints}
-                              </span>
-                            </small>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -295,28 +287,37 @@ const HrDashboard2 = () => {
               <div className="col-12 col-md-6 col-sm-6 col-lg-3 mb-4">
                 <div
                   className="card card-custom"
-                  style={{ background: "#3D3D3D" }}
+                  style={{ background: "#808080" }}
                 >
                   <div className="row">
                     <div className="col-6 col-md-6 col-sm-6 text-left">
-                      <p className="pl-4 pt-4 text-white">
-                        Premium
+                      <p className="pl-4 pt-4">
+                        <strong>Client</strong>
                         <br />
-                        Received{" "}
+                        <strong>List</strong>
                       </p>
                     </div>
                     <div className="col-6 col-md-6 col-sm-6 text-right">
-                      <h3 className="pr-4 pt-4 text-white">
+                      <h5 className="pr-4 pt-4">
                         {dashBoardListArray &&
-                          dashBoardListArray.data.totalComplaints}
-                      </h3>
+                          dashBoardListArray.data.totalAgents}
+                      </h5>
+                      <div
+                        className="col-3 col-md-3 col-sm-3 text-right"
+                        style={{ margin: "auto", paddingLeft: "30px" }}
+                      >
+                        <a onClick={() =>navigate("client")} className="pr-4 pt-0 pb-3 d-block" style={{color:"white"}}>
+                          <i className="fas fa-arrow-right"></i>
+                        </a>
+                      </div>
                     </div>
                   </div>
+
                   <div className="card">
                     <div
                       className="card-header"
                       id="faqhead3"
-                      style={{ background: "#3D3D3D" }}
+                      style={{ background: "#808080" }}
                     >
                       <a
                         href="#"
@@ -326,39 +327,61 @@ const HrDashboard2 = () => {
                         aria-expanded="true"
                         aria-controls="faq3"
                       >
-                        Month :{" "}
+                        <small>Month</small> :{" "}
                         {dashBoardListArray &&
-                          dashBoardListArray.data.totalPolicy}
+                          dashBoardListArray.data.month}
                       </a>
                     </div>
-
-                    <div
-                      id="faq3"
-                      className="collapse"
-                      aria-labelledby="faqhead3"
-                      data-parent="#faq"
-                    >
-                      <div className="card-body form-custom pb-0">
-                        <div className="row mb-3">
-                          <div className="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <small className="w-100 d-block mb-2">
-                              Invoices{" "}
-                              <span className="green-text float-right font-weight-bold">
-                                {dashBoardListArray &&
-                                  dashBoardListArray.data
-                                    .totalResolvedComplaints}
-                              </span>
-                            </small>
-                            <small className="w-100 d-block">
-                              Generated{" "}
-                              <span className="text-black float-right font-weight-bold">
-                                {dashBoardListArray &&
-                                  dashBoardListArray.data.invoices}
-                              </span>
-                            </small>
-                          </div>
-                        </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-12 col-md-6 col-sm-6 col-lg-3 mb-4">
+                <div
+                  className="card card-custom"
+                  style={{ background: "#C8C8C8" }}
+                >
+                  <div className="row">
+                    <div className="col-6 col-md-6 col-sm-6 text-left">
+                      <p className="pl-4 pt-4">
+                        <strong>Invoices</strong>
+                        <br />
+                        <strong>Generated</strong>
+                      </p>
+                    </div>
+                    <div className="col-6 col-md-6 col-sm-6 text-right">
+                      <h5 className="pr-4 pt-4">
+                        {dashBoardListArray &&
+                          dashBoardListArray.data.totalAgents}
+                      </h5>
+                      <div
+                        className="col-3 col-md-3 col-sm-3 text-right"
+                        style={{ margin: "auto", paddingLeft: "30px" }}
+                      >
+                        <a href="" className="pr-4 pt-0 pb-3 d-block" style={{color:"white"}}>
+                          <i className="fas fa-arrow-right"></i>
+                        </a>
                       </div>
+                    </div>
+                  </div>
+
+                  <div className="card">
+                    <div
+                      className="card-header"
+                      id="faqhead3"
+                      style={{ background: "#C8C8C8" }}
+                    >
+                      <a
+                        href="#"
+                        className="btn btn-header-link collapsed"
+                        data-toggle="collapse"
+                        data-target="#faq3"
+                        aria-expanded="true"
+                        aria-controls="faq3"
+                      >
+                        <small>Month</small> :{" "}
+                        {dashBoardListArray &&
+                          dashBoardListArray.data.month}
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -369,26 +392,26 @@ const HrDashboard2 = () => {
 
         <div className="row">
           <div className="col-12 col-lg-6 mb-4">
-            <h3 className="mt-4 mb-4">Total Policy Sales 2021</h3>
+            {/* <h3 className="mt-4 mb-4">Total Policy Sales 2021</h3> */}
             <LineGraph />
           </div>
-          <div className="col-12 col-lg-6 mb-4">
+          {/* <div className="col-12 col-lg-6 mb-4">
             <h3 className="mt-4 mb-4">Total Claim Settled</h3>
             <LineGraph />
-          </div>
+          </div> */}
         </div>
 
         <div className="row">
           <div className="col-12 col-lg-8 mb-4">
-            <h3 className="mt-4 mb-4">Best Selling policy - Month Jan 2021</h3>
+            <h3 className="mt-4 mb-4">Best Selling policy - <small>Month</small> Jan 2021</h3>
             <div className="table-responsive">
               <table className="table table-bordered">
-                <thead className="white-bg" style={{ backgroundColor: "#8ec131" }}>
+                <thead className="white-bg">
                   <tr>
-                    <th>Policy Name</th>
-                    <th>Policy code</th>
-                    <th>Policy Type</th>
-                    <th>Total Sales</th>
+                    <th key={1}>Policy Name</th>
+                    <th key={2}>Policy code</th>
+                    <th key={3}>Policy Type</th>
+                    <th key={4}>Total Sales</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -421,6 +444,7 @@ const HrDashboard2 = () => {
         </div>
       </footer>
     </div>
+    </div>
   );
 };
-export default HrDashboard2;
+export default AdDashboard;

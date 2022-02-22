@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, Input, Menu, Dropdown } from "antd";
+import { Table, Button, Input, Menu, Dropdown,Breadcrumb } from "antd";
 import {
   FilterOutlined,
   EllipsisOutlined,
@@ -243,6 +243,11 @@ const AdminComplaint = () => {
     <>
       {hrComplaintsTablepage && (
         <div className="container-fluid">
+           <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Complaint</Breadcrumb.Item>
+            {/* <Breadcrumb.Item>claim Details</Breadcrumb.Item> */}
+          </Breadcrumb>
           <div
             className="row"
             style={{
@@ -270,13 +275,13 @@ const AdminComplaint = () => {
               </div>
               <div
                 className="col-12 col-sm-3 col-md-3"
-                style={{ display: "flex", flexDirection: "row" }}
+                style={{ display: "flex", flexDirection: "row",justifyContent:"center" }}
               >
                 <Dropdown placement="bottomCenter" overlay={content} arrow>
                   <Button
                     style={{
                       borderRadius: "5px",
-                      backgroundColor: "#61b33b",
+                      backgroundColor: "#8ec131",
                       color: "white",
                     }}
                   >
@@ -286,7 +291,7 @@ const AdminComplaint = () => {
               </div>
               <div
                 className="col-12 col-sm-3 col-md-3"
-                style={{ display: "flex", flexDirection: "row" }}
+                style={{ display: "flex", flexDirection: "row",justifyContent:"center" }}
               >
                 <Button
                   style={{

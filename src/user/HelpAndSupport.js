@@ -29,7 +29,7 @@ function HelpAndSupport() {
   const  handleShowModal =(type)=>{
     setShow(true)
     SetType(type)
-    console.log("tio",Type)
+
   }
 
 
@@ -104,8 +104,8 @@ function HelpAndSupport() {
                 <Accordion.Item eventKey="2">
                   <Accordion.Header>About</Accordion.Header>
                   <Accordion.Body>
-                    <a style={{color:"gray",color:"gray",fontSize:"18px"}} onClick={handleShowModal}>Third Party Notice</a><br/>
-                    <a style={{color:"gray",color:"gray",fontSize:"18px"}} onClick={handleShowModal}>Privacy and Cookies</a>
+                    <a style={{color:"gray",color:"gray",fontSize:"18px"}}>Third Party Notice</a><br/>
+                    <a style={{color:"gray",color:"gray",fontSize:"18px"}}>Privacy and Cookies</a>
                   </Accordion.Body>
                 </Accordion.Item>
               </Accordion>
@@ -117,7 +117,7 @@ function HelpAndSupport() {
 <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                   <Modal.Title
-                    style={{ color: "#61B33B", marginLeft: "130px" }}
+                    style={{ color: "#8ec131", marginLeft: "130px" }}
                   >
                     Add {Type}
                   </Modal.Title>

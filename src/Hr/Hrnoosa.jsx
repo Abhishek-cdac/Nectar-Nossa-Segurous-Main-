@@ -1,6 +1,6 @@
 import React from 'react';
 // import { Tabs, Layout } from 'antd';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 import AppHeader from '../user/Header/AppHeader';
 import { Outlet, useNavigate,useLocation } from "react-router-dom";
 import { Tab } from '@material-ui/core';

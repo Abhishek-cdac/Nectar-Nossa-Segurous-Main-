@@ -1,7 +1,7 @@
 import {
  
   Modal,
-  Radio,
+  Breadcrumb,
   Table,
   Button,
   Input,
@@ -371,6 +371,11 @@ const HrData = (props) => {
 
   return (
     <div>
+       <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>HrList</Breadcrumb.Item>
+            <Breadcrumb.Item>Hr Details</Breadcrumb.Item>
+          </Breadcrumb>
       <div
         style={{
           display: "flex",

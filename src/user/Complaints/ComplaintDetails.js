@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Modal } from "antd";
+import { Button, Modal,Breadcrumb} from "antd";
 import DeleteSucess from './DeleteSucess'
 import { getPolicyList, addComplaintList,deleteComplaintList } from "../../services/authentication";
 
@@ -96,7 +96,12 @@ const ComplaintDetails = (props) => {
     <>
       {complaintsDetailspage && (
         <div>
-          <div className="row d-flex align-items-center justify-content-between">
+            <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Complaints</Breadcrumb.Item>
+            <Breadcrumb.Item>Complaint Details</Breadcrumb.Item>
+          </Breadcrumb>
+          <div className="row d-flex align-items-center justify-content-between" style={{paddingTop:"10px"}}>
             <div className="col-12">
               <div className="heading-with-box mb-2">
                 <div className="row">

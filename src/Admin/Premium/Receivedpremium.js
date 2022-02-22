@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, Input, Menu, Dropdown } from "antd";
+import { Table, Button, Input, Menu, Dropdown,Breadcrumb } from "antd";
 import { useNavigate } from "react-router-dom";
 import {
   EyeOutlined,
@@ -204,6 +204,11 @@ const AdReceivedpremium = () => {
 
   return (
     <>
+     <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Premium</Breadcrumb.Item>
+            {/* <Breadcrumb.Item>claim Details</Breadcrumb.Item> */}
+          </Breadcrumb>
       <div className="container-fluid">
       <div className="row"
         style={{
@@ -218,29 +223,31 @@ const AdReceivedpremium = () => {
           <h3>Received Premium</h3>
         </div>
         <div className="nav justify-content-center">
-        <div className="col-12 col-sm-5 col-md-5" style={{ display: "flex", flexDirection: "row" }}>
+        <div className="col-12 col-sm-5 col-md-5" style={{ display: "flex", flexDirection: "row",justifyContent:"center" }}>
           <Search
             placeholder="search Policy"
             onSearch={onSearch}
             style={{
               borderRadius: "25px",
+              marginRight:"10px"
             }}
           />
         </div>
-        <div className="col-12 col-sm-3 col-md-3" style={{ display: "flex", flexDirection: "row" }}>
+        <div className="col-12 col-sm-3 col-md-3" style={{ display: "flex", flexDirection: "row",justifyContent:"center" }}>
         <Dropdown placement="bottomCenter" overlay={content} arrow>
             <Button
               style={{
                 borderRadius: "5px",
-                backgroundColor: "#61b33b",
+                backgroundColor: "#8ec131",
                 color: "white",
+                marginRight:"10px"
               }}
             >
               <FilterOutlined /> Add Filters
             </Button>
           </Dropdown>
         </div>
-        <div className="col-12 col-sm-3 col-md-3" style={{ display: "flex", flexDirection: "row" }}>
+        <div className="col-12 col-sm-3 col-md-3" style={{ display: "flex", flexDirection: "row" ,justifyContent:"center" }}>
         <Button
             style={{
               color: "#ffffff",

@@ -386,7 +386,7 @@ const AdListedPolocies = () => {
               <Button
                 style={{
                   borderRadius: "5px",
-                  backgroundColor: "#61b33b",
+                  backgroundColor: "#8ec131",
                   color: "white",
                 }}
                 onClick={handleShowModal}
@@ -399,7 +399,7 @@ const AdListedPolocies = () => {
                 <Button
                   style={{
                     borderRadius: "5px",
-                    backgroundColor: "#61b33b",
+                    backgroundColor: "#8ec131",
                     color: "white",
                     width: "150px",
                   }}

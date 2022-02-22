@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {Table} from "react-bootstrap";
 import { getHolidaysList } from "../services/authentication"
 import { CSVLink } from "react-csv";
+import {Breadcrumb} from "antd"
 
 function UserHolidays() {
   const [HolidaysData, setHolidaysData] = useState("");
@@ -100,7 +101,11 @@ function UserHolidays() {
 
   return (
     <>
-      <div className="container-fluid">
+      <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Holidays</Breadcrumb.Item>
+          </Breadcrumb>
+      <div className="container-fluid" style={{paddingTop:"10px"}}>
         <div className="row">
           <div className="col-xl-7  col-lg-4 col-md-4 col-sm-3">
             <h4 id="head" className="my-3 mx-5">

@@ -26,7 +26,7 @@ const handleAddSupport = (type)=>{
             <div className="bredc">
             <Breadcrumb style={{ marginTop: "20px" }}>
               <Breadcrumb.Item>Home</Breadcrumb.Item>
-              <Breadcrumb.Item>Claims</Breadcrumb.Item>
+              <Breadcrumb.Item>Help && Support</Breadcrumb.Item>
             </Breadcrumb>
             </div>
             <div className="accord">

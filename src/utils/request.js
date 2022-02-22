@@ -17,7 +17,7 @@ const header = () =>({
 
 export const doGet = async (path) => {
   const response = await axios.get(`${baseurl}/${path}`, {
-    headers: header(),
+    headers: header2(),
   });
 
   return response.data;
@@ -51,7 +51,7 @@ export const doPost = async (path, data) => {
 export const doPut = async (path, data) => {
   return new Promise(async (resolve, reject) => {
     const response = await axios.put(`${baseurl}/${path}`, data, {
-      headers: header(),
+      headers: header2(),
     });
 
     if ([200, 201].includes(response.status)) {
@@ -61,11 +61,11 @@ export const doPut = async (path, data) => {
     return reject(response);
   });
 };
-
+//Changed header2() in delete && doput
 export const doDelete = async (path, data) => {
   return new Promise(async (resolve, reject) => {
     const response = await axios.delete(`${baseurl}/${path}`, {
-      headers: header(),
+      headers: header2(),
       data,
     });
 

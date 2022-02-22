@@ -158,11 +158,11 @@ export default function Setting() {
       {settingsPage && (
         <div className="container-fluid">
           <div className="row">
-            <div className="col-xl-12 col-lg-8 col-md-4 col-sm-2 col-xs-1">
+            <div className="col-xl-12 col-lg-8 col-md-12 col-sm-2 col-xs-1">
               <div classpolicy="comppage">
                 <Breadcrumb style={{ marginTop: "20px" }}>
                   <Breadcrumb.Item>Home</Breadcrumb.Item>
-                  <Breadcrumb.Item>claims</Breadcrumb.Item>
+                  <Breadcrumb.Item>Settings</Breadcrumb.Item>
                 </Breadcrumb>
                 <div
                   style={{
@@ -279,7 +279,7 @@ export default function Setting() {
 
                           return (
                             <Accordion
-                              style={{ width: 800, marginTop: "30px" }}
+                              
                               key={data.id}
                             >
                               <div

@@ -156,6 +156,11 @@ export const getAddHoliday = async(data) =>{
   return await doPost('holiday/add',data);
 }
 
+export const getAddHolidays = async(data) =>{
+  return await doPost('holiday/import',data);
+}
+
+
 //Reimbursment Api 
 export const getReimbursmentList = async(data) =>{
   // return await doGet(`reimbursement?type=${data.type}&search=${data.hospitaltype}`);
@@ -250,6 +255,7 @@ export const loginUser = async (email, password,role) => {
       });
       if ([200, 201].includes(response.status)) {
         return resolve(response);
+        
       }
       return reject(response);
     } catch (error) {
@@ -270,6 +276,11 @@ export const forgotPassword = async (email) => {
 export const getDashboardAPI = async (data) => {
   return await doGet('dashboard',data);
 };
+
+export const getDashboardChartAPI = async (data) => {
+  return await doGet('dashboard/getDashboardChartData',data);
+};
+
 
 //  export const resetPasswordService = async (payload) => {
 //    return await doPost("api/v1/auth/resetPassword", payload);

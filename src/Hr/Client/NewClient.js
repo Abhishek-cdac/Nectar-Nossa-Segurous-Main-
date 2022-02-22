@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getAddClient, getPolicyList } from "../../services/authentication";
-
+import { Breadcrumb } from "antd";
 const NewClient = (props) => {
   const [data, setData] = useState({
     policyHolder: "",
@@ -57,7 +57,7 @@ const NewClient = (props) => {
     policyListArray.filter(
       (list) => list.policyName === data.policyType
     )[0];
-    console.log("list",policyNum)
+    console.log("list",data)
     const Payload = {
       policy_id:policyNum.id,
       email: email,
@@ -135,7 +135,12 @@ const NewClient = (props) => {
 
   return (
     <div>
-      <div className="row d-flex align-items-center justify-content-between">
+       <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Client</Breadcrumb.Item>
+            <Breadcrumb.Item>New Client</Breadcrumb.Item>
+          </Breadcrumb>
+      <div className="row d-flex align-items-center justify-content-between" style={{paddingTop:"10px"}}>
         <div className="col-12 text-left">
           <h3 className="mt-0 mb-4">
             <a  className="text-black" onClick={props.handleNewClientBack}>

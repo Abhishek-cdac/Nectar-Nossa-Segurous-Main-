@@ -4,7 +4,7 @@ import VerticalMenu from "../components/atoms/VerticalMenu";
 import Logo from "../images/Userdashboard/logo.png";
 import { loginUser } from "../services/authentication";
 import { useNavigate, useLocation } from "react-router-dom";
-// import { showAlert } from "../utils/showAlert";
+import { showAlert } from "../utils/showAlert";
 import "./Login.css"
 
 const Login = () => {
@@ -44,7 +44,7 @@ const Login = () => {
       profile()
     } catch (error) {
         console.log('error',error)
-      // showAlert('In valide data', "error");
+        alert(JSON.stringify(error.data.message));
     } finally {
       console.log('data')
     }
@@ -56,6 +56,7 @@ const Login = () => {
   };
   const onFinish = (values) => {
     console.log("Success:", values);
+    showAlert("Logged in.", "success");
     handleLoginButton(values)
   };
 
@@ -68,7 +69,7 @@ const Login = () => {
       {console.log('location',policy )}
       <div className="container">
       <div className="row justify-content-center" style={{padding:"20px"}}>
-        <div className="col-12 col-sm-6 col-md-6" style={{paddingLeft:"0px"}} >
+        <div className="col-12 col-sm-6 col-md-5" style={{paddingLeft:"0px"}} >
         <div className="form-container">
         <div className="logo justify-content-center">
           <img
@@ -99,7 +100,7 @@ const Login = () => {
           <Form.Item
             name="user_id"
             rules={[
-              { required: true, message: "please Enter yourInput," },
+              { required: true, message: "please Enter your userId," },
             ]}
           >
             <Input

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, Input, Modal, Form, InputNumber, Select } from "antd";
+import { Table, Button, Input, Modal, Form, Breadcrumb, Select } from "antd";
 import { useNavigate } from "react-router-dom";
 import {
   getAgentList,
@@ -315,6 +315,11 @@ const HrList = () => {
     <>
       {AgentListStatus && (
         <div className="container">
+           <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>HrList</Breadcrumb.Item>
+            {/* <Breadcrumb.Item>claim Details</Breadcrumb.Item> */}
+          </Breadcrumb>
           <div
             className="ant-row"
             style={{
@@ -331,7 +336,7 @@ const HrList = () => {
             <div className="nav justify-content-center">
               <div
                 className="col-12 col-sm-5 col-md-5"
-                style={{ display: "flex", flexDirection: "row" }}
+                style={{ display: "flex", flexDirection: "row",justifyContent:"center" }}
               >
                 <Search
                   placeholder="search Policy"
@@ -345,13 +350,13 @@ const HrList = () => {
               </div>
               <div
                 className="col-12 col-sm-3 col-md-3"
-                style={{ display: "flex", flexDirection: "row" }}
+                style={{ display: "flex", flexDirection: "row" ,justifyContent:"center" }}
               >
                 <Button
                   style={{
                     borderRadius: "5px",
                     marginRight: "10px",
-                    backgroundColor: "#61b33b",
+                    backgroundColor: "#8ec131",
                     color: "white",
                   }}
                   onClick={() => handleShowModal()}
@@ -361,7 +366,7 @@ const HrList = () => {
               </div>
               <div
                 className="col-12 col-sm-3 col-md-3"
-                style={{ display: "flex", flexDirection: "row" }}
+                style={{ display: "flex", flexDirection: "row" ,justifyContent:"center" }}
               >
                 <Button
                   style={{

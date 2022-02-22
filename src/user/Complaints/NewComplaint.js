@@ -1,4 +1,4 @@
-import { Form, Input, Select, Button } from "antd";
+import { Form, Input, Select, Button,Breadcrumb } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import React, { useState, useEffect } from "react";
 // import './Complaint.style.css';
@@ -101,7 +101,12 @@ const NewComplaint = (props) => {
     <>
       {newComplaintspage && (
         <div>
-          <Form onFinish={onFinish}>
+            <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Complaints</Breadcrumb.Item>
+            <Breadcrumb.Item>New Complaints</Breadcrumb.Item>
+          </Breadcrumb>
+          <Form onFinish={onFinish} style={{paddingTop:"10px"}}>
             <div className="row d-flex align-items-center justify-content-between">
               <div className="col-12">
                 <div className="heading-with-box mb-2">

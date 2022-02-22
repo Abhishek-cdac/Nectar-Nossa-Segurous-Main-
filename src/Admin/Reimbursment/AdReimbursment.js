@@ -12,7 +12,7 @@ import {
 import { FormOutlined } from "@ant-design/icons";
 import { CSVLink } from "react-csv";
 import { Button, Modal, Form } from "react-bootstrap";
-import { Menu, Dropdown } from "antd";
+import { Menu, Dropdown,Breadcrumb } from "antd";
 
 const Reimbusrment = () => {
   const [ClinicDataPage, setClinicDataPage] = useState("");
@@ -468,9 +468,8 @@ const Reimbusrment = () => {
   const menu = (item) => {
     return (
       <Menu>
-        {/* <Menu.Item key="1">Assign to</Menu.Item> */}
         <Menu.Item
-          key="2"
+          key="1"
           onClick={() => {
             handleShowEditModal(item);
           }}
@@ -478,7 +477,7 @@ const Reimbusrment = () => {
           Edit Info
         </Menu.Item>
         <Menu.Item
-          key="3"
+          key="2"
           onClick={() => {
             handleDeleteInfo(item);
           }}
@@ -491,6 +490,11 @@ const Reimbusrment = () => {
 
   return (
     <>
+     <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Reimbursment</Breadcrumb.Item>
+            {/* <Breadcrumb.Item>claim Details</Breadcrumb.Item> */}
+          </Breadcrumb>
       {ReimbursmentPage && (
         <div>
           <div className="row d-flex align-items-center justify-content-between">
@@ -521,23 +525,23 @@ const Reimbusrment = () => {
                   <div className="btn-group">
                     <button
                       type="button"
-                      class="btn btn-success btn-sm my-3 mx-2"
+                      className="btn btn-success btn-sm my-3 mx-2"
                       style={{ width: "140px", borderRadius:"5px", height:"40px", border: "1px solid #8EC131", backgroundColor: "#8EC131"}}
                       onClick={handleShow}
                     >
-                      <i class="fas fa-plus-circle"></i> Add Holiday List
+                      <i className="fas fa-plus-circle"></i> Add Holiday List
                     </button>
                     <div className="header">
                       <Modal show={ShowModal} onHide={handleCancel} size="lg">
                         <Modal.Header closeButton>
                           <Modal.Title
-                            style={{ color: "#61B33B", marginLeft: "130px" }}
+                            style={{ color: "#8ec131", marginLeft: "130px" }}
                           >
                             Add Reimbursment List
                           </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                          <div class="container">
+                          <div className="container">
                             <Form.Group>
                               <Form.Label>Name</Form.Label>
                               <Form.Control
@@ -643,10 +647,10 @@ const Reimbusrment = () => {
                       </Modal>
                     </div>
                   </div>
-                  <div class="btn-group hover_drop_down">
+                  <div className="btn-group hover_drop_down">
                     <button
                       type="button"
-                      class="btn btn-success btn-sm my-3 mx-2"
+                      className="btn btn-success btn-sm my-3 mx-2"
                       data-toggle="dropdown"
                       style={{
                         width: "160px",
@@ -656,9 +660,9 @@ const Reimbusrment = () => {
                         height:"40px"
                       }}
                     >
-                      <i class="fas fa-filter"></i> Add Filters
+                      <i className="fas fa-filter"></i> Add Filters
                     </button>
-                    <ul class="dropdown-menu" role="menu">
+                    <ul className="dropdown-menu" role="menu">
                       <li>
                         <a
                           onClick={() => {
@@ -691,7 +695,7 @@ const Reimbusrment = () => {
                   <div className="btn-group">
                     <button
                       type="button"
-                      class="btn btn-primary btn-sm my-3 mx-2"
+                      className="btn btn-primary btn-sm my-3 mx-2"
                       style={{height:"40px"}}
                     >
                       <CSVLink
@@ -939,7 +943,7 @@ const Reimbusrment = () => {
           <div className="header">
             <Modal show={ShowEditModal} onHide={handleCancel}>
               <Modal.Header closeButton>
-                <Modal.Title style={{ color: "#61B33B", marginLeft: "130px" }}>
+                <Modal.Title style={{ color: "#8ec131", marginLeft: "130px" }}>
                   Edit Reimbursment List
                 </Modal.Title>
               </Modal.Header>

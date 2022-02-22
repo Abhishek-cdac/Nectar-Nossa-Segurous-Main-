@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Select, Form, Button } from "antd";
+import { Select, Form, Button,Breadcrumb } from "antd";
 import {
   AddServiceList,
   getAllUserPolicyList,
@@ -102,8 +102,13 @@ const Newservice = () => {
   return (
     <>
       {NewSerevicePage && (
-        <div className="container-fluid" style={{paddingTop:"50px"}}>
-          <div className="row d-flex align-items-center justify-content-between">
+        <div className="container-fluid" style={{paddingTop:"20px"}}>
+          <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Services</Breadcrumb.Item>
+            <Breadcrumb.Item>New Services</Breadcrumb.Item>
+          </Breadcrumb>
+          <div className="row d-flex align-items-center justify-content-between" style={{paddingTop:"10px"}}>
             <div className="col-12">
               <div className="heading-with-box mb-2">
                 <div className="row">

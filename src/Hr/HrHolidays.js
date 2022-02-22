@@ -220,7 +220,7 @@ const payload ={
               <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                   <Modal.Title
-                    style={{ color: "#61B33B", marginLeft: "130px" }}
+                    style={{ color: "#8ec131", marginLeft: "130px" }}
                   >
                     Add Holiday List
                   </Modal.Title>
@@ -260,7 +260,7 @@ const payload ={
                   </Button>
                 </Modal.Footer>
               </Modal>
-              <div className="btn-group hover_drop_down">
+              {/* <div className="btn-group hover_drop_down" > */}
                 <button
                   type="button"
                   className="btn btn-success btn-sm my-3"
@@ -285,7 +285,7 @@ const payload ={
                     Download PDF/CSV
                   </CSVLink>
               </button>
-              </div>
+              {/* </div> */}
             </div>
           </div>
         </div>
@@ -355,7 +355,7 @@ const payload ={
               <Modal show={ShowModal} onHide={handleCancel}>
                 <Modal.Header closeButton>
                   <Modal.Title
-                    style={{ color: "#61B33B", marginLeft: "130px" }}
+                    style={{ color: "#8ec131", marginLeft: "130px" }}
                   >
                     Edit Holiday List
                   </Modal.Title>

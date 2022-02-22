@@ -1,6 +1,6 @@
 import React,{useState} from "react";
 import { useNavigate } from "react-router-dom";
-import {Button} from "antd";
+import {Button,Breadcrumb} from "antd";
 import { verifyClaimList } from "../../services/authentication";
 
 
@@ -54,7 +54,12 @@ const HrClaimDetails = (props) =>{
 
         {ClaimDetailsPage && (
             <div>
-                 <div className="row d-flex align-items-center justify-content-between">
+                 <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>claims</Breadcrumb.Item>
+            <Breadcrumb.Item>claim Details</Breadcrumb.Item>
+          </Breadcrumb>
+                 <div className="row d-flex align-items-center justify-content-between" style={{paddingTop:"10px"}}>
                             <div className="col-12">
                                 <div className="heading-with-box">
                                     <div className="row">

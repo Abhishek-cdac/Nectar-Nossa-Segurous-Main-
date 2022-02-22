@@ -117,7 +117,7 @@ function HrHelp() {
 <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                   <Modal.Title
-                    style={{ color: "#61B33B", marginLeft: "130px" }}
+                    style={{ color: "#8ec131", marginLeft: "130px" }}
                   >
                     Add {Type}
                   </Modal.Title>

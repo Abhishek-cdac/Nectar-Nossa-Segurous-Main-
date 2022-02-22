@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 // import { Tabs, Layout } from 'antd';
-import "antd/dist/antd.css";
+import "antd/dist/antd.min.css";
 import AppHeader from "../user/Header/AppHeader";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
-import Doctors from "./Reimbursment/Doctors"
-import Services from "./Reimbursment/Services"
+import Doctors from "./Reimbursment/Doctors";
+import Services from "./Reimbursment/Services";
 
 // const { TabPane } = Tabs;
 const Tabs = Object.freeze([
@@ -19,17 +19,16 @@ const Tabs = Object.freeze([
   { label: "Reimbursement", link: "admin/reimbursement" },
   { label: "Holidays", link: "admin/holidays" },
   { label: "Settings", link: "admin/setting" },
-  { label: "Help & Support", link: "admin/helpandsupport" }
+  { label: "Help & Support", link: "admin/helpandsupport" },
 ]);
 
 // const { Header } = Layout;
 
 export default function Noosa() {
-
-  const handleReimbursment = (link) =>{
-    setIsActive(!Active)
-    navigate(`/${link}`)
-  }
+  const handleReimbursment = (link) => {
+    setIsActive(!Active);
+    navigate(`/${link}`);
+  };
   let navigate = useNavigate();
   const location = useLocation();
   const [Active, setIsActive] = useState(false);
@@ -53,7 +52,7 @@ export default function Noosa() {
                         <a
                           className={`nav-link ${isActive ? "active" : ""}`}
                           key={link}
-                          onClick={() =>handleReimbursment(link)}
+                          onClick={() => handleReimbursment(link)}
                         >
                           {label}
                           <label style={{ marginLeft: "10px" }}>
@@ -69,17 +68,21 @@ export default function Noosa() {
                             <a
                               className={`nav-link ${isActive ? "active" : ""}`}
                               key={link}
-                              onClick={() =>navigate(`/admin/reimbursement/service`)}
+                              onClick={() =>
+                                navigate(`/admin/reimbursement/service`)
+                              }
                             >
-                              {console.log("lk",link)}
+                              {console.log("lk", link)}
                               <p style={{ color: "white" }}>Service list</p>
                             </a>
                             <a
                               className={`nav-link ${isActive ? "active" : ""}`}
                               key={link}
-                              onClick={() =>navigate(`/admin/reimbursement/doctors`)}
+                              onClick={() =>
+                                navigate(`/admin/reimbursement/doctors`)
+                              }
                             >
-                              {console.log("dk",link)}
+                              {console.log("dk", link)}
                               <p style={{ color: "white" }}>Doctor list</p>
                             </a>
                           </div>
