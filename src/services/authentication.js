@@ -7,7 +7,7 @@ import axios from "axios"
 export const registerUser = async (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await axios.post(`${baseurl}/admin/userRegistration`, data, {
+      const response = await axios.post(`${baseurl}/account/userRegistration`, data, {
         headers:null,
       });
       if ([200, 201].includes(response.status)) {

@@ -277,7 +277,7 @@ export default function Dashboard() {
       <div> 
         <h2>GRAPHS</h2>
       </div>
-      <div style={{display:"flex"}}>
+      <div className="container-fluid" style={{display:"flex"}}>
       <LineGraph/>
       <LineGraph/>
       </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 // import { Tabs, Layout } from 'antd';
 import 'antd/dist/antd.min.css';
 import AppHeader from '../user/Header/AppHeader';
@@ -27,12 +27,21 @@ const Tabs =Object.freeze([{label:"Dashboard", link:"hr/"},
 
 export default function Hrnoosa() {
     let navigate = useNavigate();
-    const location = useLocation();
-    return (
-        <div className="sb-nav-fixed bg-light">
+    const [toggle, setToggle] = useState("");
+  const location = useLocation();
+  const handleClick = (value) => {
+    setToggle(value);
+  };
+  return (
+    <div
+      className={
+        toggle
+          ? "sb-nav-fixed bg-light sb-sidenav-toggled"
+          : "sb-nav-fixed bg-light"
+      }
+    >
 
-
-            <AppHeader />
+            <AppHeader handleClick={handleClick}/>
             <div id="layoutSidenav">
                 <div id="layoutSidenav_nav">
                     <nav className="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">

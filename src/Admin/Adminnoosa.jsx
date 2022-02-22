@@ -32,9 +32,20 @@ export default function Noosa() {
   let navigate = useNavigate();
   const location = useLocation();
   const [Active, setIsActive] = useState(false);
+  const [toggle, setToggle] = useState("");
+
+  const handleClick = (value) => {
+    setToggle(value);
+  };
   return (
-    <div className="sb-nav-fixed bg-light">
-      <AppHeader />
+    <div  className={
+      toggle
+        ? "sb-nav-fixed bg-light sb-sidenav-toggled"
+        : "sb-nav-fixed bg-light"
+    }
+  >
+
+          <AppHeader handleClick={handleClick}/>
       <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
           <nav

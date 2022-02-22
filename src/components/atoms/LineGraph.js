@@ -45,41 +45,67 @@ function LineGraph() {
     }
 
     const options={
-      tension:0.3,
-        title:{
-            display:true,
-            text:"Line chart"
-        },
-        scales:{
-            yAxes:[
-                {
-                    ticks:{
+    //   tension:0.3,
+    //     title:{
+    //         display:true,
+    //         text:"Line chart"
+    //     },
+    //     scales:{
+    //         yAxes:[
+    //             {
+    //                 ticks:{
                         
-                        suggestedMin:0,
-                        max:100,
-                        stepSize:10
-                    }
-                }
-            ]
+    //                     suggestedMin:0,
+    //                     max:100,
+    //                     stepSize:10
+    //                 }
+    //             }
+    //         ]
         
-    }
+     }
+
+    
    
-    }
+    // }
+
+    
+     const options2={
+    //     tension:0.3,
+    //       title:{
+    //           display:true,
+    //           text:"Line chart"
+    //       },
+    //       scales:{
+    //           yAxes:[
+    //               {
+    //                   ticks:{
+                          
+    //                       suggestedMin:0,
+    //                       max:100,
+    //                       stepSize:10
+    //                   }
+    //               }
+    //           ]
+          
+       }
+  
+      
+     
+    //   }
     return (
-        <div style={{display:"flex",flexDirection:"row"}}>
-            
-            <div className="col-12 col-lg-12 mb-4">
+        <div className='row'>     
+            <div className="col-12 col-lg-6 mb-4">
         <h4>Total Polices 2022</h4>    
              <Line data={data} options={options}/>
              {console.log("ytfytf",chart)}
         </div>
-        <div>
+        {/* <div> */}
            
-        <div className="col-12 col-lg-12 mb-4">   
+        <div className="col-12 col-lg-6 mb-4" >   
           <h4>Total Claims 2022</h4> 
-          <Line data={data2} options={options} />
+          <Line data={data2} options={options2}/>
           </div>
-     </div>
+     {/* </div> */}
      </div>
 
     )

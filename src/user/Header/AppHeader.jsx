@@ -56,15 +56,12 @@ export default function AppHeader(props) {
     </Menu>
   );
   const handleSideNav = () =>{
-    // setNavState(!navState)
-    // props.handleClick(navState)
-    // var element = document.getElementById("layoutSidenav_nav");
-    // element.classList.toggle("close-side-pane"); 
-    // document.getElementById('layoutSidenav_content').classList.toggle("collapse-right-pane")
+    setNavState(!navState)
+    props.handleClick(navState)
   }
 
   return (
-    <div class="sb-nav-fixed bg-light">
+    <div className="sb-nav-fixed bg-light">
     <nav className="sb-topnav navbar navbar-expand ">
       <a className="navbar-brand">
         <img className="img-fluid" src={logo} alt="" width="80%" />
@@ -72,8 +69,8 @@ export default function AppHeader(props) {
       <button 
       id ="sidebarCollapse"
        className="btn btn-link btn-lg order-1 order-lg-0"
-      //  id="sidebarToggle" 
-        // onClick={()=>{handleSideNav()}}
+       id="sidebarToggle" 
+        onClick={()=>{handleSideNav()}}
         
       >
         <i className="fas fa-bars" ></i>

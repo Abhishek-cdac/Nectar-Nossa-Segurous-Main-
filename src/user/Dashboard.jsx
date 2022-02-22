@@ -45,7 +45,7 @@ const Dashboard = () => {
   return (
     <div
       id="layoutSidenav_content" className="collapse-right-pane"
-      // style={{ paddingLeft: "80px", marginLeft: "-75px" }}
+      style={{ paddingLeft: "80px", marginLeft: "-75px" }}
     >
       <div className="container-fluid" id="container-fluid">
         <h3 className="mt-4 mb-4">Dashboard</h3>
@@ -214,7 +214,7 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="col-12 col-lg-5 mb-4">
-            <div className="green-box">
+            {/* <div className="green-box">
               <div className="row d-flex align-items-center justify-content-between">
                 <div className="col-12 col-lg-9">
                   <label style={{ marginTop: "10px" }}>
@@ -232,7 +232,7 @@ const Dashboard = () => {
                   </a>
                 </div>
               </div>
-            </div>
+            </div> */}
             <a href="#" className="text-right w-100 d-block mt-2">
               View All
             </a>

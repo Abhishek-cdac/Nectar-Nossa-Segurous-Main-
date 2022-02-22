@@ -188,7 +188,7 @@ const AdDashboard = () => {
                       style={{ background: "#FFACAC" }}
                     >
                       <a
-                        href=""
+                      
                         className="btn btn-header-link"
                         data-toggle="collapse"
                         data-target="#faq1"
@@ -390,14 +390,9 @@ const AdDashboard = () => {
         </div>
 
         <div className="row">
-          <div className="col-12 col-lg-6 mb-4">
-            {/* <h3 className="mt-4 mb-4">Total Policy Sales 2021</h3> */}
+          <div>
             <LineGraph />
           </div>
-          {/* <div className="col-12 col-lg-6 mb-4">
-            <h3 className="mt-4 mb-4">Total Claim Settled</h3>
-            <LineGraph />
-          </div> */}
         </div>
 
         <div className="row">
