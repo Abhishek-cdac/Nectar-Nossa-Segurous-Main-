@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import { Input, Layout, Dropdown, Menu } from "antd";
 import { CaretDownOutlined, BellFilled, DownOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +18,15 @@ export default function AppHeader(props) {
     navigate("/");
     // localStorage.clear();
   };
+    // useEffect(() => {
+    //   // in some cases, the google translate script adds a style to the opening html tag.
+    //   // this added style disables scrolling.
+    //   // the next 3 lines removes this added style in order to re-enable scrolling.
+    //   if (window.document.scrollingElement.hasAttribute("style")) {
+    //     window.document.scrollingElement.setAttribute("style", "");
+    //   }
+    // });
+
 
   const menu = (
     <Menu>
@@ -93,6 +102,7 @@ export default function AppHeader(props) {
         </div>
       </form>
       <GoogleTranslate />
+      {/* <div id="google_translate_element"></div> */}
       <ul className="navbar-nav ml-auto ml-md-0">
         <li className="nav-item dropdown">
           <Dropdown overlay={menu}>

@@ -1,18 +1,30 @@
-import React, { useEffect } from "react";
+import React, { Component } from 'react';
 
-const GoogleTranslate = () => {
-  useEffect(() => {
-    // in some cases, the google translate script adds a style to the opening html tag.
-    // this added style disables scrolling.
-    // the next 3 lines removes this added style in order to re-enable scrolling.
-    if (window.document.scrollingElement.hasAttribute("style")) {
-      window.document.scrollingElement.setAttribute("style", "");
+class GoogleTranslate extends Component {
+    googleTranslateElementInit () {
+        //alert("test2")
+        /* eslint-disable no-new */
+        new window.google.translate.TranslateElement({pageLanguage: 'en',
+        includedLanguages : 'ar,af,sq,it,en,pt',
+        layout: window.google.translate.TranslateElement.InlineLayout.VERTICAL},
+     'google_translate_element')
+     }
+
+    componentDidMount() {
+        // alert("test")
+
+        var addScript = document.createElement('script');
+        addScript.setAttribute('src', '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit');        
+        document.body.appendChild(addScript);  
+        window.googleTranslateElementInit = this.googleTranslateElementInit;
     }
-  });
 
-  return (
-    <div id="google_translate_element"></div>
-  );
-};
+    render() {
+        return (
+            // <script type='text/javascript' src='//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit' />
+            <div id="google_translate_element"></div>
+          );
+     }
+}
 
 export default GoogleTranslate;
