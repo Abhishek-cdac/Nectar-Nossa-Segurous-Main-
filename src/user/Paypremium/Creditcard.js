@@ -27,10 +27,16 @@ function CreditCard(props) {
   const [showAddCC, setShowAddCC] = useState();
   const [showDeleteModal, setShowDeleteModal] = useState();
   const [cardId, setCardId] = useState();
+  
 
   const navigate = useNavigate();
   const year = (new Date()).getFullYear();
   const years = Array.from(new Array(20),(val, index) => index + year);
+
+  const handleSucessBack = () =>{
+    setCreditCardPage(true)
+    setSuccessPage(false)
+  }
 
   const handleBack = () =>{
     props.handleBackToUserPolicy()
@@ -185,7 +191,8 @@ function CreditCard(props) {
 
   const handlePaymentServiceCall = async() =>{
     const payLoad= {
-      id:data.key,
+      //id:data.key,
+      id:1,
       paymentType:"online",
       paymentStatus:"success",
       paymentDate:"2022-01-13 12:54:00"
@@ -454,7 +461,7 @@ function CreditCard(props) {
         }}
       />
       </div>}
-      {successPage && <SucessModal/>}
+      {successPage && <SucessModal handleSucessBack={handleSucessBack}/>}
     </>
   );
 }

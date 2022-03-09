@@ -13,7 +13,11 @@ const handleAddSupport = (type)=>{
   setHomepage(false)
   settableDatapage(true)
   setType(type)
-  console.log("ti",type)
+  // console.log("ti",type)
+}
+const handleBack = () =>{
+  setHomepage(true)
+  settableDatapage(false)
 }
   
     
@@ -61,7 +65,7 @@ const handleAddSupport = (type)=>{
       }
 
 
-{tableDatapage && <Supporttable Type={type}/>}
+{tableDatapage && <Supporttable Type={type} handleBack={handleBack}/>}
 
     </>
   );

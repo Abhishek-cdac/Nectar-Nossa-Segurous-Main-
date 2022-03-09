@@ -53,7 +53,7 @@ console.log("lug",loginDetailsUserId)
     
         <div className="row d-flex align-items-center justify-content-between" style={{padding:"10px"}}>
         <div className="col-lg-6 col-md-6 text-left">
-            <h3 className="mt-3 mb-4">Nossa Card</h3>
+            <h3 className="mt-3 mb-4">Our Card</h3>
         </div>
         <div className="col-lg-6 col-md-6 text-right">
             <div className="btn-two">
@@ -75,7 +75,7 @@ console.log("lug",loginDetailsUserId)
                         <img src={frontCard} alt="front-card-logo" className="img-fluid pl-3 pt-4" />
                     </div>
                     <div className="col-md-10 col-sm-10 col-12">
-                        <h1 className="mt-4 mb-3">Nossa Seguros</h1>
+                        <h1 className="mt-4 mb-3">Our Card</h1>
                     </div>
                 </div>
                 <div className="card-back-inner">
@@ -102,7 +102,7 @@ console.log("lug",loginDetailsUserId)
             <div className="nossa-card-back mt-4">
                 <div className="row">
                     <div className="col-12">
-                        <h1 className="mt-4 mb-3">Nossa Seguros Account No.: 529698664235</h1>
+                        <h1 className="mt-4 mb-3">Our Insurance Account No.: 529698664235</h1>
                     </div>
                 </div>
                 <div className="card-back-inner">

@@ -21,13 +21,11 @@ const HrComplaintDetails = (props) => {
   const [complaintsDetailspage, setcomplaintsDetailspage] = useState(true);
   const [policyName, setPolicyName] = useState("");
   const [complaintId, setComplaintId] = useState("");
-  const [status, setStatus] = useState("");
   const [complaintDescription, setComplaintDescription] = useState("");
-  const [subject, setsubject] = useState("");
   const [IsResubmitModalVisible, setIsResubmitModalVisible] = useState("");
-  const [complaintTablepage, setComplaintTablepage] = useState("");
   const [policyHolder, setPolicyHolder] = useState("");
   const [Submit, setSubmit] = useState("");
+  const[ApproveModalPage,setApproveModalPage] = useState('')
 
   const handleApprovalShowModal = (Submit) => {
     setSubmit(Submit);
@@ -44,6 +42,7 @@ const HrComplaintDetails = (props) => {
   };
   const handlesubmit = () => {
     setIsResubmitModalVisible(false);
+    setApproveModalPage(true)
   };
   const handleCancel = () => {
     setIsResubmitModalVisible(false);
@@ -59,7 +58,9 @@ const HrComplaintDetails = (props) => {
     try {
       const resp = await verifyComplaintList(data);
       console.log(resp);
-      handlesubmit();
+      // handlesubmit();
+      setIsResubmitModalVisible(false);
+      setApproveModalPage(true)
       handleCancel();
     } catch (error) {
       console.log("error", error);
@@ -69,6 +70,7 @@ const HrComplaintDetails = (props) => {
 
   return (
     <>
+    <div>
       {complaintsDetailspage && (
         <div>
            <Breadcrumb style={{ marginTop: "20px" }}>
@@ -270,10 +272,9 @@ const HrComplaintDetails = (props) => {
                       </div>
                       <div className="form-group mb-4">
                         <button
-                          className="col-xs-12 w-100"
+                          className="col-xs-12 w-100 ,btn btn-primary"
                           type="button"
-                          className="btn btn-primary"
-                          style={{ width: "180px",marginLeft:"70px" }}
+                          // className=
                           onClick={handleVerifyAPI}
                         >
                           Approve
@@ -292,6 +293,8 @@ const HrComplaintDetails = (props) => {
           </div>
         </div>
       )}
+      </div>
+      {ApproveModalPage && <ApproveModal/>}
     </>
   );
 };

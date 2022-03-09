@@ -17,6 +17,8 @@ const NewClient = (props) => {
     permanant: "",
     policyStartDate: "",
     policyEndDate: "",
+    plan:'',
+    Amount:''
   });
   const [errorMsg, seterrorMsg] = useState("");
   const [policyName, setPolicyName] = useState("");
@@ -38,6 +40,8 @@ const NewClient = (props) => {
     permanant,
     policyStartDate,
     policyEndDate,
+    plan,
+    Amount
   } = data;
 
   const Payload ={
@@ -312,6 +316,39 @@ const NewClient = (props) => {
                   id=""
                   name="email"
                   value={email}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <div className="col-12 col-sm-6 col-md-6 col-lg-4">
+              <div className="form-group">
+                <label htmlFor="exampleInputtext" className="mb-1">
+                  Premium Plan
+                </label>
+                <select
+                  className="form-control"
+                  id="exampleFormControlSelect1"
+                  value={plan}
+                  name="plan"
+                  onChange={handleChange}
+                >
+                  <option>Monthly</option>
+                  <option>Quarterly</option>
+                  <option>Yearly</option>
+                </select>
+              </div>
+            </div>
+            <div className="col-12 col-sm-6 col-md-6 col-lg-4">
+              <div className="form-group">
+                <label htmlFor="exampleInputtext" className="mb-1">
+                  Premium Amount
+                </label>
+                <input
+                  type="number"
+                  className="form-control"
+                  id=""
+                  name="Amount"
+                  value={Amount}
                   onChange={handleChange}
                 />
               </div>

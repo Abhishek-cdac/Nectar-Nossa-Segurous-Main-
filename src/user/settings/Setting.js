@@ -8,6 +8,7 @@ import Accordion from "@material-ui/core/Accordion";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Typography from "@material-ui/core/Typography";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
+import { EyeOutlined } from "@ant-design/icons";
 import {
   resetpassword,
   getChangePassword,
@@ -16,6 +17,8 @@ import {
   getAddUserNotificationService
 } from "../../services/authentication";
 import setSucess from "./setSucess";
+
+const eye = <EyeOutlined />;
 
 export default function Setting() {
   const [data, setData] = useState({
@@ -36,6 +39,21 @@ export default function Setting() {
     "Token in list",
     window.localStorage.getItem("loginDetailsUserId")
   );
+
+  const [OldPasswordShown, setOldPasswordShown] = useState(false);
+  const toggleOldPasswordVisiblity = () => {
+    setOldPasswordShown(OldPasswordShown ? false : true);
+  };
+  // New Password Field
+  const [NewPasswordShown, setNewPasswordShown] = useState(false);
+  const toggleNewPasswordVisiblity = () => {
+    setNewPasswordShown(NewPasswordShown ? false : true);
+  };
+  // Confirm New Password Field
+  const [ConfNewPasswordShown, setConfNewPasswordShown] = useState(false);
+  const toggleConfNewPasswordVisiblity = () => {
+    setConfNewPasswordShown(ConfNewPasswordShown ? false : true);
+  };
 
   const { confirmPassword, oldPassword, newPassword } = data;
 
@@ -182,49 +200,52 @@ export default function Setting() {
                       style={{
                         width: "330px",
                         marginTop: "40px",
-                        // marginLeft: "20px",
+                         marginLeft: "20px",
                       }}
                     >
-                      <Form.Group className="mb-3 p-2" controlId="formBasicEmail">
-                        <Form.Label>Old Password</Form.Label>
-                        <Form.Control
-                          type="password"
-                         
-                          name="oldPassword"
-                          value={oldPassword}
-                          placeholder="Enter old Password"
-                          onChange={handleChange}
-                        />
-                      </Form.Group>
-
-                      <Form.Group
-                        className="mb-3 p-2"
-                        controlId="formBasicPassword"
-                      >
-                        <Form.Label> New Password</Form.Label>
-                        <Form.Control
-                          type="password"
-                          value={newPassword}
-                          name="newPassword"
-                          placeholder=" Enter new Password"
-                          onChange={handleChange}
-                          
-                        />
-                      </Form.Group>
-
-                      <Form.Group
-                        className="mb-3 p-2"
-                        controlId="formBasicnewPassword"
-                      >
-                        <Form.Label> Confirm New Password</Form.Label>
-                        <Form.Control
-                          type="password"
-                          name="confirmPassword"
-                          value={confirmPassword}
-                          placeholder=" Confirm new Password"
-                          onChange={handleChange}
-                        />
-                      </Form.Group>
+                     <div className="pass-wrapper">
+                          <label className="required" htmlFor="oldpass">
+                            Old Password
+                          </label>
+                          <input
+                            id="pass"
+                            placeholder="Enter Old Password"
+                            name="oldPassword"
+                            value={oldPassword}
+                            type={OldPasswordShown ? "text" : "password"}
+                            onChange={handleChange}
+                            required="required"
+                          />
+                          <i onClick={toggleOldPasswordVisiblity}>{eye}</i>
+                        </div>
+                        <div className="pass-wrapper">
+                          <label className="required" htmlFor="newpass">
+                            New Password
+                          </label>
+                          <input
+                            id="pass"
+                            placeholder="Enter New Password"
+                            name="newPassword"
+                            value={newPassword}
+                            type={NewPasswordShown ? "text" : "password"}
+                            onChange={handleChange}
+                          />
+                          <i onClick={toggleNewPasswordVisiblity}>{eye}</i>
+                        </div>
+                        <div className="pass-wrapper">
+                          <label className="required" htmlFor="confpass">
+                            Confirm New Password
+                          </label>
+                          <input
+                            id="pass"
+                            placeholder="Confirm New Password"
+                            name="confirmPassword"
+                            value={confirmPassword}
+                            type={ConfNewPasswordShown ? "text" : "password"}
+                            onChange={handleChange}
+                          />
+                          <i onClick={toggleConfNewPasswordVisiblity}>{eye}</i>
+                        </div>
 
                       <div
                         className="bttn"

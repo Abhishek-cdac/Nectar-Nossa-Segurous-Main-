@@ -86,6 +86,7 @@ const HrRecievedClaims = () => {
       title: "Claim ID",
       dataIndex: "id",
       key: "id",
+      align:"center",
      
       render: (text, record) => (
         <a
@@ -100,6 +101,7 @@ const HrRecievedClaims = () => {
       title: "Policy Holder",
       dataIndex: "name",
       key: "name",
+      align:"center",
     
     },
 
@@ -107,24 +109,28 @@ const HrRecievedClaims = () => {
       title: "Policy Name",
       dataIndex: "policyname",
       key: "name",
+      align:"center",
     
     },
     {
       title: "Policy code",
       dataIndex: "code",
       key: "code",
+      align:"center",
     
     },
     {
       title: "Request Date",
       dataIndex: "date",
       key: "date",
+      align:"center",
      
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
+      align:"center",
      
     },
 
@@ -134,24 +140,24 @@ const HrRecievedClaims = () => {
     //   key: "description",
      
     // },
-    {
-      title: "Actions",
-      key: "action",
+    // {
+    //   title: "Actions",
+    //   key: "action",
      
-      render: (text, record) => {
-        return (
-          <>
-            <EyeOutlined style={{ color: "#000089", paddingLeft: "10px" }} />
-            <Dropdown overlay={menu}>
-              <a className="ant-dropdown-link">
-                <EllipsisOutlined style={{ paddingLeft: "30px" }} />
-              </a>
-            </Dropdown>
-          </>
-        );
-      },
-      responsive: ["sm", "xs", "md"],
-    },
+    //   render: (text, record) => {
+    //     return (
+    //       <>
+    //         <EyeOutlined style={{ color: "#000089", paddingLeft: "10px" }} />
+    //         <Dropdown overlay={menu}>
+    //           <a className="ant-dropdown-link">
+    //             <EllipsisOutlined style={{ paddingLeft: "30px" }} />
+    //           </a>
+    //         </Dropdown>
+    //       </>
+    //     );
+    //   },
+    //   responsive: ["sm", "xs", "md"],
+    // },
   ];
   //csv download Link
   const HrRecievedCSVData = () => {
@@ -176,20 +182,25 @@ const HrRecievedClaims = () => {
   //Claims table service call started here
 
   const handleGetClaimsListServiceCall = async () => {
+    const data = {
+      verifyStatus:"Not Submited"
+    }
     try {
       let claimsDataArr = [];
-      const resp = await getClaimsList();
+      const resp = await getClaimsList(data);
+      console.log("re",resp)
       setAllHrRecievedListArray(resp && resp.data);
       resp &&
         resp.data.map((data) => {
           const value = {
-            id: data.claim_details && data.claim_details.claim_id,
+            id: data.claimCode,
             name: data.userPolicy.user.firstName,
             policyname: data.userPolicy.policy.policyName,
             code: data.userPolicy.policy.policyCode,
-            date: data.claim_details && data.claim_details.createdAt,
+            date: data.claim_details ? data.claim_details.createdAt:'',
             status: data.verifyStatus,
             description: data.userPolicy.policy.description,
+            key:data.id
           };
           console.log(value);
           claimsDataArr.push(value);
@@ -211,11 +222,11 @@ const HrRecievedClaims = () => {
   //Filter & serach
   const handleFilterData = (filterData) => {
     const tableDataArr = [];
-    console.log("filterData", filterData);
+    // console.log("filterData", filterData);
     if (filterData.length > 0) {
       filterData.map((data, i) => {
         const value = {
-          id: data.claim_details && data.claim_details.claim_id,
+          id: data.claimCode,
           name: data.userPolicy.user.firstName,
           policyname: data.userPolicy.policy.policyName,
           code: data.userPolicy.policy.policyCode,
@@ -240,7 +251,7 @@ const HrRecievedClaims = () => {
 
   const onSearch = (value) => {
     const claimsfilterData = allHrRecievedListArray.filter((data) => {
-      const itemData = data.verifyStatus.toUpperCase();
+      const itemData = data.claimCode.toUpperCase();
       const textData = value.toUpperCase();
       return itemData.indexOf(textData) > -1;
     });
@@ -250,13 +261,13 @@ const HrRecievedClaims = () => {
   return (
     <>
       <div className="container-fluid">
-      <Breadcrumb style={{ marginTop: "20px" }}>
+        {HrClaimsTablePage && (
+          <div>
+              <Breadcrumb style={{ marginTop: "20px" }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
             <Breadcrumb.Item>claims</Breadcrumb.Item>
             {/* <Breadcrumb.Item>claim Details</Breadcrumb.Item> */}
           </Breadcrumb>
-        {HrClaimsTablePage && (
-          <div>
             <div
               className="row"
               style={{
@@ -276,7 +287,7 @@ const HrRecievedClaims = () => {
                 style={{ display: "flex", flexDirection: "row" }}
               >
                 <Search
-                  placeholder="search Policy"
+                  placeholder="search Claim Code"
                   onSearch={onSearch}
                   style={{
                     width: 300,

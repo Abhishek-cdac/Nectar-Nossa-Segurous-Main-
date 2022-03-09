@@ -57,7 +57,8 @@ const Receivedpremium = () => {
           key: data.id,
           policy: data.userPolicy.policy.policyName,
           name: data.userPolicy.user.firstName,
-          code: data.invoiceNumber,
+          // code: data.invoiceNumber,
+          code:"NA012367",
           type: data.userPolicy.premiumPlan,
           date: data.userPolicy.updatedAt,
           amount: data.premiumAmount,
@@ -178,7 +179,7 @@ const Receivedpremium = () => {
       key: "code",
       // ellipsis: true,
       sorter: (a, b) => a.code.length - b.code.length,
-      render: (text) => <a style={{ color: "#4cbb17" }}>{text}</a>,
+      render: (text) => <p style={{ color: "#4cbb17" }}>{text}</p>,
       // responsive: ["sm"],
     },
 
@@ -222,20 +223,20 @@ const Receivedpremium = () => {
       // responsive: ["sm"],
     },
 
-    {
-      title: "Download Invoice",
-      key: "option",
-      // ellipsis: true,
-      render: (record) => {
-        return (
-          <>
-            <VerticalAlignBottomOutlined />
-            <EyeOutlined style={{ paddingLeft: "30px" }} />
-          </>
-        );
-      },
-      responsive: ["sm", "xs", "md"],
-    },
+    // {
+    //   title: "Download Invoice",
+    //   key: "option",
+    //   // ellipsis: true,
+    //   render: (record) => {
+    //     return (
+    //       <>
+    //         <VerticalAlignBottomOutlined />
+    //         <EyeOutlined style={{ paddingLeft: "30px" }} />
+    //       </>
+    //     );
+    //   },
+    //   responsive: ["sm", "xs", "md"],
+    // },
   ];
 
   return (
@@ -262,7 +263,7 @@ const Receivedpremium = () => {
         <div className="nav justify-content-center">
         <div className="col-12 col-sm-5 col-md-5" style={{ display: "flex", flexDirection: "row" }}>
           <Search
-            placeholder="search Policy"
+            placeholder="search Policy Name"
             onSearch={onSearch}
             style={{
               borderRadius: "25px",

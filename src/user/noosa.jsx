@@ -9,15 +9,22 @@ import Dashboard from "./Dashboard";
 // const { TabPane } = Tabs;
 const Tabs = Object.freeze([
   { label: "Dashboard", link: "user/" },
-  { label: "PayPremium", link: "user/paypremium" },
+  { label: "Pay Premium", link: "user/paypremium" },
   { label: "Claims", link: "user/newClaim" },
   { label: "Complaint", link: "user/complaint" },
-  { label: "Nossa Card", link: "user/noosacard" },
+  // { label: "Complaint" , link: "user/Demo"},
+  { label: "Nossacard", link: "user/noosacard" },
+  // { label: "NossaCard" , link: "user/Demo"},
   { label: "Service Request", link: "user/servicerequest" },
+  // { label: "Service Request" , link: "user/Demo"},
   { label: "Reimbursement", link: "user/reimbursement" },
+  // { label: "Reimbursment" , link: "user/Demo"},
   { label: "Holidays", link: "user/holidays" },
+  // { label: "Holidays" , link: "user/Demo"},
   { label: "Settings", link: "user/setting" },
+  // { label: "Settings" , link: "user/Demo"},
   { label: "Help & Support", link: "user/helpandsupport" },
+  // { label: "Help&Support" , link: "user/Demo"},
 ]);
 
 // const { Header } = Layout;
@@ -47,7 +54,7 @@ export default function Noosa() {
             <div className="sb-sidenav-menu" id="sb-sidenav-menu">
               <div className="nav mt-4">
                 {Tabs.map(({ label, link }) => {
-                  console.log("naga sai fasdkjfaskjfkjasbfkasd");
+                  // console.log("naga sai fasdkjfaskjfkjasbfkasd");
                   const isActive = location.pathname.split("/")[1] === link;
                   return (
                     <a

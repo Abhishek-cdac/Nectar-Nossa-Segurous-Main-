@@ -14,7 +14,6 @@ import AgentDataPage from "./Hrdata";
 import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 
 const { Search } = Input;
-const onSearch = (value) => console.log(value);
 
 const HrList = () => {
   let navigate = useNavigate();
@@ -35,6 +34,7 @@ const HrList = () => {
   const [tableData, setTableData] = useState("");
   const [AllHrPolicyListArray, setAllHrPolicyListArray] = useState("");
   const { Option } = Select;
+  const[ErrorMsg,setErrorMsg]=useState('')
 
   const data = {
     search: "",
@@ -66,13 +66,14 @@ const HrList = () => {
     try {
       let tableAgentDataArr = [];
       const resp = await getAgentList(data);
+      console.log("re",resp)
       setAgentListArray(resp && resp.data);
       resp &&
         resp.data.map((data) => {
           const value = {
             key: data.id,
             name: data.firstName,
-            code: data.AgentCode,
+            code: data.userName,
             members: data.totalClient,
             Assigned: data.totalComplaint,
             Resolved: data.totalResolvedComplaint,
@@ -81,7 +82,7 @@ const HrList = () => {
         });
       setTableAgentData(tableAgentDataArr);
     } catch (error) {
-      console.log("error", error);
+      console.log("error in the ", error);
       // showAlert('In valide data', "error");
     }
   };
@@ -90,6 +91,40 @@ const HrList = () => {
   }, []);
 
   ///LIST API SERVICE CALL AND FUNCTIONALITY ENDED
+
+  //Filter Table
+
+  const handleFilterData = (HrFilterData) => {
+    const tableAgentDataArr = [];
+    console.log("filterData", HrFilterData);
+    if (HrFilterData.length > 0) {
+      HrFilterData.map((data, i) => {
+        const value = {
+          key: data.id,
+          name: data.name,
+          code: data.code,
+          members: data.members,
+          Assigned: data.Assigned,
+          Resolved: data.Resolved,
+        };
+        tableAgentDataArr.push(value);
+      });
+    }
+    return tableAgentDataArr;
+  };
+
+  const onSearch = (value) => 
+{
+  const HrFilterData = TableAgentData.filter((data) => {
+    // console.log("upper",data)
+    const itemData = data.code.toUpperCase();
+    const textData = value.toUpperCase();
+    return itemData.indexOf(textData) > -1;
+  });
+  const searchFilter = handleFilterData(HrFilterData);
+  console.log("fft",searchFilter)
+  setTableAgentData(searchFilter);
+}
 
   const handleShowModal = () => {
     setIsModalVisible(true);
@@ -139,7 +174,8 @@ const HrList = () => {
       handleGetAgentListServiceCall();
       handleCancel();
     } catch (error) {
-      console.log("error", error);
+      console.log("error", error.response.data.message);
+      setErrorMsg( error.response.data.message)
       // showAlert('In valide data', "error");
     }
   };
@@ -244,6 +280,7 @@ const HrList = () => {
       title: "Agent Name",
       dataIndex: "name",
       key: "name",
+      align:"center",
      
 
       sorter: (a, b) => a.name.length - b.name.length,
@@ -262,24 +299,28 @@ const HrList = () => {
       title: "Code",
       dataIndex: "code",
       key: "code",
+      align:"center",
     
     },
     {
       title: "Clients",
       dataIndex: "members",
       key: "members",
+      align:"center",
     
     },
     {
       title: "Complaint Assigned",
       dataIndex: "Assigned",
       key: "Assigned",
+      align:"center",
     
     },
     {
       title: "Complaint Resolved",
       dataIndex: "Resolved",
       key: "Resolved",
+      align:"center",
     
       render: (text) => <span style={{ color: "#4cbb17" }}>{text}</span>,
      
@@ -287,6 +328,7 @@ const HrList = () => {
     {
       title: "Actions",
       key: "action",
+      align:"center",
      
       render: (text, record) => {
         return (
@@ -317,7 +359,7 @@ const HrList = () => {
         <div className="container">
            <Breadcrumb style={{ marginTop: "20px" }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>HrList</Breadcrumb.Item>
+            <Breadcrumb.Item>Manager List</Breadcrumb.Item>
             {/* <Breadcrumb.Item>claim Details</Breadcrumb.Item> */}
           </Breadcrumb>
           <div
@@ -331,7 +373,7 @@ const HrList = () => {
             }}
           >
             <div className="col-12 col-sm-3 col-md-3">
-              <h3>Hr List</h3>
+              <h3>Account Manager List</h3>
             </div>
             <div className="nav justify-content-center">
               <div
@@ -339,7 +381,7 @@ const HrList = () => {
                 style={{ display: "flex", flexDirection: "row",justifyContent:"center" }}
               >
                 <Search
-                  placeholder="search Policy"
+                  placeholder="search Policy code"
                   onSearch={onSearch}
                   style={{
                     width: 300,
@@ -385,10 +427,9 @@ const HrList = () => {
           <div className="container-fluid">
             <div className=" DataTable" style={{justifyContent:"center"}}>
               <Table
-                style={{ fontSize: "28px", fontWeight: "bolder" }}
+                // style={{  }}
                 columns={columns}
                 dataSource={TableAgentData}
-                //onChange={this.handleChange}
                 pagination={{
                   pageSize: 10,
                   total: totalPages,
@@ -538,6 +579,7 @@ const HrList = () => {
                   justifyContent: "flex-mailnd",
                 }}
               >
+              
                 <Form.Item>
                   <Button type="primary" htmlType="submit">
                     Submit
@@ -553,6 +595,11 @@ const HrList = () => {
                   </Button>
                 </Form.Item>
               </div>
+              <div style={{display:'flex',justifyContent:'center'}}>
+                  <h6 style={{color:'red'}}>
+                    {ErrorMsg}
+                  </h6>
+                </div>
             </Form>
           </Modal>
 
@@ -569,8 +616,6 @@ const HrList = () => {
                 <input
                   type="text"
                   className="form-control"
-                 
-                  type="name"
                   placeholder="Agent Name"
                   value={AgentName}
                   onChange={(e) => setAgentName(e.target.value)}
@@ -579,9 +624,8 @@ const HrList = () => {
               <br />
               <div className="form-group mb-4">
                 <input
-                  type="text"
-                  className="form-control"
                  
+                  className="form-control" 
                   type="email"
                   placeholder="Email"
                   value={EmailId}
@@ -593,8 +637,6 @@ const HrList = () => {
                 <input
                   type="text"
                   className="form-control"
-                  
-                  type="type"
                   placeholder="Phone"
                   value={Phone}
                   onChange={(e) => setPhone(e.target.value)}
@@ -602,10 +644,8 @@ const HrList = () => {
               </div>
               <br />
               <div className="form-group mb-4">
-                <input
-                  type="text"
+                <textarea
                   className="form-control"
-               
                   type="Adress"
                   placeholder="Current Adress"
                   value={CurrentAdress}
@@ -614,11 +654,9 @@ const HrList = () => {
               </div>
               <br />
               <div className="form-group mb-4">
-                <input
+                <textarea
                   type="textArea"
                   className="form-control"
-                  // style={{ width: "300px", marginTop: "10px", marginLeft: "80px" }}
-                  type="Textarea"
                   placeholder="Permenant Adress"
                   value={PermenantAdress}
                   onChange={(e) => setPermenantAdress(e.target.value)}

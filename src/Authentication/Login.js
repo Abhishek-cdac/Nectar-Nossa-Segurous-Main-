@@ -41,10 +41,11 @@ const Login = () => {
       const value = resp && resp.data.data.jwtToken;
       window.localStorage.setItem("token", value);
       window.localStorage.setItem("loginDetailsUserId", resp.data.data.userId);
+      console.log(resp?.data?.data,'gfhgg')
       profile();
     } catch (error) {
-      console.log("error", error);
-      setErrormsg("You have entered an invalid email or password");
+      // console.log("error", error.data.message);
+      setErrormsg(error.data.message);
       // alert(JSON.stringify(error.data.message));
     } finally {
       console.log("data");
@@ -99,20 +100,20 @@ const Login = () => {
                       alignSelf: "center",
                     }}
                   >
-                    <Row>
+                    <Row style={{display:"grid"}}>
                       <Radio
                         name="value"
                         value="User"
                         style={{ marginRight: "20px" }}
                       >
-                        User
+                      User
                       </Radio>
                       <Radio
                         name="value"
                         value="Hr"
                         style={{ marginRight: "20px" }}
                       >
-                        Hr/Agent
+                        Account Manager
                       </Radio>
                       <Radio name="value" value="Admin">
                         Admin
@@ -141,7 +142,7 @@ const Login = () => {
                   rules={[
                     {
                       required: true,
-                      message: "Please input your Password",
+                      message: "Enter your Password",
                     },
                   ]}
                 >

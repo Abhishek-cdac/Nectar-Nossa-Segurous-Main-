@@ -12,7 +12,7 @@ const ApprovalModal = (props) =>{
                         <div className="invoice-star">
                             <img src="images/invoice-star.png" alt="" width="20px" />
                         </div>
-                        <h6>Complaint Approved Succesfully</h6>
+                        <h6>Approved Succesfully</h6>
                     </div>
                     {/* <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-dismiss="modal" handleBack={props.handleDone}>Done</button>

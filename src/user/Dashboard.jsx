@@ -14,7 +14,7 @@ const Dashboard = () => {
     try{
     const resp = await getDashboardAPI();
     setDashBoardListArray(resp);
-    console.log("resp", resp);
+    //console.log("resp", resp);
     }
     
       catch (error) {
@@ -32,7 +32,7 @@ const Dashboard = () => {
     }
     try {
       const resp = await getAllUserPolicyList(data);
-      console.log("resssss", resp);
+      //console.log("resssss", resp);
       setgetAllUsersList(resp.data);
     } catch (error) {
       console.log("err", error);
@@ -62,9 +62,9 @@ const Dashboard = () => {
                 </div>
                 <div className="col-6 col-md-6 col-sm-6 text-right">
                   <h3 className="pr-4 pt-4">
-                    {dashBoardListArray && dashBoardListArray.data.totalPolicy}
+                    {dashBoardListArray && dashBoardListArray.data.totalPolicyCount}
                   </h3>
-                  {console.log("dashBoardListArray", dashBoardListArray)}
+                  {/* {//console.log("dashBoardListArray", dashBoardListArray)} */}
                 </div>
               </div>
               <hr />
@@ -121,7 +121,7 @@ const Dashboard = () => {
                 </div>
                 <div className="col-6 col-md-6 col-sm-6 text-right">
                   <h3 className="pr-4 pt-4">
-                    {dashBoardListArray && dashBoardListArray.data.totalClaims}
+                    {dashBoardListArray && dashBoardListArray.data.numberOfClaims}
                   </h3>
                 </div>
               </div>
@@ -151,7 +151,7 @@ const Dashboard = () => {
                 <div className="col-6 col-md-6 col-sm-6 text-right">
                   <h3 className="pr-4 pt-4">
                     {dashBoardListArray &&
-                      dashBoardListArray.data.totalServiceRequest}
+                      dashBoardListArray.data.totalServiceRequestCount}
                   </h3>
                 </div>
               </div>
@@ -178,7 +178,7 @@ const Dashboard = () => {
                   <h3>My Policies </h3>
                 </div>
                 <div className="col-lg-6 col-md-6 text-right">
-                  <a href="" data-toggle="modal" data-target="#addPolicyList">
+                  <a onClick={() =>navigate("paypremium")} data-toggle="modal" data-target="#addPolicyList">
                     View All
                   </a>
                 </div>
@@ -233,9 +233,9 @@ const Dashboard = () => {
                 </div>
               </div>
             </div> */}
-            <a href="#" className="text-right w-100 d-block mt-2">
+            {/* <a onClick={() =>navigate("paypremium")} className="text-right w-100 d-block mt-2">
               View All
-            </a>
+            </a> */}
 
             <div className="row d-flex align-items-center justify-content-between">
               <div className="col-12">
@@ -286,14 +286,14 @@ const Dashboard = () => {
                 aria-labelledby="recommended-policies-tab"
               >
                 <div className="row d-flex align-items-center justify-content-between recommended-policies-box">
-                  <div className="col-12 col-lg-8">
+                  <div className="col-12 col-lg-6">
                     <span>
                       <small>Type : Vehicle</small>
                       <br />
                       Nossa Seguros Auto-insurance
                     </span>
                   </div>
-                  <div className="col-12 col-lg-4">
+                  <div className="col-12 col-lg-6" style={{display:'flex',justifyContent:'space-evenly'}}>
                     <a href="#" className="btn btn-primary">
                       View
                     </a>
@@ -303,18 +303,18 @@ const Dashboard = () => {
                   </div>
                 </div>
                 <div className="row d-flex align-items-center justify-content-between recommended-policies-box">
-                  <div className="col-12 col-lg-8">
+                  <div className="col-12 col-lg-6">
                     <span>
                       <small>Type : Personal</small>
                       <br />
                       Nossa Seguros Acidenttes de Trabalho
                     </span>
                   </div>
-                  <div className="col-12 col-lg-4">
+                  <div className="col-12 col-lg-6"  style={{display:'flex',justifyContent:'space-evenly'}}>
                     <a href="#" className="btn btn-primary">
                       View
-                    </a>
-                    <a href="#" className="btn btn-secondary">
+                    </a><br/>
+                    <a href="#" className="btn btn-secondary" >
                       <img src={ic_file_download} alt="" />
                     </a>
                   </div>
@@ -327,31 +327,31 @@ const Dashboard = () => {
                 aria-labelledby="all-policies-tab"
               >
                 <div className="row d-flex align-items-center justify-content-between recommended-policies-box">
-                  <div className="col-12 col-lg-8">
+                  <div className="col-12 col-lg-6">
                     <span>
                       <small>Type : Personal</small>
                       <br />
                       Nossa Seguros Acidenttes de Trabalho
                     </span>
                   </div>
-                  <div className="col-12 col-lg-4">
+                  <div className="col-12 col-lg-6" style={{display:'flex',justifyContent:'space-evenly'}}>
                     <a href="#" className="btn btn-primary">
                       View
-                    </a>
+                    </a><br/>
                     <a href="#" className="btn btn-secondary">
                       <img src={ic_file_download} alt="" />
                     </a>
                   </div>
                 </div>
                 <div className="row d-flex align-items-center justify-content-between recommended-policies-box">
-                  <div className="col-12 col-lg-8">
+                  <div className="col-12 col-lg-6">
                     <span>
                       <small>Type : Vehicle</small>
                       <br />
                       Nossa Seguros Auto-insurance
                     </span>
                   </div>
-                  <div className="col-12 col-lg-4">
+                  <div className="col-12 col-lg-6" style={{display:'flex',justifyContent:'space-evenly'}}>
                     <a href="#" className="btn btn-primary">
                       View
                     </a>

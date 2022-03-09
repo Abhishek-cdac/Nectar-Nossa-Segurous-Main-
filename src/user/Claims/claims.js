@@ -6,7 +6,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import NewClaim2 from "./NewClaim2";
 import UserClaim from "./UserClaim";
 import moment from "moment";
-import { getClaimsList } from "../../services/authentication";
+import { getClaimsList2 } from "../../services/authentication";
 
 const Claims = () => {
   const [addClaim, setAddClaim] = useState(false);
@@ -35,25 +35,35 @@ const Claims = () => {
   const handleGetServiceRequestCall = async () => {
     try {
       let tableDataArr = [];
-      const resp = await getClaimsList();
+      const resp = await getClaimsList2();
       //console.log("resp", resp);
       setClaimsListArray(resp && resp.data);
       resp &&
         resp.data.map((data, i) => {
           const value = {
-            id: data.claim_details ? data.claim_details.claim_id : "",
-            policyName: data.userPolicy.policy.policyName
-              ? data.userPolicy.policy.policyName
-              : "",
-            code: data.userPolicy.policy.policyCode
-              ? data.userPolicy.policy.policyCode
-              : "",
+            //   id: data.claim_details ? data.claim_details.id : "",
+            //   policyName: data.userPolicy.policy.policyName
+            //     ? data.userPolicy.policy.policyName
+            //     : "",
+            //   code: data.userPolicy.policy.policyCode
+            //     ? data.userPolicy.policy.policyCode
+            //     : "",
+            //   date: data
+            //     ? ((data.updatedAt)? moment(data.updatedAt).format("MMM DD YY"):'')
+            //     : "",
+            //   status: data.verifyStatus ? data.verifyStatus : "",
+            id: data.claimCode,
+            policyName: data.userPolicy.policy.policyName,
+            code: data.userPolicy.policy.policyCode,
             date: data.claim_details
-              ? moment(data.claim_details.createdAt).format("MMM Do YY")
+              ? data.claim_details.updatedAt
+                ? moment(data.claim_details.updatedAt).format("MMM DD YY")
+                : ""
               : "",
-            status: data.verifyStatus ? data.verifyStatus : "",
+            status:data.verifyStatus,
+            key:data.id
           };
-          //console.log("sasas", value);
+          // console.log("sasas", value, resp);
           tableDataArr.push(value);
         });
       //console.log("tableDataArr in premium", tableDataArr);
@@ -72,15 +82,23 @@ const Claims = () => {
       title: "Claim Id",
       dataIndex: "id",
       key: "id",
+      align:"center",
+      sorter: (a, b) => a.id - b.id,
       // ellipsis: true,
       // responsive: ["sm"],
       render: (text, record) => (
-        <a
-          style={{ color: "#4cbb17" }}
-          onClick={() => handleClaimIdClick(text, record)}
-        >
-          {text}
-        </a>
+        <div>
+          {record.status === "Approved" ? (
+            <a
+              style={{ color: "#4cbb17" }}
+              onClick={() => handleClaimIdClick(text, record)}
+            >
+              {text}
+            </a>
+          ) : (
+            <label>{text}</label>
+          )}
+        </div>
       ),
     },
 
@@ -88,6 +106,7 @@ const Claims = () => {
       title: "Policy Name",
       dataIndex: "policyName",
       key: "policyName",
+      align:"center",
       // ellipsis: true,
       // responsive: ["sm"],
     },
@@ -96,6 +115,7 @@ const Claims = () => {
       title: "Policy Code",
       dataIndex: "code",
       key: "code",
+      align:"center",
       // ellipsis: true,
       // responsive: ["sm"],
     },
@@ -103,14 +123,16 @@ const Claims = () => {
       title: "Request Date",
       dataIndex: "date",
       key: "date",
+      align:"center",
       // ellipsis: true,
       // responsive: ["sm"],
     },
 
     {
-      title: "Staus",
+      title: "Status",
       dataIndex: "status",
       key: "status",
+      align:"center",
       // ellipsis: true,
       // responsive: ["sm"],
     },
@@ -180,10 +202,10 @@ const Claims = () => {
               columns={columns}
               dataSource={TableData}
               pagination={true}
-              total={10}
+              // total={10}
             />
             <div>
-              <span>shown Results {ClaimsListArray.length}</span>
+              <span>shown Results {TableData.length}</span>
             </div>
           </div>
         </div>

@@ -58,6 +58,7 @@ const NewClaim2 = (props) => {
     coveredByOtherInsurance: "",
     diagnosis: "",
     companyname: "",
+    policyNumber:'',
     sumInsured: "",
     relationWithInsured: "",
     relationName: "",
@@ -103,6 +104,7 @@ const NewClaim2 = (props) => {
     diagnosis,
     companyname,
     sumInsured,
+    policyNumber,
     relationWithInsured,
     relationName,
     relationGender,
@@ -156,7 +158,7 @@ const NewClaim2 = (props) => {
     const policyNum =
       getAllUserPolicyLI &&
       getAllUserPolicyLI.filter(
-        (data) => data.policy.policyCode === Data.policyNo
+        (data) => data.policy.policyCode === policyNo
       )[0];
     console.log("policyNum", policyNo);
     console.log("La", getAllUserPolicyLI);
@@ -173,6 +175,7 @@ const NewClaim2 = (props) => {
     formData.append("coveredByOtherInsurance", healthCheckupExpense);
     formData.append("diagnosis", diagnosis);
     formData.append("companyName", companyname);
+    formData.append('policyNUmber',policyNumber)
     // formData.append ("sumInsured",sumInsured);
     formData.append("relationWithInsured", relationWithInsured);
     formData.append("relationName", relationName);
@@ -227,6 +230,7 @@ const NewClaim2 = (props) => {
 
     
     if (
+      
       name === "" ||
       phone === "" ||
       email === "" ||
@@ -240,8 +244,14 @@ const NewClaim2 = (props) => {
       dateAdmission === "" ||
       dateDischarge === "" 
     ) {
-      seterrorMsg("Please Fill all fileds.");
+      alert("Please Fill all mandatory fileds.");
     } 
+    // else if (phone !== "")   
+    //   {
+    //     var pattern = new RegExp(/^[0-9\b]+$/);
+    //     phone.match(!pattern)
+    //   alert('please Enter Valid Mobile Number')
+    // }
      else {
 
     try {
@@ -504,23 +514,26 @@ const NewClaim2 = (props) => {
                 <div className="row">
                   {/* <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                                                     <div className="form-group">
-                                                        <label htmlFor="exampleInputtext">NS Account No<em>*</em></label>
+                                                        <label htmlFor="exampleInputtext">NS Account No<em style={{color:'red'}}>*</em></label>
                                                         <input type="text" className="form-control" id="exampleInputtext" aria-describedby="textHelp" placeholder=""/>
                                                     </div>
                                                 </div> */}
                   <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                     <div className="form-group">
                       <label htmlFor="exampleInputtext">
-                        Policy No.<em>*</em>
+                        Policy No.<em style={{color:'red'}}>*</em>
                       </label>
                       <select
+                     
                         className="form-control"
                         value={policyNo}
                         name="policyNo"
                         onChange={handleChange}
                       >
+                        <option>Select Policy Code</option>
                         {policyCode &&
                           policyCode.map((data) => (
+                          
                             <option value={data.policyCode}>
                               {data.policyCode}
                             </option>
@@ -531,7 +544,7 @@ const NewClaim2 = (props) => {
                   <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                     <div className="form-group">
                       <label htmlFor="exampleInputtext">
-                        Policy<em>*</em>
+                        Policy<em style={{color:'red'}}>*</em>
                       </label>
                       <select
                         className="form-control"
@@ -539,6 +552,7 @@ const NewClaim2 = (props) => {
                         name="policy"
                         onChange={handleChange}
                       >
+                          <option>Select Policy Name</option>
                         {policyCode &&
                           policyCode.map((data) => (
                             <option value={data.policyName}>
@@ -553,7 +567,7 @@ const NewClaim2 = (props) => {
                   <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                     <div className="form-group">
                       <label htmlFor="exampleInputtext">
-                        Name<em>*</em>
+                        Name<em style={{color:'red'}}>*</em>
                       </label>
                       <input
                         type="text"
@@ -564,30 +578,34 @@ const NewClaim2 = (props) => {
                         id="exampleInputtext"
                         aria-describedby="textHelp"
                         placeholder=""
+                        required
                       />
                     </div>
                   </div>
                   <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                     <div className="form-group">
                       <label htmlFor="exampleInputtext">
-                        Phone No<em>*</em>
+                        Phone No<em style={{color:'red'}}>*</em>
                       </label>
                       <input
-                        type="phone"
+                        type="number"
+                        min="0"
                         className="form-control"
                         id="exampleInputtext"
                         value={phone}
                         name="phone"
                         onChange={handleChange}
                         aria-describedby="textHelp"
-                        placeholder=""
+                        placeholder="Enter Phone Number"
+                        pattern="[0-9]{12}"
+                        required
                       />
                     </div>
                   </div>
                   <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                     <div className="form-group">
                       <label htmlFor="exampleInputEmail1">
-                        Email ID<em>*</em>
+                        Email ID<em style={{color:'red'}}>*</em>
                       </label>
                       <input
                         type="email"
@@ -598,6 +616,7 @@ const NewClaim2 = (props) => {
                         id="exampleInputEmail1"
                         aria-describedby="emailHelp"
                         placeholder=""
+                        required
                       />
                     </div>
                   </div>
@@ -606,7 +625,7 @@ const NewClaim2 = (props) => {
                   <div className="col-12 col-sm-12 col-md-12 col-lg-12">
                     <div className="form-group mb-0">
                       <label htmlFor="exampleInputtext">
-                        Address<em>*</em>
+                        Address<em style={{color:'red'}}>*</em>
                       </label>
                       <textarea
                         type="text"
@@ -617,6 +636,7 @@ const NewClaim2 = (props) => {
                         id="exampleInputtext"
                         aria-describedby="textHelp"
                         placeholder=""
+                        required
                       />
                     </div>
                   </div>
@@ -646,7 +666,7 @@ const NewClaim2 = (props) => {
             >
               <div className="card-body form-custom">
                 <div className="row">
-                  <div className="col-12 col-sm-6 col-md-6 col-lg-5">
+                  <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                     <div className="form-group">
                       <label htmlFor="exampleInputtext">
                         Currently covered by any other Mediclaim / Health
@@ -663,10 +683,10 @@ const NewClaim2 = (props) => {
                       </select>
                     </div>
                   </div>
-                  <div className="col-12 col-sm-6 col-md-6 col-lg-3">
+                  {/* <div className="col-12 col-sm-6 col-md-6 col-lg-3">
                     &nbsp;
-                  </div>
-                  <div className="col-12 col-sm-6 col-md-6 col-lg-4">
+                  </div> */}
+                  <div className="col-12 col-sm-6 col-md-6 col-lg-4" style={{paddingTop:'30px'}}>
                     <div className="form-group">
                       <label htmlFor="exampleInputtext">Diagnosis</label>
                       <input
@@ -702,12 +722,12 @@ const NewClaim2 = (props) => {
                   </div>
                   <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                     <div className="form-group">
-                      <label htmlFor="exampleInputtext">Policy No</label>
+                      <label htmlFor="exampleInputtext">Policy Number</label>
                       <input
                         type="text"
                         className="form-control"
-                        value={policyNo}
-                        name="policyNo"
+                        value={policyNumber}
+                        name="policyNumber"
                         onChange={handleChange}
                         id="exampleInputtext"
                         aria-describedby="textHelp"
@@ -759,7 +779,7 @@ const NewClaim2 = (props) => {
                   <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                     <div className="form-group">
                       <label htmlFor="exampleInputtext">
-                        Relationship to Primary Insured<em>*</em>
+                        Relationship to Primary Insured<em style={{color:'red'}}>*</em>
                       </label>
                       <select
                         className="form-control"
@@ -768,14 +788,17 @@ const NewClaim2 = (props) => {
                         onChange={handleChange}
                       >
                         <option>Self</option>
-                        <option>Self</option>
+                        <option>Mother</option>
+                        <option>Father</option>
+                        <option>Spouse/Husband</option>
+                        <option>sibling</option>
                       </select>
                     </div>
                   </div>
                   <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                     <div className="form-group">
                       <label htmlFor="exampleInputtext">
-                        Name<em>*</em>
+                        Name<em style={{color:'red'}}>*</em>
                       </label>
                       <input
                         type="text"
@@ -786,13 +809,14 @@ const NewClaim2 = (props) => {
                         id="exampleInputtext"
                         aria-describedby="textHelp"
                         placeholder=""
+                        required
                       />
                     </div>
                   </div>
                   <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                     <div className="form-group">
                       <label htmlFor="exampleInputtext">
-                        Gender<em>*</em>
+                        Gender<em style={{color:'red'}}>*</em>
                       </label>
                       <select
                         className="form-control"
@@ -802,6 +826,7 @@ const NewClaim2 = (props) => {
                       >
                         <option>Male</option>
                         <option>Female</option>
+                        <option>other</option>
                       </select>
                     </div>
                   </div>
@@ -810,7 +835,7 @@ const NewClaim2 = (props) => {
                   <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                     <div className="form-group">
                       <label htmlFor="exampleInputtext">
-                        Date of Birth<em>*</em>
+                        Date of Birth<em style={{color:'red'}}>*</em>
                       </label>
                       <input
                         className="form-control"
@@ -819,13 +844,14 @@ const NewClaim2 = (props) => {
                         name="relationDOB"
                         onChange={handleChange}
                         id="example-input"
+                        required
                       />
                     </div>
                   </div>
                   <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                     <div className="form-group">
                       <label htmlFor="exampleInputtext">
-                        Age<em>*</em>
+                        Age<em style={{color:'red'}}>*</em>
                       </label>
                       <input
                         type="number"
@@ -836,13 +862,14 @@ const NewClaim2 = (props) => {
                         id="exampleInputtext"
                         aria-describedby="textHelp"
                         placeholder=""
+                        min="1" max="100"
                       />
                     </div>
                   </div>
                   <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                     <div className="form-group">
                       <label htmlFor="exampleInputtext">
-                        Occupation<em>*</em>
+                        Occupation<em style={{color:'red'}}>*</em>
                       </label>
                       <select
                         className="form-control"
@@ -850,8 +877,10 @@ const NewClaim2 = (props) => {
                         name="relationOccupation"
                         onChange={handleChange}
                       >
-                        <option>Occupation</option>
-                        <option>Occupation</option>
+                        <option>Business</option>
+                        <option>Job</option>
+                        <option>Studying</option>
+                        <option>Unemployed</option>
                       </select>
                     </div>
                   </div>
@@ -860,7 +889,7 @@ const NewClaim2 = (props) => {
                   <div className="col-12 col-sm-12 col-md-12 col-lg-12">
                     <div className="form-group">
                       <label htmlFor="exampleInputtext">
-                        Address<em>*</em>
+                        Address<em style={{color:'red'}}>*</em>
                       </label>
                       <textarea
                         type="text"
@@ -871,6 +900,7 @@ const NewClaim2 = (props) => {
                         id="exampleInputtext"
                         aria-describedby="textHelp"
                         placeholder=""
+                        required
                       />
                     </div>
                   </div>
@@ -879,10 +909,11 @@ const NewClaim2 = (props) => {
                   <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                     <div className="form-group">
                       <label htmlFor="exampleInputtext">
-                        Phone No<em>*</em>
+                        Phone No<em style={{color:'red'}}>*</em>
                       </label>
                       <input
-                        type="phone"
+                        type="number"
+                        min="0"
                         className="form-control"
                         value={relationPhone}
                         name="relationPhone"
@@ -890,13 +921,15 @@ const NewClaim2 = (props) => {
                         id="exampleInputtext"
                         aria-describedby="textHelp"
                         placeholder=""
+                        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required
+                      
                       />
                     </div>
                   </div>
                   <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                     <div className="form-group">
                       <label htmlFor="exampleInputEmail1">
-                        Email ID<em>*</em>
+                        Email ID<em style={{color:'red'}}>*</em>
                       </label>
                       <input
                         type="email"
@@ -939,7 +972,7 @@ const NewClaim2 = (props) => {
                   <div className="col-12 col-sm-6 col-md-6 col-lg-8">
                     <div className="form-group">
                       <label htmlFor="exampleInputtext">
-                        Name of Hospital where Admited<em>*</em>
+                        Name of Hospital where Admited<em style={{color:'red'}}>*</em>
                       </label>
                       <input
                         type="text"
@@ -956,7 +989,7 @@ const NewClaim2 = (props) => {
                   <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                     <div className="form-group">
                       <label htmlFor="exampleInputtext">
-                        Room Category occupied<em>*</em>
+                        Room Category occupied<em style={{color:'red'}}>*</em>
                       </label>
                       <select
                         className="form-control"
@@ -965,7 +998,8 @@ const NewClaim2 = (props) => {
                         onChange={handleChange}
                       >
                         <option>Single occupancy</option>
-                        <option>Single occupancy</option>
+                        <option>Multiple occupancy</option>
+
                       </select>
                     </div>
                   </div>
@@ -974,7 +1008,7 @@ const NewClaim2 = (props) => {
                   <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                     <div className="form-group">
                       <label htmlFor="exampleInputtext">
-                        Hospitalization due to<em>*</em>
+                        Hospitalization due to<em style={{color:'red'}}>*</em>
                       </label>
                       <select
                         className="form-control"
@@ -982,31 +1016,34 @@ const NewClaim2 = (props) => {
                         name="reason"
                         onChange={handleChange}
                       >
-                        <option>Injury</option>
-                        <option>Injury</option>
+                        <option>Accident</option>
+                        <option>Health Illness</option>
                       </select>
                     </div>
                   </div>
                   <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                     <div className="form-group">
                       <label htmlFor="exampleInputtext">
-                        If injury give cause<em>*</em>
+                        If injury give cause<em style={{color:'red'}}>*</em>
                       </label>
                       <select
                         className="form-control"
                         value={injuryCause}
                         name="injuryCause"
                         onChange={handleChange}
+                        required
                       >
                         <option>Road Traffic Accident</option>
-                        <option>Road Traffic Accident</option>
+                        <option>Accident at Work</option>
+                        <option>Sports Related Injuries</option>
+                        <option>Accident Involving Animals</option>
                       </select>
                     </div>
                   </div>
                   <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                     <div className="form-group">
                       <label htmlFor="exampleInputtext">
-                        Date of Injury<em>*</em>
+                        Date of Injury<em style={{color:'red'}}>*</em>
                       </label>
                       <input
                         className="form-control"
@@ -1014,6 +1051,7 @@ const NewClaim2 = (props) => {
                         value={dateInjury}
                         name="dateInjury"
                         onChange={handleChange}
+                        required
                       />
                     </div>
                   </div>
@@ -1022,7 +1060,7 @@ const NewClaim2 = (props) => {
                   <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                     <div className="form-group">
                       <label htmlFor="exampleInputtext">
-                        Date of Admission<em>*</em>
+                        Date of Admission<em style={{color:'red'}}>*</em>
                       </label>
                       <input
                         className="form-control"
@@ -1031,13 +1069,14 @@ const NewClaim2 = (props) => {
                         name="dateAdmission"
                         onChange={handleChange}
                         id="example-input"
+                        required
                       />
                     </div>
                   </div>
                   <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                     <div className="form-group">
                       <label htmlFor="exampleInputtext">
-                        Date of Discharge<em>*</em>
+                        Date of Discharge<em style={{color:'red'}}>*</em>
                       </label>
                       <input
                         className="form-control"
@@ -1046,12 +1085,13 @@ const NewClaim2 = (props) => {
                         name="dateDischarge"
                         onChange={handleChange}
                         id="example-input"
+                        required
                       />
                     </div>
                   </div>
                   {/* <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                                                     <div className="form-group">
-                                                        <label htmlFor="exampleInputtext">Date of Injury<em>*</em></label>
+                                                        <label htmlFor="exampleInputtext">Date of Injury<em style={{color:'red'}}>*</em></label>
                                                         <select className="form-control"
                                                         value={relationWithInsured}
                                                         name="relationWithInsured"
@@ -1106,6 +1146,7 @@ const NewClaim2 = (props) => {
                         id="exampleInputtext"
                         aria-describedby="textHelp"
                         placeholder=""
+                        min='0'
                       />
                     </div>
                   </div>
@@ -1123,6 +1164,7 @@ const NewClaim2 = (props) => {
                         id="exampleInputtext"
                         aria-describedby="textHelp"
                         placeholder=""
+                        min='0'
                       />
                     </div>
                   </div>
@@ -1140,6 +1182,7 @@ const NewClaim2 = (props) => {
                         id="exampleInputtext"
                         aria-describedby="textHelp"
                         placeholder=""
+                        min='0'
                       />
                     </div>
                   </div>
@@ -1159,6 +1202,7 @@ const NewClaim2 = (props) => {
                         id="exampleInputtext"
                         aria-describedby="textHelp"
                         placeholder=""
+                        min='0'
                       />
                     </div>
                   </div>
@@ -1176,6 +1220,7 @@ const NewClaim2 = (props) => {
                         id="exampleInputtext"
                         aria-describedby="textHelp"
                         placeholder=""
+                        min='0'
                       />
                     </div>
                   </div>
@@ -1191,6 +1236,7 @@ const NewClaim2 = (props) => {
                         id="exampleInputtext"
                         aria-describedby="textHelp"
                         placeholder=""
+                        min='0'
                       />
                     </div>
                   </div>
@@ -1210,6 +1256,7 @@ const NewClaim2 = (props) => {
                         id="exampleInputtext"
                         aria-describedby="textHelp"
                         placeholder=""
+                        min='0'
                       />
                     </div>
                   </div>
@@ -1263,6 +1310,7 @@ const NewClaim2 = (props) => {
                         id="exampleInputtext"
                         aria-describedby="textHelp"
                         placeholder=""
+                        min='0'
                       />
                     </div>
                   </div>
@@ -1289,6 +1337,7 @@ const NewClaim2 = (props) => {
                         id="exampleInputtext"
                         aria-describedby="textHelp"
                         placeholder=""
+                        min='0'
                       />
                     </div>
                   </div>
@@ -1304,6 +1353,7 @@ const NewClaim2 = (props) => {
                         id="exampleInputtext"
                         aria-describedby="textHelp"
                         placeholder=""
+                        min='0'
                       />
                     </div>
                   </div>
@@ -1321,6 +1371,7 @@ const NewClaim2 = (props) => {
                         id="exampleInputtext"
                         aria-describedby="textHelp"
                         placeholder=""
+                        min='0'
                       />
                     </div>
                   </div>
@@ -1338,6 +1389,7 @@ const NewClaim2 = (props) => {
                         id="exampleInputtext"
                         aria-describedby="textHelp"
                         placeholder=""
+                        min='0'
                       />
                     </div>
                   </div>
@@ -1368,6 +1420,7 @@ const NewClaim2 = (props) => {
                         id="exampleInputtext"
                         aria-describedby="textHelp"
                         placeholder=""
+                        min='0'
                       />
                     </div>
                   </div>
@@ -1387,6 +1440,7 @@ const NewClaim2 = (props) => {
                         id="exampleInputtext"
                         aria-describedby="textHelp"
                         placeholder=""
+                        min='0'
                       />
                     </div>
                   </div>
@@ -1437,6 +1491,7 @@ const NewClaim2 = (props) => {
                       <Form.Control
                         type="file"
                         id="file"
+                        accept="image/png, image/jpeg,.pdf"
                         // className={classes.fileInput}
                         onChange={onClaimChange}
                       ></Form.Control>
@@ -1465,6 +1520,8 @@ const NewClaim2 = (props) => {
                       <Form.Control
                         type="file"
                         id="file"
+                        accept="image/png, image/jpeg,.pdf,.doc,.docx,.xml,application/msword,
+                        application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                         // className={classes.fileInput}
                         onChange={onCopyChange}
                       ></Form.Control>
@@ -1493,6 +1550,8 @@ const NewClaim2 = (props) => {
                       <Form.Control
                         type="file"
                         id="file"
+                        accept="image/png, image/jpeg,.pdf,.doc,.docx,.xml,application/msword,
+                        application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                         // className={classes.fileInput}
                         onChange={onMainChange}
                       ></Form.Control>
@@ -1521,6 +1580,8 @@ const NewClaim2 = (props) => {
                       <Form.Control
                         type="file"
                         id="file"
+                        accept="image/png, image/jpeg,.pdf,.doc,.docx,.xml,application/msword,
+                        application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                         // className={classes.fileInput}
                         onChange={onBreakChange}
                       ></Form.Control>
@@ -1549,6 +1610,8 @@ const NewClaim2 = (props) => {
                       <Form.Control
                         type="file"
                         id="file"
+                        accept="image/png, image/jpeg,.pdf,.doc,.docx,.xml,application/msword,
+                        application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                         // className={classes.fileInput}
                         onChange={onBillChange}
                       ></Form.Control>
@@ -1577,6 +1640,8 @@ const NewClaim2 = (props) => {
                       <Form.Control
                         type="file"
                         id="file"
+                        accept="image/png, image/jpeg,.pdf,.doc,.docx,.xml,application/msword,
+                        application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                         // className={classes.fileInput}
                         onChange={onDischargeChange}
                       ></Form.Control>
@@ -1605,6 +1670,8 @@ const NewClaim2 = (props) => {
                       <Form.Control
                         type="file"
                         id="file"
+                        accept="image/png, image/jpeg,.pdf,.doc,.docx,.xml,application/msword,
+                        application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                         // className={classes.fileInput}
                         onChange={onPharmacyChange}
                       ></Form.Control>
@@ -1633,6 +1700,8 @@ const NewClaim2 = (props) => {
                       <Form.Control
                         type="file"
                         id="file"
+                        accept="image/png, image/jpeg,.pdf,.doc,.docx,.xml,application/msword,
+                        application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                         // className={classes.fileInput}
                         onChange={onOperationChange}
                       ></Form.Control>
@@ -1661,6 +1730,8 @@ const NewClaim2 = (props) => {
                       <Form.Control
                         type="file"
                         id="file"
+                        accept="image/png, image/jpeg,.pdf,.doc,.docx,.xml,application/msword,
+                        application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                         // className={classes.fileInput}
                         onChange={onECGChange}
                       ></Form.Control>
@@ -1689,6 +1760,8 @@ const NewClaim2 = (props) => {
                       <Form.Control
                         type="file"
                         id="file"
+                        accept="image/png, image/jpeg,.pdf,.doc,.docx,.xml,application/msword,
+                        application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                         // className={classes.fileInput}
                         onChange={onDoctosChange}
                       ></Form.Control>
@@ -1717,6 +1790,8 @@ const NewClaim2 = (props) => {
                       <Form.Control
                         type="file"
                         id="file"
+                        accept="image/png, image/jpeg,.pdf,.doc,.docx,.xml,application/msword,
+                        application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                         // className={classes.fileInput}
                         onChange={onInvesChange}
                       ></Form.Control>
@@ -1745,6 +1820,8 @@ const NewClaim2 = (props) => {
                       <Form.Control
                         type="file"
                         id="file"
+                        accept="image/png, image/jpeg,.pdf,.doc,.docx,.xml,application/msword,
+                        application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                         // className={classes.fileInput}
                         onChange={onPrescriptionChange}
                       ></Form.Control>
@@ -1773,6 +1850,8 @@ const NewClaim2 = (props) => {
                       <Form.Control
                         type="file"
                         id="file"
+                        accept="image/png, image/jpeg,.pdf,.doc,.docx,.xml,application/msword,
+                        application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                         // className={classes.fileInput}
                         onChange={handleotherFileChange}
                       ></Form.Control>
@@ -1781,16 +1860,16 @@ const NewClaim2 = (props) => {
                   </div>
                 </div>
               </div>
-            </Form.Group>
-            <div>
-            <label style={{ color: "red", justifyContent: "center" }}>
+            </Form.Group><br/>
+            <div style={{display:'flex',justifyContent:'center'}}>
+            <h6 style={{ color: "red"}}>
               {ErrorMsg}
-            </label>
+            </h6>
             </div>
           </div>
 
-          <div style={{ display: "" }}>
-            <div className="col-12 col-sm-6 col-md-6 col-lg-4">
+          <div>
+            <div className="col-12 col-sm-6 col-md-6 col-lg-4" style={{display:'flex'}}>
               <button
                 className="btn btn-primary w-100 mt-4 ml-0"
                 name="submit"
@@ -1803,7 +1882,7 @@ const NewClaim2 = (props) => {
               </button>
 
               <button
-                className="btn btn-primary w-100 mt-4 ml-0"
+                className="btn btn-primary w-100 mt-4 ml-2"
                 name="submit"
                 type="submit"
                 data-toggle="modal"

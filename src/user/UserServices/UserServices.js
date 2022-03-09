@@ -5,6 +5,7 @@ import { getServiceList } from "../../services/authentication";
 import { CSVLink } from "react-csv";
 import NewServices from "./Newservices";
 import SerSucessModal from "./SerSucessModal";
+import { TurnedInNotRounded } from "@material-ui/icons";
 
 const UserServices = () => {
   const [show, setShow] = useState(false);
@@ -31,6 +32,7 @@ const UserServices = () => {
             priority: data.priorityStatus,
             status: data.verifyStatus,
             owner: data.userPolicy.agent.firstName,
+            key:data.serviceCode
           };
           console.log(value);
           tableDataArr.push(value);
@@ -70,45 +72,52 @@ const UserServices = () => {
     setUserServicesPage(true);
   };
 
+  const handleNewBack = () =>{
+    setUserServicesPage(true);
+    setNewservicePage(false)
+
+  }
+
   const columns = [
     {
       title: "Service ID.",
       dataIndex: "serviceid",
-      key: "serviceid",
+      align:"center"
     },
     {
       title: "Service Name",
       dataIndex: "servicename",
-      key: "servicename",
+      align:"center",
       render: (text) => <p>{text}</p>,
     },
     {
       title: "Requested By",
       dataIndex: "requestedby",
-      key: "requestedby",
+      align:"center",
       render: (text) => <p>{text}</p>,
     },
     {
       title: "Requested Date",
       dataIndex: "reqesteddate",
-      key: "requesteddate",
+      align:"center",
       render: (text) => <p>{text}</p>,
     },
     {
       title: "Priority",
-      key: "priority",
+     
       dataIndex: "priority",
+      align:"center",
     },
     {
       title: "Status",
       dataIndex: "status",
-      key: "status",
-      render: (text) => <p>{text}</p>,
+      align:"center",
+      render: (text,record) => <p>{text}</p>,
     },
     {
       title: "Owned By",
       dataIndex: "owner",
-      key: "owner",
+      align:"center",
       render: (text) => <p>{text}</p>,
     },
   ];
@@ -207,15 +216,15 @@ const UserServices = () => {
 
       
           <div>
-            <div>
+            <div style={{ display: "flex",
+                  displayContent: "flex-End"}}>
               <Button
                 style={{
                   color: "#ffffff",
                   backgroundColor: "#000089",
                   borderRadius: "5px",
                   margin: "10px",
-                  display: "flex",
-                  displayContent: "flex-End",
+                 
                 }}
               >
                 {/* Download PDF/CSV */}
@@ -229,13 +238,15 @@ const UserServices = () => {
               <Table
                 rowClassName={() => "rowClassName1"}
                 columns={columns}
-                dataSource={TableData} 
+                dataSource={TableData}
+                pagination = {true}
               />
             </div>
+            <span>Shown Total Results {TableData.length}</span>
           </div>
         </div>
       )}
-      {NewservicePage && <NewServices />}
+      {NewservicePage && <NewServices handleBack={handleNewBack}/>}
       {SucessModalPage && <SerSucessModal  handleBack={handleback} />}
      
     </>

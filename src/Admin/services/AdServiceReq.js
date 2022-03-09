@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Table,
-  Input,
-  Button,
-  Menu,
-  Breadcrumb,
-  Dropdown,
-  Tag,
-  Space,
-} from "antd";
+import { Table, Input, Button, Menu, Breadcrumb, Dropdown } from "antd";
 import { useHistory } from "react-router-dom";
 import {
   FilterOutlined,
@@ -49,7 +40,7 @@ function AdServices() {
     try {
       let tableDataArr = [];
       const resp = await getServiceList(data);
-      console.log("resp", resp);
+      //console.log("resp", resp);
       setServiceListArray(resp && resp.data);
       resp &&
         resp.data.map((data, i) => {
@@ -61,15 +52,16 @@ function AdServices() {
             priority: data.priorityStatus,
             status: data.verifyStatus,
             owner: data.userPolicy.agent.firstName,
+            key:data.serviceCode,
           };
-          console.log(value);
+          //console.log(value);
           tableDataArr.push(value);
         });
-      console.log("tableDataArr in premium", tableDataArr);
+      //console.log("tableDataArr in premium", tableDataArr);
       setTableData(tableDataArr);
-      console.log("resp", resp);
+      //console.log("resp", resp);
     } catch (error) {
-      console.log("error", error);
+      //console.log("error", error);
     }
   };
   useEffect(() => {
@@ -79,7 +71,7 @@ function AdServices() {
   ///LIST API SERVICE CALL AND FUNCTIONALITY ENDED
   const handleFilterData = (filterData) => {
     const tableDataArr = [];
-    console.log("filterData", filterData);
+    //console.log("filterData", filterData);
     if (filterData.length > 0) {
       filterData.map((data, i) => {
         const value = {
@@ -90,6 +82,7 @@ function AdServices() {
           tags: data.priorityStatus,
           status: data.verifyStatus,
           owner: data.userPolicy.agent.firstName,
+          
         };
         tableDataArr.push(value);
       });
@@ -99,7 +92,7 @@ function AdServices() {
 
   const onSearch = (value) => {
     const servicefilterData = ServiceListArray.filter((data) => {
-      const itemData = data.verifyStatus.toUpperCase();
+      const itemData = data.serviceCode.toUpperCase();
       const textData = value.toUpperCase();
       return itemData.indexOf(textData) > -1;
     });
@@ -111,8 +104,8 @@ function AdServices() {
     const servicefilterData = ServiceListArray.filter(
       (data) => data.verifyStatus === status
     );
-    console.log("sf", ServiceListArray);
-    console.log("status", status);
+    //console.log("sf", ServiceListArray);
+    //console.log("status", status);
     const filterData = handleFilterData(servicefilterData);
     setTableData(filterData);
   };
@@ -123,8 +116,8 @@ function AdServices() {
   };
 
   const handleBack = () => {
-    setServiceDetailPage(true);
-    setserviceRequestPage(false);
+    setServiceDetailPage(false);
+    setserviceRequestPage(true);
   };
 
   const handlesubmit = () => {
@@ -147,18 +140,18 @@ function AdServices() {
         <a
           target="_blank"
           rel="noopener norefer"
-          onClick={() => handleClick("Resolved")}
+          onClick={() => handleClick("Approved")}
         >
-          Resolved
+          Approved 
         </a>
       </Menu.Item>
       <Menu.Item>
         <a
           target="_blank"
           rel="noopener norefer"
-          onClick={() => handleClick("Rejected")}
+          onClick={() => handleClick("Denied")}
         >
-          Rejected
+          Denied
         </a>
       </Menu.Item>
       <Menu.Item>
@@ -216,7 +209,7 @@ function AdServices() {
         "Service ID, Service Name, Requested By,Requested Date, Priority, Status, Owned by\n"
       );
       serviceRequestData.map((excelData) => {
-        console.log("exceldata", excelData);
+        //console.log("exceldata", excelData);
         serviceData.push(
           `${excelData.serviceCode}, ${excelData.serviceName},${excelData.userPolicy.user.firstName}${excelData.userPolicy.user.lastName},${excelData.date}, ${excelData.priorityStatus},${excelData.verifyStatus},${excelData.userPolicy.agent.firstName}\n`
         );
@@ -232,7 +225,6 @@ function AdServices() {
   // Table for Service Requested ( Columns )
 
   const columns = [
-   
     {
       title: "Service ID.",
       dataIndex: "serviceid",
@@ -240,34 +232,30 @@ function AdServices() {
       render: (text, record) => {
         return <a onClick={() => handleServiceIdClick(text, record)}>{text}</a>;
       },
-     
     },
     {
       title: "Service Name",
       dataIndex: "servicename",
       key: "servicename",
       render: (text) => <p>{text}</p>,
-     
     },
     {
       title: "Requested By",
       dataIndex: "requestedby",
       key: "requestedby",
       render: (text) => <p>{text}</p>,
-     
     },
     {
       title: "Requested Date",
       dataIndex: "reqesteddate",
       key: "requesteddate",
       render: (text) => <p>{text}</p>,
-     
     },
     {
       title: "Priority",
       key: "priority",
       dataIndex: "priority",
-     
+
       // render: (tags) => (
       //   <>
       //     {tags.map((tag) => {
@@ -292,14 +280,12 @@ function AdServices() {
       dataIndex: "status",
       key: "status",
       render: (text) => <p>{text}</p>,
-     
     },
     {
       title: "Owned By",
       dataIndex: "owner",
       key: "owner",
       render: (text) => <p>{text}</p>,
-     
     },
     {
       title: "Action",
@@ -311,7 +297,6 @@ function AdServices() {
           </a>
         </Dropdown>
       ),
-     
     },
   ];
 
@@ -350,7 +335,7 @@ function AdServices() {
                 style={{ display: "flex", flexDirection: "row" }}
               >
                 <Search
-                  placeholder="search Policy"
+                  placeholder="search Service Code"
                   onSearch={onSearch}
                   style={{
                     borderRadius: "25px",
@@ -359,13 +344,17 @@ function AdServices() {
               </div>
               <div
                 className="col-12 col-sm-3 col-md-3"
-                style={{ display: "flex", flexDirection: "row" }}
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                }}
               >
                 <Dropdown placement="bottomCenter" overlay={content} arrow>
                   <Button
                     style={{
                       borderRadius: "5px",
-                      backgroundColor: "#61b33b",
+                      backgroundColor: "#8ec131",
                       color: "white",
                     }}
                   >
@@ -375,7 +364,11 @@ function AdServices() {
               </div>
               <div
                 className="col-12 col-sm-3 col-md-3"
-                style={{ display: "flex", flexDirection: "row" }}
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                }}
               >
                 <Button
                   style={{
@@ -391,15 +384,16 @@ function AdServices() {
               </div>
             </div>
           </div>
-          <div className="Row DataTable" >
+          <div className="DataTable">
             <Table
               // rowClassName={() => "rowClassName1"}
               columns={columns}
               dataSource={TableData}
+              pagination={true}
             />
-          </div>
-          <div>
-            <span>shown Results {ServiceListArray.length} </span>
+            <span>
+              shown Total Results {TableData.length}{" "}
+            </span>
           </div>
         </div>
       )}

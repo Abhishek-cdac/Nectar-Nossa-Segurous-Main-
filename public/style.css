@@ -11178,6 +11178,72 @@ ul.services-li li {
     .goog-te-banner-frame{
     display:none !important
     }
+
+    .paginationBttns {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+    }
+    
+    .paginationBttns a {
+      padding: 12px;
+      margin: 5px;
+      border-radius: 5px;
+      border: 1px solid #8EC131;
+      color: #8EC131;
+      cursor: pointer;
+      font: 1em sans-serif;
+      font-size: 15px;
+    }
+    
+    .paginationActive a {
+      color: white;
+      background-color: #8EC131;
+    }
+    
+    .paginationDisabled a {
+      color: black;
+      background-color: #ECECEC;
+      border: 1px solid #ECECEC;
+      
+    }
+    #pass {
+    margin: 0 auto;
+    color: black;
+    margin-top: 10px;
+    width: 280px;
+    height: 45px;
+    font-size: 18px;
+    margin-bottom: 14px;
+    max-width: 527px;
+    padding: 0 10%;
+    border-radius: 7px;
+    border: 1.5px solid grey;
+  }
+  .required:after {
+    content:" *";
+    color: red;
+  }
+
+  label {
+    font-weight: bold;
+    display: block;
+  }
+  
+  .pass-wrapper {
+    position: relative;
+    margin-bottom: 14px;
+  }
+  
+  i {
+    position: absolute;
+    top: 49%;
+    right: 20%;
+  }
+  i:hover {
+    color: #8EC131;
+    cursor: pointer;
+  }
 /* 
      #layoutSidenav_nav.open-side-pane{
       position:absolute !important;

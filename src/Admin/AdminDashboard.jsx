@@ -291,9 +291,9 @@ const AdDashboard = () => {
                   <div className="row">
                     <div className="col-6 col-md-6 col-sm-6 text-left">
                       <p className="pl-4 pt-4">
-                        <strong>Hr</strong>
+                        <strong>Account</strong>
                         <br />
-                        <strong>List</strong>
+                        <strong>Manager</strong>
                       </p>
                     </div>
                     <div className="col-6 col-md-6 col-sm-6 text-right">

@@ -33,6 +33,7 @@ const AccidentList = (props) => {
       title: "Policy Number",
       dataIndex: "code",
       key: "code",
+      align:"center",
 
       sorter: (a, b) => a.code.length - b.code.length,
       render: (text) => <a style={{ color: "#4cbb17" }}>{text}</a>,
@@ -42,6 +43,7 @@ const AccidentList = (props) => {
       title: "Policy holder",
       dataIndex: "name",
       key: "name",
+      align:"center",
 
       sorter: (a, b) => a.name.length - b.name.length,
     },
@@ -49,21 +51,25 @@ const AccidentList = (props) => {
       title: "Policy start date",
       dataIndex: "date",
       key: "date",
+      align:"center",
     },
     {
       title: "Premium plan",
       dataIndex: "type",
       key: "type",
+      align:"center",
     },
     {
       title: "Premium",
       dataIndex: "Amount",
       key: "Amount",
+      align:"center",
     },
     {
-      title: "Premium staus",
+      title: "Premiumstatus",
       dataIndex: "status",
       key: "status",
+      align:"center",
 
       render: (PremiumPaid) => (
         <a style={{ color: "#4cbb17" }}>{PremiumPaid}</a>
@@ -73,10 +79,12 @@ const AccidentList = (props) => {
       title: "claims",
       dataIndex: "count",
       key: "count",
+      align:"center",
     },
     {
       title: "options",
       key: "option",
+      align:"center",
 
       render: (record) => {
         return (
@@ -273,7 +281,7 @@ const AccidentList = (props) => {
                 style={{
                   borderRadius: "5px",
                   marginRight: "10px",
-                  backgroundColor: "#61b33b",
+                  backgroundColor: "#8ec131",
                   color: "white",
                 }}
               >
@@ -311,7 +319,7 @@ const AccidentList = (props) => {
       </div>
       <div>
         <span>
-          shown Results {allPolicyListArray && allPolicyListArray.length}
+          shown Results {tableData.length}
         </span>
       </div>
     </>

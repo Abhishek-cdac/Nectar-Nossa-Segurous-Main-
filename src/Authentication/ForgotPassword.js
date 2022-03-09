@@ -5,7 +5,6 @@ import { Form, Input, Button, Radio,Space, Checkbox, Row } from "antd";
 import VerticalMenu from "../components/atoms/VerticalMenu";
 import Logo from "../images/Userdashboard/logo.png";
 import { forgotPassword } from "../services/authentication";
-// import { showAlert } from "./../../utils/showAlert";
 import "./Login.css";
 
 export default function ResetAccount() {
@@ -13,6 +12,8 @@ export default function ResetAccount() {
   const [email, setEmailId] = useState();
   const [btnLoading, setBtnLoading] = useState();
   const [emailError, setEmailError] = useState();
+  const[errorMsg,setErrormsg] = useState('')
+
 
   const resetPassword = async () => {
     if (!isValidEmail(email)) {
@@ -20,13 +21,18 @@ export default function ResetAccount() {
       return;
     }
     try {
-      console.log('try emailId', email)
+      // console.log('try emailId', email)
       await forgotPassword(email);
-      console.log('try medthod')
-      // showAlert("Code sent in your mail.", "success");
-      // navigate("/auth/reset-account-code", { state: { email } });
+      setErrormsg(null)
+      alert("Verification Email sent successfully.")
+      navigate("/")
+
+
+     
+
     } catch (error) {
-      console.log('error')
+      // console.log('error.', error.response.data.message)
+      setErrormsg(error.response.data.message);
       // showAlert("Your email is not register!! Please Try again.", "error");
     } finally {
       console.log('final')
@@ -88,7 +94,7 @@ export default function ResetAccount() {
                 e.preventDefault();
                 resetPassword(); }}
             >
-              <div style={{color:'white',fontSize:'25px',marginTop:'5px'}}>Sent</div>
+              <div style={{color:'white',fontSize:'25px',marginTop:'5px'}}>Send</div>
             </Button>
           </Form.Item>
           {/* <div className="form-group d-flex align-items-center justify-content-between mb-3">
@@ -103,6 +109,9 @@ export default function ResetAccount() {
               Next
             </button>
           </div> */}
+             <div style={{display:'flex',justifyContent:'center'}}>
+                <b><p style={{ color: "red",fontSize:'18px'}}>{errorMsg}</p></b>
+                </div>
           </Form>
         </div>
         </div>

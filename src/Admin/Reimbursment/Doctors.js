@@ -8,6 +8,7 @@ import moment from 'moment';
 import { getEditDoctorsList,getDeleteDoctorsList,getAddDoctorsList } from "../../services/authentication";
 import {CSVLink} from "react-csv";
 import AdReimbusrment from "./AdReimbursment"
+import ReactPaginate from "react-paginate";
 
 
   
@@ -195,7 +196,13 @@ const Doctors = () =>{
       }
       const DoctorsCSV = DoctorsCSVdata()
 
-
+      const [pageNumber, setPageNumber] = useState(0);
+      const usersPerPage = 10;
+      const pagesVisited = pageNumber * usersPerPage;
+      const pageCount = Math.ceil(DoctorsListArray.length / usersPerPage);
+      const changePage = ({ selected }) => {
+        setPageNumber(selected);
+      };
 
 
 
@@ -286,7 +293,7 @@ const Doctors = () =>{
               </thead>
               <tbody>
                 {DoctorsListArray &&
-                  DoctorsListArray.map((item) => (
+                  DoctorsListArray.slice(pagesVisited, pagesVisited + usersPerPage).map((item) => (
                     <tr>
                       {console.log("DLA",DoctorsListArray)}
                       <td>{item.id}</td>
@@ -308,29 +315,22 @@ const Doctors = () =>{
           </div>
         </div>
         <div className="row">
-          <div className="col-xl-9  col-lg-6 col-md-4 col-sm-2">
-            Shown Results{DoctorsListArray.length}
+          <div className="col-xl-8  col-lg-8 col-md-8 col-sm-2 col-xs-12">
+            Shown Results{DoctorsListArray && DoctorsListArray.length}
           </div>
-          <div className="col-xl-3  col-lg-3 col-md-2 col-sm-1">
-            <nav aria-label="Page navigation example">
-              <ul className="pagination">
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    Prev
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    1
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    Next
-                  </a>
-                </li>
-              </ul>
-            </nav>
+          <div className="col-xl-4  col-lg-4 col-md-4 col-sm-4 col-xs-12" style={{padding:"20px"}}>
+            <ReactPaginate 
+              previousLabel={"Previous"}
+              nextLabel={"Next"}
+              pageCount={pageCount}
+              onPageChange={changePage}
+              containerClassName={"paginationBttns"}
+              previousLinkClassName={"previousBttn"}
+              nextLinkClassName={"nextBttn"}
+              disabledClassName={"paginationDisabled"}
+              activeClassName={"paginationActive"}
+            />
+
           </div>
         </div>
         <div className="col-xl-5  col-lg-4 col-md-3 col-sm-2">

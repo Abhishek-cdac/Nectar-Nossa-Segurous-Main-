@@ -64,7 +64,7 @@ const HrData = (props) => {
   );
   // const[AllHrPolicyListArray,setAllHrPolicyListArray]=useState();
   const [radioButtonValue, setradioButtonValue] = useState(
-    HrData.activeStatus === true ? "Active" : "InActive"
+    HrData.status === true ? "Active" : "InActive"
   );
   let AllHrTabelData = props.AllHrPolicyListArray;
   console.log("AllHrTabelData", props, props.tableData);
@@ -148,90 +148,55 @@ const HrData = (props) => {
   };
 
   const columns = [
-    // This section is written to make the table responsive
-    {
-      title: "PolicyNo   PolicyHolder",
-      render: (record) => (
-        <React.Fragment>
-          {record.code}
-          <br />
-          <hr />
-          {record.name}
-        </React.Fragment>
-      ),
-      responsive: ["xs"],
-    },
-    {
-      title: "Premium-plan Amount",
-      render: (record) => (
-        <React.Fragment>
-          {record.type}
-          <br />
-          <hr />/{record.Amount}
-        </React.Fragment>
-      ),
-      responsive: ["xs"],
-    },
-    {
-      title: "Status Claims",
-      render: (record) => (
-        <React.Fragment>
-          {record.status}
-          <br />
-          <hr />
-          {record.count}
-        </React.Fragment>
-      ),
-      responsive: ["xs"],
-    },
 
     {
       title: "Policy Number",
       dataIndex: "code",
       key: "code",
-      ellipsis: true,
+      align:"center",
+     
       render: (text) => <a style={{ color: "#4cbb17" }}>{text}</a>,
-      responsive: ["sm"],
+      
     },
 
     {
       title: "Policy holder",
       dataIndex: "name",
       key: "name",
-      ellipsis: true,
-      responsive: ["sm"],
+      align:"center",
+      
     },
 
     {
       title: "Premium plan",
       dataIndex: "type",
       key: "type",
-      ellipsis: true,
-      responsive: ["sm"],
+      align:"center",
+      
     },
     {
       title: "Amount",
       dataIndex: "Amount",
       key: "Amount",
-      ellipsis: true,
-      responsive: ["sm"],
+      align:"center",
+      
     },
     {
       title: "staus",
       dataIndex: "status",
       key: "status",
-      ellipsis: true,
+      align:"center",
       render: (PremiumPaid) => (
         <a style={{ color: "#4cbb17" }}>{PremiumPaid}</a>
       ),
-      responsive: ["sm"],
+      
     },
     {
       title: "claims",
       dataIndex: "count",
       key: "count",
-      ellipsis: true,
-      responsive: ["sm"],
+      align:"center",
+      
     },
     // {
     //   title: "options",
@@ -348,17 +313,17 @@ const HrData = (props) => {
   //   reader.addEventListener('load',()=>callback(reader.result))
   //   reader.readAsDataURL(img)
   // }
-  const beforeUpload = (file) => {
-    const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
-    if (!isJpgOrPng) {
-      message.error("You can only upload JPG/PNG file!");
-    }
-    const isLt2M = file.size / 1024 / 1024 < 2;
-    if (!isLt2M) {
-      message.error("Image must smaller than 2MB!");
-    }
-    return isJpgOrPng && isLt2M;
-  };
+  // const beforeUpload = (file) => {
+  //   const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+  //   if (!isJpgOrPng) {
+  //     message.error("You can only upload JPG/PNG file!");
+  //   }
+  //   const isLt2M = file.size / 1024 / 1024 < 2;
+  //   if (!isLt2M) {
+  //     message.error("Image must smaller than 2MB!");
+  //   }
+  //   return isJpgOrPng && isLt2M;
+  // };
 
   const convert2base64 = (e) => {
     const file = e.target.files[0];
@@ -373,8 +338,8 @@ const HrData = (props) => {
     <div>
        <Breadcrumb style={{ marginTop: "20px" }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>HrList</Breadcrumb.Item>
-            <Breadcrumb.Item>Hr Details</Breadcrumb.Item>
+            <Breadcrumb.Item>ManagerList</Breadcrumb.Item>
+            <Breadcrumb.Item>Manager Details</Breadcrumb.Item>
           </Breadcrumb>
       <div
         style={{
@@ -403,7 +368,7 @@ const HrData = (props) => {
               borderRadius: "5px",
               marginRight: "10px",
               marginBottom:"10px",
-              backgroundColor: "#61b33b",
+              backgroundColor: "#8ec131",
               color: "white",
               size: "large",
             }}
@@ -422,7 +387,7 @@ const HrData = (props) => {
                                     {imageURL ? 
                                     <img src={imageURL}/>:
                                     <div style={{height:'250px',width:'150px',display:'flex',justifyContent:'center',alignItems:'center'}}>
-                                    <strong style={{alignItems:'center'}}>No</strong>
+                                    <strong style={{alignItems:'center'}}>No </strong>
                                     <strong style={{alignItems:'center'}}>Image</strong>
                                     </div>
                                       }
@@ -430,17 +395,19 @@ const HrData = (props) => {
                                 </div>
                                 <div className="col-12 col-lg-3 col-md-3">
                                     <div className="name-box-text">
-                                        <small>Agent Name</small>
+                                        <small>Manager Name</small>
                                         <span>{HrData.firstName} {HrData.lastName}</span>
                                     </div>
                                     <div className="name-box-text">
-                                        <small>Agent Code</small>
+                                        <small>Manager Code</small>
                                         <span>{HrData.code}</span>
                                     </div>
-                                    <div className="name-box-text" defaultValue={"Active"}
+                                    <div className="name-box-text"
                                       onChange={RadioButtonOnChange}
                                        value={radioButtonValue}>
                                         <small>Status</small>
+                                        {/* {HrData.status === "true" ? setradioButtonValue("Active"):setradioButtonValue("false")}
+                                        {console.log("rggg",radioButtonValue)} */}
                     
                                         <div className="form-check form-check-inline">
                                             <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value={radioButtonValue}/>
@@ -454,21 +421,21 @@ const HrData = (props) => {
                                 </div>
                                 <div className="col-12 col-lg-3 col-md-3">
                                     <div className="name-box-text">
-                                        <small>Agent Email</small>
+                                        <small>Manager Email</small>
                                         <span>{HrData.email}</span>
                                     </div>
                                     <div className="name-box-text">
-                                        <small>Agent Phone No.</small>
+                                        <small>Manager Phone No.</small>
                                         <span>{HrData.phone}</span>
                                     </div>
                                     <div className="name-box-text">
-                                        <small>Agent Location</small>
+                                        <small>Manager Location</small>
                                         <span>{HrData.city}</span>
                                     </div>
                                 </div>
                                 <div className="col-12 col-lg-3 col-md-3" >
                                     <div className="name-box-text">
-                                        <small>Agent Adress</small>
+                                        <small>Manager Adress</small>
                                         <span>{HrData.currentAddress}</span>
                                     </div>
                                 </div>
@@ -645,7 +612,7 @@ const HrData = (props) => {
             className="col-12 col-sm-5 col-md-5"
             style={{ display: "flex", flexDirection: "row" }}
           >
-            <Search placeholder="search Policy" onSearch={onSearch}
+            <Search placeholder="search PolicyNumber" onSearch={onSearch}
              style={{
               width: 300,
               borderRadius: "25px",
@@ -659,7 +626,7 @@ const HrData = (props) => {
                   style={{
                     borderRadius: "5px",
                     marginRight: "10px",
-                    backgroundColor: "#61b33b",
+                    backgroundColor: "#8ec131",
                     color: "white",
                   }}
                 >
@@ -686,7 +653,7 @@ const HrData = (props) => {
         </div>
         </div>
         <div className="container-fluid">
-          <div className="row">
+            <div className=" DataTable" style={{justifyContent:"center"}}>
             <Table
               columns={columns}
               dataSource={tableData}
@@ -708,14 +675,14 @@ const HrData = (props) => {
          width={380}
       >
         <ModalHeader style={{justifyContent:"center",
-    fontSize:"22px", fontWeight:"bolder", color:"#000089"}}>Edit Agent</ModalHeader>
+    fontSize:"22px", fontWeight:"bolder", color:"#000089"}}>Edit Manager</ModalHeader>
         <ModalBody>
         <form className="col-12">
           <div className="form-group mb-4">
             <input
               type="text"
               className="col-xs-12 w-100"
-              type="firstname"
+              
               placeholder="First Name"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
@@ -726,7 +693,7 @@ const HrData = (props) => {
             <input
               type="text"
               className="col-xs-12 w-100"
-              type="lastName"
+              
               placeholder="Last Name"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
@@ -735,7 +702,7 @@ const HrData = (props) => {
           
           <div className="form-group mb-4">
             <input
-              type="text"
+             
               className="col-xs-12 w-100"
               type="email"
               placeholder="Email"
@@ -747,7 +714,7 @@ const HrData = (props) => {
 
           <div className="form-group mb-4">
             <input
-              type="text"
+              
               className="col-xs-12 w-100"
               type="number"
               placeholder="Phone Number"
@@ -785,7 +752,7 @@ const HrData = (props) => {
             <textarea
               type="text"
               className="col-xs-12 w-100"
-              type="currentAddress"
+             
               placeholder="Current Adress"
               value={currentAddress}
               onChange={(e) => setcurrentAddress(e.target.value)}
@@ -797,7 +764,7 @@ const HrData = (props) => {
               type="text"
               className="col-xs-12 w-100"
               style={{}}
-              type="permanentAddress"
+              
               placeholder="permanent Address"
               value={permanentAddress}
               onChange={(e) => setpermanentAddress(e.target.value)}

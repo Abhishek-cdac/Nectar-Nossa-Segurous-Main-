@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Select, Form, Button,Breadcrumb } from "antd";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 import {
   AddServiceList,
   getAllUserPolicyList,
@@ -10,7 +11,7 @@ import TextArea from "antd/lib/input/TextArea";
 
 const { Option } = Select;
 
-const Newservice = () => {
+const Newservice = (props) => {
   const [PolicyCode, setPolicyCode] = useState("");
   const [NewSerevicePage, setNewSerevicePage] = useState(true);
   const [SucessModalPage, setSucessModalPage] = useState("");
@@ -108,6 +109,18 @@ const Newservice = () => {
             <Breadcrumb.Item>Services</Breadcrumb.Item>
             <Breadcrumb.Item>New Services</Breadcrumb.Item>
           </Breadcrumb>
+          <div>
+            <a
+              style={{
+                marginTop: "30px",
+                marginBottom: "30px",
+                fontSize: "20px",
+              }}
+              onClick={() => props.handleBack()}
+            >
+              <ArrowLeftOutlined style={{ paddingTop: "10px" }} /> BACK
+            </a>
+          </div>
           <div className="row d-flex align-items-center justify-content-between" style={{paddingTop:"10px"}}>
             <div className="col-12">
               <div className="heading-with-box mb-2">

@@ -1,8 +1,10 @@
 import React from "react";
-import { propTypes } from "react-bootstrap/esm/Image";
 import invoicestar from "../.././assets/img/invoicestar.png"
+import { useNavigate } from "react-router-dom";
 
 const setSucess = (props) => {
+
+  // let navigate = useNavigate();
   return (
 
           <div className="invoice-start-box">
@@ -30,7 +32,8 @@ const setSucess = (props) => {
                 type="button"
                 className="btn btn-secondary"
                 data-dismiss="modal"
-                onClick={props.handleback}
+                // onClick={()=>useNavigate("/")}
+                onClick={() => props.handleback()}
               >
                 Close
               </button>

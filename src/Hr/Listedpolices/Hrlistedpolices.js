@@ -5,7 +5,7 @@ import { PlusOutlined, FilterOutlined } from "@ant-design/icons";
 import Hractive from "./Hractive";
 import HrInactive from "./HrInactive";
 
-import { getAllUserPolicyList } from "../../services/authentication";
+import { getPolicyList } from "../../services/authentication";
 
 const { Search } = Input;
 
@@ -37,7 +37,7 @@ const Hrlisted = () => {
         premiumPlan: "",
         activeStatus: "0",
       };
-      const resp = await getAllUserPolicyList(data);
+      const resp = await getPolicyList(data);
       setActiveData(resp && resp.data);
       resp &&
         resp.data.map((data, i) => {
@@ -47,7 +47,8 @@ const Hrlisted = () => {
             code: data.policy.policyCode,
             number: data.policy.registration,
             type: data.policy.policyType,
-            count: data.Activecount,
+            // count: data.Activecount,
+            count:2
           };
           tableDataArr.push(value);
         });
@@ -67,7 +68,7 @@ const Hrlisted = () => {
         premiumPlan: "",
         activeStatus: "1",
       };
-      const resp = await getAllUserPolicyList(data);
+      const resp = await getPolicyList(data);
       setinactiveData(resp && resp.data);
       resp &&
         resp.data.map((data, i) => {
@@ -77,7 +78,8 @@ const Hrlisted = () => {
             code: data.policy.policyCode,
             number: data.policy.registration,
             type: data.policy.policyType,
-            count: data.inActivecount,
+            // count: data.inActivecount,
+            count:2
           };
           tableDataArr.push(value);
         });
@@ -211,6 +213,7 @@ const Hrlisted = () => {
       title: "Policy Name",
       dataIndex: "name",
       key: "name",
+      align:"center",
 
       sorter: (a, b) => a.name.length - b.name.length,
       render: (text) => <a style={{ color: "#4cbb17" }}>{text}</a>,
@@ -220,36 +223,40 @@ const Hrlisted = () => {
       title: "Policy Code",
       dataIndex: "code",
       key: "code",
+      align:"center",
     },
     {
       title: "Registration",
       dataIndex: "number",
       key: "number",
+      align:"center",
     },
     {
       title: "Policy Type",
       dataIndex: "type",
       key: "type",
+      align:"center",
     },
     {
-      title: "InActive Policies",
+      title: "Active Policies",
       dataIndex: "count",
       key: "count",
+      align:"center",
     },
-    {
-      title: "Actions",
-      key: "action",
+//     {
+//       title: "Actions",
+//       key: "action",
 
-      render: (text, record) => {
-        return (
-          <>
-            {/* <EditOutlined style={{ color: "#000089", paddingLeft: "10px" }} onClick={handleEditShowModal}
-/>
-            <DeleteOutlined style={{paddingLeft:"30px"}}  onClick={()=>handleDeletePolicy(text,record)}/> */}
-          </>
-        );
-      },
-    },
+//       render: (text, record) => {
+//         return (
+//           <>
+//             {/* <EditOutlined style={{ color: "#000089", paddingLeft: "10px" }} onClick={handleEditShowModal}
+// />
+//             <DeleteOutlined style={{paddingLeft:"30px"}}  onClick={()=>handleDeletePolicy(text,record)}/> */}
+//           </>
+//         );
+//       },
+//     },
   ];
 
   const InActiveColumns = [
@@ -257,6 +264,7 @@ const Hrlisted = () => {
       title: "Policy Name",
       dataIndex: "name",
       key: "name",
+      align:"center",
      
       sorter: (a, b) => a.name.length - b.name.length,
       render: (text) => <a style={{ color: "#4cbb17" }}>{text}</a>,
@@ -266,40 +274,44 @@ const Hrlisted = () => {
       title: "Policy Code",
       dataIndex: "code",
       key: "code",
+      align:"center",
      
     },
     {
       title: "Registration",
       dataIndex: "number",
       key: "number",
+      align:"center",
      
     },
     {
       title: "Policy Type",
       dataIndex: "type",
       key: "type",
+      align:"center",
      
     },
     {
-      title: "Active Policies",
+      title: "InActive Policies",
       dataIndex: "count",
       key: "count",
+      align:"center",
      
     },
-    {
-      title: "Actions",
-      key: "action",
+//     {
+//       title: "Actions",
+//       key: "action",
      
-      render: (text, record) => {
-        return (
-          <>
-            {/* <EditOutlined style={{ color: "#000089", paddingLeft: "10px" }} onClick={handleEditShowModal}
-/>
-            <DeleteOutlined style={{paddingLeft:"30px"}}  onClick={()=>handleDeletePolicy(text,record)}/> */}
-          </>
-        );
-      },
-    },
+//       render: (text, record) => {
+//         return (
+//           <>
+//             {/* <EditOutlined style={{ color: "#000089", paddingLeft: "10px" }} onClick={handleEditShowModal}
+// />
+//             <DeleteOutlined style={{paddingLeft:"30px"}}  onClick={()=>handleDeletePolicy(text,record)}/> */}
+//           </>
+//         );
+//       },
+//     },
   ];
 
   return (
@@ -307,7 +319,7 @@ const Hrlisted = () => {
       <div className="container-fluid">
         <Breadcrumb style={{ marginTop: "20px" }}>
           <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>ListedPolocies</Breadcrumb.Item>
+          <Breadcrumb.Item>ListedPolicy</Breadcrumb.Item>
         </Breadcrumb>
         <div
           className="row"
@@ -328,7 +340,7 @@ const Hrlisted = () => {
               style={{ display: "flex", flexDirection: "row" }}
             >
               <Search
-                placeholder="search Policy"
+                placeholder="search Policy Name"
                 onSearch={onSearch}
                 style={{
                   borderRadius: "25px",
@@ -345,10 +357,10 @@ const Hrlisted = () => {
                     borderRadius: "5px",
                     backgroundColor: "#8ec131",
                     color: "white",
-                    paddingRight:"10px"
+                  
                   }}
                 >
-                  <FilterOutlined /> Add Filters
+                  <FilterOutlined/> Add Filters
                 </Button>
               </Dropdown>
             </div>

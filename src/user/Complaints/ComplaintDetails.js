@@ -230,61 +230,46 @@ const ComplaintDetails = (props) => {
               <div className="modal-content popup-form">
                 <div className="modal-body">
         <Modal onOk={() =>{handleAddComplaintListAPI()}} title="Resubmit Complaint"  visible={IsResubmitModalVisible}  onCancel={handelCancel}>
-                  <div>  
-                      {/* <label>Complaint ID</label> */}
-                    <input
-                      style={{
-                        height: "30px",
-                        width: "300px",
-                        marginTop: "10px",
-                        marginLeft: "80px",
-                      }}
+        <form className="col-12">
+              <div className="form-group mb-4">
+                <input
+                  className="col-xs-12 w-100"
                       type="Id"
                       placeholder="Complaint Id"
                       value={complaintId}
                       onChange={(e) => setComplaintId(e.target.value)}
                     />
                     </div>
-                    <br />
 
-                    <input
-                      style={{
-                        height: "30px",
-                        width: "300px",
-                        marginTop: "10px",
-                        marginLeft: "80px",
-                      }}
+                    <div className="form-group mb-4">
+                <input
+                  className="col-xs-12 w-100"
                       type="subject"
                       placeholder="subject"
                       value={subject}
                       onChange={(e) => setsubject(e.target.value)}
                     />
-                    <br />
-                    <input
-                      style={{
-                        height: "30px",
-                        width: "300px",
-                        marginTop: "10px",
-                        marginLeft: "80px",
-                      }}
+                    </div>
+                    <div className="form-group mb-4">
+                <input
+                  className="col-xs-12 w-100"
                       type="name"
                       placeholder="policy Name"
                       value={policyName}
                       onChange={(e) => setPolicyName(e.target.value)}
                     />
-                    <br />
+                    </div>
 
-                    <textarea
-                      style={{
-                        width: "300px",
-                        marginTop: "10px",
-                        marginLeft: "80px",
-                      }}
+                    <div className="form-group mb-4">
+                <textarea
+                  className="col-xs-12 w-100"
                       type="Textarea"
                       placeholder="complaint Description"
                       value={complaintDescription}
                       onChange={(e) => setComplaintDescription(e.target.value)}
                     />
+                    </div>
+                    </form>
                   </Modal>
                 </div>
               </div>

@@ -21,7 +21,7 @@ export const registerUser = async (data) => {
 };
 
 export const resetpassword = async(data) =>{
-  return await doPost("admin/ResetPassword",data)
+  return await doPost("account/ResetPassword",data)
 }
 // policy api statred
 export const getPolicyList = async(data) =>{
@@ -122,9 +122,14 @@ export const getDeleteClaim = async(data) =>{
   return await doDelete('claim/delete',data);
 }
 //claim api
-export const getClaimsList = async() =>{
-  return await doGet('claim');
+export const getClaimsList = async(data) =>{
+  return await doGet(`claim?verifyStatus=${data.verifyStatus}`);
 }
+export const getClaimsList2 = async() =>{
+  return await doGet("claim");
+}
+
+
 
 export const verifyClaimList = async(data) =>{
   return await doPost('claim/verifyRequest',data);
@@ -167,7 +172,7 @@ export const getReimbursmentList = async(data) =>{
   return await doGet(`reimbursement?type=${data.type}`);
 }
 export const getReimbursmentListSearch = async(data) =>{
-  return await doGet(`reimbursement?type=${data.type}&search=${data.hospitaltype}`);
+  return await doGet(`reimbursement?type=${data.type}&search=${data.name}`);
 }
 
 export const getreimbursementAPI = async(data) =>{
@@ -253,13 +258,15 @@ export const loginUser = async (email, password,role) => {
       const response = await axios.post(`${baseurl}/account/userLogin`, data, {
         headers:null,
       });
+      
       if ([200, 201].includes(response.status)) {
         return resolve(response);
         
       }
       return reject(response);
     } catch (error) {
-      return reject(error);
+      // console.log('aut',error.response.data.message)
+      return reject(error.response);
     }
   });
 };

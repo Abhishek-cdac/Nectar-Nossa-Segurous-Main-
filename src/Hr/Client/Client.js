@@ -100,7 +100,7 @@ const Client = () => {
   const onSearch = () => {
     const ClientfilterData = ClientListArray.filter((data) => {
       console.log("filter", ClientListArray);
-      const itemData = data.policy.policyType.toUpperCase();
+      const itemData =  data.policy.policyName.toUpperCase();
       const textData = policyTypeSearch && policyTypeSearch.toUpperCase();
       return itemData.indexOf(textData) > -1;
     });
@@ -155,7 +155,7 @@ const Client = () => {
                     onChange={handlesearch}
                     type="text"
                     className="form-control"
-                    placeholder="Search Category"
+                    placeholder="Search Policy Name"
                   />
                   <div className="input-group-append">
                     <button
@@ -277,7 +277,7 @@ const Client = () => {
               </div>
               <div className="row">
                 <div className="col-md-6 col-sm-6 col-12">
-                  <small>Showing Results{ClientListArray.length}</small>
+                  <small>Showing Results {TableData.length}</small>
                 </div>
                
               </div>

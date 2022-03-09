@@ -27,7 +27,7 @@ const AdReceivedpremium = () => {
           const value = {
             policy: data.userPolicy.policy.policyName,
             name: data.userPolicy.user.firstName,
-            code: data.invoiceNumber,
+            code: "NA123456",
             type: data.userPolicy.premiumPlan,
             date: data.userPolicy.updatedAt,
             amount: data.premiumAmount,
@@ -140,9 +140,10 @@ const AdReceivedpremium = () => {
       title: "Invoice Number",
       dataIndex: "code",
       key: "code",
+      align:"center",
       
       sorter: (a, b) => a.code.length - b.code.length,
-      render: (text) => <a style={{ color: "#4cbb17" }}>{text}</a>,
+      render: (text) => <p style={{ color: "#4cbb17" }}>{text}</p>,
      
     },
 
@@ -150,6 +151,7 @@ const AdReceivedpremium = () => {
       title: "Policy Holder",
       dataIndex: "name",
       key: "name",
+      align:"center",
       
       sorter: (a, b) => a.name.length - b.name.length,
      
@@ -159,6 +161,7 @@ const AdReceivedpremium = () => {
       title: "Policy Name",
       dataIndex: "policy",
       key: "policy",
+      align:"center",
       
       sorter: (a, b) => a.name.length - b.name.length,
      
@@ -167,6 +170,7 @@ const AdReceivedpremium = () => {
       title: "Premium plan",
       dataIndex: "type",
       key: "type",
+      align:"center",
       
      
     },
@@ -174,6 +178,7 @@ const AdReceivedpremium = () => {
       title: "Payment Received Date",
       dataIndex: "date",
       key: "date",
+      align:"center",
       
      
     },
@@ -182,24 +187,25 @@ const AdReceivedpremium = () => {
       title: "Amount",
       dataIndex: "amount",
       key: "amount",
+      align:"center",
       
      
     },
 
-    {
-      title: "Download Invoice",
-      key: "option",
+    // {
+    //   title: "Download Invoice",
+    //   key: "option",
       
-      render: (record) => {
-        return (
-          <>
-            <VerticalAlignBottomOutlined />
-            <EyeOutlined style={{ paddingLeft: "30px" }} />
-          </>
-        );
-      },
+    //   render: (record) => {
+    //     return (
+    //       <>
+    //         <VerticalAlignBottomOutlined />
+    //         <EyeOutlined style={{ paddingLeft: "30px" }} />
+    //       </>
+    //     );
+    //   },
      
-    },
+    // },
   ];
 
   return (
@@ -225,7 +231,7 @@ const AdReceivedpremium = () => {
         <div className="nav justify-content-center">
         <div className="col-12 col-sm-5 col-md-5" style={{ display: "flex", flexDirection: "row",justifyContent:"center" }}>
           <Search
-            placeholder="search Policy"
+            placeholder="search PolicyName"
             onSearch={onSearch}
             style={{
               borderRadius: "25px",

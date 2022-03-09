@@ -9,6 +9,7 @@ import {
   Menu,
   Form,
   InputNumber,
+  Select
 } from "antd";
 import { useNavigate } from "react-router-dom";
 import { CSVLink } from "react-csv";
@@ -28,7 +29,7 @@ import {
 import ModalHeader from "react-bootstrap/esm/ModalHeader";
 
 const { Search } = Input;
-
+const{Option} = Select;
 
 const AdListedPolocies = () => {
   let navigate = useNavigate();
@@ -255,7 +256,7 @@ const AdListedPolocies = () => {
       console.log("success");
       resp && handleGetPolicyListServiceCall(data);
       setListAPIupdateStatus(true);
-      setIsEditModalVisible(false)
+      setIsEditModalVisible(false);
     } catch (error) {
       console.log("error", error);
       // showAlert('In valide data', "error");
@@ -295,6 +296,7 @@ const AdListedPolocies = () => {
       title: "Policy Name",
       dataIndex: "name",
       key: "name",
+      align: "center",
 
       sorter: (a, b) => a.name.length - b.name.length,
       render: (text, record) => (
@@ -311,25 +313,30 @@ const AdListedPolocies = () => {
       title: "Policy Code",
       dataIndex: "code",
       key: "code",
+      align: "center",
     },
     {
       title: "Registration",
       dataIndex: "number",
       key: "number",
+      align: "center",
     },
     {
       title: "Policy Type",
       dataIndex: "type",
       key: "type",
+      align: "center",
     },
     {
       title: "Active Count",
       dataIndex: "count",
       key: "count",
+      align: "center",
     },
     {
       title: "Actions",
       key: "action",
+      align: "center",
 
       render: (text, record) => {
         return (
@@ -356,73 +363,86 @@ const AdListedPolocies = () => {
   return (
     <>
       {policyListStatus && (
-       <div>
+        <div>
           <Breadcrumb style={{ marginTop: "20px" }}>
             <Breadcrumb.Item onClick={handeleBackButton}>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>ListedPolocies</Breadcrumb.Item>
+            <Breadcrumb.Item>ListedPolicy</Breadcrumb.Item>
           </Breadcrumb>
           <div className="container-fluid">
-          <div
-            className="row"
-            style={{
-              marginTop: "20px",
-              marginBottom: "25px",
-              display: "flex",
-              justifyContent: "space-between",
-              flexDirection: "row",
-            }}
-          >
-            <div className="col-12 col-sm-3 col-md-3 ">
-              <h3>Listed Polocies</h3>
-            </div>
-
             <div
-              className="col-12 col-sm-3 col-md-3"
-              style={{ display: "flex", flexDirection: "row" }}
+              className="row"
+              style={{
+                marginTop: "20px",
+                marginBottom: "25px",
+                display: "flex",
+                justifyContent: "space-between",
+                flexDirection: "row",
+              }}
             >
-              <Search placeholder="search Policy" onSearch={onSearch} />
-            </div>
-            <div className="col-12 col-sm-2 col-md-">
-              <Button
+              <div className="col-12 col-sm-2 col-md-2 ">
+                <h3>Listed Policy</h3>
+              </div>
+
+              <div
+                className="col-12 col-sm-3 col-md-3"
                 style={{
-                  borderRadius: "5px",
-                  backgroundColor: "#8ec131",
-                  color: "white",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
                 }}
-                onClick={handleShowModal}
               >
-                <PlusOutlined style={{ paddingTop: "5px" }} /> Add New Policy
-              </Button>
-            </div>
-            <div className="col-12 col-sm-2 col-md-">
-              <Dropdown placement="bottomCenter" overlay={content} arrow>
+                <Search placeholder="search Policy Type" onSearch={onSearch} />
+              </div>
+              <div
+                className="col-12 col-sm-3 col-md-3"
+                style={{ display: "flex", justifyContent: "center" }}
+              >
                 <Button
                   style={{
                     borderRadius: "5px",
                     backgroundColor: "#8ec131",
                     color: "white",
-                    width: "150px",
+                  }}
+                  onClick={handleShowModal}
+                >
+                  <PlusOutlined style={{ paddingTop: "5px" }} /> Add New Policy
+                </Button>
+              </div>
+              <div
+                className="col-12 col-sm-3 col-md-2"
+                style={{ display: "flex", justifyContent: "center" }}
+              >
+                <Dropdown placement="bottomCenter" overlay={content} arrow>
+                  <Button
+                    style={{
+                      borderRadius: "5px",
+                      backgroundColor: "#8ec131",
+                      color: "white",
+                      width: "150px",
+                    }}
+                  >
+                    <FilterOutlined /> Add Filters
+                  </Button>
+                </Dropdown>
+              </div>
+              <div
+                className="col-12 col-sm-3 col-md-2"
+                style={{ display: "flex", justifyContent: "center" }}
+              >
+                <Button
+                  style={{
+                    color: "#ffffff",
+                    backgroundColor: "#000089",
+                    borderRadius: "5px",
                   }}
                 >
-                  <FilterOutlined /> Add Filters
+                  {/* Download PDF/CSV */}
+                  <CSVLink data={policyCSV} target="_blank">
+                    Download PDF/CSV
+                  </CSVLink>
                 </Button>
-              </Dropdown>
+              </div>
             </div>
-            <div className="col-12 col-sm-2 col-md-">
-              <Button
-                style={{
-                  color: "#ffffff",
-                  backgroundColor: "#000089",
-                  borderRadius: "5px",
-                }}
-              >
-                {/* Download PDF/CSV */}
-                <CSVLink data={policyCSV} target="_blank">
-                  Download PDF/CSV
-                </CSVLink>
-              </Button>
-            </div>
-          </div>
           </div>
           <div className="Container">
             <div className="DataTable" style={{ justifyContent: "center" }}>
@@ -437,7 +457,7 @@ const AdListedPolocies = () => {
             </div>
           </div>
           <div>
-            <span>shown Results {policyListArray.length}</span>
+            <span>shown Results {tableData.length}</span>
           </div>
           <Modal
             title="Add Policy"
@@ -493,7 +513,15 @@ const AdListedPolocies = () => {
                   },
                 ]}
               >
-                <Input />
+                <Select
+                  placeholder="Select the Policy Type"
+                  allowClear
+                >
+                  <Option value="General">General</Option>
+                  <Option value="Health">Health</Option>
+                  <Option value="Health&General">Health&General</Option>
+                  <Option value="Vehicle">Vehicle</Option>
+                </Select>
               </Form.Item>
               <Form.Item
                 name={"policyDuration"}
@@ -557,8 +585,8 @@ const AdListedPolocies = () => {
                 justifyContent: "center",
                 fontSize: "18px",
                 fontWeight: "bolder",
-                color: "#000089", 
-                paddingBottom:"10px"
+                color: "#000089",
+                paddingBottom: "10px",
               }}
             >
               Edit Policy
@@ -577,38 +605,38 @@ const AdListedPolocies = () => {
               <div className="form-group mb-4">
                 <input
                   className="col-xs-12 w-100"
-                type="number"
-                placeholder="Registration Number"
-                value={registration}
-                onChange={(e) => setRegistration(e.target.value)}
-              />
+                  type="number"
+                  placeholder="Registration Number"
+                  value={registration}
+                  onChange={(e) => setRegistration(e.target.value)}
+                />
               </div>
               <div className="form-group mb-4">
                 <input
                   className="col-xs-12 w-100"
-                type="type"
-                placeholder="Policy Type"
-                value={policyType}
-                onChange={(e) => setPolicyType(e.target.value)}
-              />
+                  type="type"
+                  placeholder="Policy Type"
+                  value={policyType}
+                  onChange={(e) => setPolicyType(e.target.value)}
+                />
               </div>
               <div className="form-group mb-4">
                 <input
                   className="col-xs-12 w-100"
-                type="Duration"
-                placeholder="Policy Duration"
-                value={policyDuration}
-                onChange={(e) => setPolicyDuration(e.target.value)}
-              />
-            </div>
-            <div className="form-group mb-4">
+                  type="Duration"
+                  placeholder="Policy Duration"
+                  value={policyDuration}
+                  onChange={(e) => setPolicyDuration(e.target.value)}
+                />
+              </div>
+              <div className="form-group mb-4">
                 <textarea
                   className="col-xs-12 w-100"
-                type="Textarea"
-                placeholder="Policy Description"
-                value={policyDescription}
-                onChange={(e) => setPolicyDescription(e.target.value)}
-              />
+                  type="Textarea"
+                  placeholder="Policy Description"
+                  value={policyDescription}
+                  onChange={(e) => setPolicyDescription(e.target.value)}
+                />
               </div>
             </form>
           </Modal>

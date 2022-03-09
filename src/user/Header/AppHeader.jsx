@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from "react";
-import { Input, Layout, Dropdown, Menu } from "antd";
+import { Input, Layout, Dropdown, Menu,Popover } from "antd";
 import { CaretDownOutlined, BellFilled, DownOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/img/logo.png";
@@ -27,10 +27,18 @@ export default function AppHeader(props) {
     //   }
     // });
 
+    const content = (
+      <div>
+        <a>Claims</a><br/>
+        <a>Holidays</a><br/>
+        <a>Premium</a><br/>
+      </div>
+    )
+
 
   const menu = (
     <Menu>
-      <Menu.Item>
+      {/* <Menu.Item>
         <a target="_blank" rel="noopener noreferrer" href="">
           
         </a>
@@ -39,7 +47,7 @@ export default function AppHeader(props) {
         <a target="_blank" rel="noopener noreferrer" href="">
           My Inbox
         </a>
-      </Menu.Item>
+      </Menu.Item> */}
       <Menu.Item>
         <a
           target="_blank"
@@ -76,7 +84,7 @@ export default function AppHeader(props) {
         <img className="img-fluid" src={logo} alt="" width="80%" />
       </a>
       <button 
-      id ="sidebarCollapse"
+      // id ="sidebarCollapse"
        className="btn btn-link btn-lg order-1 order-lg-0"
        id="sidebarToggle" 
         onClick={()=>{handleSideNav()}}
@@ -86,7 +94,7 @@ export default function AppHeader(props) {
       </button>
 
       <form className="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-4 my-2 my-md-0">
-        <div className="input-group custome-search">
+        {/* <div className="input-group custome-search">
           <input
             className="form-control"
             type="text"
@@ -99,23 +107,23 @@ export default function AppHeader(props) {
               <i className="fas fa-search"></i>
             </button>
           </div>
-        </div>
+        </div> */}
       </form>
       <GoogleTranslate />
       {/* <div id="google_translate_element"></div> */}
-      <ul className="navbar-nav ml-auto ml-md-0">
+      {/* <ul className="navbar-nav ml-auto ml-md-0">
         <li className="nav-item dropdown">
-          <Dropdown overlay={menu}>
-            <a
+          {/* <Popover title="Notification" placement="leftBottom" content={content}> */}
+            {/* <a
               className="ant-dropdown-link"
-              onClick={(e) => e.preventDefault()}
+              onClick={(e) =>navigate("")}
             >
               <BellFilled style={{ paddingLeft: "10px" }} />
               <CaretDownOutlined />
-            </a>
-          </Dropdown>
-        </li>
-      </ul>
+            </a> */}
+          {/* </Popover> */}
+        {/* </li>
+      </ul> */} 
 
       <ul
         className="navbar-nav ml-auto ml-md-0"

@@ -4,9 +4,11 @@ class GoogleTranslate extends Component {
     googleTranslateElementInit () {
         //alert("test2")
         /* eslint-disable no-new */
-        new window.google.translate.TranslateElement({pageLanguage: 'en',
-        includedLanguages : 'ar,af,sq,it,en,pt',
-        layout: window.google.translate.TranslateElement.InlineLayout.VERTICAL},
+        new window.google.translate.TranslateElement({
+        //  pageLanguage: 'en',
+        includedLanguages : 'ar,sq,it,en,pt',
+         layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE
+    },
      'google_translate_element')
      }
 

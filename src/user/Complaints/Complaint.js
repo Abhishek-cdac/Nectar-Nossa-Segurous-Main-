@@ -87,6 +87,7 @@ const Complaint = () => {
             status: data.verifyStatus,
             description: data.description,
             subject: data.subject,
+            key:data.id
           };
           console.log(value);
           complaintsDataArr.push(value);
@@ -150,20 +151,22 @@ const Complaint = () => {
   };
 
   const columns = [
-    {
-      title: "Id",
-      dataIndex: "user_id",
-      key: "user_id",
-    },
+    // {
+    //   title: "Id",
+    //   dataIndex: "user_id",
+    //   key: "user_id",
+    //   align:"center",
+    // },
 
     {
       title: "Complaint Id",
       dataIndex: "id",
       key: "id",
+      align:"center",
 
       render: (text, record) => (
         <div>
-          {record.status === "Approved" ? (
+          {record.status === "Resolved" ? (
             <a
               style={{ color: "#4cbb17" }}
               onClick={() => handleComplaintIdClick(text, record)}
@@ -180,33 +183,39 @@ const Complaint = () => {
       title: "Policy Name",
       dataIndex: "PolicyName",
       key: "name",
+      align:"center",
     },
 
     {
       title: "Description",
       dataIndex: "description",
       key: "description",
+      align:"center",
     },
 
     {
       title: "Complaint Date",
       dataIndex: "date",
       key: "date",
+      align:"center",
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
+      align:"center",
     },
-    {
-      title: "Subject",
-      dataIndex: "subject",
-      key: "subject",
-    },
+    // {
+    //   title: "Subject",
+    //   dataIndex: "subject",
+    //   key: "subject",
+    //   align:"center",
+    // },
 
     {
       title: "Options",
       key: "option",
+      align:"center",
 
       render: (text, record) => {
         return (

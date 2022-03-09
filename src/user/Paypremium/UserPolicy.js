@@ -3,6 +3,7 @@ import "./UserPolicy.style.css";
 import CreditCard from "./Creditcard";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ArrowLeftOutlined } from "@ant-design/icons";
+import CloseModal from "./CloseModal"
 
 const UserPolicy = (props) => {
   const selectedRecord = props && props.selectedRecord;
@@ -12,6 +13,7 @@ const UserPolicy = (props) => {
     alldata && alldata.data.filter((data) => data.id === selectedRecord.key)[0];
   const [policyDetailsPage, setpolicyDetailsPage] = useState(true);
   const [paymentPage, setpaymentPage] = useState(false);
+  const[CloseModalpage,setCloseModalpage]=useState(false)
   let navigate = useNavigate();
 
   const handleBack = () => {
@@ -21,6 +23,15 @@ const UserPolicy = (props) => {
     setpolicyDetailsPage(false);
     setpaymentPage(true);
   };
+const handleClosePolicy = ()=>{
+     setCloseModalpage(true);
+     setpolicyDetailsPage(false)
+  }
+
+  const handleCloseBack = () =>{
+    setCloseModalpage(false);
+    setpolicyDetailsPage(true)
+  }
   const handleClaimRequest = () => {
     window.location.href ="NewClaim"
   };
@@ -41,7 +52,7 @@ const UserPolicy = (props) => {
               }}
               onClick={() => handleBack()}
             >
-              <ArrowLeftOutlined style={{ paddingTop: "10px",paddingBottom:"10px" }} /> BACK
+              <ArrowLeftOutlined style={{ paddingTop: "10px",paddingBottom:"20px" }} /> BACK
             </a>
           </div>
 
@@ -163,7 +174,7 @@ const UserPolicy = (props) => {
                   {" "}
                   <div className="col-12 col-md-2">
                     <a
-                      href=""
+                      onClick={() =>handleClosePolicy()}
                       className="btn-close"
                     >
                       Close Policy
@@ -172,7 +183,7 @@ const UserPolicy = (props) => {
                
                   <div className="col-12 col-md-2">
                     <a
-                      href="#"
+                    
                       className="btn-close premium-btn"
                       onClick={() => handlePayment()}
                     >
@@ -229,6 +240,8 @@ const UserPolicy = (props) => {
           handleBackToUserPolicy={handleBackToUserPolicy}
         />
       )}
+
+      {CloseModalpage && <CloseModal handleBack={()=>handleCloseBack()}/>}
     </>
   );
 };
