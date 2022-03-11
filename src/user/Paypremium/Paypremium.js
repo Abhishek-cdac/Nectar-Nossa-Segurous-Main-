@@ -199,7 +199,7 @@ const Paypremium = () => {
             name: data.policy.policyName,
             code: data.policy.policyCode,
             type: data.premiumPlan,
-            status: data.premiumStatus,
+            status: data.premiumStatus ? data.premiumStatus:'',
             Amount: data.premiumAmount,
             date: data.updatedAt,
           };
@@ -231,7 +231,7 @@ const Paypremium = () => {
             name: data.policy.policyName,
             code: data.policy.policyCode,
             type: data.premiumPlan,
-            status: data.premiumStatus,
+            status: data.premiumStatus ? data.premiumStatus :'',
             Amount: data.premiumAmount,
             date: data.updatedAt,
           };
@@ -342,6 +342,9 @@ const Paypremium = () => {
                       total={10}
                     />
                   </div>
+                  {/* <div>
+                    <p>Shown Total Results {activetableData}</p>
+                  </div> */}
                 </div>
 
                 <div
@@ -351,7 +354,7 @@ const Paypremium = () => {
                     flexDirection: "row",
                   }}
                 >
-                  <div>
+                  {/* <div>
                     <UserOutlined />
                     <p>Customer Service</p>
                   </div>
@@ -362,7 +365,7 @@ const Paypremium = () => {
                   <div style={{ paddingLeft: "30px" }}>
                     <SaveFilled />
                     <p>Download statement</p>
-                  </div>
+                  </div> */}
                 </div>
               </TabPane>
 

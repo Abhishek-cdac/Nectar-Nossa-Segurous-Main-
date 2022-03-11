@@ -126,7 +126,7 @@ const AdListedPolocies = () => {
         "Policy Name,Policy Code,Registration Number,Policy Type,Policy Duration,Policy Description\n"
       );
       policyListArrayData.map((excelData) => {
-        console.log("exceldata", excelData);
+        // console.log("exceldata", excelData);
         PoliciesData.push(
           `${excelData.policyName},${excelData.policyCode}, ${excelData.registration}, ${excelData.policyType},${excelData.policyDuration},${excelData.description}\n`
         );
@@ -159,8 +159,11 @@ const AdListedPolocies = () => {
         });
       setTableData(tableDataArr);
       console.log("resp", resp);
+      // console.log("policyList",policyListArray)
+      // console.log(listAPIupdateStatus,"li")
     } catch (error) {
       console.log("error", error);
+      
       // showAlert('In valide data', "error");
     }
   };
