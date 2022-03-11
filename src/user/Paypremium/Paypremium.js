@@ -338,15 +338,9 @@ const Paypremium = () => {
                       total={10}
                     />
                   </div>
-<<<<<<< HEAD
-                  {/* <div>
-                    <p>Shown Total Results {activetableData}</p>
-                  </div> */}
-=======
                   <div style={{ fontSize: "15px" }}>
                     <span>shown Results {activetableData.length}</span>
                   </div>
->>>>>>> b299461a3e51d90782fe54b59cdcd2e97c0c8dc2
                 </div>
                 <div
                   style={{
