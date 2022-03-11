@@ -383,7 +383,10 @@ const AdListedPolocies = () => {
                 <h3>Listed Policy</h3>
               </div>
 
-              <div
+
+
+               <div className="nav justify-content-center">
+               <div
                 className="col-12 col-sm-3 col-md-3"
                 style={{
                   display: "flex",
@@ -391,7 +394,9 @@ const AdListedPolocies = () => {
                   justifyContent: "center",
                 }}
               >
-                <Search placeholder="search Policy Type" onSearch={onSearch} />
+                <Search placeholder="search Policy Type" onSearch={onSearch}  style={{
+                  borderRadius: "25px",
+                }}/>
               </div>
               <div
                 className="col-12 col-sm-3 col-md-3"
@@ -409,7 +414,7 @@ const AdListedPolocies = () => {
                 </Button>
               </div>
               <div
-                className="col-12 col-sm-3 col-md-2"
+                className="col-12 col-sm-3 col-md-3 "
                 style={{ display: "flex", justifyContent: "center" }}
               >
                 <Dropdown placement="bottomCenter" overlay={content} arrow>
@@ -418,7 +423,7 @@ const AdListedPolocies = () => {
                       borderRadius: "5px",
                       backgroundColor: "#8ec131",
                       color: "white",
-                      width: "150px",
+                      width: "180px",
                     }}
                   >
                     <FilterOutlined /> Add Filters
@@ -426,7 +431,7 @@ const AdListedPolocies = () => {
                 </Dropdown>
               </div>
               <div
-                className="col-12 col-sm-3 col-md-2"
+                className="col-12 col-sm-3 col-md-3 "
                 style={{ display: "flex", justifyContent: "center" }}
               >
                 <Button
@@ -434,6 +439,7 @@ const AdListedPolocies = () => {
                     color: "#ffffff",
                     backgroundColor: "#000089",
                     borderRadius: "5px",
+
                   }}
                 >
                   {/* Download PDF/CSV */}
@@ -442,9 +448,10 @@ const AdListedPolocies = () => {
                   </CSVLink>
                 </Button>
               </div>
-            </div>
+               </div>
+               </div>
           </div>
-          <div className="Container">
+          <div className="container-fluid">
             <div className="DataTable" style={{ justifyContent: "center" }}>
               <Table
                 style={{ marginTop: "10px" }}

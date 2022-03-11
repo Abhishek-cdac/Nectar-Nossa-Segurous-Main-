@@ -3,6 +3,7 @@ import { Accordion } from "react-bootstrap";
 import { Breadcrumb } from "antd";
 import { getAddSupport } from ".././services/authentication"
 import {Button,Modal, Form, Table} from "react-bootstrap";
+import "./UserStyle.css"
 
 function HelpAndSupport() {
 
@@ -84,7 +85,6 @@ function HelpAndSupport() {
               <Breadcrumb.Item>Help&Support</Breadcrumb.Item>
             </Breadcrumb>
             </div>
-            <div className="accord">
               <Accordion  style={{width:"100%"}}defaultActiveKey="0" flush>
                 <Accordion.Item eventKey="0">
                   <Accordion.Header>Help & Support</Accordion.Header>
@@ -109,7 +109,6 @@ function HelpAndSupport() {
                   </Accordion.Body>
                 </Accordion.Item>
               </Accordion>
-            </div>
           </div>
         </div>
       </div>

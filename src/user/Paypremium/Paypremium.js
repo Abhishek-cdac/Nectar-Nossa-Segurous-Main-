@@ -26,7 +26,7 @@ const Paypremium = () => {
   const [paypremium, setPaypremium] = useState(true);
   const loginDetailsUserId = window.localStorage.getItem("loginDetailsUserId");
   const [successPage, setSucessPage] = useState(false);
-  const[tab,settab]= useState("Active")
+  const [tab, settab] = useState("Active");
 
   const handleActivepolicyNoClick = (text, record) => {
     setSelectedRecord(record);
@@ -51,13 +51,13 @@ const Paypremium = () => {
       title: "S.No",
       dataIndex: "key",
       key: "key",
-      align:"center",
+      align: "center",
     },
     {
       title: "Policy Number",
       dataIndex: "code",
       key: "code",
-      align:"center",
+      align: "center",
 
       render: (text, record) => (
         <div>
@@ -81,7 +81,7 @@ const Paypremium = () => {
       title: "Policy Name",
       dataIndex: "name",
       key: "name",
-      align:"center",
+      align: "center",
 
       sorter: (a, b) => a.name.length - b.name.length,
     },
@@ -89,25 +89,25 @@ const Paypremium = () => {
       title: "Last Premium Date",
       dataIndex: "date",
       key: "date",
-      align:"center",
+      align: "center",
     },
     {
       title: "Premium plan",
       dataIndex: "type",
       key: "type",
-      align:"center",
+      align: "center",
     },
     {
       title: "Premium",
       dataIndex: "Amount",
       key: "Amount",
-      align:"center",
+      align: "center",
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      align:"center",
+      align: "center",
 
       render: (PremiumPaid) => (
         <p style={{ color: "#4cbb17" }}>{PremiumPaid}</p>
@@ -119,13 +119,13 @@ const Paypremium = () => {
       title: "S.No",
       dataIndex: "key",
       key: "key",
-      align:"center",
+      align: "center",
     },
     {
       title: "Policy Number",
       dataIndex: "code",
       key: "code",
-      align:"center",
+      align: "center",
 
       render: (text, record) => (
         <div>
@@ -149,7 +149,7 @@ const Paypremium = () => {
       title: "Policy Name",
       dataIndex: "name",
       key: "name",
-      align:"center",
+      align: "center",
 
       sorter: (a, b) => a.name.length - b.name.length,
     },
@@ -157,25 +157,25 @@ const Paypremium = () => {
       title: "Last Premium Paid",
       dataIndex: "date",
       key: "date",
-      align:"center",
+      align: "center",
     },
     {
       title: "Premium plan",
       dataIndex: "type",
       key: "type",
-      align:"center",
+      align: "center",
     },
     {
       title: "Premium",
       dataIndex: "Amount",
       key: "Amount",
-      align:"center",
+      align: "center",
     },
     {
       title: "status",
       dataIndex: "status",
       key: "status",
-      align:"center",
+      align: "center",
     },
   ];
 
@@ -260,76 +260,72 @@ const Paypremium = () => {
     let ActivePoliciesData = [];
     const activetableDataArray = activetableData && activetableData;
     const InactiveTableDataArray = InactiveTableData && InactiveTableData;
-    if(tab === "Active"){
-    if (activetableDataArray) {
-      ActivePoliciesData.push(
-        " Sr.No ,Policy Number,Policy Name,Last Premium Date,Premium Plan,Premium,status\n"
-      );
-      activetableDataArray.map((excelData) => {
-        // {console.log("ExcelDAta",excelData)}
+    if (tab === "Active") {
+      if (activetableDataArray) {
         ActivePoliciesData.push(
-          `${excelData.key},${excelData.code}, ${excelData.name}, ${
-            excelData.date},${excelData.type},${excelData.Amount},${excelData.status},
-          \n`
-         
+          " Sr.No ,Policy Number,Policy Name,Last Premium Date,Premium Plan,Premium,status\n"
         );
-      });
-    }
-  }
-  else{
-    if (InactiveTableDataArray) {
-      InactiveTableDataArray.map((excelData) => {
-        ActivePoliciesData.push(
-               `${excelData.key},${excelData.code}, ${excelData.name}, ${
-            excelData.date},${excelData.type},${excelData.Amount},${excelData.status},
+        activetableDataArray.map((excelData) => {
+          // {console.log("ExcelDAta",excelData)}
+          ActivePoliciesData.push(
+            `${excelData.key},${excelData.code}, ${excelData.name}, ${excelData.date},${excelData.type},${excelData.Amount},${excelData.status},
           \n`
-        );
-      });
+          );
+        });
+      }
+    } else {
+      if (InactiveTableDataArray) {
+        InactiveTableDataArray.map((excelData) => {
+          ActivePoliciesData.push(
+            `${excelData.key},${excelData.code}, ${excelData.name}, ${excelData.date},${excelData.type},${excelData.Amount},${excelData.status},
+          \n`
+          );
+        });
+      }
     }
-  }
     return ActivePoliciesData.join("");
   };
   const policyCSV = policyCSVData();
   // CSV END
 
   return (
-    <div className="container-fluid">
+    <div>
       {paypremium && (
         <div>
           <Breadcrumb style={{ marginTop: "20px" }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
             <Breadcrumb.Item>My Policy</Breadcrumb.Item>
           </Breadcrumb>
-          <div className="row" style={{ marginTop: "20px" }}>
-            <div className="col-12 col-sm-6 col-md-6">
-              <h3>My Policy</h3>
-            </div>
-            <div
-              className="col-12 col-sm-6 col-md-6"
-              style={{
-                display: "flex",
-                justifyContent: "flex-end",
-                flexDirection: "row",
-              }}
-            >
-              <Button
+          <div className="container-fluid">
+            <div className="row" style={{ marginTop: "20px" }}>
+              <div className="col-12 col-sm-6 col-md-6">
+                <h3>My Policy</h3>
+              </div>
+              <div
+                className="col-12 col-sm-6 col-md-6"
                 style={{
-                  borderRadius: "5px",
-                  backgroundColor: "#000086",
-                  color: "white",
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  flexDirection: "row",
                 }}
               >
-                 <CSVLink data={policyCSV} target="_blank">
-                  Download PDF/CSV
-                </CSVLink>
-              </Button>
+                <Button
+                  style={{
+                    borderRadius: "5px",
+                    backgroundColor: "#002E5E",
+                    color: "white",
+                  }}
+                >
+                  <CSVLink data={policyCSV} target="_blank">
+                    Download PDF/CSV
+                  </CSVLink>
+                </Button>
+              </div>
             </div>
-          </div>
-
-          <div style={{ display: "flex", flexDirection: "row" }}>
+            <div>
             <Tabs defaultActiveKey="1" size="Large">
               <TabPane tab="Active" key="Active">
-                <div className="container-fluid">
+                <div className="activepolicydata">
                   <div
                     className="DataTable"
                     style={{ justifyContent: "center" }}
@@ -342,8 +338,10 @@ const Paypremium = () => {
                       total={10}
                     />
                   </div>
+                  <div style={{ fontSize: "15px" }}>
+                    <span>shown Results {activetableData.length}</span>
+                  </div>
                 </div>
-
                 <div
                   style={{
                     padding: "30px",
@@ -367,7 +365,7 @@ const Paypremium = () => {
               </TabPane>
 
               <TabPane tab="InActive" key="InActive">
-                <div className="container-fluid">
+                <div className="inactivepolicydata">
                   <div
                     className="DataTable"
                     style={{ justifyContent: "center" }}
@@ -379,6 +377,9 @@ const Paypremium = () => {
                       pagination={true}
                       total={10}
                     />
+                  </div>
+                  <div style={{ fontSize: "15px" }}>
+                    <span>shown Results {InactiveTableData.length}</span>
                   </div>
                 </div>
                 <div
@@ -406,6 +407,10 @@ const Paypremium = () => {
               </TabPane>
             </Tabs>
           </div>
+
+          </div>
+
+          
         </div>
       )}
       {policyDetailsPage && (

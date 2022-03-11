@@ -371,7 +371,7 @@ const Hrlisted = () => {
               <Button
                 style={{
                   color: "#ffffff",
-                  backgroundColor: "#000089",
+                  backgroundColor: "#002E5E",
                   borderRadius: "5px",
                 }}
               >
@@ -407,7 +407,7 @@ const Hrlisted = () => {
                 </div>
               </TabPane>
               <TabPane tab="InActive" key="InActive">
-                <div className="container">
+                <div className="container-fluid">
                   <div
                     className="DataTable"
                     style={{ justifyContent: "center" }}

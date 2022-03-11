@@ -304,9 +304,9 @@ const HrRecievedClaims = () => {
                   <Button
                     style={{
                       borderRadius: "5px",
-                      marginRight: "10px",
                       backgroundColor: "#8ec131",
                       color: "white",
+                      marginRight:"15px"
                     }}
                   >
                     <FilterOutlined /> Add Filters
@@ -320,7 +320,8 @@ const HrRecievedClaims = () => {
                   <Button
                     style={{
                       color: "#ffffff",
-                      backgroundColor: "#000089",
+                      backgroundColor: "#002E5E",
+                      borderRadius:"5px"
                     }}
                   >
                     {/* Download PDF/CSV */}

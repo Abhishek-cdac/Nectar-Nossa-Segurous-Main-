@@ -356,7 +356,7 @@ const HrList = () => {
   return (
     <>
       {AgentListStatus && (
-        <div className="container">
+        <div className="container-fluid">
            <Breadcrumb style={{ marginTop: "20px" }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
             <Breadcrumb.Item>Manager List</Breadcrumb.Item>
@@ -413,7 +413,9 @@ const HrList = () => {
                 <Button
                   style={{
                     color: "#ffffff",
-                    backgroundColor: "#000089",
+                    backgroundColor: "#002E5E",
+                    borderRadius:"5px",
+                    
                   }}
                 >
                   {/* Download PDF/CSV */}

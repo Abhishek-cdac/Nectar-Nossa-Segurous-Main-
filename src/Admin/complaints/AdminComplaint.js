@@ -221,7 +221,6 @@ const AdminComplaint = () => {
     setTableData(searchFilter);
   };
 
-
   const complaintCSVData = () => {
     let ComplaintListData = [];
     const complainttableDataArray = complaintListArray && complaintListArray;
@@ -308,8 +307,9 @@ const AdminComplaint = () => {
                   <Button
                     style={{
                       color: "#ffffff",
-                      backgroundColor: "#000089",
+                      backgroundColor: "#002E5E",
                       borderRadius: "5px",
+                      marginLeft:"15px"
                     }}
                   >
                     <CSVLink data={complaintCSV} target="_blank">
@@ -329,6 +329,9 @@ const AdminComplaint = () => {
                   pagination={true}
                   total={10}
                 />
+              </div>
+              <div style={{ fontSize: "15px" }}>
+                <span>shown Results {tableData.length}</span>
               </div>
             </div>
           </div>

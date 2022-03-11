@@ -109,10 +109,10 @@ a.grey-color {
 .btn-back:hover, .btn-approve-claim:hover, .btn-reject-claim:hover, .btn-resubmit:hover {border: #000 solid 1px;color: #fff;background: #000;}
 
 .detail-box button.btn.btn-primary {
-  margin: 15px 12px 30px;
+  margin: 15px;
   background: #002E5E;
   color: #fff;
-  padding: 8px 25px;
+  padding: 8px;
 }
 .detail-box button.btn.btn-primary:hover {
   background: #8EC131;
@@ -137,4 +137,15 @@ a.grey-color {
   display: block;
   margin: 0;
   font-weight: 500;
+}
+.accordion-flush .accordion-item .accordion-button {
+  border-radius: 3px;
+    background-color: #8EC131;
+    color: white;
+    font-size: x-large;
+    margin-top: 20px;
+    border: 1px solid #8ec131;
+    width: 100%;
+    text-align: left;
+    height: 50px;
 }
