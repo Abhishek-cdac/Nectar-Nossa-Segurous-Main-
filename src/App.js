@@ -47,6 +47,10 @@ import HrDashboard2 from "./Hr/HrDashBoard2";
 import Rp from "./example"
 import Doctors from "./Admin/Reimbursment/Doctors";
 import Services from "./Admin/Reimbursment/Services";
+import Demo from "./user/demo";
+import AdDemo from "./Admin/AdDemo";
+import HrDemo from "./Hr/HrDemo";
+import CreditCard from "./user/Paypremium/Creditcard";
 function App() {
   return (
     <div>
@@ -60,23 +64,26 @@ function App() {
             <Route path="resetpassword/:token" element={<ResetAccountCode />} />
          
           <Route path="/user" element={<Noosa />}>
-            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="" element={<Dashboard />} />
             <Route path="newClaim" element={<Claims />} />
             <Route path="paypremium" element={<Paypremium />} />
+            {/* <Route path="paypremium/payment" element={<CreditCard />}/> */}
             <Route path="noosacard" element={<NossaCard />} />
             <Route path="complaint" element={<Complaint />} />
             <Route path="servicerequest" element={<UserServices />} />
             <Route path="holidays" element={<UserHolidays />} />
             <Route path="reimbursement" element={<Reimbusrment />} />
-            <Route path="setting" element={<Setting />} />
+            <Route path="setting" element={<Setting />}/>
             <Route path="helpandsupport" element={<HelpAndSupport />} />
+            <Route path="Demo" element={<Demo/>} />
+
           </Route>
 
           {/* HrNossa paths */}
 
           <Route path="/hr" element={<Hrnoosa />}>
             {/* <Route path="hr" element={<Hrnoosa />} /> */}
-            <Route path="dashboard" element={<HrDashboard2/>} />
+            <Route path="" element={<HrDashboard2/>} />
             <Route path="listedPolices" element={<Hrlisted />} />
             <Route path="newClaim" element={<HrRecievedClaims />} />
             <Route path="paypremium" element={<Receivedpremium />} />
@@ -88,22 +95,24 @@ function App() {
             <Route path="reimbursement" element={<HrReimbursment />} />
             <Route path="setting"  element={<HrSetting />} />
             <Route path="helpandsupport" element={<HrHelp />} />
+            <Route path="Demo" element={<HrDemo/>} />
           </Route>
 
           <Route path="/admin" element={<Adminnoosa />}>
-            <Route path="dashboard" element={<AdDashboard />} />
+            <Route path="" element={<AdDashboard />} />
             <Route path="listedPolices" element={<AdListedPolocies />} />
             <Route path="newClaim" element={<AdminClaims />} />
             <Route path="paypremium" element={<AdReceivedpremium />} />
             <Route path="HrList" element={<HrList />} />
             <Route path="complaint" element={<AdminComplaint />} />
             <Route path="servicerequest" element={<AdServices />} />
-            <Route path="holidays" element={<AdHolidays />} />
+            <Route path="holidays" element={<AdHolidays />} /> 
             <Route path="reimbursement" element={<AdReimbursment />}/>
             <Route path="reimbursement/doctors" element={<Doctors/>}/>
             <Route path="reimbursement/service" element={<Services/>}/>
             <Route path="setting" element={<AdSetting/>} />
             <Route path="helpandsupport" element={<AdHelpAndSupport/>}/>
+            <Route path="AdDemo" element={<AdDemo/>} />
             
 
 

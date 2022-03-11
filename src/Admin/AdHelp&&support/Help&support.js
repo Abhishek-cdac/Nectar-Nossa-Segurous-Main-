@@ -13,7 +13,11 @@ const handleAddSupport = (type)=>{
   setHomepage(false)
   settableDatapage(true)
   setType(type)
-  console.log("ti",type)
+  // console.log("ti",type)
+}
+const handleBack = () =>{
+  setHomepage(true)
+  settableDatapage(false)
 }
   
     
@@ -26,7 +30,7 @@ const handleAddSupport = (type)=>{
             <div className="bredc">
             <Breadcrumb style={{ marginTop: "20px" }}>
               <Breadcrumb.Item>Home</Breadcrumb.Item>
-              <Breadcrumb.Item>Claims</Breadcrumb.Item>
+              <Breadcrumb.Item>Help && Support</Breadcrumb.Item>
             </Breadcrumb>
             </div>
             <div className="accord">
@@ -61,7 +65,7 @@ const handleAddSupport = (type)=>{
       }
 
 
-{tableDatapage && <Supporttable Type={type}/>}
+{tableDatapage && <Supporttable Type={type} handleBack={handleBack}/>}
 
     </>
   );

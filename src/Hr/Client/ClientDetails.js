@@ -1,4 +1,5 @@
 import React from "react";
+import { Breadcrumb } from "antd";
 
 const ClientDetails = (props) => {
   const selectedRecord = props && props.selectedRecord;
@@ -11,7 +12,12 @@ const ClientDetails = (props) => {
 
   return (
     <div className="container-fluid">
-      <div className="row d-flex align-items-center justify-content-between">
+        <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>claims</Breadcrumb.Item>
+            <Breadcrumb.Item>claim Details</Breadcrumb.Item>
+          </Breadcrumb>
+      <div className="row d-flex align-items-center justify-content-between" style={{paddingTop:"10px"}}>
         <div className="col-12 text-left">
           <h3 className="mt-0 mb-4">
             <a className="text-black" onClick={props.handleBackPage}>

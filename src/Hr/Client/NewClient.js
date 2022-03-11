@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getAddClient, getPolicyList } from "../../services/authentication";
-
+import { Breadcrumb } from "antd";
 const NewClient = (props) => {
   const [data, setData] = useState({
     policyHolder: "",
@@ -17,6 +17,8 @@ const NewClient = (props) => {
     permanant: "",
     policyStartDate: "",
     policyEndDate: "",
+    plan:'',
+    Amount:''
   });
   const [errorMsg, seterrorMsg] = useState("");
   const [policyName, setPolicyName] = useState("");
@@ -38,6 +40,8 @@ const NewClient = (props) => {
     permanant,
     policyStartDate,
     policyEndDate,
+    plan,
+    Amount
   } = data;
 
   const Payload ={
@@ -57,7 +61,7 @@ const NewClient = (props) => {
     policyListArray.filter(
       (list) => list.policyName === data.policyType
     )[0];
-    console.log("list",policyNum)
+    console.log("list",data)
     const Payload = {
       policy_id:policyNum.id,
       email: email,
@@ -135,7 +139,12 @@ const NewClient = (props) => {
 
   return (
     <div>
-      <div className="row d-flex align-items-center justify-content-between">
+       <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Client</Breadcrumb.Item>
+            <Breadcrumb.Item>New Client</Breadcrumb.Item>
+          </Breadcrumb>
+      <div className="row d-flex align-items-center justify-content-between" style={{paddingTop:"10px"}}>
         <div className="col-12 text-left">
           <h3 className="mt-0 mb-4">
             <a  className="text-black" onClick={props.handleNewClientBack}>
@@ -307,6 +316,39 @@ const NewClient = (props) => {
                   id=""
                   name="email"
                   value={email}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <div className="col-12 col-sm-6 col-md-6 col-lg-4">
+              <div className="form-group">
+                <label htmlFor="exampleInputtext" className="mb-1">
+                  Premium Plan
+                </label>
+                <select
+                  className="form-control"
+                  id="exampleFormControlSelect1"
+                  value={plan}
+                  name="plan"
+                  onChange={handleChange}
+                >
+                  <option>Monthly</option>
+                  <option>Quarterly</option>
+                  <option>Yearly</option>
+                </select>
+              </div>
+            </div>
+            <div className="col-12 col-sm-6 col-md-6 col-lg-4">
+              <div className="form-group">
+                <label htmlFor="exampleInputtext" className="mb-1">
+                  Premium Amount
+                </label>
+                <input
+                  type="number"
+                  className="form-control"
+                  id=""
+                  name="Amount"
+                  value={Amount}
                   onChange={handleChange}
                 />
               </div>

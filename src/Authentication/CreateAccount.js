@@ -23,7 +23,7 @@ const CreateAccount = () => {
        * Error logic here
        * we need to do based on the error
        */
-      alert(JSON.stringify(error));
+      // alert(JSON.stringify(error));
     }
   };
 

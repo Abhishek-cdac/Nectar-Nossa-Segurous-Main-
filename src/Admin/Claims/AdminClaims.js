@@ -34,13 +34,23 @@ const AdminClaims = () => {
   };
 
   const onSearch = (value) => {
-    const recievedfilterData = recievedData.filter((data) => {
-      const itemData = data.verifyStatus.toUpperCase();
-      const textData = value.toUpperCase();
-      return itemData.indexOf(textData) > -1;
-    });
-    const searchFilter = handleFilterData(recievedfilterData);
-    setRecievedTableData(searchFilter);
+    if (tabStatus === "Recieved") {
+      const recievedfilterData = recievedData.filter((data) => {
+        const itemData = data.userPolicy.policy.policyName.toUpperCase();
+        const textData = value.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      const searchFilter = handleFilterData(recievedfilterData);
+      setRecievedTableData(searchFilter);
+    } else {
+      const SettledfilterData = settledData.filter((data) => {
+        const itemData = data.userPolicy.policy.policyName.toUpperCase();
+        const textData = value.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      const searchFilter = handleFilterData(SettledfilterData);
+      setSettledTableData(searchFilter);
+    }
   };
 
   const { TabPane } = Tabs;
@@ -63,7 +73,7 @@ const AdminClaims = () => {
         user_id: "",
         agent_id: "",
         premiumPlan: "",
-        verifyStatus: "pending",
+        verifyStatus: "Not Submited",
       };
       const resp = await getClaimsList(data);
       console.log("resp", resp);
@@ -71,7 +81,7 @@ const AdminClaims = () => {
       resp &&
         resp.data.map((data) => {
           const value = {
-            id: data.claim_details && data.claim_details.claim_id,
+            id: data.claimCode,
             policyHolder: data.userPolicy.user.firstName,
             policyName: data.userPolicy.policy.policyName,
             amount: data.sumInsured,
@@ -79,6 +89,7 @@ const AdminClaims = () => {
             date: data.claim_details && data.claim_details.createdAt,
             status: data.verifyStatus,
             agent: data.userPolicy.agent.firstName,
+            key: data.id,
             //description:data.userPolicy.policy.description
           };
           tableDataArr.push(value);
@@ -108,7 +119,7 @@ const AdminClaims = () => {
       resp &&
         resp.data.map((data, i) => {
           const value = {
-            id: data.claim_details && data.claim_details.claim_id,
+            id: data.claimCode,
             policyHolder: data.userPolicy.user.firstName,
             policyName: data.userPolicy.policy.policyName,
             amount: data.sumInsured,
@@ -116,6 +127,7 @@ const AdminClaims = () => {
             date: data.claim_details && data.claim_details.createdAt,
             status: data.verifyStatus,
             agent: data.userPolicy.agent.firstName,
+            key: data.id,
           };
           tableDataArr.push(value);
         });
@@ -155,9 +167,6 @@ const AdminClaims = () => {
   };
 
   const handleClick = (status) => {
-    // console.log("filter",recievedData)
-    // console.log("status",status)
-    // console.log("filter2",settledData)
     if (tabStatus === "Recieved") {
       const recievedfilterData = recievedData.filter(
         (data) => data.verifyStatus === status
@@ -182,28 +191,30 @@ const AdminClaims = () => {
 
     const settledTableDataArray = settledTableData && settledTableData;
     console.log("sett", settledTableData);
-
-    if (recievedtableDataArray) {
-      RecievedClaimsData.push(
-        "id,policy Holder,Policy Name,Policy Code,Request Date,Claim Amount,Assigned By\n"
-      );
-      recievedtableDataArray.map((excelData) => {
-        // console.log("EXCEL",excelData)
+    if (tabStatus === "Recieved") {
+      if (recievedtableDataArray) {
         RecievedClaimsData.push(
-          `${excelData.id},${excelData.policyHolder},${excelData.policyName},${excelData.code}, ${excelData.date}, ${excelData.amount},${excelData.agent}\n`
+          "id,policy Holder,Policy Name,Policy Code,Request Date,Claim Amount,Assigned By\n"
         );
-      });
-    }
-    if (settledTableDataArray) {
-      RecievedClaimsData.push(
-        "Claim_ID,policy Holder,Policy Name,Policy Code,Request Date,Claim Amount,Approved Amount\n"
-      );
-      settledTableDataArray.map((excelData) => {
-        // console.log("xl",excelData)
+        recievedtableDataArray.map((excelData) => {
+          // console.log("EXCEL",excelData)
+          RecievedClaimsData.push(
+            `${excelData.id},${excelData.policyHolder},${excelData.policyName},${excelData.code}, ${excelData.date}, ${excelData.amount},${excelData.agent}\n`
+          );
+        });
+      }
+    } else {
+      if (settledTableDataArray) {
         RecievedClaimsData.push(
-          `${excelData.id},${excelData.policyHolder},${excelData.policyName},${excelData.code}, ${excelData.date}, ${excelData.amount},${excelData.agent}\n`
+          "Claim_ID,policy Holder,Policy Name,Policy Code,Request Date,Claim Amount,Approved Amount\n"
         );
-      });
+        settledTableDataArray.map((excelData) => {
+          // console.log("xl",excelData)
+          RecievedClaimsData.push(
+            `${excelData.id},${excelData.policyHolder},${excelData.policyName},${excelData.code}, ${excelData.date}, ${excelData.amount},${excelData.agent}\n`
+          );
+        });
+      }
     }
     return RecievedClaimsData.join("");
   };
@@ -226,9 +237,9 @@ const AdminClaims = () => {
         <a
           target="_blank"
           rel="noopener norefer"
-          onClick={() => handleClick("Accepted")}
+          onClick={() => handleClick("Approved")}
         >
-          Accepted
+          Approved
         </a>
       </Menu.Item>
       <Menu.Item>
@@ -259,6 +270,7 @@ const AdminClaims = () => {
       title: "Claim ID",
       dataIndex: "id",
       key: "id",
+      align: "center",
 
       render: (text, record) => (
         <a
@@ -273,50 +285,57 @@ const AdminClaims = () => {
       title: "Policy Holder",
       dataIndex: "policyHolder",
       key: "policyHolder",
+      align: "center",
     },
 
     {
       title: "Policy Name",
       dataIndex: "policyName",
       key: "policyName",
+      align: "center",
     },
     {
       title: "Claim Amt",
       dataIndex: "amount",
       key: "amount",
+      align: "center",
     },
     {
       title: "Request Date",
       dataIndex: "date",
       key: "date",
+      align: "center",
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
+      align: "center",
     },
     {
       title: "Assigned By",
       dataIndex: "agent",
       key: "agent",
+      align: "center",
     },
-    {
-      title: "Action",
-      key: "action",
+    // {
+    //   title: "Action",
+    //   key: "action",
+    //   align:"center",
 
-      render: (text, record) => {
-        return (
-          <>
-            <EyeOutlined style={{ color: "#000089", paddingLeft: "10px" }} />
-            <Dropdown overlay={menu}>
-              <a className="ant-dropdown-link">
-                <EllipsisOutlined style={{ paddingLeft: "30px" }} />
-              </a>
-            </Dropdown>
-          </>
-        );
-      },
-    },
+    //   render: (text, record) => {
+    //     return (
+    //       <>
+    //         <EyeOutlined style={{ color: "#000089", paddingLeft: "10px" }} />
+    //         <Dropdown overlay={menu}>
+    //           <a className="ant-dropdown-link">
+    //             <EllipsisOutlined style={{ paddingLeft: "30px" }} />
+    //           </a>
+    //         </Dropdown>
+    //       </>
+    //     );
+    //   },
+    // },
   ];
 
   const SettledColumns = [
@@ -327,6 +346,7 @@ const AdminClaims = () => {
       title: "Claim ID",
       dataIndex: "id",
       key: "id",
+      align: "center",
 
       render: (text, record) => (
         <a
@@ -341,64 +361,77 @@ const AdminClaims = () => {
       title: "Policy Holder",
       dataIndex: "policyHolder",
       key: "policyHolder",
+      align: "center",
     },
 
     {
       title: "Policy Name",
       dataIndex: "policyName",
       key: "policyName",
+      align: "center",
     },
 
     {
       title: "Policy code",
       dataIndex: "code",
       key: "code ",
+      align: "center",
     },
 
     {
       title: "Request Date",
       dataIndex: "date",
       key: "date",
+      align: "center",
     },
     {
       title: "Claim Amt",
       dataIndex: "amount",
       key: "amount",
+      align: "center",
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
+      align: "center",
     },
 
     {
       title: "Approved",
       dataIndex: "amount",
       key: "amount",
+      align: "center",
     },
-    {
-      title: "Actions",
-      key: "action",
+    // {
+    //   title: "Actions",
+    //   key: "action",
+    //   align:"center",
 
-      render: (text, record) => {
-        return (
-          <>
-            <EyeOutlined style={{ color: "#000089", paddingLeft: "10px" }} />
-            <Dropdown overlay={menu}>
-              <a className="ant-dropdown-link">
-                <EllipsisOutlined style={{ paddingLeft: "30px" }} />
-              </a>
-            </Dropdown>
-          </>
-        );
-      },
-    },
+    //   render: (text, record) => {
+    //     return (
+    //       <>
+    //         <EyeOutlined style={{ color: "#000089", paddingLeft: "10px" }} />
+    //         <Dropdown overlay={menu}>
+    //           <a className="ant-dropdown-link">
+    //             <EllipsisOutlined style={{ paddingLeft: "30px" }} />
+    //           </a>
+    //         </Dropdown>
+    //       </>
+    //     );
+    //   },
+    // },
   ];
 
   return (
     <div>
       {AdminClaims && (
         <div className="container-fluid">
+          <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>claims</Breadcrumb.Item>
+            {/* <Breadcrumb.Item>claim Details</Breadcrumb.Item> */}
+          </Breadcrumb>
           <div
             className="row"
             style={{
@@ -414,10 +447,14 @@ const AdminClaims = () => {
             <div className="nav justify-content-center">
               <div
                 className="col-12 col-sm-5 col-md-5"
-                style={{ display: "flex", flexDirection: "row" }}
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                }}
               >
                 <Search
-                  placeholder="search Policy"
+                  placeholder="search PolicyName"
                   onSearch={onSearch}
                   style={{
                     borderRadius: "25px",
@@ -426,13 +463,17 @@ const AdminClaims = () => {
               </div>
               <div
                 className="col-12 col-sm-3 col-md-3"
-                style={{ display: "flex", flexDirection: "row" }}
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                }}
               >
                 <Dropdown placement="bottomCenter" overlay={content} arrow>
                   <Button
                     style={{
                       borderRadius: "5px",
-                      backgroundColor: "#61b33b",
+                      backgroundColor: "#8ec131",
                       color: "white",
                     }}
                   >
@@ -442,13 +483,18 @@ const AdminClaims = () => {
               </div>
               <div
                 className="col-12 col-sm-3 col-md-3"
-                style={{ display: "flex", flexDirection: "row" }}
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                }}
               >
                 <Button
                   style={{
                     color: "#ffffff",
-                    backgroundColor: "#000089",
+                    backgroundColor: "#002E5E",
                     borderRadius: "5px",
+                    marginLeft:"15px"
                   }}
                 >
                   <CSVLink data={ClaimCSV} target="_blank">
@@ -467,9 +513,9 @@ const AdminClaims = () => {
               onChange={handleTabStatus}
             >
               <TabPane tab="Recieved Claims" key="Recieved">
-                <div className="container">
+                <div className="container-fluid">
                   <div
-                    className="row DataTable"
+                    className="DataTable"
                     style={{ justifyContent: "center" }}
                   >
                     <Table
@@ -479,12 +525,15 @@ const AdminClaims = () => {
                       total={10}
                     ></Table>
                   </div>
+                  <div style={{fontSize:"15px"}}>
+                    <span>shown Results {recievedTableData.length}</span>
+                  </div>
                 </div>
               </TabPane>
               <TabPane tab="Settled Claims" key="Settled">
-                <div className="container">
+                <div className="container-fluid">
                   <div
-                    className="row DataTable"
+                    className="DataTable"
                     style={{ justifyContent: "center" }}
                   >
                     <Table
@@ -493,6 +542,9 @@ const AdminClaims = () => {
                       pagination={true}
                       total={10}
                     ></Table>
+                  </div>
+                  <div style={{fontSize:"15px"}}>
+                    <span>shown Results {settledTableData.length}</span>
                   </div>
                 </div>
               </TabPane>

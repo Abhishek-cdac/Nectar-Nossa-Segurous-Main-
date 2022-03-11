@@ -2,17 +2,19 @@ import React, { useState, useEffect } from "react";
 import { getDashboardAPI,getAllUserPolicyList } from ".././services/authentication";
 import ic_file_download from "../assets/img/ic_file_download.png";
 import ic_notifications from "../assets/img/ic_notifications.png";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const [dashBoardListArray, setDashBoardListArray] = useState("");
   const [getAllUsersList,setgetAllUsersList]=useState('')
  const loginDetailsUserId = window.localStorage.getItem("loginDetailsUserId");
+ let navigate = useNavigate();
  
   const handleDashboardApI = async () => {
     try{
     const resp = await getDashboardAPI();
     setDashBoardListArray(resp);
-    console.log("resp", resp);
+    //console.log("resp", resp);
     }
     
       catch (error) {
@@ -30,7 +32,7 @@ const Dashboard = () => {
     }
     try {
       const resp = await getAllUserPolicyList(data);
-      console.log("resssss", resp);
+      //console.log("resssss", resp);
       setgetAllUsersList(resp.data);
     } catch (error) {
       console.log("err", error);
@@ -42,10 +44,10 @@ const Dashboard = () => {
 
   return (
     <div
-      id="layoutSidenav_content"
+      id="layoutSidenav_content" className="collapse-right-pane"
       style={{ paddingLeft: "80px", marginLeft: "-75px" }}
     >
-      <div className="container-fluid">
+      <div className="container-fluid" id="container-fluid">
         <h3 className="mt-4 mb-4">Dashboard</h3>
         <div className="row">
           <div className="col-12 col-md-6 col-sm-6 col-lg-3 mb-2">
@@ -60,9 +62,9 @@ const Dashboard = () => {
                 </div>
                 <div className="col-6 col-md-6 col-sm-6 text-right">
                   <h3 className="pr-4 pt-4">
-                    {dashBoardListArray && dashBoardListArray.data.totalPolicy}
+                    {dashBoardListArray && dashBoardListArray.data.totalPolicyCount}
                   </h3>
-                  {console.log("dashBoardListArray", dashBoardListArray)}
+                  {/* {//console.log("dashBoardListArray", dashBoardListArray)} */}
                 </div>
               </div>
               <hr />
@@ -71,8 +73,8 @@ const Dashboard = () => {
                   <small className="pl-4 pt-0 pb-3 d-block">&nbsp;</small>
                 </div>
                 <div className="col-3 col-md-3 col-sm-3 text-right">
-                  <a href="" className="pr-4 pt-0 pb-3 d-block">
-                    <i className="fas fa-arrow-right"></i>
+                  <a onClick={() =>navigate("paypremium")} className="pr-4 pt-0 pb-3 d-block" style={{color:"#8ec131"}}>
+                    <i className="fas fa-arrow-right" ></i>
                   </a>
                 </div>
               </div>
@@ -100,7 +102,7 @@ const Dashboard = () => {
                   <small className="pl-4 pt-0 pb-3 d-block">&nbsp;</small>
                 </div>
                 <div className="col-3 col-md-3 col-sm-3 text-right">
-                  <a href="" className="pr-4 pt-0 pb-3 d-block">
+                  <a className="pr-4 pt-0 pb-3 d-block" style={{color:"#8ec131"}}>
                     <i className="fas fa-arrow-right"></i>
                   </a>
                 </div>
@@ -119,7 +121,7 @@ const Dashboard = () => {
                 </div>
                 <div className="col-6 col-md-6 col-sm-6 text-right">
                   <h3 className="pr-4 pt-4">
-                    {dashBoardListArray && dashBoardListArray.data.totalClaims}
+                    {dashBoardListArray && dashBoardListArray.data.numberOfClaims}
                   </h3>
                 </div>
               </div>
@@ -129,7 +131,7 @@ const Dashboard = () => {
                   <small className="pl-4 pt-0 pb-3 d-block">&nbsp;</small>
                 </div>
                 <div className="col-3 col-md-3 col-sm-3 text-right">
-                  <a href="" className="pr-4 pt-0 pb-3 d-block">
+                <a onClick={() =>navigate("newClaim")} className="pr-4 pt-0 pb-3 d-block" style={{color:"#8ec131"}}>
                     <i className="fas fa-arrow-right"></i>
                   </a>
                 </div>
@@ -149,7 +151,7 @@ const Dashboard = () => {
                 <div className="col-6 col-md-6 col-sm-6 text-right">
                   <h3 className="pr-4 pt-4">
                     {dashBoardListArray &&
-                      dashBoardListArray.data.totalServiceRequest}
+                      dashBoardListArray.data.totalServiceRequestCount}
                   </h3>
                 </div>
               </div>
@@ -159,7 +161,7 @@ const Dashboard = () => {
                   <small className="pl-4 pt-0 pb-3 d-block"></small>
                 </div>
                 <div className="col-3 col-md-3 col-sm-3 text-right">
-                  <a href="" className="pr-4 pt-0 pb-3 d-block">
+                <a onClick={() =>navigate("servicerequest")} className="pr-4 pt-0 pb-3 d-block" style={{color:"#8ec131"}}>
                     <i className="fas fa-arrow-right"></i>
                   </a>
                 </div>
@@ -176,7 +178,7 @@ const Dashboard = () => {
                   <h3>My Policies </h3>
                 </div>
                 <div className="col-lg-6 col-md-6 text-right">
-                  <a href="" data-toggle="modal" data-target="#addPolicyList">
+                  <a onClick={() =>navigate("paypremium")} data-toggle="modal" data-target="#addPolicyList">
                     View All
                   </a>
                 </div>
@@ -188,8 +190,7 @@ const Dashboard = () => {
                   <table className="table table-bordered">
                     <thead
                       className="white-bg"
-                      style={{ backgroundColor: "#8ec131" }}
-                    >
+                      style={{ backgroundColor: "#8ec131" }}>
                       <tr>
                         <th>Policy Name</th>
                         <th>Policy code</th>
@@ -198,15 +199,14 @@ const Dashboard = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {getAllUsersList &&
-                        getAllUsersList.map((item) => (
+                      {getAllUsersList ? getAllUsersList.map((item) => (
                           <tr className="grey-box">
                             <td className="green-text">{item.policyName}</td>
                             <td>{item.policyCode}</td>
                             <td>{item.policyType}</td>
                             <td className="green-text">{item.totalSales}</td>
                           </tr>
-                        ))}
+                        )):null}
                     </tbody>
                   </table>
                 </div>
@@ -214,13 +214,13 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="col-12 col-lg-5 mb-4">
-            <div className="green-box">
+            {/* <div className="green-box">
               <div className="row d-flex align-items-center justify-content-between">
                 <div className="col-12 col-lg-9">
-                  <lable style={{ marginTop: "10px" }}>
+                  <label style={{ marginTop: "10px" }}>
                     {" "}
                     <img src={ic_notifications} alt="" />
-                  </lable>
+                  </label>
                   <p className="bell-text">
                     Your premium payment of $ 2500 is pending for policy number
                     of <b>NS00011122</b>{" "}
@@ -232,10 +232,10 @@ const Dashboard = () => {
                   </a>
                 </div>
               </div>
-            </div>
-            <a href="#" className="text-right w-100 d-block mt-2">
+            </div> */}
+            {/* <a onClick={() =>navigate("paypremium")} className="text-right w-100 d-block mt-2">
               View All
-            </a>
+            </a> */}
 
             <div className="row d-flex align-items-center justify-content-between">
               <div className="col-12">
@@ -286,14 +286,14 @@ const Dashboard = () => {
                 aria-labelledby="recommended-policies-tab"
               >
                 <div className="row d-flex align-items-center justify-content-between recommended-policies-box">
-                  <div className="col-12 col-lg-8">
+                  <div className="col-12 col-lg-6">
                     <span>
                       <small>Type : Vehicle</small>
                       <br />
                       Nossa Seguros Auto-insurance
                     </span>
                   </div>
-                  <div className="col-12 col-lg-4">
+                  <div className="col-12 col-lg-6" style={{display:'flex',justifyContent:'space-evenly'}}>
                     <a href="#" className="btn btn-primary">
                       View
                     </a>
@@ -303,18 +303,18 @@ const Dashboard = () => {
                   </div>
                 </div>
                 <div className="row d-flex align-items-center justify-content-between recommended-policies-box">
-                  <div className="col-12 col-lg-8">
+                  <div className="col-12 col-lg-6">
                     <span>
                       <small>Type : Personal</small>
                       <br />
                       Nossa Seguros Acidenttes de Trabalho
                     </span>
                   </div>
-                  <div className="col-12 col-lg-4">
+                  <div className="col-12 col-lg-6"  style={{display:'flex',justifyContent:'space-evenly'}}>
                     <a href="#" className="btn btn-primary">
                       View
-                    </a>
-                    <a href="#" className="btn btn-secondary">
+                    </a><br/>
+                    <a href="#" className="btn btn-secondary" >
                       <img src={ic_file_download} alt="" />
                     </a>
                   </div>
@@ -327,31 +327,31 @@ const Dashboard = () => {
                 aria-labelledby="all-policies-tab"
               >
                 <div className="row d-flex align-items-center justify-content-between recommended-policies-box">
-                  <div className="col-12 col-lg-8">
+                  <div className="col-12 col-lg-6">
                     <span>
                       <small>Type : Personal</small>
                       <br />
                       Nossa Seguros Acidenttes de Trabalho
                     </span>
                   </div>
-                  <div className="col-12 col-lg-4">
+                  <div className="col-12 col-lg-6" style={{display:'flex',justifyContent:'space-evenly'}}>
                     <a href="#" className="btn btn-primary">
                       View
-                    </a>
+                    </a><br/>
                     <a href="#" className="btn btn-secondary">
                       <img src={ic_file_download} alt="" />
                     </a>
                   </div>
                 </div>
                 <div className="row d-flex align-items-center justify-content-between recommended-policies-box">
-                  <div className="col-12 col-lg-8">
+                  <div className="col-12 col-lg-6">
                     <span>
                       <small>Type : Vehicle</small>
                       <br />
                       Nossa Seguros Auto-insurance
                     </span>
                   </div>
-                  <div className="col-12 col-lg-4">
+                  <div className="col-12 col-lg-6" style={{display:'flex',justifyContent:'space-evenly'}}>
                     <a href="#" className="btn btn-primary">
                       View
                     </a>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Select, Form, Button } from "antd";
+import { Select, Form, Button,Breadcrumb } from "antd";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 import {
   AddServiceList,
   getAllUserPolicyList,
@@ -10,7 +11,7 @@ import TextArea from "antd/lib/input/TextArea";
 
 const { Option } = Select;
 
-const Newservice = () => {
+const Newservice = (props) => {
   const [PolicyCode, setPolicyCode] = useState("");
   const [NewSerevicePage, setNewSerevicePage] = useState(true);
   const [SucessModalPage, setSucessModalPage] = useState("");
@@ -102,8 +103,25 @@ const Newservice = () => {
   return (
     <>
       {NewSerevicePage && (
-        <div className="container-fluid" style={{paddingTop:"50px"}}>
-          <div className="row d-flex align-items-center justify-content-between">
+        <div className="container-fluid" style={{paddingTop:"20px"}}>
+          <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Services</Breadcrumb.Item>
+            <Breadcrumb.Item>New Services</Breadcrumb.Item>
+          </Breadcrumb>
+          <div>
+            <a
+              style={{
+                marginTop: "30px",
+                marginBottom: "30px",
+                fontSize: "20px",
+              }}
+              onClick={() => props.handleBack()}
+            >
+              <ArrowLeftOutlined style={{ paddingTop: "10px" }} /> BACK
+            </a>
+          </div>
+          <div className="row d-flex align-items-center justify-content-between" style={{paddingTop:"10px"}}>
             <div className="col-12">
               <div className="heading-with-box mb-2">
                 <div className="row">
@@ -124,7 +142,7 @@ const Newservice = () => {
                   <div className="row">
                     <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                       <div className="form-group">
-                        <label for="exampleInputtext" className="mb-1">
+                        <label htmlFor="exampleInputtext" className="mb-1">
                           Policy No.<em>*</em>
                         </label>
                         <Form.Item
@@ -152,7 +170,7 @@ const Newservice = () => {
                     </div>
                     <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                       <div className="form-group">
-                        <label for="exampleInputtext" className="mb-1">
+                        <label htmlFor="exampleInputtext" className="mb-1">
                           Policy<em>*</em>
                         </label>
                         <Form.Item
@@ -180,7 +198,7 @@ const Newservice = () => {
                     </div>
                     <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                       <div className="form-group">
-                        <label for="exampleInputHolderName" className="mb-1">
+                        <label htmlFor="exampleInputHolderName" className="mb-1">
                           Statement <em>*</em>
                         </label>
 
@@ -211,7 +229,7 @@ const Newservice = () => {
                     </div>
                     <div className="col-12 col-sm-6 col-md-6 col-lg-4">
                       <div className="form-group">
-                        <label for="exampleInputHolderName" className="mb-1">
+                        <label htmlFor="exampleInputHolderName" className="mb-1">
                           Description<em>*</em>
                         </label>
                         <Form.Item

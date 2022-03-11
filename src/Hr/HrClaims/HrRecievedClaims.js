@@ -47,16 +47,16 @@ const HrRecievedClaims = () => {
           rel="noopener norefer"
           onClick={() => handleClick("Recieved for Approval")}
         >
-          Recieved for Approval
+         Pending
         </a>
       </Menu.Item>
       <Menu.Item>
         <a
           target="_blank"
           rel="noopener norefer"
-          onClick={() => handleClick("Accepted")}
+          onClick={() => handleClick("Approved")}
         >
-          Accepted
+         Approved
         </a>
       </Menu.Item>
       <Menu.Item>
@@ -74,7 +74,7 @@ const HrRecievedClaims = () => {
           rel="noopener norefer"
           onClick={() => handleClick("Not Submited")}
         >
-          not Submited
+          Not Submited
         </a>
       </Menu.Item>
     </Menu>
@@ -86,6 +86,7 @@ const HrRecievedClaims = () => {
       title: "Claim ID",
       dataIndex: "id",
       key: "id",
+      align:"center",
      
       render: (text, record) => (
         <a
@@ -100,6 +101,7 @@ const HrRecievedClaims = () => {
       title: "Policy Holder",
       dataIndex: "name",
       key: "name",
+      align:"center",
     
     },
 
@@ -107,51 +109,55 @@ const HrRecievedClaims = () => {
       title: "Policy Name",
       dataIndex: "policyname",
       key: "name",
+      align:"center",
     
     },
     {
       title: "Policy code",
       dataIndex: "code",
       key: "code",
+      align:"center",
     
     },
     {
       title: "Request Date",
       dataIndex: "date",
       key: "date",
+      align:"center",
      
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
+      align:"center",
      
     },
 
-    {
-      title: "Description",
-      dataIndex: "description",
-      key: "description",
+    // {
+    //   title: "Description",
+    //   dataIndex: "description",
+    //   key: "description",
      
-    },
-    {
-      title: "Actions",
-      key: "action",
+    // },
+    // {
+    //   title: "Actions",
+    //   key: "action",
      
-      render: (text, record) => {
-        return (
-          <>
-            <EyeOutlined style={{ color: "#000089", paddingLeft: "10px" }} />
-            <Dropdown overlay={menu}>
-              <a className="ant-dropdown-link">
-                <EllipsisOutlined style={{ paddingLeft: "30px" }} />
-              </a>
-            </Dropdown>
-          </>
-        );
-      },
-      responsive: ["sm", "xs", "md"],
-    },
+    //   render: (text, record) => {
+    //     return (
+    //       <>
+    //         <EyeOutlined style={{ color: "#000089", paddingLeft: "10px" }} />
+    //         <Dropdown overlay={menu}>
+    //           <a className="ant-dropdown-link">
+    //             <EllipsisOutlined style={{ paddingLeft: "30px" }} />
+    //           </a>
+    //         </Dropdown>
+    //       </>
+    //     );
+    //   },
+    //   responsive: ["sm", "xs", "md"],
+    // },
   ];
   //csv download Link
   const HrRecievedCSVData = () => {
@@ -160,12 +166,12 @@ const HrRecievedClaims = () => {
       allHrRecievedListArray && allHrRecievedListArray;
     if (allHrRecievedListArrayData) {
       HrRecievedClaimsData.push(
-        "ID,Policy Holder,Policy Name,Policy Code, Request Date,Status,Description\n"
+        "ID,Policy Holder,Policy Name,Policy Code, Request Date,Status\n"
       );
       allHrRecievedListArrayData.map((excelData) => {
         //console.log("ugugvcgvc",excelData)
         HrRecievedClaimsData.push(
-          `${excelData.id},${excelData.userPolicy.user.firstName}, ${excelData.userPolicy.policy.policyName}, ${excelData.userPolicy.policy.policyCode},${excelData.date},${excelData.verifyStatus},${excelData.userPolicy.policy.description}\n`
+          `${excelData.id},${excelData.userPolicy.user.firstName}, ${excelData.userPolicy.policy.policyName}, ${excelData.userPolicy.policy.policyCode},${excelData.date},${excelData.verifyStatus}\n`
         );
       });
     }
@@ -176,21 +182,25 @@ const HrRecievedClaims = () => {
   //Claims table service call started here
 
   const handleGetClaimsListServiceCall = async () => {
+    const data = {
+      verifyStatus:"Not Submited"
+    }
     try {
       let claimsDataArr = [];
-      const resp = await getClaimsList();
-      //console.log("gvgjv",resp)
+      const resp = await getClaimsList(data);
+      console.log("re",resp)
       setAllHrRecievedListArray(resp && resp.data);
       resp &&
         resp.data.map((data) => {
           const value = {
-            id: data.claim_details.claim_id,
+            id: data.claimCode,
             name: data.userPolicy.user.firstName,
             policyname: data.userPolicy.policy.policyName,
             code: data.userPolicy.policy.policyCode,
-            date: data.claim_details.createdAt,
+            date: data.claim_details ? data.claim_details.createdAt:'',
             status: data.verifyStatus,
             description: data.userPolicy.policy.description,
+            key:data.id
           };
           console.log(value);
           claimsDataArr.push(value);
@@ -212,15 +222,15 @@ const HrRecievedClaims = () => {
   //Filter & serach
   const handleFilterData = (filterData) => {
     const tableDataArr = [];
-    console.log("filterData", filterData);
+    // console.log("filterData", filterData);
     if (filterData.length > 0) {
       filterData.map((data, i) => {
         const value = {
-          id: data.claim_details.claim_id,
+          id: data.claimCode,
           name: data.userPolicy.user.firstName,
           policyname: data.userPolicy.policy.policyName,
           code: data.userPolicy.policy.policyCode,
-          date: data.claim_details.createdAt,
+          date: data.claim_details && data.claim_details.createdAt,
           status: data.verifyStatus,
           description: data.userPolicy.policy.description,
         };
@@ -241,7 +251,7 @@ const HrRecievedClaims = () => {
 
   const onSearch = (value) => {
     const claimsfilterData = allHrRecievedListArray.filter((data) => {
-      const itemData = data.verifyStatus.toUpperCase();
+      const itemData = data.claimCode.toUpperCase();
       const textData = value.toUpperCase();
       return itemData.indexOf(textData) > -1;
     });
@@ -253,6 +263,11 @@ const HrRecievedClaims = () => {
       <div className="container-fluid">
         {HrClaimsTablePage && (
           <div>
+              <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>claims</Breadcrumb.Item>
+            {/* <Breadcrumb.Item>claim Details</Breadcrumb.Item> */}
+          </Breadcrumb>
             <div
               className="row"
               style={{
@@ -272,7 +287,7 @@ const HrRecievedClaims = () => {
                 style={{ display: "flex", flexDirection: "row" }}
               >
                 <Search
-                  placeholder="search Policy"
+                  placeholder="search Claim Code"
                   onSearch={onSearch}
                   style={{
                     width: 300,
@@ -283,15 +298,15 @@ const HrRecievedClaims = () => {
                 </div>
                 <div
                 className="col-12 col-sm-3 col-md-3"
-                style={{ display: "flex", flexDirection: "row" }}
+                style={{ display: "flex", flexDirection: "row",justifyContent:"center" }}
               >
                 <Dropdown placement="bottomCenter" overlay={content} arrow>
                   <Button
                     style={{
                       borderRadius: "5px",
-                      marginRight: "10px",
-                      backgroundColor: "#61b33b",
+                      backgroundColor: "#8ec131",
                       color: "white",
+                      marginRight:"15px"
                     }}
                   >
                     <FilterOutlined /> Add Filters
@@ -300,12 +315,13 @@ const HrRecievedClaims = () => {
                 </div>
                 <div
                 className="col-12 col-sm-3 col-md-3"
-                style={{ display: "flex", flexDirection: "row" }}
+                style={{ display: "flex", flexDirection: "row",justifyContent:"center" }}
               >
                   <Button
                     style={{
                       color: "#ffffff",
-                      backgroundColor: "#000089",
+                      backgroundColor: "#002E5E",
+                      borderRadius:"5px"
                     }}
                   >
                     {/* Download PDF/CSV */}
@@ -317,6 +333,7 @@ const HrRecievedClaims = () => {
               </div>
             </div>
             <div className="DataTable">
+              {console.log("cd",ClaimsData)}
             <Table
               columns={columns}
               dataSource={ClaimsData}

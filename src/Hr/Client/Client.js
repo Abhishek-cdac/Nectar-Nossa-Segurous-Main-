@@ -3,6 +3,7 @@ import { getAllClientList } from "../../services/authentication";
 import NewClient from "./NewClient";
 import ClientDetails from "./ClientDetails";
 import { CSVLink } from "react-csv";
+import { Breadcrumb } from "antd";
 
 const Client = () => {
   const [ClientListArray, setClientListArray] = useState("");
@@ -99,7 +100,7 @@ const Client = () => {
   const onSearch = () => {
     const ClientfilterData = ClientListArray.filter((data) => {
       console.log("filter", ClientListArray);
-      const itemData = data.policy.policyType.toUpperCase();
+      const itemData =  data.policy.policyName.toUpperCase();
       const textData = policyTypeSearch && policyTypeSearch.toUpperCase();
       return itemData.indexOf(textData) > -1;
     });
@@ -138,19 +139,24 @@ const Client = () => {
     <>
       {ClientPage && (
         <div>
-          <div className="row d-flex align-items-center justify-content-between">
+            <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Client</Breadcrumb.Item>
+          </Breadcrumb>
+          <div className="row d-flex align-items-center justify-content-between" style={{paddingTop:"10px"}}>
             <div className="col-12 col-lg-3 col-md-3 text-left">
               <h3 className="mt-0 mb-4">Clients</h3>
             </div>
-            <div className="col-12 col-lg-9 col-md-9 text-right">
+            <div className="nav justify-content-center">
+              <div className="col-12 col-lg-3 col-md-3 col-sm-3">
               <div className="search-btn">
-                <div className="input-group" style={{ paddingTop: "15px",width:"30%"}}>
+                <div className="input-group" style={{ paddingTop: "15px", width:"100%"}}>
                   <input
                     value={policyTypeSearch}
                     onChange={handlesearch}
                     type="text"
                     className="form-control"
-                    placeholder="Search Category"
+                    placeholder="Search Policy Name"
                   />
                   <div className="input-group-append">
                     <button
@@ -163,23 +169,22 @@ const Client = () => {
                   </div>
                 </div>
               </div>
-              <div>
-               
+              </div>
+              <div className="col-12 col-lg-3 col-md-3 col-sm-3">
                 <a
                   onClick={() => handleNewClient()}
-                  className="print-card-btn green-btn float-left" style={{marginLeft:"30px",marginTop:"15px"}}
+                  className="print-card-btn green-btn float-left" style={{marginTop:"15px"}}
                 >
                   <button className="fas fa-plus-circle"></button> Add New
                   Client
                 </a>
               </div>
-
-              <div className="btn-group hover_drop_down">
-                <button
+              <div className="col-12 col-lg-3 col-md-3 col-sm-3">
+              <button
                   type="button"
-                  className="btn btn-success btn-sm my-3"
+                  className="btn btn-success btn-sm my-3 mx-2"
                   data-toggle="dropdown"
-                  style={{ width: "150px",marginRight:"30px" }}
+                  style={{ width: "135px"}}
                 >
                   <i className="fas fa-filter"></i> Add Filters
                 </button>
@@ -226,11 +231,14 @@ const Client = () => {
                   </li>
                 </ul>
               </div>
+              
+              <div className="col-12 col-lg-3 col-md-3 col-sm-3">
               <button type="button" className="btn btn-primary btn-sm my-3">
-                <CSVLink data={ClientCSV} target="_blank">
+                <CSVLink data={ClientCSV} target="_blank" style={{color:"white"}}>
                   Download PDF/CSV
                 </CSVLink>
               </button>
+              </div>
             </div>
           </div>
 
@@ -272,7 +280,7 @@ const Client = () => {
               </div>
               <div className="row">
                 <div className="col-md-6 col-sm-6 col-12">
-                  <small>Showing Results{ClientListArray.length}</small>
+                  <small>Showing Results {TableData.length}</small>
                 </div>
                
               </div>

@@ -1,378 +1,230 @@
 import React, { useState } from "react";
-// import "../UserPolicy.style.css";
-// import CreditCard from "./Creditcard";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ArrowLeftOutlined } from "@ant-design/icons";
-import {verifyServiceList} from "../../services/authentication"
-import { ContactsOutlined } from "@material-ui/icons";
+import { verifyServiceList } from "../../services/authentication";
+import { Breadcrumb } from "antd";
 
 const ServiceDetails = (props) => {
   const SelectedRecord = props && props.selectedRecord;
   const alldata = props && props.data;
   const status = props && props.status;
-  console.log("data",alldata)
-  console.log("selected",SelectedRecord)
+  console.log("data", alldata);
+  console.log("selected", SelectedRecord);
   const ServiceData =
-    alldata && alldata.filter((data) => data.serviceCode === SelectedRecord.serviceid)[0];
-    console.log("record",ServiceData)
-//   const [policyDetailsPage, setpolicyDetailsPage] = useState(true);
-//   const [paymentPage, setpaymentPage] = useState(false);
+    alldata &&
+    alldata.filter((data) => data.serviceCode === SelectedRecord.serviceid)[0];
+  console.log("record", ServiceData);
+  //   const [policyDetailsPage, setpolicyDetailsPage] = useState(true);
+  //   const [paymentPage, setpaymentPage] = useState(false);
+  const[color,setcolor] = useState()
   let navigate = useNavigate();
- 
-
- const handleverifyAPI =async(verifyStatus)=>{
-   const data={
-    "id":ServiceData.id,
-    "verifyStatus": verifyStatus,
-    "priorityStatus":ServiceData.priorityStatus
-   }
-   try{
-     const resp = await verifyServiceList(data);
-     console.log("respppp",resp)
-     handlesubmit()
-     handleCancel()
-   }
-   catch(error){
-     console.log("error",error)
-   }
-
- }
-
-  const handlesubmit = ()=>{
-     props.handlesubmit()
-  }
 
   
-  const handleCancel = ()=>{
+    // if(ServiceData && ServiceData.priorityStatus === "Low")
+    // {
+    //   setcolor("yellow")
+    // }
+    // else if(ServiceData && ServiceData.priorityStatus === "Medium")
+    // {
+    //   setcolor('#8ec131')
+    // }
+    // else(ServiceData && ServiceData.priorityStatus === "High")
+    // {
+    //   setcolor("red")
+    // }
+  
 
-  }
+  const handleverifyAPI = async (verifyStatus) => {
+    const data = {
+      id: ServiceData.id,
+      verifyStatus: verifyStatus,
+      priorityStatus: ServiceData.priorityStatus,
+    };
+    try {
+      const resp = await verifyServiceList(data);
+      console.log("respppp", resp);
+      handlesubmit();
+      // handleCancel();
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+  const handlesubmit = () => {
+    props.handlesubmit();
+  };
+
+  
   return (
     <>
+      <div className="container-fluid">
+        <Breadcrumb style={{ marginTop: "20px" }}>
+          <Breadcrumb.Item>Home</Breadcrumb.Item>
+          <Breadcrumb.Item>Service</Breadcrumb.Item>
+          <Breadcrumb.Item>Service Details</Breadcrumb.Item>
+        </Breadcrumb>
 
         <div>
-          {/* <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <title>Nossa-User | User Policy details</title>
-        <link href="./userpolicy_files/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous">
-        <script src="./userpolicy_files/all.min.js.download" crossorigin="anonymous"></script>
-    </head> */}
-
           <div>
-            {/* <nav className="sb-topnav navbar navbar-expand ">
-            <a className="navbar-brand" href="file:///D:/ReactNasso/nasso/src/user/Paypremium/index.html">
-            <img className="img-fluid" src="file:///D:/ReactNasso/nasso/src/user/Paypremium/assets/img/logo.png" alt="" width="80%"/>
+            <a
+              style={{
+                marginTop: "30px",
+                marginBottom: "30px",
+                fontSize: "20px",
+              }}
+              onClick={() => props.handleBack()}
+            >
+              <ArrowLeftOutlined style={{ marginBottom: "10px" }} /> BACK
             </a>
-            <button className="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
-           <svg className="svg-inline--fa fa-bars fa-w-14" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bars" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="">
-         <path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path>
-         </svg>
-           <i className="fas fa-bars"></i> Font Awesome fontawesome.com</button>
-            
+          </div>
 
-            <form className="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-                <div className="input-group custome-search">
-                    <input className="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2"/>
-                    <div className="input-group-append">
-                        <button className="btn btn-primary" type="button"><svg className="svg-inline--fa fa-search fa-w-16" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path></svg><i className="fas fa-search"></i> Font Awesome fontawesome.com </button>
-                    </div>
+          <div className="row d-flex align-items-center justify-content-between">
+            <div className="col-12">
+              <div className="heading-with-box">
+                <div className="row">
+                  <div className="col-lg-6 col-md-6 text-left">
+                    <h4>
+                      service Request ID. :{" "}
+                      <span className="color-green">
+                        {ServiceData && ServiceData.serviceCode}
+                      </span>
+                    </h4>
+                  </div>
+
+                  <div className="col-lg-6 col-md-6 text-right">    
+                     <button style={{backgroundColor:(ServiceData && ServiceData.priorityStatus === "High") ? "red"
+                     :(ServiceData && ServiceData.priorityStatus === "Low") ? "yellow" :"#8ec131",borderRadius:"5px"}}>
+                        <b>{ServiceData && ServiceData.priorityStatus}</b>
+                      </button>
+                  
+                  </div>
                 </div>
-            </form>
+              </div>
+            </div>
+          </div>
 
-            <ul className="navbar-nav ml-auto ml-md-0">
-                <li className="nav-item dropdown">
-                    <a className="nav-link dropdown-toggle " id="userDropdown" href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><svg className="svg-inline--fa fa-bell fa-w-14" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="bell" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M224 512c35.32 0 63.97-28.65 63.97-64H160.03c0 35.35 28.65 64 63.97 64zm215.39-149.71c-19.32-20.76-55.47-51.99-55.47-154.29 0-77.7-54.48-139.9-127.94-155.16V32c0-17.67-14.32-32-31.98-32s-31.98 14.33-31.98 32v20.84C118.56 68.1 64.08 130.3 64.08 208c0 102.3-36.15 133.53-55.47 154.29-6 6.45-8.66 14.16-8.61 21.71.11 16.4 12.98 32 32.1 32h383.8c19.12 0 32-15.6 32.1-32 .05-7.55-2.61-15.27-8.61-21.71z"></path> 
-                    </svg>
-                    <i className="fa fa-bell"></i> Font Awesome fontawesome.com</a>
-                    <div className="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a className="dropdown-item small" href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#">Jhon Submited the claims</a>
-                        <a className="dropdown-item small" href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#">MacMohn on leave today</a>
-                        <a className="dropdown-item small" href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#">Jerry submitted the application form</a>
-                        <a className="dropdown-item small" href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#">Jhon Submited the claims</a>
-                        <a className="dropdown-item small" href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#">MacMohn on leave today</a>
-                    </div>
-                </li>
-            </ul>
-            
-            <ul className="navbar-nav ml-auto ml-md-0">
-                <li className="nav-item dropdown">
-                    <a className="nav-link dropdown-toggle" id="userDropdown" href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="file:///D:/ReactNasso/nasso/src/user/Paypremium/assets/img/thumb.png" className="circle" width="35px" height="35px " alt=""/>
-                        </a>
-                    <div className="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a className="dropdown-item small" href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#">Edit Profile</a>
-                        <a className="dropdown-item small" href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#">My Inbox</a>
-                        <a className="dropdown-item small" href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#">Settings</a>
-                        <div className="dropdown-divider"></div>
-                        <a className="dropdown-item small" href="file:///D:/ReactNasso/nasso/src/user/Paypremium/login.html">Logout</a>
-                    </div>
-                </li>
-            </ul>
-        </nav> */}
-            <div id="layoutSidenav">
-              {/* <div id="layoutSidenav_nav">
-                <nav className="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div className="sb-sidenav-menu">
-                        <div className="nav mt-4">
-                            <a className="nav-link " href="file:///D:/ReactNasso/nasso/src/user/Paypremium/index.html">
-                            <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
-                                Dashboard
-                            </a>
-                            <a className="nav-link" href="file:///D:/ReactNasso/nasso/src/user/Paypremium/payment-history.html">
-                                 <div className="sb-nav-link-icon"><i className="fas fa-columns"></i></div>
-                                My Policies
-                                 <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
-                            </a>
-                             <div className="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                                <nav className="sb-sidenav-menu-nested nav">
-                                    <a className="nav-link" href="#">Submenu-1</a>
-                                    <a className="nav-link" href="#">Submenu-2</a>
-                                </nav>
-                            </div>
-                            
-                             <div className="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
-                                <nav className="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                    <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                        Add Employees
-                                        <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div className="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                                        <nav className="sb-sidenav-menu-nested nav">
-                                            <a className="nav-link" href="login.html">Login</a>
-                                            <a className="nav-link" href="register.html">Register</a>
-                                            <a className="nav-link" href="password.html">Forgot Password</a>
-                                        </nav>
-                                    </div>
-                                    <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                        Check Attendance
-                                        <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down"></i></div>
-                                    </a>
-                                    <div className="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                                        <nav className="sb-sidenav-menu-nested nav">
-                                            <a className="nav-link" href="401.html">401 Page</a>
-                                            <a className="nav-link" href="404.html">404 Page</a>
-                                            <a className="nav-link" href="500.html">500 Page</a>
-                                        </nav>
-                                    </div>
-                                </nav>
-                            </div>
-                            <a className="nav-link" href="file:///D:/ReactNasso/nasso/src/user/Paypremium/service-request.html">
-                                <div className="sb-nav-link-icon"><i className="fas fa-chart-area"></i></div> 
-                                Service Request
-                            </a>
-                            <a className="nav-link" href="file:///D:/ReactNasso/nasso/src/user/Paypremium/claims.html">
-                                <div className="sb-nav-link-icon"><i className="fas fa-table"></i></div>
-                                Claims
-                            </a>
-                            <a className="nav-link" href="file:///D:/ReactNasso/nasso/src/user/Paypremium/complaints.html">
-                                 <div className="sb-nav-link-icon"><i className="fas fa-table"></i></div>
-                                Complaints
-                            </a>
-                            <a className="nav-link" href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#">
-                                <div className="sb-nav-link-icon"><i className="fas fa-table"></i></div> 
-                                Settings
-                            </a>
-                        </div>
-                    </div>
-                       <div className="sb-sidenav-footer">
-                        <div className="small">Logged in as:</div>
-                        Start Bootstrap
-                    </div>
-                </nav>
-            </div> */}
-              <div id="layoutSidenav_content">
-                <main>
-                   <div>
-                    {/* <div className="row d-flex align-items-center justify-content-between">
-                      <div className="col-lg-12 text-left">
-                        <div className="breadcrumb-custom mt-4 mb-4">
-                          <ol className="breadcrumb">
-                            <li className="breadcrumb-item">
-                              <a href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#">
-                                Home
-                              </a>
-                            </li>
-                            <li className="breadcrumb-item">
-                              <a href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#">
-                                Pay Premium /
-                              </a>
-                            </li>
-                            <li className="breadcrumb-item">
-                              <a href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#">
-                                My Active Policies /{" "}
-                              </a>
-                            </li>
-                            <li
-                              className="breadcrumb-item active"
-                              aria-current="page"
-                            >
-                              {policyList && policyList.policy.policyCode}
-                            </li>
-                          </ol>
-                        </div>
-                      </div>
-                    </div>  */}
-                     <div>
-                              <a
-                                style={{
-                                  marginTop: "30px",
-                                  marginBottom: "30px",
-                                  fontSize: "20px",
-                                }}
-                                onClick={() => props.handleBack}
-                              >
-                                <ArrowLeftOutlined
-                                  style={{ paddingTop: "10px" }}
-                                />{" "}
-                                BACK
-                              </a>
-                            </div>
-
-                    <div className="row d-flex align-items-center justify-content-between">
-                      <div className="col-12">
-                        <div className="heading-with-box">
-                          <div className="row">
-                            <div className="col-lg-6 col-md-6 text-left">
-                              <h3>
-                                service Request ID. :{" "}
-                                <span className="color-green">
-                                  {ServiceData && ServiceData.serviceCode}
-                                </span>
-                              </h3>
-                            </div>
-                           
-                            <div className="col-lg-6 col-md-6 text-right">
-                              <a
-                                href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html"
-                                className="danger-color"
-                                data-toggle="modal"
-                                data-target="#addPolicyList"
-                              >
-                                Status: priority
-                                <span className="color-green">
-                                  {ServiceData && ServiceData.priorityStatus}
-                                </span>                              
-                                </a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="policy-box">
-                      <div className="row">
-                        <div className="col-12">
-                          <div className="table-data">
-                            <span>Requested BY</span>
-                            <b>
-                              {ServiceData && ServiceData.userPolicy.user.firstName}
-                              {/* {ServiceData && ServiceData.userPolicy.user.lastName} */}
-                            </b>
-                          </div>
-                        </div>
-                        <div className="clearfix"></div>
-                        <div className="col-12 col-md-3 col-sm-3">
-                          <div className="table-data">
-                            <span>Assigned to</span>
-                            <b>{ServiceData && ServiceData.userPolicy.agent.firstName}</b>
-                          </div>
-                        </div>
-                        <div className="col-12 col-md-3 col-sm-3">
-                          <div className="table-data">
-                            <span>Requested Date</span>
-                            <b>{ServiceData && ServiceData.date}</b>
-                          </div>
-                        </div>
-                      <div atyle={{display:"flex",flexDirection:"row"}}>
-                        <div className="col-12 col-md-3 col-sm-3">
-                          <div className="table-data">
-                            <span>policy</span>
-                            <b>{ServiceData && ServiceData.userPolicy.policy.policyName}</b>
-                          </div>
-                        </div>
-                        <div className="col-12 col-md-3 col-sm-3">
-                          <div className="table-data">
-                            <span>Policy Type</span>
-                            <b>{ServiceData && ServiceData.userPolicy.policy.policyType}</b>
-                          </div>
-                        </div>
-                        <div className="clearfix"></div>
-                        <div className="col-12 col-md-3 col-sm-3">
-                          <div className="table-data">
-                            <span>Policy No</span>
-                            <b>{ServiceData && ServiceData.userPolicy.policy.policyCode}</b>
-                          </div>
-                        </div>
-                      </div>
-                        {/* <div className="col-12 col-md-3 col-sm-3">
+          <div className="policy-box">
+            <div className="row">
+              <div className="col-12 col-md-3 col-sm-3">
+                <div className="table-data">
+                  <span>Requested BY</span>
+                  <b>
+                    {ServiceData && ServiceData.userPolicy.user.firstName}
+                    {/* {ServiceData && ServiceData.userPolicy.user.lastName} */}
+                  </b>
+                </div>
+              </div>
+              <div className="clearfix"></div>
+              <div className="col-12 col-md-3 col-sm-3">
+                <div className="table-data">
+                  <span>Assigned to</span>
+                  <b>{ServiceData && ServiceData.userPolicy.agent.firstName}</b>
+                </div>
+              </div>
+              <div className="col-12 col-md-3 col-sm-3">
+                <div className="table-data">
+                  <span>Requested Date</span>
+                  <b>{ServiceData && ServiceData.date}</b>
+                </div>
+              </div>
+              {/* <div atyle={{ display: "flex", flexDirection: "row" }}> */}
+                <div className="col-12 col-md-3 col-sm-3">
+                  <div className="table-data">
+                    <span>policy</span>
+                    <b>
+                      {ServiceData && ServiceData.userPolicy.policy.policyName}
+                    </b>
+                  </div>
+                </div>
+                <div className="col-12 col-md-3 col-sm-3">
+                  <div className="table-data">
+                    <span>Policy Type</span>
+                    <b>
+                      {ServiceData && ServiceData.userPolicy.policy.policyType}
+                    </b>
+                  </div>
+                </div>
+                <div className="clearfix"></div>
+                <div className="col-12 col-md-3 col-sm-3">
+                  <div className="table-data">
+                    <span>Policy No</span>
+                    <b>
+                      {ServiceData && ServiceData.userPolicy.policy.policyCode}
+                    </b>
+                  </div>
+                </div>
+              {/* </div> */}
+              {/* <div className="col-12 col-md-3 col-sm-3">
                           <div className="table-data">
                             <span>Premium</span>
                             <b>{policyList && policyList.premiumAmount}</b>
                           </div>
                         </div> */}
-                        <div className="col-12 col-md-3 col-sm-3">
-                          <div className="table-data">
-                            <span>Requested For</span>
-                            <b>{ServiceData && ServiceData.requested}</b>
-                          </div>
-                        </div>
-                        <div className="col-12 col-md-3 col-sm-3">
-                          <div className="table-data">&nbsp;</div>
-                        </div>
-                      </div>
-                      <div className="row">
-                        <div className="col-12 col-md-10">
-                          <div className="table-data">
-                            <span>Description</span>
-                            <p>{ServiceData && ServiceData.description}</p>
-                            <a
-                              data-toggle="collapse"
-                              href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#collapseExample"
-                              role="button"
-                              aria-expanded="false"
-                              aria-controls="collapseExample"
-                            >
-                              see more
-                            </a>
-                            {/* <div className="collapse" id="collapseExample">
+              <div className="col-12 col-md-3 col-sm-3">
+                <div className="table-data">
+                  <span>Requested For</span>
+                  <b>{ServiceData && ServiceData.requested}</b>
+                </div>
+              </div>
+              <div className="col-12 col-md-3 col-sm-3">
+                <div className="table-data">&nbsp;</div>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-12 col-md-10">
+                <div className="table-data">
+                  <span>Description</span>
+                  <p>{ServiceData && ServiceData.description}</p>
+                  <a
+                    data-toggle="collapse"
+                    href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#collapseExample"
+                    role="button"
+                    aria-expanded="false"
+                    aria-controls="collapseExample"
+                  >
+                    see more
+                  </a>
+                  {/* <div className="collapse" id="collapseExample">
                                             <p className="mt-2">
                                             {policyList && policyList.policy.policyCode}
                                             </p>
                                         </div> */}
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        {/* {status && ( */}
-                          <div className="row" style={{ display: "flex", flexDirection: "row",padding:"50px",justifyContent:"space-between"}}>
-                            {" "}
-                            <div className="col-12 col-md-3">
-                              <a
-                                href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#"
-                                className="btn-close"
-
-                                onClick={() => handleverifyAPI("Denied")}
-                              >
-                                Denied Request
-                              </a>
-                            </div>
-                            {/* <div className="col-12 col-md-2">
+                </div>
+              </div>
+            </div>
+            <div>
+              {/* {status && ( */}
+              <div
+                className="row"
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  padding: "50px",
+                  justifyContent: "space-between",
+                }}
+              >
+                {" "}
+                <div className="col-12 col-md-3">
+                  <a
+                    
+                    className="btn-close"
+                    onClick={() => handleverifyAPI("Denied")}
+                  >
+                    Denied Request
+                  </a>
+                </div>
+                {/* <div className="col-12 col-md-2">
                                 //     <a href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#" className="btn-close renew-btn">Renew Policy</a>
                                 // </div> */}
-                            <div className="col-12 col-md-3">
-                              <a
-                                href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#"
-                                className="btn-close premium-btn"
-                                 onClick={() => handleverifyAPI("Approved")}
-                              >
-                                Approve
-                              </a>
-                            </div>
-                            {/* <div className="col-12 col-md-3">
+                <div className="col-12 col-md-3">
+                  <a
+                    className="btn-close premium-btn"
+                    onClick={() => handleverifyAPI("Approved")}
+                  >
+                    Approve
+                  </a>
+                </div>
+                {/* <div className="col-12 col-md-3">
                               <a
                                 href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#"
                                 className="btn-close claim-btn"
@@ -381,10 +233,10 @@ const ServiceDetails = (props) => {
                                 Assign Request
                               </a>
                             </div> */}
-                          </div>
-                        {/* )} */}
-                        {/* {!status && ( */}
-                          {/* <div className="col-12 col-md-3">
+              </div>
+              {/* )} */}
+              {/* {!status && ( */}
+              {/* <div className="col-12 col-md-3">
                             <a
                               href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#"
                               className="btn-close renew-btn"
@@ -392,44 +244,31 @@ const ServiceDetails = (props) => {
                               Renew Policy
                             </a>
                           </div> */}
-                        {/* )} */}
-                      </div>
-                    </div>
-                  </div>
-                </main>
-                <footer className="py-4 bg-light mt-auto">
-                  <div className="container-fluid">
-                    <div className="d-flex align-items-center justify-content-between small">
-                      <div className="text-muted">Copyright © Nossa 2020</div>
-                      <div>
-                        <a href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#">
-                          Privacy Policy
-                        </a>
-                        ·
-                        <a href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#">
-                          Terms &amp; Conditions
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </footer>
-              </div>
+              {/* )} */}
             </div>
-            {/* <script src="./userpolicy_files/jquery-3.5.1.slim.min.js.download" crossorigin="anonymous"></script>
-        <script src="./userpolicy_files/bootstrap.bundle.min.js.download" crossorigin="anonymous"></script>
-        <script src="file:///D:/ReactNasso/nasso/src/user/Paypremium/js/scripts.js"></script>
-        <script src="./userpolicy_files/Chart.min.js.download" crossorigin="anonymous"></script>
-        <script src="file:///D:/ReactNasso/nasso/src/user/Paypremium/assets/demo/chart-area-demo.js"></script>
-        <script src="file:///D:/ReactNasso/nasso/src/user/Paypremium/assets/demo/chart-bar-demo.js"></script>
-        <script src="./userpolicy_files/jquery.dataTables.min.js.download" crossorigin="anonymous"></script>
-        <script src="./userpolicy_files/dataTables.bootstrap4.min.js.download" crossorigin="anonymous"></script>
-        <script src="file:///D:/ReactNasso/nasso/src/user/Paypremium/assets/demo/datatables-demo.js"></script> */}
           </div>
         </div>
-      )
-     
+
+        <footer className="py-4 bg-light mt-auto">
+          <div className="container-fluid">
+            <div className="d-flex align-items-center justify-content-between small">
+              <div className="text-muted">Copyright © Nossa 2020</div>
+              <div>
+                <a href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#">
+                  Privacy Policy
+                </a>
+                ·
+                <a href="file:///D:/ReactNasso/nasso/src/user/Paypremium/User-Policy-details.js.html#">
+                  Terms &amp; Conditions
+                </a>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+      </>
+      
     
-    </>
   );
 };
 export default ServiceDetails;

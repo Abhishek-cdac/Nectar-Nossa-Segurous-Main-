@@ -69,16 +69,6 @@ const values = {
     }
     return isPNG || Upload.LIST_IGNORE;
   },
-  // onChange(info) {
-  //   if (info.file.status !== 'uploading') {
-  //     console.log(info.file, info.fileList);
-  //   }
-  //   if (info.file.status === 'done') {
-  //     message.success(`${info.file.name} file uploaded successfully`);
-  //   } else if (info.file.status === 'error') {
-  //     message.error(`${info.file.name} file upload failed.`);
-  //   }
-  // },
   progress: {
     strokeColor: {
       "0%": "#108ee9",
@@ -88,6 +78,9 @@ const values = {
     format: (percent) => `${parseFloat(percent.toFixed(2))}%`,
   },
 };
+
+
+
 
 const Newclaim = (props) => {
   const [form] = Form.useForm();
@@ -131,6 +124,7 @@ const Newclaim = (props) => {
   const [InvestgationReportsFile, setInvestgationReportsfile] = useState({ selectedFile: null,selectedFileList: []});
   const [DoctorprescriptionsFile, setDoctorprescriptionsfile] = useState({ selectedFile: null,selectedFileList: []});
   const [OthersFile, setOthersfile] = useState({ selectedFile: null,selectedFileList: []});
+  const [file,setFile]=useState('')
   const getPolicyPayload = {
     premiumPlan: "",
     policy_id: "",
@@ -143,6 +137,13 @@ const Newclaim = (props) => {
       onSuccess("ok");
     }, 0);
   };
+
+  const handleFileChange = (event)=>{
+      console.log("ff",event)
+      setFile(event.target.files);
+      console.log("ff",file)
+
+  }
   const onFinish = async (values) => {
     const policyNum =
       getAllUserPolicyLI &&
@@ -150,68 +151,71 @@ const Newclaim = (props) => {
         (data) => data.policy.policyCode === values.policy_No
       )[0];
     console.log("policyNum", policyNum);
-    // Hospitalization_dueto: "male"
-    const payload = {
-      userPolicy_id: policyNum.id,
-      name: values.name,
-      phone: values.phone,
-      email: values.email,
-      address: values.address,
-      policy: values.PolicyName,
-      policyNo: values.policy_No,
-      coveredByOtherInsurance: values.healthINs,
-      diagnosis: values.diagnosis,
-      companyName: values.companyname,
-      // "sumInsured": sumInsured,
-      relationWithInsured: values.person_relation,
-      relationName: values.person_Name,
-      relationGender: values.person_Gender,
-      relationDOB: person_dateofBirth,
-      relationAge: values.person_Age,
-      relationOccupation: values.person_Occupation,
-      relationAddress: values.person_address,
-      relationPhone: values.person_Phone,
-      relationEmail: values.person_Email,
-      hospitalName: values.hospitalization_Addres,
-      roomCategory: values.hospitalization_room,
-      // "reason": claimreason,
-      injuryCause: values.Injury_given_cause,
-      dateInjury: hospitalization_dateofInjury,
-      dateAdmission: hospitalization_Addmission,
-      dateDischarge: hospitalization_Discharge,
-      preHospitalExpense: values.Pre_hospitalization_exp,
-      hospitalExpense: values.hospitalization_exp,
-      // "postHospitalExpense": postHospitalExpense,
-      healthCheckupExpense: values.Health_check,
-      ambulanceExpense: values.Ambulance,
-      otherExpense: values.clami_other_charges,
-      preHospitalDuration: values.Pre_hospitalization_period,
-      // "postHospitaDuration": postHospitalExpense,
-      hospitalDailyCash: values.hospital_daily_cash,
-      surgicalCash: values.surgical_cash,
-      criticalIllnessbenefit: values.critical_Illness_benefit,
-      convalescence: values.convalescence,
-      // "lumpSumBenefit": lumpSumBenefit,
-      otherCharges: values.other_charges,
-      lumpSumBenefitDetail: values.lumo_Sum_Total,
-      token: Token,
-      claimFormFile: claimFormFile,
-      claimCopyFormFile: copyOfClaimFile,
-      hospitalMainBillFile: hospitalMainBillFile,
-      hospitalBreakupFile: hospitalBreakupFile,
-      hospitalBillPaymentFile: hospitalBillPaymentFile,
-      hospitalBillPaymentFile: hospitalBillPaymentFile,
-      hospitalDischargeFile: hospitalDischargeFile,
-      pharmacyBillFile: pharmacyBillFile,
-      OperationTheaterFile: OperationTheaterFile,
-      ECGFile: ECGFile,
-      DoctorRequestFile: DoctorRequestFile,
-      InvestgationReportsFile: InvestgationReportsFile,
-      DoctorprescriptionsFile: DoctorprescriptionsFile,
-      OthersFile: OthersFile,
-    };
+    const formData = new FormData();
+    console.log("ot",file)
+    console.log("otfile",formData)
+      formData.append("userPolicy_id", policyNum.id);
+     formData.append("name",values.name);
+      formData.append("phone",values.phone);
+      formData.append("email",values.email);
+      formData.append("address",values.address);
+      formData.append ("policy",values.PolicyName);
+       formData.append ("policyNo",values.policy_No);
+      formData.append ("coveredByOtherInsurance",values.healthINs);
+      formData.append ("diagnosis",values.diagnosis);
+      formData.append ("companyName",values.companyname)
+      // formData.append ("sumInsured",sumInsured);
+      formData.append ("relationWithInsured",values.person_relation);
+      formData.append ("relationName" , values.person_Name);
+      formData.append ("relationGender", values.person_Gender);
+      formData.append ("relationDOB" , person_dateofBirth);
+      formData.append ("relationAge",values.person_Age);
+      formData.append ("relationOccupation" , values.person_Occupation);
+      formData.append ("relationAddress",values.person_address);
+      formData.append ("relationPhone" , values.person_Phone);
+      formData.append ("relationEmail",values.person_Email);
+      formData.append ("hospitalName",values.hospitalization_Addres);
+      formData.append ("roomCategory",values.hospitalization_room);
+      // formData.append ("reason",claimreason);
+      formData.append ("injuryCause",  values.Injury_given_cause);
+      formData.append ("dateInjury",  hospitalization_dateofInjury);
+      formData.append ("dateAdmission",  hospitalization_Addmission);
+      formData.append ("dateDischarge" , hospitalization_Discharge);
+      formData.append ("preHospitalExpense",  values.Pre_hospitalization_exp);
+      formData.append ("hospitalExpense" , values.hospitalization_exp);
+      // formData.append ("postHospitalExpense",  postHospitalExpense);
+      formData.append ("healthCheckupExpense" , values.Health_check);
+      formData.append ("ambulanceExpense",  values.Ambulance);
+      formData.append ("otherExpense" , values.clami_other_charges);
+      formData.append ("preHospitalDuration",  values.Pre_hospitalization_period);
+      // formData.append ("postHospitaDuration" , postHospitalExpense);
+      formData.append ("hospitalDailyCash",  values.hospital_daily_cash);
+      formData.append ("surgicalCash" , values.surgical_cash);
+      formData.append ("criticalIllnessbenefit",  values.critical_Illness_benefit);
+      formData.append ("convalescence"  ,values.convalescence);
+      // formData.append ("lumpSumBenefit",  lumpSumBenefit);
+      formData.append ("otherCharges" , values.other_charges);
+      formData.append ("lumpSumBenefitDetail",  values.lumo_Sum_Total);
+      formData.append ("token",Token);
+      formData.append ("claimFormFile" , claimFormFile.selectedFile);
+      formData.append ("claimCopyFormFile",  copyOfClaimFile.selectedFile);
+      formData.append ("hospitalMainBillFile" , hospitalMainBillFile.selectedFile);
+      formData.append ("hospitalBreakupFile",  hospitalBreakupFile.selectedFile);
+      formData.append ("hospitalBillPaymentFile", JSON.stringify(hospitalBillPaymentFile.selectedFile));
+      // formData.append ("hospitalBillPaymentFile",  hospitalBillPaymentFile.selectedFile);
+      formData.append ("hospitalDischargeFile" , hospitalDischargeFile.selectedFile);
+      formData.append ("pharmacyBillFile",  pharmacyBillFile.selectedFile);
+      formData.append ("OperationTheaterFile",  OperationTheaterFile.selectedFile);
+      formData.append ("ECGFile",  ECGFile.selectedFile);
+      formData.append ("DoctorRequestFile" , DoctorRequestFile.selectedFile);
+      formData.append ("InvestgationReportsFile",  InvestgationReportsFile.selectedFile);
+      formData.append ("DoctorprescriptionsFile", DoctorprescriptionsFile.selectedFile);
+      // formData.append ("OthersFile",OthersFile.selectedFile);
+      formData.append("file",file)
+    
+
     try {
-      const resp = await getAddClaim(payload);
+      const resp = await getAddClaim(formData);
       console.log("record added successfuly");
       handleBack();
     } catch (error) {
@@ -366,8 +370,9 @@ const Newclaim = (props) => {
       onSuccess("ok");
     }, 0);
   };
-  const handledUpload = (info) =>{
+  const handledUpload = (info,fileList) =>{
     const nextState = {};
+    console.log('info',info,fileList)
     switch (info.file.status) {
       case "uploading":
         nextState.selectedFileList = [info.file];
@@ -445,7 +450,7 @@ const onPrescriptionChange = info =>{
         
         onFinish={onFinish}
         //  onFinishFailed={onFinishFailed}
-      >
+        method="post" enctype="multipart/form-data">
         <Collapse
           col={{ span: 8 }}
           wrapperCol={{ span: 16 }}
@@ -1386,9 +1391,19 @@ const onPrescriptionChange = info =>{
                 Others
               </Checkbox>
               <div style={{display:'flex'}}>
+                {/* <Form.Item
+                       type="file"
+                      id="file"
+                     > */}
+           <Upload  onClick={handleFileChange} customRequest={dummyRequest}><Button>Choose File</Button></Upload>
+                {/* </Form.Item> */}
+              {/* <Form.Item 
+                name="otherfile"
+                 fileList={OthersFile.selectedFileList}>
               <Upload
-                fileList={OthersFile.selectedFileList}
-                customRequest={dummyRequest}
+              accept="Pdf,image/png,image/jpeg"
+               
+                
                 onChange={onChange}
                 itemRender ={(existingComp, file)=>{
                   return <p style={{width:'125px'}}>{file.name}</p>
@@ -1396,6 +1411,7 @@ const onPrescriptionChange = info =>{
               >
                 <Button  icon={<UploadOutlined />}>Choose File</Button>
               </Upload>
+              </Form.Item> */}
               </div>
             </div>
           </Panel>

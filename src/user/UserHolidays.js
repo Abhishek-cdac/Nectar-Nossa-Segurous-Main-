@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import {Table} from "react-bootstrap";
 import { getHolidaysList } from "../services/authentication"
 import { CSVLink } from "react-csv";
+import {Breadcrumb} from "antd"
+import ReactPaginate from "react-paginate";
 
 function UserHolidays() {
   const [HolidaysData, setHolidaysData] = useState("");
@@ -72,6 +74,15 @@ function UserHolidays() {
   };
   const HolidayCSV = HolidayCSVdata();
 
+  const [pageNumber, setPageNumber] = useState(0);
+  const usersPerPage = 10;
+  const pagesVisited = pageNumber * usersPerPage;
+  const pageCount = Math.ceil(TableData.length / usersPerPage);
+  // const pageCount2 = Math.ceil(ClinicalData.length / usersPerPage);
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
+
   //Filter
   const handleFilterData = (filterData) => {
     const tableDataArr = [];
@@ -100,21 +111,31 @@ function UserHolidays() {
 
   return (
     <>
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-xl-7  col-lg-4 col-md-4 col-sm-3">
-            <h4 id="head" className="my-3 mx-5">
+      <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Holidays</Breadcrumb.Item>
+          </Breadcrumb>
+      <div className="container-fluid" style={{paddingTop:"10px"}}>
+        <div className="row" style={{
+                marginTop: "20px",
+                marginBottom: "25px",
+                display: "flex",
+                justifyContent: "space-between",
+                flexDirection: "row",
+              }}>
+          <div className="col-12 col-sm-3 col-md-3">
+            <h4 id="head">
               Holiday List 2022
             </h4>
           </div>
-          <div className="col-xl-5  col-lg-4 col-md-3 col-sm-2">
-            <div className="header">
-              <div className="btn-group hover_drop_down">
+          <div className="header justify-content-center">
+          <div className="btn-group hover_drop_down">
+              <div className="col-xl-5  col-lg-5 col-md-5 col-sm-12">
                 <button
                   type="button"
-                  className="btn btn-success btn-sm my-3"
+                  className="btn btn-success btn-sm"
                   data-toggle="dropdown"
-                  style={{ width: "130px" }}
+                  style={{ width: "130px", borderRadius:"5px" }}
                 >
                   <i className="fas fa-filter"></i> Add Filters
                 </button>
@@ -147,17 +168,19 @@ function UserHolidays() {
                     </a>
                   </li>
                 </ul>
-                <button type="button" className="btn btn-primary btn-sm my-3">
-                  <CSVLink data={HolidayCSV} target="_blank">
+              </div>
+          </div>
+          <div className="col-xl-7  col-lg-7 col-md-7 col-sm-12">
+              <button type="button" className="btn btn-primary btn-sm">
+                  <CSVLink data={HolidayCSV} target="_blank" style={{color:"white"}}>
                     Download PDF/CSV
                   </CSVLink>
                 </button>
               </div>
-            </div>
           </div>
         </div>
         <div className="row">
-          <div className="col-xl-12  col-lg-9 col-md-6 col-sm-4">
+          <div className="col-xl-12  col-lg-12 col-md-12 col-sm-12">
             <Table responsive>
               <thead>
                 <tr>
@@ -171,7 +194,7 @@ function UserHolidays() {
               </thead>
               <tbody>
                 {TableData &&
-                  TableData.map((item) => (
+                  TableData.slice(pagesVisited, pagesVisited + usersPerPage).map((item) => (
                     <tr>
                       <td>{item.id}</td>
                       <td>{item.Name}</td>
@@ -185,29 +208,21 @@ function UserHolidays() {
           </div>
         </div>
         <div className="row">
-          <div className="col-xl-9  col-lg-6 col-md-4 col-sm-2">
-          Shown Results{HolidayListArray.length}
+          <div className="col-xl-8  col-lg-8 col-md-8 col-sm-8 col-xs-12">
+            Shown Total Results {TableData.length}
           </div>
-          <div className="col-xl-3  col-lg-3 col-md-2 col-sm-1">
-            <nav aria-label="Page navigation example">
-              <ul className="pagination">
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    Prev
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    1
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    Next
-                  </a>
-                </li>
-              </ul>
-            </nav>
+          <div className="col-xl-4  col-lg-4 col-md-4 col-sm-4 col-xs-12" style={{padding:"20px"}}>
+            <ReactPaginate 
+              previousLabel={"Previous"}
+              nextLabel={"Next"}
+              pageCount={pageCount}
+              onPageChange={changePage}
+              containerClassName={"paginationBttns"}
+              previousLinkClassName={"previousBttn"}
+              nextLinkClassName={"nextBttn"}
+              disabledClassName={"paginationDisabled"}
+              activeClassName={"paginationActive"}
+            />
           </div>
         </div>
       </div>

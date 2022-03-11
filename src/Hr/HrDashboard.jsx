@@ -26,7 +26,7 @@ export default function Dashboard() {
                     <Col
                       span={4}
                       style={{
-                        color: "#61b33b",
+                        color: "#8ec131",
                         fontSize: "24px",
                         fontWeight: 600,
                       }}
@@ -42,7 +42,7 @@ export default function Dashboard() {
                   </Col>
 
                   <Col span={4}>
-                    <ArrowRightOutlined style={{ color: "#61b33b" }} />
+                    <ArrowRightOutlined style={{ color: "#8ec131" }} />
                   </Col>
                 </Row>
               </Card>
@@ -65,7 +65,7 @@ export default function Dashboard() {
                   </Col>
 
                   <Col span={4}>
-                    <ArrowRightOutlined style={{ color: "#61b33b" }} />
+                    <ArrowRightOutlined style={{ color: "#8ec131" }} />
                   </Col>
                 </Row>
               </Card>
@@ -81,7 +81,7 @@ export default function Dashboard() {
                     <Col
                       span={4}
                       style={{
-                        color: "#61b33b",
+                        color: "#8ec131",
                         fontSize: "24px",
                         fontWeight: 600,
                       }}
@@ -98,7 +98,7 @@ export default function Dashboard() {
                   </Col>
 
                   <Col span={4}>
-                    <ArrowRightOutlined style={{ color: "#61b33b" }} />
+                    <ArrowRightOutlined style={{ color: "#8ec131" }} />
                   </Col>
                 </Row>
               </Card>
@@ -114,7 +114,7 @@ export default function Dashboard() {
                     <Col
                       span={4}
                       style={{
-                        color: "#61b33b",
+                        color: "#8ec131",
                         fontSize: "24px",
                         fontWeight: 600,
                       }}
@@ -130,7 +130,7 @@ export default function Dashboard() {
                   </Col>
 
                   <Col span={4}>
-                    <ArrowRightOutlined style={{ color: "#61b33b" }} />
+                    <ArrowRightOutlined style={{ color: "#8ec131" }} />
                   </Col>
                 </Row>
               </Card>
@@ -175,7 +175,7 @@ export default function Dashboard() {
                     </Col>
 
                     <Col span={4}>
-                      <ArrowUpOutlined style={{ color: "#61b33b" }} />
+                      <ArrowUpOutlined style={{ color: "#8ec131" }} />
                     </Col>
                   </Row>
                 </div>
@@ -204,7 +204,7 @@ export default function Dashboard() {
               <Card>
                 <div
                   style={{
-                    backgroundColor: "#61b33b",
+                    backgroundColor: "#8ec131",
                   }}
                 >
                   <Row style={{ color: "#ffffff",fontSize: "18px",
@@ -277,7 +277,7 @@ export default function Dashboard() {
       <div> 
         <h2>GRAPHS</h2>
       </div>
-      <div style={{display:"flex"}}>
+      <div className="container-fluid" style={{display:"flex"}}>
       <LineGraph/>
       <LineGraph/>
       </div>

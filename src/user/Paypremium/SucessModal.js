@@ -1,12 +1,17 @@
-import React from "react";
+import React,{useContext} from "react";
 import "./UserPolicy.style.css";
 import invoice from "../../images/invoice.png"
-import { useNavigate } from "react-router-dom";
 
 
-const SucessModal = () => {
 
-  let navigate = useNavigate();
+
+
+const SucessModal = (props) => {
+
+ const handleSucessBack = () =>{
+  props.handleSucessBack()
+ }
+
   return (
 
           <div className="invoice-start-box">
@@ -30,14 +35,16 @@ const SucessModal = () => {
               <h2>Premium Paid successfully</h2>
             </div>
             <div className="modal-footer">
+              {/* <UserContext.Consumer> */}
               <button
                 type="button"
                 className="btn btn-secondary"
                 data-dismiss="modal"
-                onClick={()=>navigate("user/paypremium")}
+                onClick={handleSucessBack} 
               >
                 Close
               </button>
+              {/* </UserContext.Consumer> */}
               <button type="button" className="btn btn-primary">
                 Download Invoice
               </button>

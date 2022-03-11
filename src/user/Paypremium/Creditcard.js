@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import {Creditcardinfo} from "../../services/authentication"
 import {ArrowLeftOutlined} from "@ant-design/icons";
 import SucessModal from "../Paypremium/SucessModal"
+import credit from "../../assets/img/credit.png"
 
 function CreditCard(props) {
   const data = props.selectedRecord;
@@ -26,10 +27,16 @@ function CreditCard(props) {
   const [showAddCC, setShowAddCC] = useState();
   const [showDeleteModal, setShowDeleteModal] = useState();
   const [cardId, setCardId] = useState();
+  
 
   const navigate = useNavigate();
   const year = (new Date()).getFullYear();
   const years = Array.from(new Array(20),(val, index) => index + year);
+
+  const handleSucessBack = () =>{
+    setCreditCardPage(true)
+    setSuccessPage(false)
+  }
 
   const handleBack = () =>{
     props.handleBackToUserPolicy()
@@ -184,7 +191,8 @@ function CreditCard(props) {
 
   const handlePaymentServiceCall = async() =>{
     const payLoad= {
-      id:data.key,
+      //id:data.key,
+      id:1,
       paymentType:"online",
       paymentStatus:"success",
       paymentDate:"2022-01-13 12:54:00"
@@ -239,8 +247,8 @@ function CreditCard(props) {
                 </div>
                 {
                   getCardType(cc.number) === "Visa" ?
-                  <img src="/assets/images/visa1.png" className="img-fluid ml-3" /> : 
-                  <img src="/assets/images/mastercard.png" className="img-fluid ml-3" /> 
+                  <img src={credit} className="img-fluid ml-3" /> : 
+                  <img src={credit} className="img-fluid ml-3" /> 
                 }
                                  
                 </div>
@@ -364,7 +372,7 @@ function CreditCard(props) {
                     value={expMonth}
                     as="select" 
                     size="sm" 
-                    custom
+                    custom="custom"
                     onChange={(e) => setCardDetails({ ...cardDetails, expMonth: e.target.value })}
                   >
                     <option value="01">01</option>
@@ -389,7 +397,7 @@ function CreditCard(props) {
                     value={expYear}
                     as="select" 
                     size="sm" 
-                    custom
+                    custom="custom"
                     onChange={(e) => setCardDetails({ ...cardDetails, expYear: e.target.value })}>
                   {
                     years.map((year, index) => {
@@ -413,8 +421,8 @@ function CreditCard(props) {
                 }
               />
             </Col>
-            <Col md={2}>
-              <img src="/assets/images/visa.png" className="img-fluid mt-4" />
+            <Col md={3}>
+              <img src={credit} className="img-fluid mt-4"  style={{paddingTop:"20px"}}/>
             </Col>
           </Row>
 
@@ -453,7 +461,7 @@ function CreditCard(props) {
         }}
       />
       </div>}
-      {successPage && <SucessModal/>}
+      {successPage && <SucessModal handleSucessBack={handleSucessBack}/>}
     </>
   );
 }

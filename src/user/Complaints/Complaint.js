@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Table, Modal } from "antd";
+import { Button, Table, Modal,Breadcrumb } from "antd";
 import { CSVLink } from "react-csv";
 import DeleteSucess from "./DeleteSucess";
 import { EditOutlined, DeleteOutlined, EyeOutlined,PlusOutlined } from "@ant-design/icons";
@@ -12,6 +12,7 @@ import {
 } from "../../services/authentication";
 import ComplaintDetails from "./ComplaintDetails";
 import NewComplaint from "./NewComplaint";
+import ModalHeader from "react-bootstrap/esm/ModalHeader";
 
 
 const Complaint = () => {
@@ -86,6 +87,7 @@ const Complaint = () => {
             status: data.verifyStatus,
             description: data.description,
             subject: data.subject,
+            key:data.id
           };
           console.log(value);
           complaintsDataArr.push(value);
@@ -149,20 +151,22 @@ const Complaint = () => {
   };
 
   const columns = [
-    {
-      title: "Id",
-      dataIndex: "user_id",
-      key: "user_id",
-    },
+    // {
+    //   title: "Id",
+    //   dataIndex: "user_id",
+    //   key: "user_id",
+    //   align:"center",
+    // },
 
     {
       title: "Complaint Id",
       dataIndex: "id",
       key: "id",
+      align:"center",
 
       render: (text, record) => (
         <div>
-          {record.status === "Approved" ? (
+          {record.status === "Resolved" ? (
             <a
               style={{ color: "#4cbb17" }}
               onClick={() => handleComplaintIdClick(text, record)}
@@ -179,33 +183,39 @@ const Complaint = () => {
       title: "Policy Name",
       dataIndex: "PolicyName",
       key: "name",
+      align:"center",
     },
 
     {
       title: "Description",
       dataIndex: "description",
       key: "description",
+      align:"center",
     },
 
     {
       title: "Complaint Date",
       dataIndex: "date",
       key: "date",
+      align:"center",
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
+      align:"center",
     },
-    {
-      title: "Subject",
-      dataIndex: "subject",
-      key: "subject",
-    },
+    // {
+    //   title: "Subject",
+    //   dataIndex: "subject",
+    //   key: "subject",
+    //   align:"center",
+    // },
 
     {
       title: "Options",
       key: "option",
+      align:"center",
 
       render: (text, record) => {
         return (
@@ -256,8 +266,12 @@ const Complaint = () => {
       {complaintTablepage && (
         <div>
           <div className="container-fluid">
+          <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Complaints</Breadcrumb.Item>
+          </Breadcrumb>
             <div
-              className="ant-row"
+              className="row"
               style={{
                 marginTop: "20px",
                 marginBottom: "25px",
@@ -269,12 +283,12 @@ const Complaint = () => {
               <div className="col-12 col-sm-3 col-md-3">
                 <h3>My Complaints</h3>
               </div>
-
-              <div className="col-12 col-sm-3 col-md-3">
+              <div className="nav justify-content-center">
+              <div className="col-12 col-sm-6 col-md-6">
                 <Button
                   style={{
                     borderRadius: "5px",
-                    backgroundColor: "#61b33b",
+                    backgroundColor: "#8ec131",
                     color: "white",
                   }}
                   onClick={() => handleNewComplaintClick()}
@@ -282,11 +296,11 @@ const Complaint = () => {
                  <PlusOutlined style={{ paddingTop: "5px" }} /> New Complaint
                 </Button>
               </div>
-              <div className="col-12 col-sm-3 col-md-3">
+              <div className="col-12 col-sm-6 col-md-6">
                 <Button
                   style={{
                     color: "#ffffff",
-                    backgroundColor: "#000089",
+                    backgroundColor: "#002E5E",
                     borderRadius: "5px",
                   }}
                 >
@@ -295,6 +309,7 @@ const Complaint = () => {
                     Download PDF/CSV
                   </CSVLink>
                 </Button>
+              </div>
               </div>
             </div>
           </div>
@@ -315,63 +330,65 @@ const Complaint = () => {
 
           <div>
             <Modal
-              title="Edit Complaint"
               visible={IsEditModalVisible}
               onOk={handleEditComplaintListAPI}
               onCancel={handelEditCancel}
             >
-              <input
-                style={{
-                  height: "30px",
-                  width: "300px",
-                  marginTop: "10px",
-                  marginLeft: "80px",
-                }}
+                 <ModalHeader
+              style={{
+                justifyContent: "center",
+                fontSize: "18px",
+                fontWeight: "bolder",
+                color: "#000089", 
+                paddingBottom:"10px"
+              }}
+            >
+              Edit Complaint
+            </ModalHeader>
+
+              <form className="col-12">
+              <div className="form-group mb-4">
+                <input
+                key={id}
+                  className="col-xs-12 w-100"
                 type="Id"
                 placeholder="Id"
                 value={id}
                 onChange={(e) => setID(e.target.value)}
               />
-              <br />
-
-              <input
-                style={{
-                  height: "30px",
-                  width: "300px",
-                  marginTop: "10px",
-                  marginLeft: "80px",
-                }}
+              </div>
+              <div className="form-group mb-4">
+                <input
+                key={subject}
+                  className="col-xs-12 w-100"
                 type="subject"
                 placeholder="subject"
                 value={subject}
                 onChange={(e) => setsubject(e.target.value)}
               />
-              <br />
-              <input
-                style={{
-                  height: "30px",
-                  width: "300px",
-                  marginTop: "10px",
-                  marginLeft: "80px",
-                }}
+            </div>
+            <div className="form-group mb-4">
+                <input
+                key={complaintDate}
+                className="col-xs-12 w-100"
                 type="Date"
                 placeholder="Complaint Date"
                 value={complaintDate}
                 onChange={(e) => setComplaintDate(e.target.value)}
               />
-              <br />
+            </div>
 
-              <textarea
-                style={{
-                  width: "230px",
-                  marginTop: "10px",
-                  marginLeft: "80px",
-                }}
+            <div className="form-group mb-4">
+                <textarea
+                key={complaintDescription}
+                  className="col-xs-12 w-100"
                 type="Textarea"
                 placeholder="complaint Description"
                 value={complaintDescription}
                 onChange={(e) => setComplaintDescription(e.target.value)}
               />
+              </div>
+              </form>
             </Modal>
           </div>
         </div>

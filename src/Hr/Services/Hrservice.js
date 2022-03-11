@@ -52,7 +52,7 @@ function HrServices() {
     try {
       let tableDataArr = [];
       const resp = await getServiceList(data);
-      console.log("resp",resp)
+      //console.log("resp",resp)
       setServiceListArray(resp && resp.data);
       resp &&
         resp.data.map((data, i) => {
@@ -64,16 +64,17 @@ function HrServices() {
             priority: data.priorityStatus,
             status: data.verifyStatus,
             owner: data.userPolicy.agent.firstName,
+            key:data.serviceCode,
 
           };
-          console.log(value);
+          //console.log(value);
           tableDataArr.push(value);
         });
-      console.log("tableDataArr in premium", tableDataArr);
+      //console.log("tableDataArr in premium", tableDataArr);
       setTableData(tableDataArr);
-      console.log("resp", resp);
+      //console.log("resp", resp);
     } catch (error) {
-      console.log("error", error);
+      //console.log("error", error);
     }
   };
   useEffect(() => {
@@ -83,17 +84,18 @@ function HrServices() {
   ///LIST API SERVICE CALL AND FUNCTIONALITY ENDED
   const handleFilterData = (filterData) => {
     const tableDataArr = [];
-    console.log("filterData", filterData);
+    //console.log("filterData", filterData);
     if (filterData.length > 0) {
       filterData.map((data, i) => {
         const value = {
-            serviceid: data.serviceCode,
-            servicename: data.serviceName,
-            requestedby: data.userPolicy.user.firstName,
-            reqesteddate: data.date,
-            tags: data.priorityStatus,
-            status: data.verifyStatus,
-            owner: data.userPolicy.agent.firstName,
+          serviceid: data.serviceCode,
+          servicename: data.serviceName,
+          requestedby: data.userPolicy.user.firstName,
+          reqesteddate: data.date,
+          tags: data.priorityStatus,
+          status: data.verifyStatus,
+          owner: data.userPolicy.agent.firstName,
+          
         };
         tableDataArr.push(value);
       });
@@ -101,9 +103,10 @@ function HrServices() {
     return tableDataArr;
   };
 
+
   const onSearch = (value) => {
     const servicefilterData = ServiceListArray.filter((data) => {
-      const itemData = data.verifyStatus.toUpperCase();
+      const itemData = data.serviceCode.toUpperCase();
       const textData = value.toUpperCase();
       return itemData.indexOf(textData) > -1;
     });
@@ -115,8 +118,8 @@ function HrServices() {
     const servicefilterData = ServiceListArray.filter(
       (data) => data.verifyStatus === status
     );
-    console.log("sf",ServiceListArray)
-    console.log("status",status)
+    //console.log("sf", ServiceListArray);
+    //console.log("status", status);
     const filterData = handleFilterData(servicefilterData);
     setTableData(filterData);
   };
@@ -152,9 +155,9 @@ const handlesubmit = ()=>{
         <a
           target="_blank"
           rel="noopener norefer"
-          onClick={() => handleClick("Resolved")}
+          onClick={() => handleClick("Approved")}
         >
-          Resolved
+          Approved
         </a>
       </Menu.Item>
       <Menu.Item>
@@ -203,9 +206,9 @@ const handlesubmit = ()=>{
         <a
           target="_blank"
           rel="noopener norefer"
-          onClick={() => handleClick("Reject")}
+          onClick={() => handleClick("Rejected")}
         >
-          Reject Request
+          Rejected Request
         </a>
       </Menu.Item>
     </Menu>
@@ -221,9 +224,9 @@ const handlesubmit = ()=>{
         "Service ID, Service Name, Requested By,Requested Date, Priority, Status, Owned by\n"
       );
       serviceRequestData.map((excelData) => {
-        console.log("exceldata", excelData);
+        //console.log("exceldata", excelData);
         serviceData.push(
-          `${excelData.serviceCode}, ${excelData.serviceName},${excelData.userPolicy.user.firstName}${excelData.userPolicy.user.lastName},${excelData.date}, ${excelData.priorityStatus},${excelData.verifyStatus},${excelData.userPolicy.agent.firstName}\n`
+          `${excelData.serviceCode},${excelData.serviceName},${excelData.userPolicy.user.firstName}${excelData.userPolicy.user.lastName},${excelData.date}, ${excelData.priorityStatus},${excelData.verifyStatus},${excelData.userPolicy.agent.firstName}\n`
         );
       });
     }
@@ -272,19 +275,19 @@ const handlesubmit = ()=>{
         title: "Priority",
         key: "priority",
         dataIndex: "priority",
-        // render: (tags) => (
+        // render: (priority) => (
         //   <>
-        //     {tags.map((tag) => {
-        //       let color = tag.length > 5 ? "#39A405" : "#39A405";
-        //       if (tag === "urgent") {
+        //     {priority.map((priority) => {
+        //       let color = priority.length > 5 ? "#39A405" : "#39A405";
+        //       if (priority === "urgent") {
         //         color = "#FF0000";
         //       }
-        //       if (tag === "Low") {
+        //       if (priority === "Low") {
         //         color = "#E5C110";
         //       }
         //       return (
-        //         <Tag color={color} key={tag}>
-        //           {tag.toUpperCase()}
+        //         <Tag color={color} key={priority}>
+        //           {priority.toUpperCase()}
         //         </Tag>
         //       );
         //     })}
@@ -325,7 +328,7 @@ const handlesubmit = ()=>{
   // UI part started
 
   return (
-    <>
+    <div>
     {serviceRequestPage &&
       <div className="container-fluid">
           <Breadcrumb style={{ marginTop: "20px" }}>
@@ -351,7 +354,7 @@ const handlesubmit = ()=>{
                 style={{ display: "flex", flexDirection: "row" }}
               >
                 <Search
-                  placeholder="search Policy"
+                  placeholder="search service Code"
                   onSearch={onSearch}
                   style={{
                     borderRadius: "25px",
@@ -360,14 +363,15 @@ const handlesubmit = ()=>{
               </div>
               <div
                 className="col-12 col-sm-3 col-md-3"
-                style={{ display: "flex", flexDirection: "row" }}
+                style={{ display: "flex", flexDirection: "row",justifyContent:"center" }}
               >
                 <Dropdown placement="bottomCenter" overlay={content} arrow>
                   <Button
                     style={{
                       borderRadius: "5px",
-                      backgroundColor: "#61b33b",
+                      backgroundColor: "#8ec131",
                       color: "white",
+                      marginRight:"15px"
                     }}
                   >
                     <FilterOutlined /> Add Filters
@@ -376,12 +380,12 @@ const handlesubmit = ()=>{
               </div>
               <div
                 className="col-12 col-sm-3 col-md-3"
-                style={{ display: "flex", flexDirection: "row" }}
+                style={{ display: "flex", flexDirection: "row",justifyContent:"center" }}
               >
                 <Button
                   style={{
                     color: "#ffffff",
-                    backgroundColor: "#000089",
+                    backgroundColor: "#002E5E",
                     borderRadius: "5px",
                   }}
                 >
@@ -393,7 +397,7 @@ const handlesubmit = ()=>{
             </div>
           </div>
           <div className="Container-fluid">
-          <div className="row DataTable" style={{ justifyContent: "center" }}>
+          <div className="DataTable" style={{ justifyContent: "center" }}>
             <Table
               style={{ marginTop: "10px" }}
               columns={columns}
@@ -405,11 +409,12 @@ const handlesubmit = ()=>{
           </div>
           </div>
           <div>
-            <span>shown Results {ServiceListArray.length} </span>
+            <span>shown Results {TableData && TableData.length} </span>
           </div>
         </div>}
+       
       {HrServiceDetailPage && <HrServiceDetails selectedRecord={selectedRecord} data={ServiceListArray} handleBack={handleBack} handlesubmit={handlesubmit}/>}
-    </>
+    </div>
   );
 }
 

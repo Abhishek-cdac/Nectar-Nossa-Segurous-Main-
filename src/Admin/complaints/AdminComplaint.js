@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, Input, Menu, Dropdown } from "antd";
+import { Table, Button, Input, Menu, Dropdown, Breadcrumb } from "antd";
 import {
   FilterOutlined,
   EllipsisOutlined,
@@ -7,7 +7,7 @@ import {
 } from "@ant-design/icons";
 import { CSVLink } from "react-csv";
 import { getComplaintList } from "../../services/authentication";
-import AdComplaintDetails from "./AdComplaintDetail"
+import AdComplaintDetails from "./AdComplaintDetail";
 import ApproveModal from "./ApproveModal";
 
 const { Search } = Input;
@@ -40,15 +40,6 @@ const AdminComplaint = () => {
           onClick={() => handleClick("Approved")}
         >
           Approved
-        </a>
-      </Menu.Item>
-      <Menu.Item>
-        <a
-          target="_blank"
-          rel="noopener norefer"
-          onClick={() => handleClick("Resolved")}
-        >
-          Resolved
         </a>
       </Menu.Item>
       <Menu.Item>
@@ -106,6 +97,7 @@ const AdminComplaint = () => {
       title: "Complaint ID",
       dataIndex: "Id",
       key: "Id",
+      align: "center",
 
       render: (text, record) => (
         <a
@@ -120,41 +112,47 @@ const AdminComplaint = () => {
       title: "Policy Holder",
       dataIndex: "policyHolder",
       key: "policyHolder",
+      align: "center",
     },
 
     {
       title: "Policy ",
       dataIndex: "policyName",
       key: "policyName",
+      align: "center",
     },
     {
       title: "Complaint Date",
       dataIndex: "date",
       key: "date",
+      align: "center",
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
+      align: "center",
     },
     {
       title: "Description",
       dataIndex: "description",
       key: "description",
+      align: "center",
     },
-    {
-      title: "Actions",
-      key: "action",
+    // {
+    //   title: "Actions",
+    //   key: "action",
+    //   align: "center",
 
-      render: (text, record) => {
-        return (
-          <>
-            <EyeOutlined style={{ color: "#000089", paddingLeft: "10px" }} />
-            <EllipsisOutlined style={{ paddingLeft: "30px" }} overlay={menu} />
-          </>
-        );
-      },
-    },
+    //   render: (text, record) => {
+    //     return (
+    //       <>
+    //         <EyeOutlined style={{ color: "#000089", paddingLeft: "10px" }} />
+    //         <EllipsisOutlined style={{ paddingLeft: "30px" }} overlay={menu} />
+    //       </>
+    //     );
+    //   },
+    // },
   ];
 
   const handleGetComplaintsListServiceCall = async (data) => {
@@ -196,10 +194,10 @@ const AdminComplaint = () => {
         const value = {
           Id: data.complaintCode,
           policyHolder: data.userPolicy.user.firstName,
-          PolicyName: data.userPolicy.policy.PolicyName,
+          policyName: data.userPolicy.policy.policyName,
           date: data.complaintDate,
           status: data.verifyStatus,
-          agent: data.userPolicy.agent.firstName,
+          description: data.description,
         };
         tableDataArr.push(value);
       });
@@ -215,7 +213,7 @@ const AdminComplaint = () => {
   };
   const onSearch = (value) => {
     const ComplaintfilterData = complaintListArray.filter((data) => {
-      const itemData = data.verifyStatus.toUpperCase();
+      const itemData = data.complaintCode.toUpperCase();
       const textData = value.toUpperCase();
       return itemData.indexOf(textData) > -1;
     });
@@ -242,81 +240,103 @@ const AdminComplaint = () => {
 
   return (
     <>
-      {hrComplaintsTablepage && (
-        <div className="container-fluid">
-          <div
-            className="row"
-            style={{
-              marginTop: "20px",
-              display: "flex",
-              justifyContent: "space-between",
-              flexDirection: "row",
-            }}
-          >
-            <div className="col-12 col-sm-4 col-md-4">
-              <h3>Complaint Management</h3>
-            </div>
-            <div className="nav justify-content-center">
-              <div
-                className="col-12 col-sm-5 col-md-5"
-                style={{ display: "flex", flexDirection: "row" }}
-              >
-                <Search
-                  placeholder="search Policy"
-                  onSearch={onSearch}
-                  style={{
-                    borderRadius: "25px",
-                  }}
-                />
+      <div>
+        {hrComplaintsTablepage && (
+          <div className="container-fluid">
+            <Breadcrumb style={{ marginTop: "20px" }}>
+              <Breadcrumb.Item>Home</Breadcrumb.Item>
+              <Breadcrumb.Item>Complaints </Breadcrumb.Item>
+            </Breadcrumb>
+            <div
+              className="row"
+              style={{
+                marginTop: "20px",
+                display: "flex",
+                justifyContent: "space-between",
+                flexDirection: "row",
+              }}
+            >
+              <div className="col-12 col-sm-4 col-md-4">
+                <h3>Complaint Management</h3>
               </div>
-              <div
-                className="col-12 col-sm-3 col-md-3"
-                style={{ display: "flex", flexDirection: "row" }}
-              >
-                <Dropdown placement="bottomCenter" overlay={content} arrow>
-                  <Button
-                    style={{
-                      borderRadius: "5px",
-                      backgroundColor: "#61b33b",
-                      color: "white",
-                    }}
-                  >
-                    <FilterOutlined /> Add Filters
-                  </Button>
-                </Dropdown>
-              </div>
-              <div
-                className="col-12 col-sm-3 col-md-3"
-                style={{ display: "flex", flexDirection: "row" }}
-              >
-                <Button
+              <div className="nav justify-content-center">
+                <div
+                  className="col-12 col-sm-5 col-md-5"
                   style={{
-                    color: "#ffffff",
-                    backgroundColor: "#000089",
-                    borderRadius: "5px",
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
                   }}
                 >
-                  <CSVLink data={complaintCSV} target="_blank">
-                    Download PDF/CSV
-                  </CSVLink>
-                </Button>
+                  <Search
+                    placeholder="search Complaint Code"
+                    onSearch={onSearch}
+                    style={{
+                      borderRadius: "25px",
+                    }}
+                  />
+                </div>
+                <div
+                  className="col-12 col-sm-3 col-md-3"
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Dropdown placement="bottomCenter" overlay={content} arrow>
+                    <Button
+                      style={{
+                        borderRadius: "5px",
+                        backgroundColor: "#8ec131",
+                        color: "white",
+                      }}
+                    >
+                      <FilterOutlined /> Add Filters
+                    </Button>
+                  </Dropdown>
+                </div>
+                <div
+                  className="col-12 col-sm-3 col-md-3"
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Button
+                    style={{
+                      color: "#ffffff",
+                      backgroundColor: "#002E5E",
+                      borderRadius: "5px",
+                      marginLeft:"15px"
+                    }}
+                  >
+                    <CSVLink data={complaintCSV} target="_blank">
+                      Download PDF/CSV
+                    </CSVLink>
+                  </Button>
+                </div>
+              </div>
+            </div>
+            <div className="Container-fluid">
+              <div className="DataTable" style={{ justifyContent: "center" }}>
+                <Table
+                  style={{ marginTop: "10px" }}
+                  columns={columns}
+                  dataSource={tableData}
+                  //onChange={this.handleChange}
+                  pagination={true}
+                  total={10}
+                />
+              </div>
+              <div style={{ fontSize: "15px" }}>
+                <span>shown Results {tableData.length}</span>
               </div>
             </div>
           </div>
-          <div className="Container-fluid">
-          <div className="DataTable" style={{ justifyContent: "center" }}>
-            <Table
-              style={{ marginTop: "10px" }}
-              columns={columns}
-              dataSource={tableData}
-              //onChange={this.handleChange}
-              pagination={true}
-              total={10}
-            />
-          </div>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
 
       {hrcomplaintsDetailspage && (
         <AdComplaintDetails

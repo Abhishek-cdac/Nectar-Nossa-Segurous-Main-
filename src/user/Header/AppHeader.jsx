@@ -1,84 +1,100 @@
-import React from "react";
-import { Input, Layout, Dropdown, Menu } from "antd";
-import { CaretDownOutlined,BellFilled,DownOutlined } from '@ant-design/icons';
+import React,{useState,useEffect} from "react";
+import { Input, Layout, Dropdown, Menu,Popover } from "antd";
+import { CaretDownOutlined, BellFilled, DownOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/img/logo.png";
 import thumb from "../../assets/img/thumb.png";
+import GoogleTranslate from "../../components/atoms/Google";
 
 const { Header } = Layout;
 const { Search } = Input;
 const onSearch = (value) => console.log(value);
 
-export default function AppHeader() {
+export default function AppHeader(props) {
   const navigate = useNavigate();
+  const [navState,setNavState] = useState(false)
 
   const handleLogout = () => {
     navigate("/");
     // localStorage.clear();
   };
+    // useEffect(() => {
+    //   // in some cases, the google translate script adds a style to the opening html tag.
+    //   // this added style disables scrolling.
+    //   // the next 3 lines removes this added style in order to re-enable scrolling.
+    //   if (window.document.scrollingElement.hasAttribute("style")) {
+    //     window.document.scrollingElement.setAttribute("style", "");
+    //   }
+    // });
+
+    const content = (
+      <div>
+        <a>Claims</a><br/>
+        <a>Holidays</a><br/>
+        <a>Premium</a><br/>
+      </div>
+    )
+
+
   const menu = (
     <Menu>
-      <Menu.Item>
+      {/* <Menu.Item>
         <a target="_blank" rel="noopener noreferrer" href="">
-          Edit Profile
+          
         </a>
       </Menu.Item>
       <Menu.Item>
         <a target="_blank" rel="noopener noreferrer" href="">
           My Inbox
         </a>
-      </Menu.Item>
+      </Menu.Item> */}
       <Menu.Item>
         <a
           target="_blank"
           rel="noopener noreferrer"
-          onClick={()=>navigate("/user/setting")}
-          
+          onClick={() => navigate("/user/setting")}
         >
-         
           Settings
         </a>
       </Menu.Item>
-      <Menu.Item>  <a
+      <Menu.Item>
+        {" "}
+        <a
           target="_blank"
           rel="noopener noreferrer"
-          onClick={()=>{handleLogout()}}
+          onClick={() => {
+            handleLogout();
+          }}
         >
           Logout
-        </a></Menu.Item>
+      
+        </a>
+      </Menu.Item>
     </Menu>
-    );
+  );
+  const handleSideNav = () =>{
+    setNavState(!navState)
+    props.handleClick(navState)
+  }
 
   return (
+    <div className="sb-nav-fixed bg-light">
     <nav className="sb-topnav navbar navbar-expand ">
-      <a className="navbar-brand" href="index.html">
+      <a className="navbar-brand">
         <img className="img-fluid" src={logo} alt="" width="80%" />
       </a>
-      <button
-        className="btn btn-link btn-lg order-1 order-lg-0"
-        id="sidebarToggle"
-        href="#"
+      <button 
+      // id ="sidebarCollapse"
+       className="btn btn-link btn-lg order-1 order-lg-0"
+       id="sidebarToggle" 
+        onClick={()=>{handleSideNav()}}
+        
       >
-        <svg
-          className="svg-inline--fa fa-bars fa-w-14"
-          aria-hidden="true"
-          focusable="false"
-          data-prefix="fas"
-          data-icon="bars"
-          role="img"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 448 512"
-          data-fa-i2svg=""
-        >
-          <path
-            fill="currentColor"
-            d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
-          ></path>
-        </svg>
+        <i className="fas fa-bars" ></i>
       </button>
 
       <form className="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-4 my-2 my-md-0">
-        <div className="input-group custome-search">
+        {/* <div className="input-group custome-search">
           <input
             className="form-control"
             type="text"
@@ -91,69 +107,47 @@ export default function AppHeader() {
               <i className="fas fa-search"></i>
             </button>
           </div>
-        </div>
+        </div> */}
       </form>
+      <GoogleTranslate />
+      {/* <div id="google_translate_element"></div> */}
+      {/* <ul className="navbar-nav ml-auto ml-md-0">
+        <li className="nav-item dropdown">
+          {/* <Popover title="Notification" placement="leftBottom" content={content}> */}
+            {/* <a
+              className="ant-dropdown-link"
+              onClick={(e) =>navigate("")}
+            >
+              <BellFilled style={{ paddingLeft: "10px" }} />
+              <CaretDownOutlined />
+            </a> */}
+          {/* </Popover> */}
+        {/* </li>
+      </ul> */} 
 
-      <ul className="navbar-nav ml-auto ml-md-0">
+      <ul
+        className="navbar-nav ml-auto ml-md-0"
+        style={{ paddingLeft: "10px" }}
+      >
         <li className="nav-item dropdown">
           <Dropdown overlay={menu}>
             <a
               className="ant-dropdown-link"
               onClick={(e) => e.preventDefault()}
             >
-          <BellFilled /><CaretDownOutlined />
+              <img
+                src={thumb}
+                className="circle"
+                width="35px"
+                height="35px "
+                alt=""
+              />
+              <CaretDownOutlined />
             </a>
           </Dropdown>
         </li>
       </ul>
-
-      <ul className="navbar-nav ml-auto ml-md-0" style={{paddingLeft:"10px"}}>
-         <li className="nav-item dropdown">
-        <Dropdown overlay={menu}>
-            <a
-              className="ant-dropdown-link"
-              onClick={(e) => e.preventDefault()}
-            >
-          <img src={thumb} className="circle" width="35px" height="35px " alt="" /><CaretDownOutlined/>
-            </a>
-          </Dropdown>
-          {/* <a
-            className="nav-link dropdown-toggle"
-            id="userDropdown"
-            href="#"
-            role="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            <span className="bell-icon-custom">
-              <i className="fa fa-bell"></i>
-            </span>
-          </a>
-          <div
-            className="dropdown-menu dropdown-menu-right"
-            aria-labelledby="userDropdown"
-          >
-            <a className="dropdown-item small" href="#">
-              Jhon Submited the claims
-            </a>
-            <a className="dropdown-item small" href="#">
-              MacMohn on leave today
-            </a>
-            <a className="dropdown-item small" href="#">
-              Jerry submitted the application form
-            </a>
-            <a className="dropdown-item small" href="#">
-              Jhon Submited the claims
-            </a>
-            <a className="dropdown-item small" href="#">
-              MacMohn on leave today
-            </a>
-          </div> */}
-        </li> 
-      </ul>
-
-     
     </nav>
+    </div>
   );
 }

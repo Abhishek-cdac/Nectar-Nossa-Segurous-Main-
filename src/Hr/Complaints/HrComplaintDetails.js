@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Button, Modal } from "antd";
-import {verifyComplaintList} from "../../services/authentication" 
-import ApproveModal from './ApproveModal'
+import { Button, Modal,Breadcrumb } from "antd";
+import { verifyComplaintList } from "../../services/authentication";
+import ApproveModal from "./ApproveModal";
+import ModalHeader from "react-bootstrap/esm/ModalHeader";
 
 const HrComplaintDetails = (props) => {
   const selectedRecord = props && props.selectedRecord;
@@ -20,17 +21,14 @@ const HrComplaintDetails = (props) => {
   const [complaintsDetailspage, setcomplaintsDetailspage] = useState(true);
   const [policyName, setPolicyName] = useState("");
   const [complaintId, setComplaintId] = useState("");
-  const [status, setStatus] = useState("");
   const [complaintDescription, setComplaintDescription] = useState("");
-  const [subject, setsubject] = useState("");
   const [IsResubmitModalVisible, setIsResubmitModalVisible] = useState("");
-  const [complaintTablepage, setComplaintTablepage] = useState("");
   const [policyHolder, setPolicyHolder] = useState("");
-  const[Submit,setSubmit]=useState('')
+  const [Submit, setSubmit] = useState("");
+  const[ApproveModalPage,setApproveModalPage] = useState('')
 
- 
   const handleApprovalShowModal = (Submit) => {
-    setSubmit(Submit)
+    setSubmit(Submit);
     console.log("array", ComplaintList);
     const value = ComplaintList;
     console.log("value", value);
@@ -44,33 +42,42 @@ const HrComplaintDetails = (props) => {
   };
   const handlesubmit = () => {
     setIsResubmitModalVisible(false);
+    setApproveModalPage(true)
   };
   const handleCancel = () => {
     setIsResubmitModalVisible(false);
   };
 
-    const handleVerifyAPI = async () =>{
-      console.log('cl',ComplaintList)
-      const data= {
-        "id":ComplaintList.id,
-        "verifyStatus":Submit,
-        "VerifiedDate": ComplaintList.VerifiedDate
-       }
-      try {
-        const resp = await verifyComplaintList(data);
-        console.log(resp)
-        handlesubmit()
-        handleCancel()
-      } catch (error) {
-          console.log('error',error)
-        // showAlert('In valide data', "error");
-      }
+  const handleVerifyAPI = async () => {
+    console.log("cl", ComplaintList);
+    const data = {
+      id: ComplaintList.id,
+      verifyStatus: Submit,
+      VerifiedDate: ComplaintList.VerifiedDate,
+    };
+    try {
+      const resp = await verifyComplaintList(data);
+      console.log(resp);
+      // handlesubmit();
+      setIsResubmitModalVisible(false);
+      setApproveModalPage(true)
+      handleCancel();
+    } catch (error) {
+      console.log("error", error);
+      // showAlert('In valide data', "error");
     }
+  };
 
   return (
     <>
+    <div>
       {complaintsDetailspage && (
         <div>
+           <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Complaint</Breadcrumb.Item>
+            <Breadcrumb.Item>Complaint Details</Breadcrumb.Item>
+          </Breadcrumb>
           <div className="row d-flex align-items-center justify-content-between">
             <div className="col-12">
               <div className="heading-with-box mb-2">
@@ -157,8 +164,7 @@ const HrComplaintDetails = (props) => {
                           color: "white",
                           backgroundColor: "red",
                         }}
-                        onClick={() => handleApprovalShowModal('reject')}
-                        
+                        onClick={() => handleApprovalShowModal("reject")}
                       >
                         reject Complaint
                       </Button>
@@ -170,7 +176,7 @@ const HrComplaintDetails = (props) => {
                           color: "white",
                           backgroundColor: "Green",
                         }}
-                        onClick={() => handleApprovalShowModal('Resolve')}
+                        onClick={() => handleApprovalShowModal("Resolve")}
                       >
                         Resolve Complaint
                       </Button>
@@ -182,7 +188,7 @@ const HrComplaintDetails = (props) => {
                           color: "white",
                           backgroundColor: "#000089",
                         }}
-                        onClick={() => handleApprovalShowModal('Approved')}
+                        onClick={() => handleApprovalShowModal("Approved")}
                       >
                         send for Approval
                       </Button>
@@ -192,7 +198,6 @@ const HrComplaintDetails = (props) => {
               </div>
             </div>
           </div>
-        
 
           <div
             className="modal fade"
@@ -203,97 +208,80 @@ const HrComplaintDetails = (props) => {
           >
             <div className="modal-dialog" role="document">
               <div className="modal-content popup-form">
-                {/* <div className="modal-header">
-                  <h4 className="modal-title" id="exampleModalLabel">
-                    Send for Approval
-                  </h4>
-                  <button
-                    type="button"
-                    className="close"
-                    data-dismiss="modal"
-                    aria-label="Close"
-                  >
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div> */}
                 <div className="modal-body">
-                <Modal
-                    title= "Approval"
+                  <Modal
                     visible={IsResubmitModalVisible}
                     onCancel={handleCancel}
                     footer={null}
                   >
-                   <div style={{}}> 
-                    <div>
-                      <label style={{ fontsize: "18px", color: "#000089",marginLeft:"80px",marginTop:"10px" }}>
-                       <h5> Complaint ID</h5>
-                      </label>{" "}
-                      <br />
-                      <input
-                        style={{
-                          height: "30px",
-                          width: "300px",
-                         
-                          marginLeft: "80px",
-                        }}
-                        type="Id"
-                        placeholder="Complaint Id"
-                        value={complaintId}
-                        onChange={(e) => setComplaintId(e.target.value)}
-                      />
-                      <br />
-                    </div>
-<div><label style={{ fontsize: "18px", color: "#000089",marginLeft:"80px",marginTop:"10px" }}>
-                        <h5>Raised By</h5>
-                      </label><br/>
-                    <input
+                    <ModalHeader
                       style={{
-                        height: "30px",
-                        width: "300px",
-                        
-                        marginLeft: "80px",
+                        justifyContent: "center",
+                        fontSize: "22px",
+                        fontWeight: "bolder",
+                        color: "#000089",
                       }}
-                      type="PolicyHolder"
-                      placeholder="policyHolder"
-                      value={policyHolder}
-                      onChange={(e) => setPolicyHolder(e.target.value)}
-                    />
-                    </div>
-                    <div><label style={{ fontsize: "18px", color: "#000089",marginLeft:"80px",marginTop:"10px" }}>
-                        <h5>Policy Name</h5>
-                      </label>
-                    <br />
-                    <input
-                      style={{
-                        height: "30px",
-                        width: "300px",
-                        marginLeft: "80px",
-                      }}
-                      type="name"
-                      placeholder="policy Name"
-                      value={policyName}
-                      onChange={(e) => setPolicyName(e.target.value)}
-                    />
-                    </div>
-                    {/* <button type="primary" >Submit</button> */}
-                    <br />
-                    <div className="col-12 col-sm-6 col-md-6 col-lg-4">
-                       <div className="form-group">
-                        <label for="exampleInputtext" className="mb-1" style={{ marginLeft:"80px",marginTop:"10px"}}>
-                         <h5> Send to approval</h5>
-                        </label>
-                        <select placeholder="Select Admin" style={{width:"230px",height:"50px",marginLeft:"80px"}}>
-                          <options>Admin</options>
+                    >
+                      Approval
+                    </ModalHeader>
+                    <form className="col-12" style={{ paddingTop: "10px" }}>
+                      <div className="form-group mb-4">
+                        <input
+                          className="col-xs-12 w-100"
+                          type="Id"
+                          placeholder="Complaint Id"
+                          value={complaintId}
+                          onChange={(e) => setComplaintId(e.target.value)}
+                        />
+                      </div>
+
+                      <div className="form-group mb-4">
+                        <input
+                          className="col-xs-12 w-100"
+                          type="PolicyHolder"
+                          placeholder="policyHolder"
+                          value={policyHolder}
+                          onChange={(e) => setPolicyHolder(e.target.value)}
+                        />
+                      </div>
+
+                      <div className="form-group mb-4">
+                        <input
+                          className="col-xs-12 w-100"
+                          type="name"
+                          placeholder="policy Name"
+                          value={policyName}
+                          onChange={(e) => setPolicyName(e.target.value)}
+                        />
+                      </div>
+                      {/* <button type="primary" >Submit</button> */}
+
+                      <div className="form-group mb-4">
+                        <select
+                          className="col-xs-12 w-100"
+                          placeholder="Select Admin"
+                          // style={{
+                          //   width: "230px",
+                          //   height: "50px",
+                          //   marginLeft: "80px",
+                          // }}
+                        >
+                          <option>Admin</option>
                           <option>Super Admin</option>
                         </select>
                       </div>
-                    </div> 
-                   
-                    <button type="button" className="btn btn-primary" style={{width:"180px",marginLeft:"130px"}} onClick={handleVerifyAPI}>
-                    Approve
-                  </button>
-                   </div>
-                    </Modal>
+                      <div className="form-group mb-4">
+                        <button
+                          className="col-xs-12 w-100 ,btn btn-primary"
+                          type="button"
+                          // className=
+                          onClick={handleVerifyAPI}
+                        >
+                          Approve
+                        </button>
+                      </div>
+                    </form>
+                  </Modal>
                 </div>
                 <div className="modal-footer">
                   {/* <button type="button" className="btn btn-primary">
@@ -305,6 +293,8 @@ const HrComplaintDetails = (props) => {
           </div>
         </div>
       )}
+      </div>
+      {ApproveModalPage && <ApproveModal/>}
     </>
   );
 };

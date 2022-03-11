@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import ClinicData from "../../../user/Reimbursment/ClinicData";
-import fileDownload1 from "../../../assets/img/fileDownload1.png";
+import AdClinicData from "../../../Admin/Reimbursment/AdClinicDetails"
 import {
   getReimbursmentList,
   getReimbursmentListSearch,
 } from "../../../services/authentication";
 import { CSVLink } from "react-csv";
+import { Breadcrumb } from "antd";
+import ReactPaginate from "react-paginate";
 
 const HrReimbursment = () => {
   const [ReimbursmentPage, setReimbursmentPage] = useState(true);
@@ -17,6 +19,7 @@ const HrReimbursment = () => {
   const [PharmacyData, setPharmacyData] = useState("");
   const [ClinicTableData, setClinicTableData] = useState("");
   const [PharmacyTableData, setPharmacyTableData] = useState("");
+  const [selectedrecord, setSelectedrecord] = useState("");
 
   //Get Api Start
 
@@ -28,7 +31,7 @@ const HrReimbursment = () => {
       };
       const resp = await getReimbursmentList(data);
       setClinicalData(resp && resp.data);
-      console.log("clinical", resp);
+      //console.log("clinical", resp);
       resp &&
         resp.data.map((data, i) => {
           const value = {
@@ -60,9 +63,9 @@ const HrReimbursment = () => {
         type: "pharmacy",
       };
       const resp = await getReimbursmentList(data);
-      console.log("pharm", resp);
+      //console.log("pharm", resp);
       setPharmacyData(resp && resp.data);
-      console.log("pc", resp);
+      //console.log("pc", resp);
       resp &&
         resp.data.map((data, i) => {
           const value = {
@@ -86,9 +89,15 @@ const HrReimbursment = () => {
     handlePharmacyTab();
   }, []);
 
-  const handleChange = () => {
+  const handleChange = (item) => {
     setReimbursmentPage(false);
     setClinicDataPage(true);
+    setSelectedrecord(item);
+  };
+
+  const handleBack = () => {
+    setReimbursmentPage(true);
+    setClinicDataPage(false);
   };
 
   //search
@@ -100,20 +109,20 @@ const HrReimbursment = () => {
         let tableDataArr = [];
         const data = {
           type: "clinical",
-          hospitaltype: searchValue,
+          name: searchValue,
         };
         const resp = await getReimbursmentListSearch(data);
-        console.log("clinical", resp);
+        //console.log("clinical", resp);
         resp &&
           resp.data.map((data, i) => {
             const value = {
               SrNo: data.i,
-              RefNo: data.referenceNumber,
-              ClinicName: data.name,
-              Adress: data.address,
-              Area: data.area,
-              Contact: data.contact,
-              HospitalType: data.hospitalType,
+              referenceNumber: data.referenceNumber,
+              name: data.name,
+              address: data.address,
+              area: data.area,
+              contact: data.contact,
+              hospitalType: data.hospitalType,
             };
             tableDataArr.push(value);
           });
@@ -128,21 +137,22 @@ const HrReimbursment = () => {
         let tableDataArr = [];
         const data = {
           type: "pharmacy",
-          hospitaltype: searchValue,
+          name: searchValue,
         };
         const resp = await getReimbursmentListSearch(data);
-        console.log("pharm", resp);
         resp &&
           resp.data.map((data, i) => {
+            
             const value = {
-              SrNo: i,
-              RefNo: data.referenceNumber,
-              pharmacyName: data.name,
-              Adress: data.address,
-              Area: data.area,
-              Contact: data.contact,
-              servicesOffered: data.serviceOffered,
-            };
+              SrNo: i+1,
+              referenceNumber:data.referenceNumber,
+              name: data.name,
+              address: data.address,
+              area: data.area,
+              contact: data.contact,
+              serviceOffered: data.serviceOffered,
+            };//console.log("pharm", value);
+
             tableDataArr.push(value);
           });
         setPharmacyTableData(tableDataArr);
@@ -156,8 +166,6 @@ const HrReimbursment = () => {
 
   const handleFilterData = (filterData) => {
     const tableDataArr = [];
-    console.log("tr", tableDataArr);
-    console.log("filterData", filterData);
     if (filterData.length > 0) {
       if (step === 0) {
         filterData.map((data, i) => {
@@ -171,7 +179,8 @@ const HrReimbursment = () => {
             hospitalType: data.hospitalType,
           };
           tableDataArr.push(value);
-          console.log("tableDataArr", tableDataArr);
+          
+          //console.log("tableDataArr", tableDataArr);
         });
       } else {
         filterData.map((data, i) => {
@@ -185,7 +194,7 @@ const HrReimbursment = () => {
             serviceOffered: data.serviceOffered,
           };
           tableDataArr.push(value);
-          console.log("tableDataArr", tableDataArr);
+          //console.log("tableDataArr", tableDataArr);
         });
       }
     }
@@ -199,7 +208,7 @@ const HrReimbursment = () => {
         ClinicalData &&
         ClinicalData.filter((data) => data.hospitalType === type);
       const Clinic = handleFilterData(ClinicalfilterData);
-      console.log("ClinicalfilterData", ClinicalfilterData, Clinic);
+      //console.log("ClinicalfilterData", ClinicalfilterData, Clinic);
       setClinicTableData(Clinic);
       setClinicalData(Clinic);
     } else {
@@ -207,7 +216,7 @@ const HrReimbursment = () => {
         PharmacyData &&
         PharmacyData.filter((data) => data.hospitalType === type);
       const Pharmacy = handleFilterData(PharmacyfilterData);
-      console.log("PharmacyfilterData", Pharmacy);
+      //console.log("PharmacyfilterData", Pharmacy);
       setPharmacyTableData(Pharmacy);
       setPharmacyData(Pharmacy);
     }
@@ -234,7 +243,7 @@ const HrReimbursment = () => {
           "Sr.No,Ref_N0,Pharmacy,Adress,Area,Contact,Service_offered\n"
         );
         PharmacyTableDataArray.map((excelData, i) => {
-          console.log("xl", excelData);
+          //console.log("xl", excelData);
           ClinicalData.push(
             `${excelData.i},${excelData.RefNo}, ${excelData.pharmacyName}, ${excelData.Adress},${excelData.Area},${excelData.Contact},${excelData.servicesOffered}\n`
           );
@@ -246,20 +255,36 @@ const HrReimbursment = () => {
   const ReimbursmentCSV = ReimbursmentCSVData();
   // // CSV END
 
+  
+    // This section is for pagination
+
+    const [pageNumber, setPageNumber] = useState(0);
+    const usersPerPage = 10;
+    const pagesVisited = pageNumber * usersPerPage;
+    const pageCount = Math.ceil(PharmacyData.length / usersPerPage);
+    const pageCount2 = Math.ceil(ClinicalData.length / usersPerPage);
+    const changePage = ({ selected }) => {
+      setPageNumber(selected);
+    };
+
   return (
     <>
       {ReimbursmentPage && (
         <div>
+            <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Reimbursment</Breadcrumb.Item>
+          </Breadcrumb>
           <div className="row d-flex align-items-center justify-content-between">
             <div className="col-lg-2 text-left">
               <h3 className="mt-0 mb-4 my-2">Reimbursement</h3>
             </div>
 
-            <div className="col-12 col-lg-8 col-md-4 text-right">
+            <div className="col-12 col-lg-6 col-md-6 text-right">
               <div className="search-btn">
                 <div className="search-btn">
                   <div className="input-group">
-                    <input
+                    <input style={{height:"35px"}}
                       type="text"
                       className="form-control my-3"
                       placeholder="Search Hospital"
@@ -276,17 +301,16 @@ const HrReimbursment = () => {
                       </button>
                     </div>
                   </div>
-                  <div className="btn-group hover_drop_down">
+                  {/* <div className="btn-group hover_drop_down"> */}
                     <button
                       type="button"
-                      class="btn btn-success btn-sm my-3 mx-2"
+                      className="btn btn-success btn-sm my-3 mx-3"
                       data-toggle="dropdown"
                       style={{
                         width: "160px",
                         borderRadius: "5px",
                         backgroundColor: "#8EC131",
                         border: "1px solid #8EC131",
-                        height:"40px"
                       }}
                     >
                       <i className="fas fa-filter"></i> Add Filters
@@ -320,11 +344,11 @@ const HrReimbursment = () => {
                         </a>
                       </li>
                     </ul>
-                  </div>
+                  {/* </div> */}
                   <div className="btn-group">
                     <button
                       type="button"
-                      className="btn btn-primary btn-md my-3 mx-2"
+                      className="btn btn-primary btn-sm my-3 mx-2"
                     >
                       <CSVLink
                         data={ReimbursmentCSV}
@@ -400,11 +424,11 @@ const HrReimbursment = () => {
                     </tr>
                   </thead>
                   {ClinicalData &&
-                    ClinicalData.map((item) => (
+                    ClinicalData.slice(pagesVisited, pagesVisited + usersPerPage).map((item,i) => (
                       <tbody>
                         <tr>
                           {/* {console.log("item",item)} */}
-                          <td>{item.SrNo}</td>
+                          <td>{(i+1)}</td>
                           <td>{item.referenceNumber}</td>
                           <td>
                             <a onClick={() => handleChange(item)}>
@@ -421,40 +445,22 @@ const HrReimbursment = () => {
                 </table>
               </div>
               <div className="row">
-                <div className="col-md-6 col-sm-6 col-12">
-                  <small>Showing {ClinicalData.length}</small>
+              <div className="col-xl-8  col-lg-8 col-md-8 col-sm-2 col-xs-12">
+                  <small>Shown Total Results {ClinicalData && ClinicalData.length}</small>
                 </div>
-                <div className="col-md-6 col-sm-6 col-12">
-                  <div className="pagination-custom">
-                    <nav aria-label="Page navigation example">
-                      <ul className="pagination justify-content-end">
-                        <li className="page-item disabled">
-                          <a className="page-link w-100">Previous</a>
-                        </li>
-                        <li className="page-item">
-                          <a className="page-link" href="#">
-                            1
-                          </a>
-                        </li>
-                        <li className="page-item">
-                          <a className="page-link active" href="#">
-                            2
-                          </a>
-                        </li>
-                        <li className="page-item">
-                          <a className="page-link" href="#">
-                            3
-                          </a>
-                        </li>
-                        <li className="page-item">
-                          <a className="page-link w-100" href="#">
-                            Next
-                          </a>
-                        </li>
-                      </ul>
-                    </nav>
-                  </div>
-                </div>
+                <div className="col-xl-4  col-lg-4 col-md-4 col-sm-4 col-xs-12" style={{padding:"20px"}}>
+            <ReactPaginate 
+              previousLabel={"Previous"}
+              nextLabel={"Next"}
+              pageCount={pageCount2}
+              onPageChange={changePage}
+              containerClassName={"paginationBttns"}
+              previousLinkClassName={"previousBttn"}
+              nextLinkClassName={"nextBttn"}
+              disabledClassName={"paginationDisabled"}
+              activeClassName={"paginationActive"}
+            />
+          </div>
               </div>
             </div>
             <div
@@ -479,11 +485,11 @@ const HrReimbursment = () => {
                   </thead>
 
                   {PharmacyData &&
-                    PharmacyData.map((item) => (
+                    PharmacyData.slice(pagesVisited, pagesVisited + usersPerPage).map((item,i) => (
                       <tbody>
                         <tr>
-                          {/* {console.log("item",item)} */}
-                          <td>{item.SrNo}</td>
+                         {/* {console.log("item",PharmacyData)} */}
+                          <td>{(i+1)}</td> 
                           <td>{item.referenceNumber}</td>
                           <td>
                             <a>{item.name}</a>
@@ -498,47 +504,35 @@ const HrReimbursment = () => {
                 </table>
 
                 <div className="row">
-                  <div className="col-md-6 col-sm-6 col-12">
-                    <small>Showing{PharmacyData.length}</small>
+                <div className="col-xl-8  col-lg-8 col-md-8 col-sm-2 col-xs-12">
+                    <small>Shown Total Results {PharmacyData && PharmacyData.length}</small>
                   </div>
-                  <div className="col-md-6 col-sm-6 col-12">
-                    <div className="pagination-custom">
-                      <nav aria-label="Page navigation example">
-                        <ul className="pagination justify-content-end">
-                          <li className="page-item disabled">
-                            <a className="page-link w-100">Previous</a>
-                          </li>
-                          <li className="page-item">
-                            <a className="page-link" href="#">
-                              1
-                            </a>
-                          </li>
-                          <li className="page-item">
-                            <a className="page-link active" href="#">
-                              2
-                            </a>
-                          </li>
-                          <li className="page-item">
-                            <a className="page-link" href="#">
-                              3
-                            </a>
-                          </li>
-                          <li className="page-item">
-                            <a className="page-link w-100" href="#">
-                              Next
-                            </a>
-                          </li>
-                        </ul>
-                      </nav>
-                    </div>
-                  </div>
+                  <div className="col-xl-4  col-lg-4 col-md-4 col-sm-4 col-xs-12" style={{padding:"20px"}}>
+            <ReactPaginate 
+              previousLabel={"Previous"}
+              nextLabel={"Next"}
+              pageCount={pageCount}
+              onPageChange={changePage}
+              containerClassName={"paginationBttns"}
+              previousLinkClassName={"previousBttn"}
+              nextLinkClassName={"nextBttn"}
+              disabledClassName={"paginationDisabled"}
+              activeClassName={"paginationActive"}
+            />
+          </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       )}
-      {ClinicDataPage && <ClinicData />}
+       {ClinicDataPage && (
+        <AdClinicData
+          selectedrecord={selectedrecord}
+          data={ClinicalData}
+          handleback={handleBack}
+        />
+      )}
     </>
   );
 };

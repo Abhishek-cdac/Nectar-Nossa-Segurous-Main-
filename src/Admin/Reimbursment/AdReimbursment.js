@@ -12,7 +12,8 @@ import {
 import { FormOutlined } from "@ant-design/icons";
 import { CSVLink } from "react-csv";
 import { Button, Modal, Form } from "react-bootstrap";
-import { Menu, Dropdown } from "antd";
+import { Menu, Dropdown,Breadcrumb,} from "antd";
+import ReactPaginate from "react-paginate";
 
 const Reimbusrment = () => {
   const [ClinicDataPage, setClinicDataPage] = useState("");
@@ -33,6 +34,7 @@ const Reimbusrment = () => {
   const [ID, setID] = useState("");
   const [searchValue, setSearchValue] = useState("");
   const [doctors, setDoctors] = useState([]);
+  const[totalpage,setTotalPage]=useState()
 
   const [Data, setData] = useState({
     id: "",
@@ -83,6 +85,10 @@ const Reimbusrment = () => {
     setShowModal(false);
   };
 
+  const handleEditCancel = () =>{
+    setShowEditModal(false)
+  }
+
   //Get Api Start
 
   const handleClinicTab = async () => {
@@ -104,6 +110,7 @@ const Reimbusrment = () => {
             Area: data.area,
             Contact: data.contact,
             HospitalType: data.hospitalType,
+            key:data.id
           };
           tableDataArr.push(value);
         });
@@ -127,6 +134,7 @@ const Reimbusrment = () => {
       const resp = await getReimbursmentList(data);
       console.log("pharm", resp);
       setPharmacyData(resp && resp.data);
+      setTotalPage(resp &&resp.length)
       console.log("pc", resp);
       resp &&
         resp.data.map((data, i) => {
@@ -468,9 +476,8 @@ const Reimbusrment = () => {
   const menu = (item) => {
     return (
       <Menu>
-        {/* <Menu.Item key="1">Assign to</Menu.Item> */}
         <Menu.Item
-          key="2"
+          key="1"
           onClick={() => {
             handleShowEditModal(item);
           }}
@@ -478,7 +485,7 @@ const Reimbusrment = () => {
           Edit Info
         </Menu.Item>
         <Menu.Item
-          key="3"
+          key="2"
           onClick={() => {
             handleDeleteInfo(item);
           }}
@@ -489,19 +496,36 @@ const Reimbusrment = () => {
     );
   };
 
+    // This section is for pagination
+
+    const [pageNumber, setPageNumber] = useState(0);
+    const usersPerPage = 10;
+    const pagesVisited = pageNumber * usersPerPage;
+    const pageCount = Math.ceil(PharmacyData.length / usersPerPage);
+    const pageCount2 = Math.ceil(ClinicalData.length / usersPerPage);
+    const changePage = ({ selected }) => {
+      setPageNumber(selected);
+    };
+
   return (
     <>
+     <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Reimbursment</Breadcrumb.Item>
+            {/* <Breadcrumb.Item>claim Details</Breadcrumb.Item> */}
+          </Breadcrumb>
       {ReimbursmentPage && (
         <div>
           <div className="row d-flex align-items-center justify-content-between">
             <div className="col-lg-2 text-left">
               <h3 className="mt-0 mb-4 my-2">Reimbursement</h3>
             </div>
-            <div className="col-12 col-lg-8 col-md-4 text-right">
+            <div className="col-12 col-lg-8 col-md-8">
               <div className="search-btn">
                 <div className="search-btn">
-                  <div className="input-group" style={{width:"25%"}}>
+                  <div className="input-group mx-2">
                     <input
+                    style={{height:"35px"}}
                       type="text"
                       className="form-control my-3"
                       placeholder="Search Hospital"
@@ -521,23 +545,23 @@ const Reimbusrment = () => {
                   <div className="btn-group">
                     <button
                       type="button"
-                      class="btn btn-success btn-sm my-3 mx-2"
-                      style={{ width: "140px", borderRadius:"5px", height:"40px", border: "1px solid #8EC131", backgroundColor: "#8EC131"}}
+                      className="btn btn-success btn-sm my-3 mx-2"
+                      style={{ width: "160px", borderRadius:"5px", height:"35px", border: "1px solid #8EC131", backgroundColor: "#8EC131"}}
                       onClick={handleShow}
                     >
-                      <i class="fas fa-plus-circle"></i> Add Holiday List
+                      <i className="fas fa-plus-circle"></i> Add Reimbursment
                     </button>
                     <div className="header">
-                      <Modal show={ShowModal} onHide={handleCancel} size="lg">
+                      <Modal show={ShowModal} onHide={handleCancel} size="md">
                         <Modal.Header closeButton>
                           <Modal.Title
-                            style={{ color: "#61B33B", marginLeft: "130px" }}
+                            style={{ color: "#8ec131", marginLeft: "130px" }}
                           >
                             Add Reimbursment List
                           </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                          <div class="container">
+                          <div className="container">
                             <Form.Group>
                               <Form.Label>Name</Form.Label>
                               <Form.Control
@@ -643,22 +667,22 @@ const Reimbusrment = () => {
                       </Modal>
                     </div>
                   </div>
-                  <div class="btn-group hover_drop_down">
+                  <div className="btn-group hover_drop_down">
                     <button
                       type="button"
-                      class="btn btn-success btn-sm my-3 mx-2"
+                      className="btn btn-success btn-sm my-3 mx-2"
                       data-toggle="dropdown"
                       style={{
-                        width: "160px",
+                        width: "140px",
                         borderRadius: "5px",
                         backgroundColor: "#8EC131",
                         border: "1px solid #8EC131",
-                        height:"40px"
+                        height:"35px"
                       }}
                     >
-                      <i class="fas fa-filter"></i> Add Filters
+                      <i className="fas fa-filter"></i> Add Filters
                     </button>
-                    <ul class="dropdown-menu" role="menu">
+                    <ul className="dropdown-menu" role="menu">
                       <li>
                         <a
                           onClick={() => {
@@ -691,8 +715,8 @@ const Reimbusrment = () => {
                   <div className="btn-group">
                     <button
                       type="button"
-                      class="btn btn-primary btn-sm my-3 mx-2"
-                      style={{height:"40px"}}
+                      className="btn btn-primary btn-sm my-3 mx-2"
+                      style={{height:"35px"}}
                     >
                       <CSVLink
                         data={ReimbursmentCSV}
@@ -755,7 +779,11 @@ const Reimbusrment = () => {
               aria-labelledby="clinic-list-tab"
             >
               <div className="table-responsive">
-                <table className="table">
+                <table className="table"  
+                 data-pagination="true"
+                 data-side-pagination="server"
+                 data-page-list="[10, 25, 50, 100, 200, All]"
+                >
                   <thead className="green-bg">
                     <tr>
                       <th>Sr.No</th>
@@ -769,11 +797,11 @@ const Reimbusrment = () => {
                     </tr>
                   </thead>
                   {ClinicalData &&
-                    ClinicalData.map((item) => (
+                    ClinicalData.slice(pagesVisited, pagesVisited + usersPerPage).map((item,i) => (
                       <tbody>
                         <tr>
                           {/* {console.log("item",item)} */}
-                          <td>{item.SrNo}</td>
+                          <td>{(i+1)}</td>
                           <td>{item.referenceNumber}</td>
                           <td>
                             <a onClick={() => handleChangePage(item)}>
@@ -797,43 +825,23 @@ const Reimbusrment = () => {
                 </table>
               </div>
               <div className="row">
-                <div className="col-md-6 col-sm-6 col-12">
-                  {/* if(step === 0)
-                  {<small>Showing results{ClinicalData.length}</small>}
-                  else{<small>Showing results{PharmacyData.length}</small>} */}
-                </div>
-                <div className="col-md-6 col-sm-6 col-12">
-                  <div className="pagination-custom">
-                    <nav aria-label="Page navigation example">
-                      <ul className="pagination justify-content-end">
-                        <li className="page-item disabled">
-                          <a className="page-link w-100">Previous</a>
-                        </li>
-                        <li className="page-item">
-                          <a className="page-link" href="#">
-                            1
-                          </a>
-                        </li>
-                        <li className="page-item">
-                          <a className="page-link active" href="#">
-                            2
-                          </a>
-                        </li>
-                        <li className="page-item">
-                          <a className="page-link" href="#">
-                            3
-                          </a>
-                        </li>
-                        <li className="page-item">
-                          <a className="page-link w-100" href="#">
-                            Next
-                          </a>
-                        </li>
-                      </ul>
-                    </nav>
-                  </div>
-                </div>
-              </div>
+          <div className="col-xl-8  col-lg-8 col-md-8 col-sm-2 col-xs-12">
+            Shown Total Results {ClinicalData && ClinicalData.length}
+          </div>
+          <div className="col-xl-4  col-lg-4 col-md-4 col-sm-4 col-xs-12" style={{padding:"20px"}}>
+            <ReactPaginate 
+              previousLabel={"Previous"}
+              nextLabel={"Next"}
+              pageCount={pageCount2}
+              onPageChange={changePage}
+              containerClassName={"paginationBttns"}
+              previousLinkClassName={"previousBttn"}
+              nextLinkClassName={"nextBttn"}
+              disabledClassName={"paginationDisabled"}
+              activeClassName={"paginationActive"}
+            />
+          </div>
+        </div>
             </div>
             <div
               //   className="tab-pane fade"
@@ -853,14 +861,15 @@ const Reimbusrment = () => {
                       <th>Area</th>
                       <th>Contact No</th>
                       <th>Service's Offered</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   {PharmacyData &&
-                    PharmacyData.map((item) => (
+                    PharmacyData.slice(pagesVisited, pagesVisited + usersPerPage).map((item,i) => (
                       <tbody>
                         <tr>
                           {/* {console.log("item",item)} */}
-                          <td>{item.SrNo}</td>
+                          <td>{(i+1)}</td>
                           <td>{item.referenceNumber}</td>
                           <td>
                             <a>{item.name}</a>
@@ -881,65 +890,33 @@ const Reimbusrment = () => {
                     ))}
 
                   <tbody>
-                    {/* {PharmacyTableData &&
-                    PharmacyTableData.map((item) => (
-                        <tr>
-                          <td>{item.SrNo}</td>
-                          <td>{item.RefNo}</td>
-                          <td>
-                            <a>{item.ClinicName}</a>
-                          </td>
-                          <td>{item.Adress}</td>
-                          <td>{item.Area}</td>
-                          <td>{item.Contact}</td>
-                          <td>{item.servicesOffered}</td>
-                        </tr>
-                         ))} */}
                   </tbody>
                 </table>
               </div>
               <div className="row">
-                <div className="col-md-6 col-sm-6 col-12">
-                  <small>Showing Results{PharmacyData.length}</small>
-                </div>
-                <div className="col-md-6 col-sm-6 col-12">
-                  <div className="pagination-custom">
-                    <nav aria-label="Page navigation example">
-                      <ul className="pagination justify-content-end">
-                        <li className="page-item disabled">
-                          <a className="page-link w-100">Previous</a>
-                        </li>
-                        <li className="page-item">
-                          <a className="page-link" href="#">
-                            1
-                          </a>
-                        </li>
-                        <li className="page-item">
-                          <a className="page-link active" href="#">
-                            2
-                          </a>
-                        </li>
-                        <li className="page-item">
-                          <a className="page-link" href="#">
-                            3
-                          </a>
-                        </li>
-                        <li className="page-item">
-                          <a className="page-link w-100" href="#">
-                            Next
-                          </a>
-                        </li>
-                      </ul>
-                    </nav>
-                  </div>
-                </div>
-              </div>
+          <div className="col-xl-8  col-lg-8 col-md-8 col-sm-2 col-xs-12">
+            Shown Total Results {PharmacyData && PharmacyData.length}
+          </div>
+          <div className="col-xl-4  col-lg-4 col-md-4 col-sm-4 col-xs-12" style={{padding:"20px"}}>
+            <ReactPaginate 
+              previousLabel={"Previous"}
+              nextLabel={"Next"}
+              pageCount={pageCount}
+              onPageChange={changePage}
+              containerClassName={"paginationBttns"}
+              previousLinkClassName={"previousBttn"}
+              nextLinkClassName={"nextBttn"}
+              disabledClassName={"paginationDisabled"}
+              activeClassName={"paginationActive"}
+            />
+          </div>
+        </div>
             </div>
           </div>
           <div className="header">
-            <Modal show={ShowEditModal} onHide={handleCancel}>
+            <Modal show={ShowEditModal} onHide={handleEditCancel}>
               <Modal.Header closeButton>
-                <Modal.Title style={{ color: "#61B33B", marginLeft: "130px" }}>
+                <Modal.Title style={{ color: "#8ec131", marginLeft: "130px" }}>
                   Edit Reimbursment List
                 </Modal.Title>
               </Modal.Header>

@@ -5,12 +5,19 @@ import Logo from '../images/Userdashboard/logo.png';
 import { useSelector } from "react-redux";
 import { resetpassword, resetPasswordVerification } from "../services/authentication"
 
+
 //import { showAlert } from "./../../utils/showAlert";
 
+
+
 export default function ResetAccountCode() {
+
+  let navigate = useNavigate();
   const [Password,setPassword] =useState('')
   const [enableResetScreen, setEnableResetScreen] = useState(false)
   const [ConfirmPassword,setConfirmPassword]=useState("")
+
+ 
 
   let url = window.location.pathname
   let token = url && url.split('/')[2]
@@ -37,6 +44,9 @@ const reset = async(values) =>{
          token
     });
     console.log(response);
+    alert("Password Updated Sucessfully")
+    navigate("/")
+
 } catch (error) {
     /**
      * Error logic here

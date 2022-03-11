@@ -8,6 +8,7 @@ import Accordion from "@material-ui/core/Accordion";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Typography from "@material-ui/core/Typography";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
+import { EyeOutlined } from "@ant-design/icons";
 import {
   resetpassword,
   getChangePassword,
@@ -16,6 +17,8 @@ import {
   getAddUserNotificationService
 } from "../../services/authentication";
 import setSucess from "./setSucess";
+
+const eye = <EyeOutlined />;
 
 export default function Setting() {
   const [data, setData] = useState({
@@ -26,7 +29,7 @@ export default function Setting() {
   const [userNotification, setUserNotification] = useState([]);
   const [notification, setnotification] = useState([]);
   const [errorMsg, seterrorMsg] = useState("");
-  const [sucessPage, setsucessPage] = useState([]);
+  const [SucessPage, setSucessPage] = useState([]);
   const [settingsPage, setSettingsPage] = useState(true);
   const [emailvalue,setEmailvalue] = useState(false)
   const Token = window.localStorage.getItem("token");
@@ -36,6 +39,21 @@ export default function Setting() {
     "Token in list",
     window.localStorage.getItem("loginDetailsUserId")
   );
+
+  const [OldPasswordShown, setOldPasswordShown] = useState(false);
+  const toggleOldPasswordVisiblity = () => {
+    setOldPasswordShown(OldPasswordShown ? false : true);
+  };
+  // New Password Field
+  const [NewPasswordShown, setNewPasswordShown] = useState(false);
+  const toggleNewPasswordVisiblity = () => {
+    setNewPasswordShown(NewPasswordShown ? false : true);
+  };
+  // Confirm New Password Field
+  const [ConfNewPasswordShown, setConfNewPasswordShown] = useState(false);
+  const toggleConfNewPasswordVisiblity = () => {
+    setConfNewPasswordShown(ConfNewPasswordShown ? false : true);
+  };
 
   const { confirmPassword, oldPassword, newPassword } = data;
 
@@ -59,7 +77,7 @@ export default function Setting() {
         const response = await getChangePassword(payload);
         // console.log(response);
         seterrorMsg("");
-        setsucessPage(true);
+        setSucessPage(true);
       } catch (error) {
         alert(JSON.stringify(error.message));
       }
@@ -69,13 +87,13 @@ export default function Setting() {
   //Notification API
   const handleNotification = async () => {
     try {
-      const userNotificationResp = await getUserNotificationService(data);
-      const notificationResp = await getNotificationService(data);
+      const userNotificationResp = await getUserNotificationService();
+      const notificationResp = await getNotificationService();
       // console.log('userNotificationResp',notificationResp , userNotificationResp);
       setUserNotification(userNotificationResp.data);
       setnotification(notificationResp.data);
     } catch (error) {
-      alert("naga sai", JSON.stringify(error.message));
+      alert("Error", JSON.stringify(error.message));
     }
   };
   useEffect(() => {
@@ -116,7 +134,7 @@ export default function Setting() {
 
  
   const handleback = () => {
-    setsucessPage(false);
+    setSucessPage(false);
     setSettingsPage(true);
   };
 
@@ -149,13 +167,13 @@ export default function Setting() {
   return (
     <>
       {settingsPage && (
-        <div className="container-fluid">
+        // <div className="container-fluid">
           <div className="row">
-            <div className="col-xl-12 col-lg-8 col-md-4 col-sm-2 col-xs-1">
+            <div className="col-xl-12 col-lg-8 col-md-8 col-sm-2 col-xs-1">
               <div classpolicy="comppage">
                 <Breadcrumb style={{ marginTop: "20px" }}>
                   <Breadcrumb.Item>Home</Breadcrumb.Item>
-                  <Breadcrumb.Item>claims</Breadcrumb.Item>
+                  <Breadcrumb.Item>Settings</Breadcrumb.Item>
                 </Breadcrumb>
                 <div
                   style={{
@@ -182,48 +200,52 @@ export default function Setting() {
                       style={{
                         width: "330px",
                         marginTop: "40px",
-                        // marginLeft: "20px",
+                         marginLeft: "20px",
                       }}
                     >
-                      <Form.Group className="mb-3 p-2" controlId="formBasicEmail">
-                        <Form.Label>Old Password</Form.Label>
-                        <Form.Control
-                          type="password"
-                          name="oldPassword"
-                          value={oldPassword}
-                          placeholder="Enter old Password"
-                          onChange={handleChange}
-                        />
-                      </Form.Group>
-
-                      <Form.Group
-                        className="mb-3 p-2"
-                        controlId="formBasicPassword"
-                      >
-                        <Form.Label> New Password</Form.Label>
-                        <Form.Control
-                          type="password"
-                          value={newPassword}
-                          name="newPassword"
-                          placeholder=" Enter new Password"
-                          onChange={handleChange}
-                          
-                        />
-                      </Form.Group>
-
-                      <Form.Group
-                        className="mb-3 p-2"
-                        controlId="formBasicPassword"
-                      >
-                        <Form.Label> Confirm New Password</Form.Label>
-                        <Form.Control
-                          type="password"
-                          name="confirmPassword"
-                          value={confirmPassword}
-                          placeholder=" Confirm new Password"
-                          onChange={handleChange}
-                        />
-                      </Form.Group>
+                     <div className="pass-wrapper">
+                          <label className="required" htmlFor="oldpass">
+                            Old Password
+                          </label>
+                          <input
+                            id="pass"
+                            placeholder="Enter Old Password"
+                            name="oldPassword"
+                            value={oldPassword}
+                            type={OldPasswordShown ? "text" : "password"}
+                            onChange={handleChange}
+                            required="required"
+                          />
+                          <i onClick={toggleOldPasswordVisiblity}>{eye}</i>
+                        </div>
+                        <div className="pass-wrapper">
+                          <label className="required" htmlFor="newpass">
+                            New Password
+                          </label>
+                          <input
+                            id="pass"
+                            placeholder="Enter New Password"
+                            name="newPassword"
+                            value={newPassword}
+                            type={NewPasswordShown ? "text" : "password"}
+                            onChange={handleChange}
+                          />
+                          <i onClick={toggleNewPasswordVisiblity}>{eye}</i>
+                        </div>
+                        <div className="pass-wrapper">
+                          <label className="required" htmlFor="confpass">
+                            Confirm New Password
+                          </label>
+                          <input
+                            id="pass"
+                            placeholder="Confirm New Password"
+                            name="confirmPassword"
+                            value={confirmPassword}
+                            type={ConfNewPasswordShown ? "text" : "password"}
+                            onChange={handleChange}
+                          />
+                          <i onClick={toggleConfNewPasswordVisiblity}>{eye}</i>
+                        </div>
 
                       <div
                         className="bttn"
@@ -254,6 +276,7 @@ export default function Setting() {
                     </div>
                   </TabPanel>
                   <TabPanel>
+                  {/* <div className="container-fluid"> */}
                     <div className="accord mx-3">
                       {notification &&
                         notification.map((data, index) => {
@@ -272,11 +295,11 @@ export default function Setting() {
 
                           return (
                             <Accordion
-                              style={{ width: 800, marginTop: "30px" }}
+                              // style={{ width:"730px", marginTop: "30px" }}
                               key={data.id}
                             >
                               <div
-                                className=" accordhead"
+                                className="accordhead"
                                 style={{
                                   backgroundColor: "#8EC131",
                                   color: "white",
@@ -364,14 +387,15 @@ export default function Setting() {
                           );
                         })}
                     </div>
+                  
                   </TabPanel>
                 </Tabs>
               </div>
             </div>
-          </div>
+          {/* </div> */}
         </div>
       )}
-      {setsucessPage && <setSucess handleback={handleback} />}
+      {setSucessPage && <setSucess handleback={handleback}/>}
     </>
   );
 }

@@ -4,14 +4,16 @@ import { EditOutlined} from "@ant-design/icons";
 import { Menu, Dropdown } from 'antd';
 import {Button,Modal, Form, Table} from "react-bootstrap";
 import moment from 'moment';
-import { getEditHoliday,getDeleteHoliday ,getHolidaysList} from ".././services/authentication";
+import { getEditHoliday,getDeleteHoliday ,getHolidaysList,getAddHoliday} from ".././services/authentication";
 import {CSVLink} from "react-csv";
+import ReactPaginate from "react-paginate";
 
 
 
 
 function HrHolidays() {
   const [show, setShow] = useState(false);
+  const[errorMsg,setErrorMsg]=useState('')
   const[ShowModal,setShowModal]=useState(false)
   const [HolidaysData, setHolidaysData] = useState("");
   const[HolidayListArray,setHolidayListArray]=useState('')
@@ -60,7 +62,7 @@ function HrHolidays() {
           tableDataArr.push(value);
           setHolidaysData(value)
           setTableData(tableDataArr);
-          console.log("tdr", tableDataArr);
+          //console.log("tdr", tableDataArr);
         });
     } catch (error) {
       console.log("error", error);
@@ -83,7 +85,7 @@ function HrHolidays() {
       }
       try {
         const resp = await getDeleteHoliday(payload);
-        console.log('success',resp)
+        //console.log('success',resp)
         resp && handleHolidaysList()
         // handelEditCancel()
       } catch (error) {
@@ -99,8 +101,8 @@ function HrHolidays() {
   //Edit API
 
   const handleShowModal = (selectedRec) =>{
-    console.log("table",HolidaysData)
-    console.log('selectedRec',selectedRec)
+    //console.log("table",HolidaysData)
+    //console.log('selectedRec',selectedRec)
     const Date = moment(selectedRec.date).format('YYYY-MM-DD');
     setData({ 
     id:selectedRec.id,
@@ -122,7 +124,7 @@ const payload ={
   }
   try {
     const resp = await getEditHoliday(payload);
-    console.log('success',resp)
+    //console.log('success',resp)
     resp && handleHolidaysList()
     // handelEditCancel()
     setShowModal(false)
@@ -134,9 +136,39 @@ const payload ={
 
 
   //ADD List API 
-  const handleAddHlidayAPI = () =>{
+  const handleAddHlidayAPI = () => {
+    const Payload = {
+      name: Name,
+      date:date,
+      day: Day,
+      type:Type
+    };
 
-  }
+  if (
+      Name === "" ||
+      date === "" ||
+      Day === "" ||
+      Type === ""
+     ) 
+      {
+        setErrorMsg("Please Fill all fileds.");
+     } 
+   else {
+      try {
+        const resp = getAddHoliday(Payload);
+        console.log("sucess", resp);
+        setShow(false)
+        alert("Holiday Added Sucessfully")
+        handleHolidaysList()
+        setData(' ')
+        setErrorMsg(null)
+      } catch (error) {
+        console.log("error", error);
+      }
+    }
+  };
+
+
 
 
   const menu =(selectedRec)=> {
@@ -153,12 +185,12 @@ const payload ={
 
   const HolidayCSVdata = () =>{
     let HolidayData =[]
-    console.log("hla",HolidayListArray)
+    //console.log("hla",HolidayListArray)
     const HolidayListArrayData = HolidayListArray && HolidayListArray
     if(HolidayListArrayData){
       HolidayData.push('Id,Name,Date,Day,Type\n')
       HolidayListArrayData.map((excelData)=>{
-        console.log("excel",excelData)
+        //console.log("excel",excelData)
         HolidayData.push(
           `${excelData.id},${excelData.name}, ${excelData.date}, ${excelData.day},${excelData.type}\n`
  
@@ -175,7 +207,7 @@ const payload ={
   //Filter
   const handleFilterData = (filterData) =>{
     const tableDataArr =[];
-    console.log('filterData',filterData)
+    //console.log('filterData',filterData)
     if(filterData.length > 0){
      filterData.map((data, i) => {
       const value = {
@@ -198,21 +230,39 @@ const payload ={
     setTableData(filterData)
   }
 
+  
+    // This section is for pagination
+
+    const [pageNumber, setPageNumber] = useState(0);
+    const usersPerPage = 10;
+    const pagesVisited = pageNumber * usersPerPage;
+    const pageCount = Math.ceil(TableData.length / usersPerPage);
+    // const pageCount2 = Math.ceil(ClinicalData.length / usersPerPage);
+    const changePage = ({ selected }) => {
+      setPageNumber(selected);
+    };
+
   return (
     <>
       <div className="container-fluid">
-        <div className="row">
-          <div className="col-xl-7  col-lg-4 col-md-4 col-sm-3">
+        <div className="row" style={{
+              marginTop: "20px",
+              marginBottom: "25px",
+              display: "flex",
+              justifyContent: "space-between",
+              flexDirection: "row",
+            }}>
+          <div className="col-12  col-lg-3 col-md-3 col-sm-3">
             <h4 id="head" className="my-3 mx-5">
               Holiday List 2022
             </h4>
           </div>
-          <div className="col-xl-5  col-lg-4 col-md-3 col-sm-2">
-            <div className="header">
+          <div className="col-12  col-lg-9 col-md-9 col-sm-9">
+            <div className="header justify-content-end">
               <button
                 type="button"
                 className="btn btn-success btn-sm my-3"
-                style={{ width: "130px" }}
+                style={{ width: "150px", marginRight:"15px" }}
                 onClick={handleShow}
               >
                 <i className="fas fa-plus-circle"></i> Add Holiday List
@@ -220,34 +270,47 @@ const payload ={
               <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                   <Modal.Title
-                    style={{ color: "#61B33B", marginLeft: "130px" }}
+                    style={{ color: "#8ec131",}}
                   >
                     Add Holiday List
                   </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <h5>Upload CSV</h5>
                   <div className="container">
-                    <div className="droptarget">
-                      <i
-                        className="fas fa-upload"
-                        style={{ justifyContent: "center", display: "flex" }}
-                      ></i>
-                      <span style={{ fontSize: "1rem" }}>
-                        Drag Drop file here
-                      </span>
-                    </div>
+                    <Form.Group>
+                    <Form.Label>Holiday Name</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={Name}
+                        name="Name"
+                        onChange={handleChange}
+                      ></Form.Control>
+                      <Form.Label>Date</Form.Label>
+                      <Form.Control
+                        type="date"
+                        value={date}
+                        name="date"
+                        onChange={handleChange}
+                      ></Form.Control>
+                      <Form.Label>Day</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={Day}
+                        name="Day"
+                        onChange={handleChange}
+                      ></Form.Control>
+                      <Form.Label>Holiday Type</Form.Label>
+                      <Form.Select size="lg" value={Type} name="Type" onChange={handleChange}>
+                        <option>Open this select menu</option>
+                        <option>public</option>
+                        <option>National</option>
+                        <option>seasonal</option>
+                      </Form.Select>
+                    </Form.Group>
                   </div>
-                  <p style={{ justifyContent: "center", display: "flex" }}>
-                    Or
-                  </p>
-                  <Form.Group
-                    controlId="formFile"
-                    className="mb-3"
-                  ></Form.Group>
-                  <Form.Group controlId="formFile" className="mb-3">
-                    <Form.Control type="file" />
-                  </Form.Group>
+                  <div>
+                    <h6 style={{color:"red"}}>{errorMsg}</h6>
+                  </div>
                 </Modal.Body>
                 <Modal.Footer>
                   <Button
@@ -260,12 +323,12 @@ const payload ={
                   </Button>
                 </Modal.Footer>
               </Modal>
-              <div className="btn-group hover_drop_down">
+              {/* <div className="btn-group hover_drop_down" > */}
                 <button
                   type="button"
                   className="btn btn-success btn-sm my-3"
                   data-toggle="dropdown"
-                  style={{ width: "130px" }}
+                  style={{ width: "130px", marginRight:"15px" }}
                 >
                   <i className="fas fa-filter"></i> Add Filters
                 </button>
@@ -281,16 +344,16 @@ const payload ={
                   </li>
                 </ul>
               <button type="button" className="btn btn-primary btn-sm my-3">
-              <CSVLink data={HolidayCSV} target="_blank">
+              <CSVLink data={HolidayCSV} style={{color:"white"}} target="_blank">
                     Download PDF/CSV
                   </CSVLink>
               </button>
-              </div>
+              {/* </div> */}
             </div>
           </div>
         </div>
         <div className="row">
-          <div className="col-xl-12  col-lg-9 col-md-6 col-sm-4">
+          <div className="col-xl-12  col-lg-12 col-md-12 col-sm-12">
             <Table responsive>
               <thead>
                 <tr>
@@ -304,7 +367,7 @@ const payload ={
               </thead>
               <tbody>
                 {TableData &&
-                  TableData.map((item) => (
+                  TableData.slice(pagesVisited, pagesVisited + usersPerPage).map((item) => (
                     <tr>
                       <td>{item.id}</td>
                       <td>{item.Name}</td>
@@ -325,37 +388,29 @@ const payload ={
           </div>
         </div>
         <div className="row">
-          <div className="col-xl-9  col-lg-6 col-md-4 col-sm-2">
-          Shown Results{HolidayListArray.length}
+              <div className="col-xl-8  col-lg-8 col-md-8 col-sm-2 col-xs-12">
+                  <small>Shown Total Results {TableData && TableData.length}</small>
+                </div>
+                <div className="col-xl-4  col-lg-4 col-md-4 col-sm-4 col-xs-12" style={{padding:"20px"}}>
+            <ReactPaginate 
+              previousLabel={"Previous"}
+              nextLabel={"Next"}
+              pageCount={pageCount}
+              onPageChange={changePage}
+              containerClassName={"paginationBttns"}
+              previousLinkClassName={"previousBttn"}
+              nextLinkClassName={"nextBttn"}
+              disabledClassName={"paginationDisabled"}
+              activeClassName={"paginationActive"}
+            />
           </div>
-          <div className="col-xl-3  col-lg-3 col-md-2 col-sm-1">
-            <nav aria-label="Page navigation example">
-              <ul className="pagination">
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    Prev
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    1
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    Next
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
+              </div>
         <div className="col-xl-5  col-lg-4 col-md-3 col-sm-2">
             <div className="header">
               <Modal show={ShowModal} onHide={handleCancel}>
                 <Modal.Header closeButton>
                   <Modal.Title
-                    style={{ color: "#61B33B", marginLeft: "130px" }}
+                    style={{ color: "#8ec131", marginLeft: "130px" }}
                   >
                     Edit Holiday List
                   </Modal.Title>

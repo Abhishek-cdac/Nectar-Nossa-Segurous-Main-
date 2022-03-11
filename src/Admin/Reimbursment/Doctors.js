@@ -1,13 +1,14 @@
 // import React from "react";
 import React, { useEffect, useState } from "react";
 import { FormOutlined} from "@ant-design/icons";
-import { Menu, Dropdown } from 'antd';
+import { Menu, Dropdown,Breadcrumb } from 'antd';
 import {Button,Modal, Form, Table} from "react-bootstrap";
 import { getDoctorsList } from "../../services/authentication";
 import moment from 'moment';
 import { getEditDoctorsList,getDeleteDoctorsList,getAddDoctorsList } from "../../services/authentication";
 import {CSVLink} from "react-csv";
 import AdReimbusrment from "./AdReimbursment"
+import ReactPaginate from "react-paginate";
 
 
   
@@ -94,6 +95,7 @@ const Doctors = () =>{
   
   
   const handleEditDoctorsList = async() =>{
+    console.log("id",id)
    const payload ={
      "id":id,
     "doctorName":Name,
@@ -120,8 +122,7 @@ const Doctors = () =>{
   const handleDeleteInfo = async(item) =>{
     // console.log("dd",DoctorsData)
     const payload ={
-         "id": item.id,
-         
+         "id": item.id, 
       }
       try {
         const resp = await getDeleteDoctorsList(payload);
@@ -195,25 +196,36 @@ const Doctors = () =>{
       }
       const DoctorsCSV = DoctorsCSVdata()
 
-
+      const [pageNumber, setPageNumber] = useState(0);
+      const usersPerPage = 10;
+      const pagesVisited = pageNumber * usersPerPage;
+      const pageCount = Math.ceil(DoctorsListArray.length / usersPerPage);
+      const changePage = ({ selected }) => {
+        setPageNumber(selected);
+      };
 
 
 
     return(
         <>
+         <Breadcrumb style={{ marginTop: "20px" }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Doctors</Breadcrumb.Item>
+            {/* <Breadcrumb.Item>claim Details</Breadcrumb.Item> */}
+          </Breadcrumb>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-xl-7 col-lg-4 col-md-4 col-sm-4">
+          <div className="col-xl-3 col-lg-3 col-md-3 col-sm-3">
             <h4 id="head" className="my-3 mx-5">
               Doctors List
             </h4>
           </div>
-          <div className="col-xl-5  col-lg-4 col-md-3 col-sm-2">
-            <div className="header">
+          <div className="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+            <div className="header justify-content-end">
               <button
                 type="button"
                 className="btn btn-success btn-sm my-3"
-                style={{ width: "130px" }}
+                style={{ width: "160px", marginRight:"15px" }}
                 onClick={handleShow}
               >
                 <i className="fas fa-plus-circle"></i> Add Doctors List
@@ -256,27 +268,9 @@ const Doctors = () =>{
                 </Modal.Footer>
               </Modal>
               <div className="btn-group hover_drop_down">
-                {/* <button
-                  type="button"
-                  className="btn btn-success btn-sm my-3"
-                  data-toggle="dropdown"
-                  style={{ width: "130px" }}
-                >
-                  <i className="fas fa-filter"></i> Add Filters
-                </button>
-                <ul className="dropdown-menu" role="menu" onClick={HandleClick}>
-                  <li>
-                    <a onClick={() =>{handleclick("Public Holiday")}}>Public Holiday </a>
-                  </li>
-                  <li>
-                    <a onClick={() =>{handleclick("National Holiday")}}>National Holiday</a>
-                  </li>
-                  <li>
-                    <a onClick={() =>{handleclick("seasonal Holiday")}}>seasonal Holiday</a>
-                  </li>
-                </ul> */}
+
               <button type="button" className="btn btn-primary btn-sm my-3">
-              <CSVLink data={DoctorsCSV} target="_blank">
+              <CSVLink data={DoctorsCSV} target="_blank" style={{color:"white"}}>
                     Download PDF/CSV
                   </CSVLink>
               </button>
@@ -285,7 +279,7 @@ const Doctors = () =>{
           </div>
         </div>
         <div className="row">
-          <div className="col-xl-12  col-lg-9 col-md-6 col-sm-4">
+          <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
             <Table responsive>
               <thead>
                 <tr>
@@ -299,7 +293,7 @@ const Doctors = () =>{
               </thead>
               <tbody>
                 {DoctorsListArray &&
-                  DoctorsListArray.map((item) => (
+                  DoctorsListArray.slice(pagesVisited, pagesVisited + usersPerPage).map((item) => (
                     <tr>
                       {console.log("DLA",DoctorsListArray)}
                       <td>{item.id}</td>
@@ -321,29 +315,22 @@ const Doctors = () =>{
           </div>
         </div>
         <div className="row">
-          <div className="col-xl-9  col-lg-6 col-md-4 col-sm-2">
-            Shown Results{DoctorsListArray.length}
+          <div className="col-xl-8  col-lg-8 col-md-8 col-sm-2 col-xs-12">
+            Shown Results{DoctorsListArray && DoctorsListArray.length}
           </div>
-          <div className="col-xl-3  col-lg-3 col-md-2 col-sm-1">
-            <nav aria-label="Page navigation example">
-              <ul className="pagination">
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    Prev
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    1
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    Next
-                  </a>
-                </li>
-              </ul>
-            </nav>
+          <div className="col-xl-4  col-lg-4 col-md-4 col-sm-4 col-xs-12" style={{padding:"20px"}}>
+            <ReactPaginate 
+              previousLabel={"Previous"}
+              nextLabel={"Next"}
+              pageCount={pageCount}
+              onPageChange={changePage}
+              containerClassName={"paginationBttns"}
+              previousLinkClassName={"previousBttn"}
+              nextLinkClassName={"nextBttn"}
+              disabledClassName={"paginationDisabled"}
+              activeClassName={"paginationActive"}
+            />
+
           </div>
         </div>
         <div className="col-xl-5  col-lg-4 col-md-3 col-sm-2">
@@ -360,7 +347,7 @@ const Doctors = () =>{
                   <div className="container">
                     <Form.Group>
                     <Form.Label>Id</Form.Label>
-                    <Form.Control type="id" value={id} name="id" onChange={handleChange}></Form.Control> 
+                    <Form.Control type="id" value={id} name="id"></Form.Control> 
                      <Form.Label>Doctors Name</Form.Label>
                     <Form.Control type="text" value={Name} name="Name" onChange={handleChange}></Form.Control>
                     <Form.Label>specialization</Form.Label>

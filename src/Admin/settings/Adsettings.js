@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Breadcrumb, Select, Menu, Dropdown } from "antd";
+import { Select, Menu, Dropdown,Breadcrumb } from "antd";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import { Form, Button, Modal, Table, DropdownButton } from "react-bootstrap";
-import { FormOutlined } from "@ant-design/icons";
+import { Form, Button, Modal, Table} from "react-bootstrap";
+import { FormOutlined,EyeOutlined } from "@ant-design/icons";
 import {
   getChangePassword,
   getNotificationService,
@@ -13,6 +13,8 @@ import {
 } from "../../services/authentication";
 import setSucess from "../../user/settings/setSucess";
 import moment from "moment";
+
+const eye = <EyeOutlined />;
 
 export default function AdSetting() {
   const [NotificationListArray, setNotificationListArray] = useState("");
@@ -50,6 +52,21 @@ export default function AdSetting() {
     Type,
     textBody,
   } = data;
+
+  const [OldPasswordShown, setOldPasswordShown] = useState(false);
+  const toggleOldPasswordVisiblity = () => {
+    setOldPasswordShown(OldPasswordShown ? false : true);
+  };
+  // New Password Field
+  const [NewPasswordShown, setNewPasswordShown] = useState(false);
+  const toggleNewPasswordVisiblity = () => {
+    setNewPasswordShown(NewPasswordShown ? false : true);
+  };
+  // Confirm New Password Field
+  const [ConfNewPasswordShown, setConfNewPasswordShown] = useState(false);
+  const toggleConfNewPasswordVisiblity = () => {
+    setConfNewPasswordShown(ConfNewPasswordShown ? false : true);
+  };
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -255,44 +272,49 @@ export default function AdSetting() {
                           marginLeft: "20px",
                         }}
                       >
-                        <Form.Group className="mb-2 p-2" controlId="formBasicEmail">
-                          <Form.Label>Old Password</Form.Label>
-                          <Form.Control
-                            type="password"
+                        <div className="pass-wrapper">
+                          <label className="required" htmlFor="oldpass">
+                            Old Password
+                          </label>
+                          <input
+                            id="pass"
+                            placeholder="Enter Old Password"
                             name="oldPassword"
                             value={oldPassword}
-                            placeholder="Enter old Password"
+                            type={OldPasswordShown ? "text" : "password"}
                             onChange={handleChange}
+                            required="required"
                           />
-                        </Form.Group>
-
-                        <Form.Group
-                          className="mb-3 p-2"
-                          controlId="formBasicPassword"
-                        >
-                          <Form.Label> New Password</Form.Label>
-                          <Form.Control
-                            type="password"
-                            value={newPassword}
+                          <i onClick={toggleOldPasswordVisiblity}>{eye}</i>
+                        </div>
+                        <div className="pass-wrapper">
+                          <label className="required" htmlFor="newpass">
+                            New Password
+                          </label>
+                          <input
+                            id="pass"
+                            placeholder="Enter New Password"
                             name="newPassword"
-                            placeholder=" Enter new Password"
+                            value={newPassword}
+                            type={NewPasswordShown ? "text" : "password"}
                             onChange={handleChange}
                           />
-                        </Form.Group>
-
-                        <Form.Group
-                          className="mb-3 p-2"
-                          controlId="formBasicPassword"
-                        >
-                          <Form.Label> Confirm New Password</Form.Label>
-                          <Form.Control
-                            type="password"
+                          <i onClick={toggleNewPasswordVisiblity}>{eye}</i>
+                        </div>
+                        <div className="pass-wrapper">
+                          <label className="required" htmlFor="confpass">
+                            Confirm New Password
+                          </label>
+                          <input
+                            id="pass"
+                            placeholder="Confirm New Password"
                             name="confirmPassword"
                             value={confirmPassword}
-                            placeholder=" Confirm new Password"
+                            type={ConfNewPasswordShown ? "text" : "password"}
                             onChange={handleChange}
                           />
-                        </Form.Group>
+                          <i onClick={toggleConfNewPasswordVisiblity}>{eye}</i>
+                        </div>
 
                         <div
                           className="bttn"
@@ -322,8 +344,8 @@ export default function AdSetting() {
                       </div>
                     </TabPanel>
                     <TabPanel>
-                      <div className="row">
-                      <div style={{ display: "flex", flexDirection: "row",justifyContent:"end"}}>
+                      <div className="row"  style={{justifyContent:"end"}}>
+                      <div>
                       <button
                         type="button"
                         className="btn btn-success btn-sm my-1"
@@ -415,10 +437,8 @@ export default function AdSetting() {
                       name="textBody"
                       onChange={handleChange}
                     ></Form.Control>
-                    <Form.Label>isActive</Form.Label>
-                    {/* <Dropdown overlay={menu} placement="bottomLeft">
-                      <Button>bottomLeft</Button>
-                    </Dropdown> */}
+                    <Form.Label>IsActive </Form.Label><br/>
+                   
                     <Select
                       defaultValue="true"
                       onChange={handleDropdownChange}
