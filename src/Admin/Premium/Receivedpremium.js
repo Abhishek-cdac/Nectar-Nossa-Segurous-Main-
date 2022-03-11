@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, Input, Menu, Dropdown,Breadcrumb } from "antd";
+import { Table, Button, Input, Menu, Dropdown, Breadcrumb } from "antd";
 import { useNavigate } from "react-router-dom";
 import {
   EyeOutlined,
@@ -134,68 +134,59 @@ const AdReceivedpremium = () => {
 
   const columns = [
     // This section is written to make the table responsive
-   
+
     // Actual Columns of tables starts from here
     {
       title: "Invoice Number",
       dataIndex: "code",
       key: "code",
-      align:"center",
-      
+      align: "center",
+
       sorter: (a, b) => a.code.length - b.code.length,
       render: (text) => <p style={{ color: "#4cbb17" }}>{text}</p>,
-     
     },
 
     {
       title: "Policy Holder",
       dataIndex: "name",
       key: "name",
-      align:"center",
-      
+      align: "center",
+
       sorter: (a, b) => a.name.length - b.name.length,
-     
     },
 
     {
       title: "Policy Name",
       dataIndex: "policy",
       key: "policy",
-      align:"center",
-      
+      align: "center",
+
       sorter: (a, b) => a.name.length - b.name.length,
-     
     },
     {
       title: "Premium plan",
       dataIndex: "type",
       key: "type",
-      align:"center",
-      
-     
+      align: "center",
     },
     {
       title: "Payment Received Date",
       dataIndex: "date",
       key: "date",
-      align:"center",
-      
-     
+      align: "center",
     },
 
     {
       title: "Amount",
       dataIndex: "amount",
       key: "amount",
-      align:"center",
-      
-     
+      align: "center",
     },
 
     // {
     //   title: "Download Invoice",
     //   key: "option",
-      
+
     //   render: (record) => {
     //     return (
     //       <>
@@ -204,83 +195,107 @@ const AdReceivedpremium = () => {
     //       </>
     //     );
     //   },
-     
+
     // },
   ];
 
   return (
     <>
-     <Breadcrumb style={{ marginTop: "20px" }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>Premium</Breadcrumb.Item>
-            {/* <Breadcrumb.Item>claim Details</Breadcrumb.Item> */}
-          </Breadcrumb>
+      <Breadcrumb style={{ marginTop: "20px" }}>
+        <Breadcrumb.Item>Home</Breadcrumb.Item>
+        <Breadcrumb.Item>Premium</Breadcrumb.Item>
+        {/* <Breadcrumb.Item>claim Details</Breadcrumb.Item> */}
+      </Breadcrumb>
       <div className="container-fluid">
-      <div className="row"
-        style={{
-          marginTop: "20px",
-          marginBottom: "25px",
-          display: "flex",
-          justifyContent: "space-between",
-          flexDirection: "row",
-        }}
-      >
-        <div className="col-12 col-sm-3 col-md-3">
-          <h3>Received Premium</h3>
-        </div>
-        <div className="nav justify-content-center">
-        <div className="col-12 col-sm-5 col-md-5" style={{ display: "flex", flexDirection: "row",justifyContent:"center" }}>
-          <Search
-            placeholder="search PolicyName"
-            onSearch={onSearch}
-            style={{
-              borderRadius: "25px",
-              marginRight:"10px"
-            }}
-          />
-        </div>
-        <div className="col-12 col-sm-3 col-md-3" style={{ display: "flex", flexDirection: "row",justifyContent:"center" }}>
-        <Dropdown placement="bottomCenter" overlay={content} arrow>
-            <Button
+        <div
+          className="row"
+          style={{
+            marginTop: "20px",
+            marginBottom: "25px",
+            display: "flex",
+            justifyContent: "space-between",
+            flexDirection: "row",
+          }}
+        >
+          <div className="col-12 col-sm-3 col-md-3">
+            <h3>Received Premium</h3>
+          </div>
+          <div className="nav justify-content-center">
+            <div
+              className="col-12 col-sm-5 col-md-5"
               style={{
-                borderRadius: "5px",
-                backgroundColor: "#8ec131",
-                color: "white",
-                marginRight:"10px"
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
               }}
             >
-              <FilterOutlined /> Add Filters
-            </Button>
-          </Dropdown>
+              <Search
+                placeholder="search PolicyName"
+                onSearch={onSearch}
+                style={{
+                  borderRadius: "25px",
+                  marginRight: "10px",
+                }}
+              />
+            </div>
+            <div
+              className="col-12 col-sm-3 col-md-3"
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+              }}
+            >
+              <Dropdown placement="bottomCenter" overlay={content} arrow>
+                <Button
+                  style={{
+                    borderRadius: "5px",
+                    backgroundColor: "#8ec131",
+                    color: "white",
+                    marginRight: "10px",
+                  }}
+                >
+                  <FilterOutlined /> Add Filters
+                </Button>
+              </Dropdown>
+            </div>
+            <div
+              className="col-12 col-sm-3 col-md-3"
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+              }}
+            >
+              <Button
+                style={{
+                  color: "#ffffff",
+                  backgroundColor: "#002E5E",
+                  borderRadius: "5px",
+                  marginLeft:"15px"
+                }}
+              >
+                <CSVLink data={premiumCSV} target="_blank">
+                  Download PDF/CSV
+                </CSVLink>
+              </Button>
+            </div>
+          </div>
         </div>
-        <div className="col-12 col-sm-3 col-md-3" style={{ display: "flex", flexDirection: "row" ,justifyContent:"center" }}>
-        <Button
-            style={{
-              color: "#ffffff",
-              backgroundColor: "#000089",
-              borderRadius: "5px"
-            }}
-          >
-            <CSVLink data={premiumCSV} target="_blank">
-              Download PDF/CSV
-            </CSVLink>
-          </Button>
-        </div>
-        </div>
-      </div>
       </div>
       <div className="container-fluid">
-        
-      <div className="row DataTable">
-
-      <Table
-        columns={columns}
-        dataSource={TableData}
-        //onChange={this.handleChange}
-        pagination={true}
-        total={10}
-      />
-      </div>
+        <div className="DataTable" style={{ justifyContent: "center" }}>
+          <Table
+            columns={columns}
+            dataSource={TableData}
+            //onChange={this.handleChange}
+            pagination={true}
+            total={10}
+          />
+        </div>
+        <div>
+          <span>shown Results {TableData.length}</span>
+        </div>
       </div>
     </>
   );

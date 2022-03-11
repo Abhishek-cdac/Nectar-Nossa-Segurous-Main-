@@ -147,9 +147,10 @@ const Client = () => {
             <div className="col-12 col-lg-3 col-md-3 text-left">
               <h3 className="mt-0 mb-4">Clients</h3>
             </div>
-            <div className="col-12 col-lg-9 col-md-9 text-right">
+            <div className="nav justify-content-center">
+              <div className="col-12 col-lg-3 col-md-3 col-sm-3">
               <div className="search-btn">
-                <div className="input-group mx-1" style={{ paddingTop: "15px",width:"30%"}}>
+                <div className="input-group" style={{ paddingTop: "15px", width:"100%"}}>
                   <input
                     value={policyTypeSearch}
                     onChange={handlesearch}
@@ -168,23 +169,22 @@ const Client = () => {
                   </div>
                 </div>
               </div>
-              <div>
-               
+              </div>
+              <div className="col-12 col-lg-3 col-md-3 col-sm-3">
                 <a
                   onClick={() => handleNewClient()}
-                  className="print-card-btn green-btn float-left" style={{marginLeft:"30px",marginTop:"15px"}}
+                  className="print-card-btn green-btn float-left" style={{marginTop:"15px"}}
                 >
                   <button className="fas fa-plus-circle"></button> Add New
                   Client
                 </a>
               </div>
-
-              {/* <div className="btn-group hover_drop_down"> */}
-                <button
+              <div className="col-12 col-lg-3 col-md-3 col-sm-3">
+              <button
                   type="button"
                   className="btn btn-success btn-sm my-3 mx-2"
                   data-toggle="dropdown"
-                  style={{ width: "150px",marginRight:"30px" }}
+                  style={{ width: "135px"}}
                 >
                   <i className="fas fa-filter"></i> Add Filters
                 </button>
@@ -230,12 +230,15 @@ const Client = () => {
                     </a>
                   </li>
                 </ul>
+              </div>
               
+              <div className="col-12 col-lg-3 col-md-3 col-sm-3">
               <button type="button" className="btn btn-primary btn-sm my-3">
-                <CSVLink data={ClientCSV} target="_blank">
+                <CSVLink data={ClientCSV} target="_blank" style={{color:"white"}}>
                   Download PDF/CSV
                 </CSVLink>
               </button>
+              </div>
             </div>
           </div>
 

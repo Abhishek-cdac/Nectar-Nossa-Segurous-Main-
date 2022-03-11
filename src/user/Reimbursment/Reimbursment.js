@@ -281,11 +281,11 @@ const HrReimbursment = () => {
             <div className="col-lg-2 text-left">
               <h3 className="mt-0 mb-4 my-3">Reimbursement</h3>
             </div>
-            <div className="col-12 col-lg-8 col-md-4 text-right">
+            <div className="col-12 col-lg-6 col-md-6 text-right">
               <div className="search-btn">
                 <div className="search-btn">
                   <div className="input-group">
-                    <input
+                    <input style={{height:"35px"}}
                       type="text"
                       className="form-control my-3"
                       placeholder="Search Hospital"
@@ -312,7 +312,6 @@ const HrReimbursment = () => {
                         borderRadius: "5px",
                         backgroundColor: "#8EC131",
                         border: "1px solid #8EC131",
-                        height:"40px"
                       }}
                     >
                       <i className="fas fa-filter"></i> Add Filters
@@ -350,7 +349,7 @@ const HrReimbursment = () => {
                   <div className="btn-group">
                     <button
                       type="button"
-                      className="btn btn-primary btn-md my-3 mx-2"
+                      className="btn btn-primary btn-sm my-3 mx-2"
                     >
                       <CSVLink
                         data={ReimbursmentCSV}

@@ -371,6 +371,7 @@ const handlesubmit = ()=>{
                       borderRadius: "5px",
                       backgroundColor: "#8ec131",
                       color: "white",
+                      marginRight:"15px"
                     }}
                   >
                     <FilterOutlined /> Add Filters
@@ -384,7 +385,7 @@ const handlesubmit = ()=>{
                 <Button
                   style={{
                     color: "#ffffff",
-                    backgroundColor: "#000089",
+                    backgroundColor: "#002E5E",
                     borderRadius: "5px",
                   }}
                 >
@@ -396,7 +397,7 @@ const handlesubmit = ()=>{
             </div>
           </div>
           <div className="Container-fluid">
-          <div className="row DataTable" style={{ justifyContent: "center" }}>
+          <div className="DataTable" style={{ justifyContent: "center" }}>
             <Table
               style={{ marginTop: "10px" }}
               columns={columns}

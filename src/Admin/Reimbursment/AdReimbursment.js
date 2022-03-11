@@ -520,11 +520,12 @@ const Reimbusrment = () => {
             <div className="col-lg-2 text-left">
               <h3 className="mt-0 mb-4 my-2">Reimbursement</h3>
             </div>
-            <div className="col-12 col-lg-8 col-md-4 text-right">
+            <div className="col-12 col-lg-8 col-md-8">
               <div className="search-btn">
                 <div className="search-btn">
-                  <div className="input-group col-12 col-lg-3 col-md-3">
+                  <div className="input-group mx-2">
                     <input
+                    style={{height:"35px"}}
                       type="text"
                       className="form-control my-3"
                       placeholder="Search Hospital"
@@ -545,7 +546,7 @@ const Reimbusrment = () => {
                     <button
                       type="button"
                       className="btn btn-success btn-sm my-3 mx-2"
-                      style={{ width: "190px", borderRadius:"5px", height:"40px", border: "1px solid #8EC131", backgroundColor: "#8EC131"}}
+                      style={{ width: "160px", borderRadius:"5px", height:"35px", border: "1px solid #8EC131", backgroundColor: "#8EC131"}}
                       onClick={handleShow}
                     >
                       <i className="fas fa-plus-circle"></i> Add Reimbursment
@@ -672,11 +673,11 @@ const Reimbusrment = () => {
                       className="btn btn-success btn-sm my-3 mx-2"
                       data-toggle="dropdown"
                       style={{
-                        width: "110px",
+                        width: "140px",
                         borderRadius: "5px",
                         backgroundColor: "#8EC131",
                         border: "1px solid #8EC131",
-                        height:"40px"
+                        height:"35px"
                       }}
                     >
                       <i className="fas fa-filter"></i> Add Filters
@@ -715,7 +716,7 @@ const Reimbusrment = () => {
                     <button
                       type="button"
                       className="btn btn-primary btn-sm my-3 mx-2"
-                      style={{height:"40px"}}
+                      style={{height:"35px"}}
                     >
                       <CSVLink
                         data={ReimbursmentCSV}

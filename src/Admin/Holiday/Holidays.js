@@ -249,17 +249,17 @@ function AdHolidays() {
       </Breadcrumb>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-xl-7  col-lg-4 col-md-4 col-sm-3">
+          <div className="col-xl-3  col-lg-3 col-md-3 col-sm-3">
             <h4 id="head" className="my-3 mx-5">
               Holiday List 2022
             </h4>
           </div>
-          <div className="col-xl-5  col-lg-4 col-md-3 col-sm-2">
-            <div className="header">
+          <div className="col-xl-9  col-lg-9 col-md-9 col-sm-9">
+            <div className="header justify-content-end ">
               <button
                 type="button"
                 className="btn btn-success btn-sm my-3"
-                style={{ width: "130px" }}
+                style={{ width: "150px", marginRight:"15px" }}
                 onClick={handleShow}
               >
                 <i className="fas fa-plus-circle"></i> Add Holiday List
@@ -373,7 +373,7 @@ function AdHolidays() {
                 type="button"
                 className="btn btn-success btn-sm my-3"
                 data-toggle="dropdown"
-                style={{ width: "130px" }}
+                style={{ width: "130px", marginRight:"15px"}}
               >
                 <i className="fas fa-filter"></i> Add Filters
               </button>
@@ -407,7 +407,7 @@ function AdHolidays() {
                 </li>
               </ul>
               <button type="button" className="btn btn-primary btn-sm my-3">
-                <CSVLink data={HolidayCSV} target="_blank">
+                <CSVLink data={HolidayCSV} target="_blank" style={{color:"white"}}>
                   Download PDF/CSV
                 </CSVLink>
               </button>

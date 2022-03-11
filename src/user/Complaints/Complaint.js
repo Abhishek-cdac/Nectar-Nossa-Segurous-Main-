@@ -271,7 +271,7 @@ const Complaint = () => {
             <Breadcrumb.Item>Complaints</Breadcrumb.Item>
           </Breadcrumb>
             <div
-              className="ant-row"
+              className="row"
               style={{
                 marginTop: "20px",
                 marginBottom: "25px",
@@ -283,8 +283,8 @@ const Complaint = () => {
               <div className="col-12 col-sm-3 col-md-3">
                 <h3>My Complaints</h3>
               </div>
-
-              <div className="col-12 col-sm-3 col-md-3">
+              <div className="nav justify-content-center">
+              <div className="col-12 col-sm-6 col-md-6">
                 <Button
                   style={{
                     borderRadius: "5px",
@@ -296,11 +296,11 @@ const Complaint = () => {
                  <PlusOutlined style={{ paddingTop: "5px" }} /> New Complaint
                 </Button>
               </div>
-              <div className="col-12 col-sm-3 col-md-3">
+              <div className="col-12 col-sm-6 col-md-6">
                 <Button
                   style={{
                     color: "#ffffff",
-                    backgroundColor: "#000089",
+                    backgroundColor: "#002E5E",
                     borderRadius: "5px",
                   }}
                 >
@@ -309,6 +309,7 @@ const Complaint = () => {
                     Download PDF/CSV
                   </CSVLink>
                 </Button>
+              </div>
               </div>
             </div>
           </div>

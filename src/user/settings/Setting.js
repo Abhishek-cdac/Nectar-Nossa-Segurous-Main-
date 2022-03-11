@@ -299,7 +299,7 @@ export default function Setting() {
                               key={data.id}
                             >
                               <div
-                                className=" accordhead"
+                                className="accordhead"
                                 style={{
                                   backgroundColor: "#8EC131",
                                   color: "white",
