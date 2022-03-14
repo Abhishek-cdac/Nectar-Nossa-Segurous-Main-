@@ -517,8 +517,8 @@ const Reimbusrment = () => {
       {ReimbursmentPage && (
         <div>
           <div className="row d-flex align-items-center justify-content-between">
-            <div className="col-lg-2 text-left">
-              <h3 className="mt-0 mb-4 my-2">Reimbursement</h3>
+            <div className="col-12 col-lg-3 col-md-3 col-sm-3">
+              <h3>Reimbursement</h3>
             </div>
             <div className="nav justify-content-center">
             <div className="col-12 col-lg-3 col-md-3">

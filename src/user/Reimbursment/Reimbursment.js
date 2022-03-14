@@ -279,8 +279,8 @@ const HrReimbursment = () => {
             className="row d-flex align-items-center justify-content-between"
             style={{ paddingTop: "10px" }}
           >
-            <div className="col-lg-2 text-left">
-              <h3 className="mt-0 mb-4 my-3">Reimbursement</h3>
+            <div className="col-12 col-lg-3 col-md-3 col-sm-3">
+              <h3>Reimbursement</h3>
             </div>
             <div className="nav justify-content-center" style={{ display: "flex", flexDirection: "row" }}>
               <div className="col-12 col-lg-5 col-md-5 col-sm-5">
@@ -351,6 +351,7 @@ const HrReimbursment = () => {
               </div>
               <div className="col-12 col-lg-4 col-md-4 col-sm-4">
                   <button
+                  
                     type="button"
                     className="btn btn-primary btn-sm my-3 mx-3"
                   >

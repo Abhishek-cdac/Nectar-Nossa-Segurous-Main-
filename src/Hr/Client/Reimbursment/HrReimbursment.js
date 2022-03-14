@@ -274,7 +274,7 @@ const HrReimbursment = () => {
             <Breadcrumb.Item>Reimbursment</Breadcrumb.Item>
           </Breadcrumb>
           <div className="row d-flex align-items-center justify-content-between">
-            <div className="col-lg-2 text-left">
+            <div className="col-12 col-lg-3 col-md-3 col-sm-3">
               <h3>Reimbursement</h3>
             </div>
 
