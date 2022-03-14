@@ -44,13 +44,13 @@ import AdHelpAndSupport from "./Admin/AdHelp&&support/Help&support";
 import HrSetting from "./Hr/settings/HrSettings";
 import HrHelp from "./Hr/settings/HrHelp&support/HrHelp&Support";
 import HrDashboard2 from "./Hr/HrDashBoard2";
-import Rp from "./example"
+import Payment from "./user/Paypremium/paymentHistory"
 import Doctors from "./Admin/Reimbursment/Doctors";
 import Services from "./Admin/Reimbursment/Services";
 import Demo from "./user/demo";
 import AdDemo from "./Admin/AdDemo";
 import HrDemo from "./Hr/HrDemo";
-import CreditCard from "./user/Paypremium/Creditcard";
+
 function App() {
   return (
     <div>
@@ -67,7 +67,7 @@ function App() {
             <Route path="" element={<Dashboard />} />
             <Route path="newClaim" element={<Claims />} />
             <Route path="paypremium" element={<Paypremium />} />
-            {/* <Route path="paypremium/payment" element={<CreditCard />}/> */}
+            <Route path="paymentHistory" element={<Payment/>}/>
             <Route path="noosacard" element={<NossaCard />} />
             <Route path="complaint" element={<Complaint />} />
             <Route path="servicerequest" element={<UserServices />} />

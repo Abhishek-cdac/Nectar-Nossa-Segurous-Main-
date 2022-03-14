@@ -102,7 +102,7 @@ const Dashboard = () => {
                   <small className="pl-4 pt-0 pb-3 d-block">&nbsp;</small>
                 </div>
                 <div className="col-3 col-md-3 col-sm-3 text-right">
-                  <a className="pr-4 pt-0 pb-3 d-block" style={{color:"#8ec131"}}>
+                  <a onClick={() =>navigate("paymentHistory")} className="pr-4 pt-0 pb-3 d-block" style={{color:"#8ec131"}}>
                     <i className="fas fa-arrow-right"></i>
                   </a>
                 </div>

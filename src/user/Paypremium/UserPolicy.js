@@ -172,14 +172,14 @@ const handleClosePolicy = ()=>{
                   style={{ display: "flex", flexDirection: "row" }}
                 >
                   {" "}
-                  <div className="col-12 col-md-2">
+                  {/* <div className="col-12 col-md-2">
                     <a
                       onClick={() =>handleClosePolicy()}
                       className="btn-close"
                     >
                       Close Policy
                     </a>
-                  </div>
+                  </div> */}
                
                   <div className="col-12 col-md-2">
                     <a
@@ -201,7 +201,7 @@ const handleClosePolicy = ()=>{
                   </div>
                 </div>
               )}
-              {!status && (
+              {/* {!status && (
                 <div className="col-12 col-md-2">
                   <a
                     
@@ -210,7 +210,7 @@ const handleClosePolicy = ()=>{
                     Renew Policy
                   </a>
                 </div>
-              )}
+              )} */}
             </div>
           </div>
 

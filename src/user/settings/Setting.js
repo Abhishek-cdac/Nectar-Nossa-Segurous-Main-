@@ -16,7 +16,7 @@ import {
   getNotificationService,
   getAddUserNotificationService
 } from "../../services/authentication";
-import setSucess from "./setSucess";
+import SetSucess from "./setSucess";
 
 const eye = <EyeOutlined />;
 
@@ -29,7 +29,7 @@ export default function Setting() {
   const [userNotification, setUserNotification] = useState([]);
   const [notification, setnotification] = useState([]);
   const [errorMsg, seterrorMsg] = useState("");
-  const [SucessPage, setSucessPage] = useState([]);
+  const [SucessPage, setsucessPage] = useState(false);
   const [settingsPage, setSettingsPage] = useState(true);
   const [emailvalue,setEmailvalue] = useState(false)
   const Token = window.localStorage.getItem("token");
@@ -76,8 +76,10 @@ export default function Setting() {
       try {
         const response = await getChangePassword(payload);
         // console.log(response);
+        setData(" ");
         seterrorMsg("");
-        setSucessPage(true);
+        setSettingsPage(false);
+        setsucessPage(true);
       } catch (error) {
         alert(JSON.stringify(error.message));
       }
@@ -134,7 +136,7 @@ export default function Setting() {
 
  
   const handleback = () => {
-    setSucessPage(false);
+    setsucessPage(false);
     setSettingsPage(true);
   };
 
@@ -395,7 +397,7 @@ export default function Setting() {
           {/* </div> */}
         </div>
       )}
-      {setSucessPage && <setSucess handleback={handleback}/>}
+      {SucessPage && <SetSucess handleback={handleback}/>}
     </>
   );
 }

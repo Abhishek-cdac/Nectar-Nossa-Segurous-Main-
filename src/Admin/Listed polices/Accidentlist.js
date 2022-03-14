@@ -36,7 +36,7 @@ const AccidentList = (props) => {
       align:"center",
 
       sorter: (a, b) => a.code.length - b.code.length,
-      render: (text) => <a style={{ color: "#4cbb17" }}>{text}</a>,
+      render: (text) => <p style={{ color: "#4cbb17" }}>{text}</p>,
     },
 
     {
@@ -81,25 +81,25 @@ const AccidentList = (props) => {
       key: "count",
       align:"center",
     },
-    {
-      title: "options",
-      key: "option",
-      align:"center",
+    // {
+    //   title: "options",
+    //   key: "option",
+    //   align:"center",
 
-      render: (record) => {
-        return (
-          <>
-            <div>
-              <Popover placement="bottom" content={handleContent()}>
-                {" "}
-                <SmallDashOutlined />
-              </Popover>
-            </div>
-            <EyeOutlined style={{ paddingLeft: "30px" }} />
-          </>
-        );
-      },
-    },
+    //   render: (record) => {
+    //     return (
+    //       <>
+    //         <div>
+    //           <Popover placement="bottom" content={handleContent()}>
+    //             {" "}
+    //             <SmallDashOutlined />
+    //           </Popover>
+    //         </div>
+    //         <EyeOutlined style={{ paddingLeft: "30px" }} />
+    //       </>
+    //     );
+    //   },
+    // },
   ];
 
   const handleAllPolicyList = async () => {
