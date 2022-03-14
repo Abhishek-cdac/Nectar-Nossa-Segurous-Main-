@@ -11,7 +11,7 @@ import {
   getEditNotificationList,
   getDeleteNotificationList,
 } from "../../services/authentication";
-import setSucess from "../../user/settings/setSucess";
+import SetSucess from "../../user/settings/setSucess";
 import moment from "moment";
 
 const eye = <EyeOutlined />;
@@ -33,7 +33,7 @@ export default function AdSetting() {
     Type: "",
     email: "",
   });
-  const [sucessPage, setsucessPage] = useState("");
+  const [sucessPage, setsucessPage] = useState(false);
   const [settingsPage, setSettingsPage] = useState(true);
   const Token = window.localStorage.getItem("token");
   const email = window.localStorage.getItem("email");
@@ -78,7 +78,7 @@ export default function AdSetting() {
       email: email,
       oldPassword: oldPassword,
       confirmPassword: confirmPassword,
-      newPassword: newPassword,
+      password: newPassword,
       token: Token,
     };
     if (confirmPassword !== newPassword) {
@@ -86,8 +86,10 @@ export default function AdSetting() {
     } else {
       try {
         const response = await getChangePassword(payload);
-        console.log(response);
+        setData(" ");
         seterrorMsg("");
+        setSettingsPage(false);
+        setsucessPage(true);
       } catch (error) {
         /**
          * Error logic here
@@ -523,7 +525,7 @@ export default function AdSetting() {
           </div>
         </div>
       )}
-      {sucessPage && ( <setSucess handleback={handleback} />)}
+      {sucessPage && ( <SetSucess handleback={handleback} />)}
     </>
   );
 }

@@ -36,7 +36,7 @@ const AccidentList = (props) => {
       align:"center",
 
       sorter: (a, b) => a.code.length - b.code.length,
-      render: (text) => <a style={{ color: "#4cbb17" }}>{text}</a>,
+      render: (text) => <p style={{ color: "#4cbb17" }}>{text}</p>,
     },
 
     {

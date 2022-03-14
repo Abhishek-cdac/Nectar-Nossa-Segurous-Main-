@@ -349,12 +349,12 @@ const AdminClaims = () => {
       align: "center",
 
       render: (text, record) => (
-        <a
+        <p
           style={{ color: "#4cbb17" }}
           //onClick={() => handlePolicyNameClick(text,record)}
         >
           {text}
-        </a>
+        </p>
       ),
     },
     {

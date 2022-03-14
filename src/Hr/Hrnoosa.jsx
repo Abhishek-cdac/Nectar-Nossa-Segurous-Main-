@@ -9,22 +9,22 @@ import { Tab } from '@material-ui/core';
 // const { TabPane } = Tabs;
 const Tabs =Object.freeze([{label:"Dashboard", link:"hr/"},
 {label:"ListedPolicy", link:"hr/listedPolices"},
-// {label:"Client", link:"hr/client"},
-{ label: "Client" , link: "hr/Demo"},
+{label:"Client", link:"hr/client"},
+// { label: "Client" , link: "hr/Demo"},
 {label:"Premium", link:"hr/paypremium"},
 {label:"Claims", link:"hr/newClaim"},
-// {label:"Complaint Managment", link:"hr/complaint"},
-{ label: "Complaint Managment" , link: "hr/Demo"},
-// {label:"Service Request", link:"hr/servicerequest"},
-{ label: "Service Request" , link: "hr/Demo"},
-// {label:"Reimbursement", link:"hr/reimbursement"},
-{ label: "Reimbursement" , link: "hr/Demo"},
-// {label:"Holidays", link:"hr/holidays"},
-{ label: "Holidays" , link: "hr/Demo"},
-// {label:"Settings", link:"hr/setting"},
-{ label: "Settings" , link: "hr/Demo"},
-// {label:"Help & Support", link:"hr/helpandsupport"}
-{ label: "Help & Support" , link: "hr/Demo"},
+{label:"Complaint Managment", link:"hr/complaint"},
+// { label: "Complaint Managment" , link: "hr/Demo"},
+{label:"Service Request", link:"hr/servicerequest"},
+// { label: "Service Request" , link: "hr/Demo"},
+{label:"Reimbursement", link:"hr/reimbursement"},
+// { label: "Reimbursement" , link: "hr/Demo"},
+{label:"Holidays", link:"hr/holidays"},
+// { label: "Holidays" , link: "hr/Demo"},
+{label:"Settings", link:"hr/setting"},
+// { label: "Settings" , link: "hr/Demo"},
+{label:"Help & Support", link:"hr/helpandsupport"}
+// { label: "Help & Support" , link: "hr/Demo"},
 ])
 
 
