@@ -88,10 +88,12 @@ function AdHolidays() {
     try {
       const resp = await getDeleteHoliday(payload);
       console.log("success", resp);
+      alert("Deleted Sucessfully!");
       resp && handleHolidaysList();
       // handelEditCancel()
     } catch (error) {
       console.log("error", error);
+      alert("Something Went Wrong");
     }
   };
 
@@ -124,11 +126,13 @@ function AdHolidays() {
     try {
       const resp = await getEditHoliday(payload);
       console.log("success", resp);
+      alert("Edited Successfully!");
       resp && handleHolidaysList();
       // handelEditCancel()
       setShowModal(false);
     } catch (error) {
       console.log("error", error);
+      alert("Something Went Wrong");
     }
   };
 
@@ -154,13 +158,14 @@ function AdHolidays() {
       try {
         const resp = getAddHoliday(Payload);
         console.log("sucess", resp);
+        alert("Holiday Added Successfully!");
         setErrorMsg(null)
         setData(' ')
         setShow(false)
-        alert("Holiday Added Sucessfully")
         handleHolidaysList()
       } catch (error) {
         console.log("error", error);
+        alert("Something Went Wrong");
       }
     }
   };
@@ -416,7 +421,7 @@ function AdHolidays() {
           </div>
         </div>
         <div className="row">
-          <div className="col-xl-12  col-lg-9 col-md-6 col-sm-4">
+          <div className="col-xl-12  col-lg-12 col-md-12 col-sm-12">
             <Table responsive>
               {/* pagination={paginationFactory({ sizePerPage: 5 })} */}
               <thead>

@@ -402,12 +402,14 @@ const Reimbusrment = () => {
       try {
         const resp = await getreimbursementAPI(Payload);
         console.log("record added successfuly");
+        alert("Record Added Successfully!");
         setShowModal(false);
         seterrorMsg("");
         handleClinicTab();
         handlePharmacyTab();
       } catch (error) {
         console.log("error", error);
+        alert("Something Went Wrong");
         // showAlert('In valide data', "error");
       }
     }
@@ -445,6 +447,7 @@ const Reimbusrment = () => {
     try {
       const resp = await getEditReimbursment(payload);
       console.log("success", resp);
+      alert("Edited Successfully!");
       setShowEditModal(false);
       // resp && handleHolidaysList()
       handleClinicTab();
@@ -453,6 +456,7 @@ const Reimbusrment = () => {
       // handelEditCancel()
     } catch (error) {
       console.log("error", error);
+      alert("Something Went Wrong");
     }
   };
   //Edit Ended
@@ -466,10 +470,12 @@ const Reimbusrment = () => {
     try {
       const resp = await getDeleteReimbursment(payload);
       console.log("success", resp);
+      alert("Deleted Successfully!");
       handleClinicTab();
       handlePharmacyTab();
     } catch (error) {
       console.log("error", error);
+      alert("Something Went Wrong");
     }
   };
 

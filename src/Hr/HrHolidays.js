@@ -86,10 +86,12 @@ function HrHolidays() {
       try {
         const resp = await getDeleteHoliday(payload);
         //console.log('success',resp)
+        alert("Deleted Sucessfully");
         resp && handleHolidaysList()
         // handelEditCancel()
       } catch (error) {
-          console.log('error',error)
+          console.log('error',error);
+          alert("Something Went Wrong");
       }
  
 
@@ -125,11 +127,13 @@ const payload ={
   try {
     const resp = await getEditHoliday(payload);
     //console.log('success',resp)
+    alert("Record Added Successfully!");
     resp && handleHolidaysList()
     // handelEditCancel()
     setShowModal(false)
   } catch (error) {
-      console.log('error',error)
+      console.log('error',error);
+      alert("Something Went Wrong");
   }
   
   }
@@ -157,13 +161,14 @@ const payload ={
       try {
         const resp = getAddHoliday(Payload);
         console.log("sucess", resp);
+        alert("Holiday Added Sucessfully");
         setShow(false)
-        alert("Holiday Added Sucessfully")
         handleHolidaysList()
         setData(' ')
         setErrorMsg(null)
       } catch (error) {
         console.log("error", error);
+        alert("Something Went Wrong");
       }
     }
   };

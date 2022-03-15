@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/static/css/main.1eba1229.css",
+    "main.js": "/static/js/main.89cd5e3f.js",
+    "static/js/703.de366444.chunk.js": "/static/js/703.de366444.chunk.js",
+    "static/js/513.550b0fd6.chunk.js": "/static/js/513.550b0fd6.chunk.js",
+    "static/js/787.ca2021e4.chunk.js": "/static/js/787.ca2021e4.chunk.js",
+    "static/media/logo.png": "/static/media/logo.a4d4baab0b66ed6d82ea.png",
+    "static/media/thumb.png": "/static/media/thumb.2b09c095a7da69fa341e.png",
+    "static/media/vrmllewr.png": "/static/media/vrmllewr.27df945f7d5a884d909a.png",
+    "static/media/frontCard.png": "/static/media/frontCard.1f301a3a2ee188850e1a.png",
+    "static/media/invoice.png": "/static/media/invoice.4545e444a734ec745e65.png",
+    "static/media/invoicestar.png": "/static/media/invoicestar.4545e444a734ec745e65.png",
+    "index.html": "/index.html",
+    "static/media/emergency.svg": "/static/media/emergency.e2a9fec2d3c2532dd9c595250d208ea7.svg",
+    "static/media/cancer.svg": "/static/media/cancer.8b1bc1ed8eb2c49d66f461b0b41bd62d.svg",
+    "static/media/blood.svg": "/static/media/blood.8c897cf19ad550f3e2d5f0d6ae11dad8.svg",
+    "static/media/outdoor.svg": "/static/media/outdoor.673af1e27e5424a6d64fee601cda5254.svg",
+    "static/media/operation.svg": "/static/media/operation.f2e074231f56606ada13744fff4da9b6.svg",
+    "static/media/pharmacy.svg": "/static/media/pharmacy.c6ab4eb93468a1a5f973efb018c73405.svg",
+    "main.1eba1229.css.map": "/static/css/main.1eba1229.css.map",
+    "main.89cd5e3f.js.map": "/static/js/main.89cd5e3f.js.map",
+    "703.de366444.chunk.js.map": "/static/js/703.de366444.chunk.js.map",
+    "513.550b0fd6.chunk.js.map": "/static/js/513.550b0fd6.chunk.js.map",
+    "787.ca2021e4.chunk.js.map": "/static/js/787.ca2021e4.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1eba1229.css",
+    "static/js/main.89cd5e3f.js"
+  ]
+}

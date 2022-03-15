@@ -106,11 +106,13 @@ const Doctors = () =>{
   try {
     const resp = await getEditDoctorsList(payload);
     console.log('success',resp)
+    alert("Edited Successfully");
     resp && handleDoctorsList()
     // handelEditCancel()
     setShowModal(false)
   } catch (error) {
-      console.log('error',error)
+      console.log('error',error);
+      alert("Something Went Wrong");
   }
   
   }
@@ -127,10 +129,12 @@ const Doctors = () =>{
       try {
         const resp = await getDeleteDoctorsList(payload);
         console.log('success',resp)
+        alert("Deleted Successfully!");
         resp && handleDoctorsList()
         // handelEditCancel()
       } catch (error) {
-          console.log('error',error)
+          console.log('error',error);
+          alert("Something Went Wrong");
       }
  
 
@@ -165,11 +169,13 @@ const Doctors = () =>{
           try {
             const resp = await getAddDoctorsList(Payload);
             console.log("record added successfuly");
+            alert("Record Added Successfully!");
             seterrorMsg("");
             setShow(false);
             handleDoctorsList()
           } catch (error) {
             console.log("error", error);
+            alert("Something Went Wrong");
             // showAlert('In valide data', "error");
           }
         

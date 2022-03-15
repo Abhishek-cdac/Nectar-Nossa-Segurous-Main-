@@ -62,12 +62,14 @@ function HelpAndSupport() {
           try {
             const resp = await getAddSupport(Payload);
             console.log("record added successfuly");
+            alert("Record added successfully!")
             seterrorMsg("");
             setShow(false);
             // handleDoctorsList()
           } catch (error) {
             console.log("error", error);
             // showAlert('In valide data', "error");
+            alert("Something Went wrong");
           }
         
       };

@@ -13,6 +13,7 @@ import AgentDataPage from "./Hrdata";
 
 import { EditOutlined, DeleteOutlined, PlusOutlined } from "@ant-design/icons";
 
+
 const { Search } = Input;
 
 const HrList = () => {
@@ -171,11 +172,13 @@ const HrList = () => {
     };
     try {
       const resp = await addAgentList(data);
+      alert("Manager Added Successfully!");
       handleGetAgentListServiceCall();
       handleCancel();
     } catch (error) {
       console.log("error", error.response.data.message);
       setErrorMsg( error.response.data.message)
+      alert("Something Went Wrong");
       // showAlert('In valide data', "error");
     }
   };
@@ -220,9 +223,11 @@ const HrList = () => {
     };
     try {
       const resp = await deleteAgentList(data);
+      alert("Manager Deleted Successfully!");
       handleGetAgentListServiceCall();
     } catch (error) {
       console.log("error", error);
+      alert("Something Went Wrong");
     }
   };
   ///DELETE API SERVICE CALL AND FUNCTIONALITY ENDED
