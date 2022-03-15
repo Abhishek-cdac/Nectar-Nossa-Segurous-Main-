@@ -160,10 +160,13 @@ const Newservice = (props) => {
                             // onChange={onGenderChange}
                             allowClear
                           >
-                            {PolicyCode &&
+                            {console.log("pppp",PolicyCode)}
+                            {PolicyCode ?
                               PolicyCode.map((data) => (
-                                <Option value={data}>{data}</Option>
-                              ))}
+                                <Option value={data.
+                                  policyCode}>{data.
+                                    policyCode}</Option>
+                              )):''}
                           </Select>
                         </Form.Item>
                       </div>
@@ -188,10 +191,11 @@ const Newservice = (props) => {
                             // onChange={onGenderChange}
                             allowClear
                           >
-                            {policyName &&
+                            {console.log("pppp",policyName)}
+                            {policyName ?
                               policyName.map((data) => (
-                                <Option value={policyName.data}>{policyName.data}</Option>
-                              ))}
+                                <Option value={data.policyName}>{data.policyName}</Option>
+                              )):''}
                           </Select>
                         </Form.Item>
                       </div>
