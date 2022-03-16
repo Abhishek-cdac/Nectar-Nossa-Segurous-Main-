@@ -272,7 +272,7 @@ function AdHolidays() {
               <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                   <Modal.Title
-                    style={{ color: "#8ec131", marginLeft: "130px" }}
+                    style={{ color: "#8ec131", marginLeft: "130px"}}
                   >
                     Add Holiday List
                   </Modal.Title>

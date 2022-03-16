@@ -313,6 +313,7 @@ const NewClient = (props) => {
                   name="gender"
                   onChange={handleChange}
                 >
+                  <option>Select the Gender</option>
                   <option>Male</option>
                   <option>Female</option>
                   <option>Other</option>
