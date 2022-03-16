@@ -257,11 +257,13 @@ const NewClaim2 = (props) => {
     try {
       const resp = await getAddClaim(formData);
       console.log("record added successfuly");
+      alert("Record Added Sucessfully");
       handleBack();
       seterrorMsg('')
     } catch (error) {
       console.log("error", error);
       // showAlert('In valide data', "error");
+      alert("Something Went Wrong");
     }
   }
   };
@@ -1869,9 +1871,9 @@ const NewClaim2 = (props) => {
           </div>
 
           <div>
-            <div className="col-12 col-sm-6 col-md-6 col-lg-4" style={{display:'flex'}}>
+            <div className="col-12 col-sm-6 col-md-6 col-lg-4" style={{display:'flex', marginBottom:"40px"}}>
               <button
-                className="btn btn-primary w-100 mt-4 ml-0"
+                className="btn btn-primary w-100 mt-2 ml-0"
                 name="submit"
                 type="submit"
                 data-toggle="modal"
@@ -1882,7 +1884,7 @@ const NewClaim2 = (props) => {
               </button>
 
               <button
-                className="btn btn-primary w-100 mt-4 ml-2"
+                className="btn btn-primary w-100 mt-2 ml-4"
                 name="submit"
                 type="submit"
                 data-toggle="modal"

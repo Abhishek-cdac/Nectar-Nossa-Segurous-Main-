@@ -162,11 +162,13 @@ export default function AdSetting() {
     try {
       const resp = await getEditNotificationList(payload);
       console.log("success", resp);
+      alert("Edited Successfully!");
       // resp && handleHolidaysList()
       // handelEditCancel()
       setShowEditModal(false);
     } catch (error) {
       console.log("error", error);
+      alert("Something Went Wrong");
     }
   };
   //Delete Iinfo
@@ -178,10 +180,12 @@ export default function AdSetting() {
     try {
       const resp = await getDeleteNotificationList(payload);
       console.log("success", resp);
+      alert("Deleted Successfully!");
       // resp && handleHolidaysList()
       // handelEditCancel()
     } catch (error) {
       console.log("error", error);
+      alert("Something Went Wrong");
     }
   };
 
@@ -199,11 +203,13 @@ export default function AdSetting() {
       try {
         const resp = await getAddNotificationService(Payload);
         console.log("record added successfuly");
+        alert("Record Added Successfully!");
         seterrorMsg("");
         setShowAddModal(false);
         // handleDoctorsList()
       } catch (error) {
         console.log("error", error);
+        alert("Something Went Wrong");
         // showAlert('In valide data', "error");
       }
     }

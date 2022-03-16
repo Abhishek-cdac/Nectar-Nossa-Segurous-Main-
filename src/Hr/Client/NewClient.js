@@ -94,16 +94,18 @@ const NewClient = (props) => {
       policyStartDate === undefined ||
       policyEndDate === undefined
     ) {
-      seterrorMsg("Please Fill all fileds.");
+      seterrorMsg("Please Fill correct date.");
     } else {
       try {
         const resp = await getAddClient(Payload);
         console.log("record added successfuly");
+        alert("Record Added Successfully");
         seterrorMsg("");
         props.handleNewClientBack();
       } catch (error) {
         console.log("policyName",policyName)
         console.log("error", error);
+        alert("Something Went Wrong");
         // showAlert('In valide data', "error");
       }
     }

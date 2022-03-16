@@ -77,11 +77,13 @@ const NewComplaint = (props) => {
     try {
       const resp = await addComplaintList(payload);
       console.log("sucess", resp);
+      alert("Complain Added Successfully!");
       handleGetPolicyListServiceCall();
       setListAPIUpdateStatus(true);
       handlereturn();
     } catch (error) {
       console.log("error", error);
+      alert("Something Went Wrong");
     }
   };
 
@@ -262,6 +264,7 @@ const NewComplaint = (props) => {
                       </div>
                     </div>
                     <Button
+                    style={{height:"45px", fontSize:"medium"}}
                       type="submit"
                       htmlType="submit"
                       className="btn btn-primary"

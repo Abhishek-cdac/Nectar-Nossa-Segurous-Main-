@@ -100,11 +100,13 @@ const Services = () => {
     try {
       const resp = await getEditServicesList(payload);
       console.log("success", resp);
+      alert("Edited Successfully!");
       resp && handleServicesList();
       // handelEditCancel()
       setShowModal(false);
     } catch (error) {
       console.log("error", error);
+      alert("Something Went Wrong");
     }
   };
 
@@ -120,10 +122,12 @@ const Services = () => {
     try {
       const resp = await getDeleteServicesList(payload);
       console.log("success", resp);
+      alert("Deleted Successfully!");
       resp && handleServicesList();
       // handelEditCancel()
     } catch (error) {
       console.log("error", error);
+      alert("Something Went Wrong");
     }
   };
  
@@ -150,11 +154,13 @@ const Services = () => {
       try {
         const resp = await getAddServicesList(data);
         console.log("record added successfuly");
+        alert("Record Added Successfully!");
         seterrorMsg("");
         setShow(false);
         handleServicesList();
       } catch (error) {
         console.log("error", error);
+        alert("Something Went Wrong");
         // showAlert('In valide data', "error");
       }
     }
