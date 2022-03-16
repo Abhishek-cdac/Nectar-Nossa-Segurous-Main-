@@ -31,6 +31,7 @@ const Newservice = (props) => {
     user_id: loginDetailsUserId,
     agent_id: "",
     premiumPlan: "",
+    activeStatus:''
   };
 
   const handleGetPolicyListServiceCall = async (data) => {

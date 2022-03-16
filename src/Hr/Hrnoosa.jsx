@@ -7,24 +7,24 @@ import { Tab } from '@material-ui/core';
 
 
 // const { TabPane } = Tabs;
-const Tabs =Object.freeze([{label:"Dashboard", link:"hr/"},
-{label:"ListedPolicy", link:"hr/listedPolices"},
-{label:"Client", link:"hr/client"},
-// { label: "Client" , link: "hr/Demo"},
-{label:"Premium", link:"hr/paypremium"},
-{label:"Claims", link:"hr/newClaim"},
-{label:"Complaint Managment", link:"hr/complaint"},
-// { label: "Complaint Managment" , link: "hr/Demo"},
-{label:"Service Request", link:"hr/servicerequest"},
-// { label: "Service Request" , link: "hr/Demo"},
-{label:"Reimbursement", link:"hr/reimbursement"},
-// { label: "Reimbursement" , link: "hr/Demo"},
-{label:"Holidays", link:"hr/holidays"},
-// { label: "Holidays" , link: "hr/Demo"},
-{label:"Settings", link:"hr/setting"},
-// { label: "Settings" , link: "hr/Demo"},
-{label:"Help & Support", link:"hr/helpandsupport"}
-// { label: "Help & Support" , link: "hr/Demo"},
+const Tabs =Object.freeze([{label:"Dashboard", link:"am/"},
+{label:"ListedPolicy", link:"am/listedPolices"},
+{label:"Client", link:"am/client"},
+// { label: "Client" , link: "am/Demo"},
+{label:"Premium", link:"am/paypremium"},
+{label:"Claims", link:"am/newClaim"},
+{label:"Complaint Managment", link:"am/complaint"},
+// { label: "Complaint Managment" , link: "am/Demo"},
+{label:"Service Request", link:"am/servicerequest"},
+// { label: "Service Request" , link: "am/Demo"},
+{label:"Reimbursement", link:"am/reimbursement"},
+// { label: "Reimbursement" , link: "am/Demo"},
+{label:"Holidays", link:"am/holidays"},
+// { label: "Holidays" , link: "am/Demo"},
+{label:"Settings", link:"am/setting"},
+// { label: "Settings" , link: "am/Demo"},
+{label:"Help & Support", link:"am/helpandsupport"}
+// { label: "Help & Support" , link: "am/Demo"},
 ])
 
 

@@ -400,15 +400,19 @@ const HrData = (props) => {
                                     </div>
                                     <div className="name-box-text">
                                         <small>Manager Code</small>
-                                        <span>{HrData.code}</span>
+                                        <span>{HrData.userName}</span>
                                     </div>
-                                    <div className="name-box-text"
+                                    <div className="name-box-text">
+                                        <small>Active Status</small>
+                                        <span>{HrData.status}</span>
+                                    </div>
+                                    {/* <div className="name-box-text"
                                       onChange={RadioButtonOnChange}
                                        value={radioButtonValue}>
                                         <small>Status</small>
                                         {/* {HrData.status === "true" ? setradioButtonValue("Active"):setradioButtonValue("false")}
                                         {console.log("rggg",radioButtonValue)} */}
-                    
+{/*                     
                                         <div className="form-check form-check-inline">
                                             <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value={radioButtonValue}/>
                                             <label className="form-check-label" for="inlineRadio1">Active</label>
@@ -417,7 +421,7 @@ const HrData = (props) => {
                                             <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value={radioButtonValue}/>
                                             <label className="form-check-label" for="inlineRadio2">Inactive</label>
                                         </div>
-                                    </div>
+                                    </div>  */}
                                 </div>
                                 <div className="col-12 col-lg-3 col-md-3">
                                     <div className="name-box-text">

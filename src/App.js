@@ -81,7 +81,7 @@ function App() {
 
           {/* HrNossa paths */}
 
-          <Route path="/hr" element={<Hrnoosa />}>
+          <Route path="/am" element={<Hrnoosa />}>
             {/* <Route path="hr" element={<Hrnoosa />} /> */}
             <Route path="" element={<HrDashboard2/>} />
             <Route path="listedPolices" element={<Hrlisted />} />

@@ -20,7 +20,7 @@ const Login = () => {
     if (role == "User") {
       navigate("/user");
     } else if (role == "Hr") {
-      navigate("/hr");
+      navigate("/am");
     } else if (role == "Admin") {
       navigate("/admin");
     }

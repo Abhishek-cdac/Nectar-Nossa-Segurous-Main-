@@ -227,7 +227,8 @@ const NewClient = (props) => {
                   value={policyType}
                   onChange={handleChange}
                 >
-                  
+                  {console.log(policyName,"ooo")}
+                  <option>select the policyType</option>
                   {policyName &&
                     policyName.map((data) => (
                       
@@ -345,6 +346,7 @@ const NewClient = (props) => {
                   name="plan"
                   onChange={handleChange}
                 >
+                  <option>select Option</option>
                   <option>Monthly</option>
                   <option>Quarterly</option>
                   <option>Yearly</option>

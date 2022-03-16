@@ -19,36 +19,47 @@ const Hrlisted = () => {
   const loginDetailsUserId = window.localStorage.getItem("loginDetailsUserId");
   const { TabPane } = Tabs;
 
-  const data = {
-    search: "",
-    type: "",
-    id: "",
-    activeStatus:''
+ 
+  const activeDatapayload = {
+    id:'',
+     search:"",
+     type:'',
+     activeStatus:"0"
+   };
+   const InActiveDataPayload = {
+    id:'',
+    activeStatus: "1",
+    search:"",
+    type:'',
+    
   };
-  const [form] = Form.useForm();
+  // const [form] = Form.useForm();
   const onSearch = (value) => {
     const searchData = {
       search: value,
       type: "",
       id: "",
+      activeStatus:'',
     };
-    if( tabStatus ="Active"){
+    if(tabStatus==="Active"){
       handleActiveTab(searchData);
       setListAPIupdateStatus(true);
     }
-    else {
+    else{
       handleInActiveTab(searchData);
       setListAPIupdateStatus(true);
-   }
+    }
   }
+
   
   const handleClick = (type) => {
     const searchData = {
       search: "",
       type: type,
       id: "",
+      activeStatus:''
     };
-    if( tabStatus ="Active"){
+    if( tabStatus ==="Active"){
     handleActiveTab(searchData);
     setListAPIupdateStatus(true);
   }
@@ -58,20 +69,13 @@ const Hrlisted = () => {
  }
 }
   
-  const handleActiveTab = async () => {
+  const handleActiveTab = async (data) => {
     try {
       let tableDataArr = [];
-      const data = {
-       id:'',
-        search:"",
-        type:'',
-        activeStatus:"0"
-        
-      };
       const resp = await getPolicyList(data);
       console.log("ac",resp)
       setActiveData(resp && resp.data);
-      resp &&
+      resp.length>0 &&
         resp.map((data, i) => {
           const value = {
             key: data.id,
@@ -91,16 +95,9 @@ const Hrlisted = () => {
       // showAlert('In valide data', "error");
     }
   };
-  const handleInActiveTab = async () => {
+  const handleInActiveTab = async (data) => {
     try {
       let tableDataArr = [];
-      const data = {
-        id:'',
-        activeStatus: "1",
-        search:"",
-        type:'',
-        
-      };
       const resp = await getPolicyList(data);
       console.log("Inac",resp)
       setinactiveData(resp && resp.data);
@@ -126,8 +123,8 @@ const Hrlisted = () => {
   };
 
   useEffect(() => {
-    handleActiveTab();
-    handleInActiveTab();
+    handleActiveTab(activeDatapayload);
+    handleInActiveTab(InActiveDataPayload);
   }, []);
 
   const handleFilterData = (filterData) => {
