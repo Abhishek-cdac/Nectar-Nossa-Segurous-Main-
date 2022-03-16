@@ -402,12 +402,14 @@ const Reimbusrment = () => {
       try {
         const resp = await getreimbursementAPI(Payload);
         console.log("record added successfuly");
+        alert("Record Added Successfully!");
         setShowModal(false);
         seterrorMsg("");
         handleClinicTab();
         handlePharmacyTab();
       } catch (error) {
         console.log("error", error);
+        alert("Something Went Wrong");
         // showAlert('In valide data', "error");
       }
     }
@@ -445,6 +447,7 @@ const Reimbusrment = () => {
     try {
       const resp = await getEditReimbursment(payload);
       console.log("success", resp);
+      alert("Edited Successfully!");
       setShowEditModal(false);
       // resp && handleHolidaysList()
       handleClinicTab();
@@ -453,6 +456,7 @@ const Reimbusrment = () => {
       // handelEditCancel()
     } catch (error) {
       console.log("error", error);
+      alert("Something Went Wrong");
     }
   };
   //Edit Ended
@@ -466,10 +470,12 @@ const Reimbusrment = () => {
     try {
       const resp = await getDeleteReimbursment(payload);
       console.log("success", resp);
+      alert("Deleted Successfully!");
       handleClinicTab();
       handlePharmacyTab();
     } catch (error) {
       console.log("error", error);
+      alert("Something Went Wrong");
     }
   };
 
@@ -517,13 +523,12 @@ const Reimbusrment = () => {
       {ReimbursmentPage && (
         <div>
           <div className="row d-flex align-items-center justify-content-between">
-            <div className="col-lg-2 text-left">
-              <h3 className="mt-0 mb-4 my-2">Reimbursement</h3>
+            <div className="col-12 col-lg-3 col-md-3 col-sm-3">
+              <h3>Reimbursement</h3>
             </div>
-            <div className="col-12 col-lg-8 col-md-8">
-              <div className="search-btn">
-                <div className="search-btn">
-                  <div className="input-group mx-2">
+            <div className="nav justify-content-center">
+            <div className="col-12 col-lg-3 col-md-3">
+                  <div className="input-group">
                     <input
                     style={{height:"35px"}}
                       type="text"
@@ -534,18 +539,21 @@ const Reimbusrment = () => {
                     />
                     <div className="input-group-append">
                       <button
+                        style={{height:"35px"}}
                         className="btn btn-secondary my-3"
                         type="button"
                         onClick={() => handleOnSearch()}
                       >
-                        <i className="fa fa-search"></i>
+                       <i className="fa fa-search"></i>
                       </button>
                     </div>
                   </div>
-                  <div className="btn-group">
+            </div>
+            <div className="col-12 col-lg-3 col-md-3">
+            <div className="btn-group">
                     <button
                       type="button"
-                      className="btn btn-success btn-sm my-3 mx-2"
+                      className="btn btn-success btn-sm my-3 mx-3"
                       style={{ width: "160px", borderRadius:"5px", height:"35px", border: "1px solid #8EC131", backgroundColor: "#8EC131"}}
                       onClick={handleShow}
                     >
@@ -667,7 +675,9 @@ const Reimbusrment = () => {
                       </Modal>
                     </div>
                   </div>
-                  <div className="btn-group hover_drop_down">
+            </div>
+            <div className="col-12 col-lg-3 col-md-3">
+            <div className="btn-group hover_drop_down">
                     <button
                       type="button"
                       className="btn btn-success btn-sm my-3 mx-2"
@@ -712,10 +722,12 @@ const Reimbusrment = () => {
                       </li>
                     </ul>
                   </div>
-                  <div className="btn-group">
+            </div>
+            <div className="col-12 col-lg-3 col-md-3">
+            <div className="btn-group">
                     <button
                       type="button"
-                      className="btn btn-primary btn-sm my-3 mx-2"
+                      className="btn btn-primary btn-sm my-3"
                       style={{height:"35px"}}
                     >
                       <CSVLink
@@ -727,8 +739,7 @@ const Reimbusrment = () => {
                       </CSVLink>
                     </button>
                   </div>
-                </div>
-              </div>
+            </div>
             </div>
           </div>
 

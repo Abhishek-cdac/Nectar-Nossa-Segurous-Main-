@@ -229,11 +229,13 @@ const AdListedPolocies = () => {
     try {
       const resp = await addPolicyList(payload);
       console.log("success");
+      alert("Policy Added Succesfully!");
       handleGetPolicyListServiceCall(data);
       setListAPIupdateStatus(true);
       handleCancel();
     } catch (error) {
       console.log("error", error);
+      alert("Something Went Wrong");
       // showAlert('In valide data', "error");
     }
   };
@@ -264,11 +266,13 @@ const AdListedPolocies = () => {
     try {
       const resp = await editPolicyList(payload);
       console.log("success");
+      alert("Policy Edited Successfully!");
       resp && handleGetPolicyListServiceCall(data);
       setListAPIupdateStatus(true);
       setIsEditModalVisible(false);
     } catch (error) {
       console.log("error", error);
+      alert("Something Went Wrong");
       // showAlert('In valide data', "error");
     }
   };
@@ -289,11 +293,13 @@ const AdListedPolocies = () => {
     try {
       const resp = await deletePolicyList(payload);
       console.log("success");
+      alert("Policy Deleted Successfully!")
       handleGetPolicyListServiceCall(data);
       setListAPIupdateStatus(true);
     } catch (error) {
       console.log("error", error);
       // showAlert('In valide data', "error");
+      alert("Something Went Wrong");
     }
   };
   ///DELETE API SERVICE CALL AND FUNCTIONALITY ENDED

@@ -63,11 +63,13 @@ const Complaint = () => {
     try {
       const resp = await editComplaintList(payload);
       console.log("success", resp);
+      alert("Complain Edited Successfully!");
       resp && handleGetComplaintsListServiceCall();
       setcomplaintApiUpdateStatus(true);
       handelEditCancel();
     } catch (error) {
       console.log("error", error);
+      alert("Something Went Wrong");
     }
   };
 
@@ -117,10 +119,12 @@ const Complaint = () => {
     try {
       const resp = await deleteComplaintList(payload);
       console.log("success");
+      alert("Deleted Successfully");
       handleGetComplaintsListServiceCall();
       setcomplaintApiUpdateStatus(true);
     } catch (error) {
       console.log("error", error);
+      alert("Something Went Wrong");
     }
   };
 
@@ -224,9 +228,9 @@ const Complaint = () => {
               <EyeOutlined style={{ color: "#000089", paddingLeft: "10px" }} />
             ) : (
               <div>
-                <EyeOutlined
+                {/* <EyeOutlined
                   style={{ color: "#000089", paddingLeft: "10px" }}
-                />
+                /> */}
                 <EditOutlined
                   style={{ color: "#000089", paddingLeft: "10px" }}
                   onClick={() => handleEditShowModal(text, record)}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ClinicData from "../../../user/Reimbursment/ClinicData";
-import AdClinicData from "../../../Admin/Reimbursment/AdClinicDetails"
+import AdClinicData from "../../../Admin/Reimbursment/AdClinicDetails";
 import {
   getReimbursmentList,
   getReimbursmentListSearch,
@@ -142,16 +142,15 @@ const HrReimbursment = () => {
         const resp = await getReimbursmentListSearch(data);
         resp &&
           resp.data.map((data, i) => {
-            
             const value = {
-              SrNo: i+1,
-              referenceNumber:data.referenceNumber,
+              SrNo: i + 1,
+              referenceNumber: data.referenceNumber,
               name: data.name,
               address: data.address,
               area: data.area,
               contact: data.contact,
               serviceOffered: data.serviceOffered,
-            };//console.log("pharm", value);
+            }; //console.log("pharm", value);
 
             tableDataArr.push(value);
           });
@@ -179,7 +178,7 @@ const HrReimbursment = () => {
             hospitalType: data.hospitalType,
           };
           tableDataArr.push(value);
-          
+
           //console.log("tableDataArr", tableDataArr);
         });
       } else {
@@ -255,36 +254,36 @@ const HrReimbursment = () => {
   const ReimbursmentCSV = ReimbursmentCSVData();
   // // CSV END
 
-  
-    // This section is for pagination
+  // This section is for pagination
 
-    const [pageNumber, setPageNumber] = useState(0);
-    const usersPerPage = 10;
-    const pagesVisited = pageNumber * usersPerPage;
-    const pageCount = Math.ceil(PharmacyData.length / usersPerPage);
-    const pageCount2 = Math.ceil(ClinicalData.length / usersPerPage);
-    const changePage = ({ selected }) => {
-      setPageNumber(selected);
-    };
+  const [pageNumber, setPageNumber] = useState(0);
+  const usersPerPage = 10;
+  const pagesVisited = pageNumber * usersPerPage;
+  const pageCount = Math.ceil(PharmacyData.length / usersPerPage);
+  const pageCount2 = Math.ceil(ClinicalData.length / usersPerPage);
+  const changePage = ({ selected }) => {
+    setPageNumber(selected);
+  };
 
   return (
     <>
       {ReimbursmentPage && (
         <div>
-            <Breadcrumb style={{ marginTop: "20px" }}>
+          <Breadcrumb style={{ marginTop: "20px" }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
             <Breadcrumb.Item>Reimbursment</Breadcrumb.Item>
           </Breadcrumb>
           <div className="row d-flex align-items-center justify-content-between">
-            <div className="col-lg-2 text-left">
-              <h3 className="mt-0 mb-4 my-2">Reimbursement</h3>
+            <div className="col-12 col-lg-3 col-md-3 col-sm-3">
+              <h3>Reimbursement</h3>
             </div>
 
-            <div className="col-12 col-lg-6 col-md-6 text-right">
-              <div className="search-btn">
-                <div className="search-btn">
+            <div className="nav justify-content-center" style={{ display: "flex", flexDirection: "row" }}>
+              <div className="col-12 col-lg-5 col-md-5 col-sm-5">
+                
                   <div className="input-group">
-                    <input style={{height:"35px"}}
+                    <input
+                      style={{ height: "35px"}}
                       type="text"
                       className="form-control my-3"
                       placeholder="Search Hospital"
@@ -293,6 +292,7 @@ const HrReimbursment = () => {
                     />
                     <div className="input-group-append">
                       <button
+                      style={{ height: "35px"}}
                         className="btn btn-secondary my-3"
                         type="button"
                         onClick={() => handleOnSearch()}
@@ -301,65 +301,64 @@ const HrReimbursment = () => {
                       </button>
                     </div>
                   </div>
-                  {/* <div className="btn-group hover_drop_down"> */}
-                    <button
-                      type="button"
-                      className="btn btn-success btn-sm my-3 mx-3"
-                      data-toggle="dropdown"
-                      style={{
-                        width: "160px",
-                        borderRadius: "5px",
-                        backgroundColor: "#8EC131",
-                        border: "1px solid #8EC131",
+              </div>
+              <div className="col-12 col-lg-3 col-md-3 col-sm-3">
+                <button
+                  type="button"
+                  className="btn btn-success btn-sm my-3"
+                  data-toggle="dropdown"
+                  style={{
+                    width: "150px",
+                    borderRadius: "5px",
+                    backgroundColor: "#8EC131",
+                    border: "1px solid #8EC131",
+                  }}
+                >
+                  <i className="fas fa-filter"></i> Add Filters
+                </button>
+                <ul className="dropdown-menu" role="menu" style={{textAlign:"center"}}>
+                  <li>
+                    <a
+                      onClick={() => {
+                        handleclick("provincial");
                       }}
                     >
-                      <i className="fas fa-filter"></i> Add Filters
-                    </button>
-                    <ul className="dropdown-menu" role="menu">
-                      <li>
-                        <a
-                          onClick={() => {
-                            handleclick("provincial");
-                          }}
-                        >
-                          provincial{" "}
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          onClick={() => {
-                            handleclick("public");
-                          }}
-                        >
-                          public
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          onClick={() => {
-                            handleclick("municipal");
-                          }}
-                        >
-                          Municipal
-                        </a>
-                      </li>
-                    </ul>
-                  {/* </div> */}
-                  <div className="btn-group">
-                    <button
-                      type="button"
-                      className="btn btn-primary btn-sm my-3 mx-2"
+                      provincial{" "}
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      onClick={() => {
+                        handleclick("public");
+                      }}
                     >
-                      <CSVLink
-                        data={ReimbursmentCSV}
-                        target="_blank"
-                        style={{ color: "white" }}
-                      >
-                        Download PDF/CSV
-                      </CSVLink>
-                    </button>
-                  </div>
-                </div>
+                      public
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      onClick={() => {
+                        handleclick("municipal");
+                      }}
+                    >
+                      Municipal
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div className="col-12 col-lg-4 col-md-4 col-sm-4">
+                <button
+                  type="button"
+                  className="btn btn-primary btn-sm my-3 mx-2"
+                >
+                  <CSVLink
+                    data={ReimbursmentCSV}
+                    target="_blank"
+                    style={{ color: "white" }}
+                  >
+                    Download PDF/CSV
+                  </CSVLink>
+                </button>
               </div>
             </div>
           </div>
@@ -400,7 +399,6 @@ const HrReimbursment = () => {
                 </li>
               </ul>
             </div>
-           
           </div>
           <div className="tab-content table-custome mt-3" id="myTabContent">
             <div
@@ -424,11 +422,14 @@ const HrReimbursment = () => {
                     </tr>
                   </thead>
                   {ClinicalData &&
-                    ClinicalData.slice(pagesVisited, pagesVisited + usersPerPage).map((item,i) => (
+                    ClinicalData.slice(
+                      pagesVisited,
+                      pagesVisited + usersPerPage
+                    ).map((item, i) => (
                       <tbody>
                         <tr>
                           {/* {console.log("item",item)} */}
-                          <td>{(i+1)}</td>
+                          <td>{i + 1}</td>
                           <td>{item.referenceNumber}</td>
                           <td>
                             <a onClick={() => handleChange(item)}>
@@ -445,22 +446,27 @@ const HrReimbursment = () => {
                 </table>
               </div>
               <div className="row">
-              <div className="col-xl-8  col-lg-8 col-md-8 col-sm-2 col-xs-12">
-                  <small>Shown Total Results {ClinicalData && ClinicalData.length}</small>
+                <div className="col-xl-8  col-lg-8 col-md-8 col-sm-2 col-xs-12">
+                  <small>
+                    Shown Total Results {ClinicalData && ClinicalData.length}
+                  </small>
                 </div>
-                <div className="col-xl-4  col-lg-4 col-md-4 col-sm-4 col-xs-12" style={{padding:"20px"}}>
-            <ReactPaginate 
-              previousLabel={"Previous"}
-              nextLabel={"Next"}
-              pageCount={pageCount2}
-              onPageChange={changePage}
-              containerClassName={"paginationBttns"}
-              previousLinkClassName={"previousBttn"}
-              nextLinkClassName={"nextBttn"}
-              disabledClassName={"paginationDisabled"}
-              activeClassName={"paginationActive"}
-            />
-          </div>
+                <div
+                  className="col-xl-4  col-lg-4 col-md-4 col-sm-4 col-xs-12"
+                  style={{ padding: "20px" }}
+                >
+                  <ReactPaginate
+                    previousLabel={"Previous"}
+                    nextLabel={"Next"}
+                    pageCount={pageCount2}
+                    onPageChange={changePage}
+                    containerClassName={"paginationBttns"}
+                    previousLinkClassName={"previousBttn"}
+                    nextLinkClassName={"nextBttn"}
+                    disabledClassName={"paginationDisabled"}
+                    activeClassName={"paginationActive"}
+                  />
+                </div>
               </div>
             </div>
             <div
@@ -485,11 +491,14 @@ const HrReimbursment = () => {
                   </thead>
 
                   {PharmacyData &&
-                    PharmacyData.slice(pagesVisited, pagesVisited + usersPerPage).map((item,i) => (
+                    PharmacyData.slice(
+                      pagesVisited,
+                      pagesVisited + usersPerPage
+                    ).map((item, i) => (
                       <tbody>
                         <tr>
-                         {/* {console.log("item",PharmacyData)} */}
-                          <td>{(i+1)}</td> 
+                          {/* {console.log("item",PharmacyData)} */}
+                          <td>{i + 1}</td>
                           <td>{item.referenceNumber}</td>
                           <td>
                             <a>{item.name}</a>
@@ -504,29 +513,34 @@ const HrReimbursment = () => {
                 </table>
 
                 <div className="row">
-                <div className="col-xl-8  col-lg-8 col-md-8 col-sm-2 col-xs-12">
-                    <small>Shown Total Results {PharmacyData && PharmacyData.length}</small>
+                  <div className="col-xl-8  col-lg-8 col-md-8 col-sm-2 col-xs-12">
+                    <small>
+                      Shown Total Results {PharmacyData && PharmacyData.length}
+                    </small>
                   </div>
-                  <div className="col-xl-4  col-lg-4 col-md-4 col-sm-4 col-xs-12" style={{padding:"20px"}}>
-            <ReactPaginate 
-              previousLabel={"Previous"}
-              nextLabel={"Next"}
-              pageCount={pageCount}
-              onPageChange={changePage}
-              containerClassName={"paginationBttns"}
-              previousLinkClassName={"previousBttn"}
-              nextLinkClassName={"nextBttn"}
-              disabledClassName={"paginationDisabled"}
-              activeClassName={"paginationActive"}
-            />
-          </div>
+                  <div
+                    className="col-xl-4  col-lg-4 col-md-4 col-sm-4 col-xs-12"
+                    style={{ padding: "20px" }}
+                  >
+                    <ReactPaginate
+                      previousLabel={"Previous"}
+                      nextLabel={"Next"}
+                      pageCount={pageCount}
+                      onPageChange={changePage}
+                      containerClassName={"paginationBttns"}
+                      previousLinkClassName={"previousBttn"}
+                      nextLinkClassName={"nextBttn"}
+                      disabledClassName={"paginationDisabled"}
+                      activeClassName={"paginationActive"}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       )}
-       {ClinicDataPage && (
+      {ClinicDataPage && (
         <AdClinicData
           selectedrecord={selectedrecord}
           data={ClinicalData}
