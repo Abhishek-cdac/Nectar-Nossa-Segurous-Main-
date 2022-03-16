@@ -245,7 +245,7 @@ export default function AdSetting() {
         <div>
           <div className="container-fluid">
             <div className="row">
-              <div className="col-xl-12 col-lg-8 col-md-4 col-sm-2 col-xs-1">
+              <div className="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div classpolicy="comppage">
                   <Breadcrumb style={{ marginTop: "20px" }}>
                     <Breadcrumb.Item>Home</Breadcrumb.Item>
@@ -365,7 +365,7 @@ export default function AdSetting() {
                         <i className="fas fa-plus-circle"></i> Add Notification List
                       </button>
                     </div>
-                        <div className="col-xl-12  col-lg-9 col-md-6 col-sm-4">
+                        <div className="col-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                           <Table responsive>
                             <thead>
                               <tr>
