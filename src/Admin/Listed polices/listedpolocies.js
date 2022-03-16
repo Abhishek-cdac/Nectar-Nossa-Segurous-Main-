@@ -48,6 +48,7 @@ const AdListedPolocies = () => {
   const [policyDuration, setPolicyDuration] = useState("");
   const [policyType, setPolicyType] = useState("");
   const [policyDescription, setPolicyDescription] = useState("");
+  const[status,setStatus]=useState('')
   const [listAPIupdateStatus, setListAPIupdateStatus] = useState(false);
   const Token = window.localStorage.getItem("token");
   console.log("Token in list", Token);
@@ -55,6 +56,7 @@ const AdListedPolocies = () => {
     search: "",
     type: "",
     id: "",
+    activeStatus:''
   };
   const [form] = Form.useForm();
   const onSearch = (value) => {
@@ -62,6 +64,7 @@ const AdListedPolocies = () => {
       search: value,
       type: "",
       id: "",
+      activeStatus:''
     };
     handleGetPolicyListServiceCall(searchData);
     setListAPIupdateStatus(true);
@@ -72,6 +75,7 @@ const AdListedPolocies = () => {
       search: "",
       type: type,
       id: "",
+      activeStatus:''
     };
     handleGetPolicyListServiceCall(searchData);
     setListAPIupdateStatus(true);
@@ -151,7 +155,7 @@ const AdListedPolocies = () => {
             name: data.policyName,
             code: data.policyCode,
             type: data.policyType,
-            count: data.totalcount,
+            count: data.policyCount,
             number: data.registration,
           };
           console.log(value);
@@ -194,6 +198,7 @@ const AdListedPolocies = () => {
       setRegistration(value.registration);
       setPolicyDuration(value.policyDuration);
       setPolicyType(value.policyType);
+      setStatus(value.activeStatus)
       setPolicyDescription(value.description);
     }
     setIsEditModalVisible(true);
@@ -217,6 +222,7 @@ const AdListedPolocies = () => {
       registration: addPolicyData.policyRegistration,
       policyType: addPolicyData.policyType,
       policyDuration: addPolicyData.policyDuration,
+      activeStatus:addPolicyData.status,
       description: addPolicyData.policyDescription,
       token: Token,
     };
@@ -253,6 +259,7 @@ const AdListedPolocies = () => {
       policyType: policyType,
       policyDuration: policyDuration,
       description: policyDescription,
+      activeStatus:status
     };
     try {
       const resp = await editPolicyList(payload);
@@ -534,6 +541,24 @@ const AdListedPolocies = () => {
                 </Select>
               </Form.Item>
               <Form.Item
+                name={"status"}
+                label="Active Status"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please Enter the policy Type",
+                  },
+                ]}
+              >
+                <Select
+                  placeholder="Select the status"
+                  allowClear
+                >
+                  <Option value="true">true</Option>
+                  <Option value="false">false</Option>
+                </Select>
+              </Form.Item>
+              <Form.Item
                 name={"policyDuration"}
                 label="Policy Duration"
                 rules={[
@@ -637,6 +662,15 @@ const AdListedPolocies = () => {
                   placeholder="Policy Duration"
                   value={policyDuration}
                   onChange={(e) => setPolicyDuration(e.target.value)}
+                />
+              </div>
+              <div className="form-group mb-4">
+                <input
+                  className="col-xs-12 w-100"
+                  type="Duration"
+                  placeholder="Policy status"
+                  value={status}
+                  onChange={(e) => setStatus(e.target.value)}
                 />
               </div>
               <div className="form-group mb-4">

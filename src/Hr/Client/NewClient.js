@@ -74,6 +74,8 @@ const NewClient = (props) => {
       permanentAddress: permanant,
       policyMaturityDate: policyEndDate,
       policyStartDate: policyStartDate,
+      premiumPlan:plan,
+      premiumAmount:Amount
     };
 
     if (
@@ -86,6 +88,8 @@ const NewClient = (props) => {
       gender === "" ||
       email === "" ||
       adress === "" ||
+      plan === "" ||
+      Amount === "" ||
       permanant === ""
     ) {
       seterrorMsg("Please Fill all fileds.");
@@ -100,18 +104,24 @@ const NewClient = (props) => {
         const resp = await getAddClient(Payload);
         console.log("record added successfuly");
         seterrorMsg("");
+        alert("User Added Sucessfully")
         props.handleNewClientBack();
       } catch (error) {
-        console.log("policyName",policyName)
-        console.log("error", error);
-        // showAlert('In valide data', "error");
+        console.log("error", error.data.message);
+        alert(error.data.message);     
       }
     }
   };
 
   //Get AllPolicyList Api
 
-  const handleGetPolicyListServiceCall = async (data) => {
+  const handleGetPolicyListServiceCall = async () => {
+    const data = {
+      search: "",
+      type: "",
+      id: "",
+      activeStatus:''
+    };
     try {
       let tableDataArr = [];
       const resp = await getPolicyList(data);
@@ -131,7 +141,7 @@ const NewClient = (props) => {
     }
   };
   useEffect(() => {
-    handleGetPolicyListServiceCall(Payload);
+    handleGetPolicyListServiceCall(data);
   }, []);
 
 
@@ -155,7 +165,7 @@ const NewClient = (props) => {
         </div>
       </div>
 
-      <div className="row d-flex align-items-center justify-content-between">
+      {/* <div className="row d-flex align-items-center justify-content-between">
         <div className="col-12">
           <div className="heading-with-box m-0">
             <div className="row">
@@ -167,7 +177,7 @@ const NewClient = (props) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className="detail-box">
         <div className="card-body form-custom">

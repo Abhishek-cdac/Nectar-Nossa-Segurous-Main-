@@ -24,8 +24,11 @@ export const resetpassword = async(data) =>{
   return await doPost("account/ResetPassword",data)
 }
 // policy api statred
+export const getPolicyList2 = async(data) =>{
+  return await doGet(`policy?activeStatus=${data.activeStatus}`);
+}
 export const getPolicyList = async(data) =>{
-  return await doGet(`policy?search=${data.search}&policyType=${data.type}&id=${data.id}`);
+  return await doGet(`policy?search=${data.search}&policyType=${data.type}&id=${data.id}&activeStatus=${data.activeStatus}`);
 }
 export const getAllUserPolicyList = async(data) =>{
   return await doGet(`policy/getAllUserPolicy?policy_id=${data.policy_id}&user_id=${data.user_id}&agent_id=${data.agent_id}&premiumPlan=${data.premiumPlan}&activeStatus=${data.activeStatus}`);

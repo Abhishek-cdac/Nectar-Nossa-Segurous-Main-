@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Tabs, Button, Input, Breadcrumb, Dropdown, Menu, Table } from "antd";
+import { Tabs, Button, Input, Breadcrumb, Dropdown, Menu, Table,Form } from "antd";
 import { CSVLink } from "react-csv";
 import { PlusOutlined, FilterOutlined } from "@ant-design/icons";
 import Hractive from "./Hractive";
@@ -15,38 +15,71 @@ const Hrlisted = () => {
   const [activeData, setActiveData] = useState("");
   const [inactiveData, setinactiveData] = useState("");
   const [tabStatus, setTabStatus] = useState("Active");
+  const [listAPIupdateStatus, setListAPIupdateStatus] = useState(false);
   const loginDetailsUserId = window.localStorage.getItem("loginDetailsUserId");
   const { TabPane } = Tabs;
 
-  const onSearch = (value) => {
-    const activefilterData = activeData.filter((data) => {
-      const itemData = data.policy.policyName.toUpperCase();
-      const textData = value.toUpperCase();
-      return itemData.indexOf(textData) > -1;
-    });
-    const searchFilter = handleFilterData(activefilterData);
-    setActiveTableData(searchFilter);
+  const data = {
+    search: "",
+    type: "",
+    id: "",
+    activeStatus:''
   };
+  const [form] = Form.useForm();
+  const onSearch = (value) => {
+    const searchData = {
+      search: value,
+      type: "",
+      id: "",
+    };
+    if( tabStatus ="Active"){
+      handleActiveTab(searchData);
+      setListAPIupdateStatus(true);
+    }
+    else {
+      handleInActiveTab(searchData);
+      setListAPIupdateStatus(true);
+   }
+  }
+  
+  const handleClick = (type) => {
+    const searchData = {
+      search: "",
+      type: type,
+      id: "",
+    };
+    if( tabStatus ="Active"){
+    handleActiveTab(searchData);
+    setListAPIupdateStatus(true);
+  }
+  else {
+    handleInActiveTab(searchData);
+    setListAPIupdateStatus(true);
+ }
+}
+  
   const handleActiveTab = async () => {
     try {
       let tableDataArr = [];
       const data = {
-        policy_id: "",
-        user_id: loginDetailsUserId,
-        agent_id: "",
-        premiumPlan: "",
-        activeStatus: "0",
+       id:'',
+        search:"",
+        type:'',
+        activeStatus:"0"
+        
       };
       const resp = await getPolicyList(data);
+      console.log("ac",resp)
       setActiveData(resp && resp.data);
       resp &&
-        resp.data.map((data, i) => {
+        resp.map((data, i) => {
           const value = {
             key: data.id,
-            name: data.policy.policyName,
-            code: data.policy.policyCode,
-            number: data.policy.registration,
-            type: data.policy.policyType,
+            name: data.policyName,
+            code: data.policyCode,
+            type: data.policyType,
+            count: data.totalcount,
+            number: data.registration,
             // count: data.Activecount,
             count:2
           };
@@ -62,22 +95,24 @@ const Hrlisted = () => {
     try {
       let tableDataArr = [];
       const data = {
-        policy_id: "",
-        user_id: loginDetailsUserId,
-        agent_id: "",
-        premiumPlan: "",
+        id:'',
         activeStatus: "1",
+        search:"",
+        type:'',
+        
       };
       const resp = await getPolicyList(data);
+      console.log("Inac",resp)
       setinactiveData(resp && resp.data);
       resp &&
         resp.data.map((data, i) => {
           const value = {
             key: data.id,
-            name: data.policy.policyName,
-            code: data.policy.policyCode,
-            number: data.policy.registration,
-            type: data.policy.policyType,
+            name: data.policyName,
+            code: data.policyCode,
+            type: data.policyType,
+            count: data.totalcount,
+            number: data.registration,
             // count: data.inActivecount,
             count:2
           };
@@ -114,23 +149,7 @@ const Hrlisted = () => {
     return tableDataArr;
   };
 
-  const handleClick = (type) => {
-    const activefilterData = activeData.filter(
-      (data) => data.policy.policyType === type
-    );
-    const inactivefilterData = inactiveData.filter(
-      (data) => data.policy.policyType === type
-    );
-    const active = handleFilterData(activefilterData);
-    const Inactive = handleFilterData(inactivefilterData);
-    if (tabStatus === "Active") {
-      console.log("activefilterData", activefilterData);
-      setActiveTableData(active);
-    } else {
-      console.log("inactivefilterData", inactivefilterData);
-      setInactiveTableData(Inactive);
-    }
-  };
+
 
   const content = (
     <Menu>
