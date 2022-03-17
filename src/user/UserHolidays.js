@@ -189,7 +189,7 @@ function UserHolidays() {
                   <th>Date</th>
                   <th>Day</th>
                   <th>Type</th>
-                  <th>Action</th>
+                  {/* <th>Action</th> */}
                 </tr>
               </thead>
               <tbody>
