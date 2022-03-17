@@ -245,7 +245,7 @@ const Services = () => {
               <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                   <Modal.Title
-                    style={{ color: "#8ec131", marginLeft: "130px" }}
+                    style={{ color: "#8ec131", marginLeft: "25px" }}
                   >
                     Add Services List
                   </Modal.Title>
@@ -329,7 +329,7 @@ const Services = () => {
             <Table responsive>
               <thead>
                 <tr>
-                  <th>Id</th>
+                  <th>Sr.No.</th>
                   <th> Service Name</th>
                   <th>createdAt</th>
                   <th>Action</th>
@@ -337,10 +337,10 @@ const Services = () => {
               </thead>
               <tbody>
                 {ServicesListArray &&
-                  ServicesListArray.slice(pagesVisited, pagesVisited + usersPerPage).map((item) => (
+                  ServicesListArray.slice(pagesVisited, pagesVisited + usersPerPage).map((item, i) => (
                     <tr>
                       {console.log("sla",ServicesListArray)}
-                      <td>{item.id}</td>
+                      <td>{i+1}</td>
                       <td>{item.service}</td>
                       <td>{item.createdAt}</td>
                       <td>
@@ -358,7 +358,7 @@ const Services = () => {
         </div>
         <div className="row">
         <div className="col-xl-8  col-lg-8 col-md-8 col-sm-2 col-xs-12">
-            Shown Results {ServicesListArray && ServicesListArray.length}
+          Shown Results {ServicesListArray && ServicesListArray.length}
           </div>
           <div className="col-xl-4  col-lg-4 col-md-4 col-sm-4 col-xs-12" style={{padding:"20px"}}>
             <ReactPaginate 
@@ -378,19 +378,19 @@ const Services = () => {
           <div className="header">
             <Modal show={ShowModal} onHide={handleCancel}>
               <Modal.Header closeButton>
-                <Modal.Title style={{ color: "#8ec131" }}>
+                <Modal.Title style={{ color: "#8ec131", marginLeft: "25px"  }}>
                   Edit Services List
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <div className="container">
                   <Form.Group>
-                    <Form.Label>Id</Form.Label>
+                    {/* <Form.Label>Id</Form.Label>
                     <Form.Control
                       type="id"
                       value={id}
                       name="id"
-                    ></Form.Control>
+                    ></Form.Control> */}
                     <Form.Label>Service Name</Form.Label>
                     <Form.Control
                       type="text"

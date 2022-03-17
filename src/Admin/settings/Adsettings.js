@@ -369,7 +369,7 @@ export default function AdSetting() {
                           <Table responsive>
                             <thead>
                               <tr>
-                                <th>Id</th>
+                                <th>Sr.No.</th>
                                 <th>Name</th>
                                 <th>Date</th>
                                 <th>update</th>
@@ -378,10 +378,10 @@ export default function AdSetting() {
                             </thead>
                             <tbody>
                               {NotificationListArray &&
-                                NotificationListArray.map((item) => (
+                                NotificationListArray.map((item, i) => (
                                   <tr>
                                     {console.log("NtA", NotificationListArray)}
-                                    <td>{item.id}</td>
+                                    <td>{i+1}</td>
                                     <td>{item.name}</td>
                                     <td>{item.createdAt}</td>
                                     <td>{item.updatedAt}</td>
@@ -410,20 +410,20 @@ export default function AdSetting() {
           <div>
             <Modal show={ShowEditModal} onHide={handleClose}>
               <Modal.Header closeButton>
-                <Modal.Title style={{ color: "#61B33B", marginLeft: "130px" }}>
+                <Modal.Title style={{ color: "#61B33B", marginLeft: "25px" }}>
                   Edit Notification List
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <div className="container">
                   <Form.Group>
-                    <Form.Label>Id</Form.Label>
+                    {/* <Form.Label>Id</Form.Label>
                     <Form.Control
                       type="id"
                       value={id}
                       name="id"
                       onChange={handleChange}
-                    ></Form.Control>
+                    ></Form.Control> */}
                     <Form.Label>Name</Form.Label>
                     <Form.Control
                       type="text"
@@ -483,7 +483,7 @@ export default function AdSetting() {
           <div>
             <Modal show={ShowAddModal} onHide={handleCancel}>
               <Modal.Header closeButton>
-                <Modal.Title style={{ color: "#61B33B", marginLeft: "130px" }}>
+                <Modal.Title style={{ color: "#61B33B", marginLeft: "25px"  }}>
                   Add Notification List
                 </Modal.Title>
               </Modal.Header>
