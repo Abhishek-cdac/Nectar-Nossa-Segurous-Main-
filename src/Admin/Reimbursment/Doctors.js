@@ -239,7 +239,7 @@ const Doctors = () =>{
               <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                   <Modal.Title
-                    style={{ color: "#61B33B", marginLeft: "" }}
+                    style={{ color: "#61B33B", marginLeft: "25px" }}
                   >
                     Add Doctors List
                   </Modal.Title>
@@ -289,7 +289,7 @@ const Doctors = () =>{
             <Table responsive>
               <thead>
                 <tr>
-                  <th>Id</th>
+                  <th>Sr.No.</th>
                   <th>Name</th>
                   <th>specialization</th>
                   <th>Description</th>
@@ -299,10 +299,10 @@ const Doctors = () =>{
               </thead>
               <tbody>
                 {DoctorsListArray &&
-                  DoctorsListArray.slice(pagesVisited, pagesVisited + usersPerPage).map((item) => (
+                  DoctorsListArray.slice(pagesVisited, pagesVisited + usersPerPage).map((item, i) => (
                     <tr>
                       {console.log("DLA",DoctorsListArray)}
-                      <td>{item.id}</td>
+                      <td>{i+1}</td>
                       <td>{item.doctorName}</td>
                       <td>{item.specialization}</td>
                       <td>{item.description}</td>
@@ -344,7 +344,7 @@ const Doctors = () =>{
               <Modal show={ShowModal} onHide={handleCancel}>
                 <Modal.Header closeButton>
                   <Modal.Title
-                    style={{ color: "#61B33B", marginLeft: "130px" }}
+                    style={{ color: "#61B33B", marginLeft: "25px" }}
                   >
                     Edit Doctors List
                   </Modal.Title>
@@ -352,8 +352,8 @@ const Doctors = () =>{
                 <Modal.Body>
                   <div className="container">
                     <Form.Group>
-                    <Form.Label>Id</Form.Label>
-                    <Form.Control type="id" value={id} name="id"></Form.Control> 
+                    {/* <Form.Label>Id</Form.Label>
+                    <Form.Control type="id" value={id} name="id"></Form.Control>  */}
                      <Form.Label>Doctors Name</Form.Label>
                     <Form.Control type="text" value={Name} name="Name" onChange={handleChange}></Form.Control>
                     <Form.Label>specialization</Form.Label>

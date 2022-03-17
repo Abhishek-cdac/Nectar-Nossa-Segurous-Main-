@@ -563,7 +563,7 @@ const Reimbusrment = () => {
                       <Modal show={ShowModal} onHide={handleCancel} size="md">
                         <Modal.Header closeButton>
                           <Modal.Title
-                            style={{ color: "#8ec131", marginLeft: "130px" }}
+                            style={{ color: "#8ec131", marginLeft: "25px" }}
                           >
                             Add Reimbursment List
                           </Modal.Title>

@@ -25,14 +25,14 @@ const AdDashboard = () => {
           <div className="col-12 col-md-6 col-sm-6 col-lg-3 mb-2">
             <div className="card card-custom">
               <div className="row">
-                <div className="col-6 col-md-6 col-sm-6 text-left">
+                <div className="col-6 col-lg-6 col-md-6 col-sm-6 text-left">
                   <p className="pl-4 pt-4">
                     <strong>Policies</strong>
                     <br />
                     <strong>Sales</strong>{" "}
                   </p>
                 </div>
-                <div className="col-6 col-md-6 col-sm-6 text-right">
+                <div className="col-6 col-lg-6 col-md-6 col-sm-6 text-right">
                   <h5 className="pr-4 pt-4">
                     {dashBoardListArray && dashBoardListArray.data.totalPolicy}
                   </h5>
@@ -56,7 +56,7 @@ const AdDashboard = () => {
           <div className="col-12 col-md-6 col-sm-6 col-lg-3 mb-2">
             <div className="card card-custom">
               <div className="row">
-                <div className="col-6 col-md-6 col-sm-6 text-left">
+                <div className="col-6 col-lg-6 col-md-6 col-sm-6 text-left">
                   <p className="pl-4 pt-4">
                     <strong>Claims</strong>
                     <br />

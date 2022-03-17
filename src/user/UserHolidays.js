@@ -184,7 +184,7 @@ function UserHolidays() {
             <Table responsive>
               <thead>
                 <tr>
-                  <th>Id</th>
+                  <th>Sr.No.</th>
                   <th>Name</th>
                   <th>Date</th>
                   <th>Day</th>
@@ -194,9 +194,9 @@ function UserHolidays() {
               </thead>
               <tbody>
                 {TableData &&
-                  TableData.slice(pagesVisited, pagesVisited + usersPerPage).map((item) => (
+                  TableData.slice(pagesVisited, pagesVisited + usersPerPage).map((item, i) => (
                     <tr>
-                      <td>{item.id}</td>
+                      <td>{i+1}</td>
                       <td>{item.Name}</td>
                       <td>{item.Date}</td>
                       <td>{item.Day}</td>
