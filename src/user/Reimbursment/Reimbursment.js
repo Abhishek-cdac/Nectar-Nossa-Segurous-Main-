@@ -286,7 +286,7 @@ const HrReimbursment = () => {
               <div className="col-12 col-lg-5 col-md-5 col-sm-5">
                 <div className="input-group">
                   <input
-                    style={{ height: "35px" }}
+                    style={{ height: "35px"}}
                     type="text"
                     className="form-control my-3"
                     placeholder="Search Hospital"
@@ -308,10 +308,10 @@ const HrReimbursment = () => {
               <div className="col-12 col-lg-3 col-md-3 col-sm-3">
                   <button
                     type="button"
-                    className="btn btn-success btn-sm my-3 mx-2"
+                    className="btn btn-success btn-sm my-3"
                     data-toggle="dropdown"
                     style={{
-                      width: "150px",
+                      width:"120px",
                       borderRadius: "5px",
                       backgroundColor: "#8EC131",
                       border: "1px solid #8EC131",
@@ -351,9 +351,8 @@ const HrReimbursment = () => {
               </div>
               <div className="col-12 col-lg-4 col-md-4 col-sm-4">
                   <button
-                  
                     type="button"
-                    className="btn btn-primary btn-sm my-3 mx-3"
+                    className="btn btn-primary btn-sm my-3"
                   >
                     <CSVLink
                       data={ReimbursmentCSV}

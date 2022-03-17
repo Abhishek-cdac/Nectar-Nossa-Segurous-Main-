@@ -16,7 +16,7 @@ const GenericPdfDownloader = ({rootElementId , downloadFileName}) => {
             })
     }
 
-    return <button onClick={downloadPdfDocument}style={{backgroundColor:"#002E5E",color:"whitesmoke", borderRadius:"5px", height:"100%", fontSize:"medium", border:"2px solid #002E5E"}}>Download PDF</button>
+    return <button onClick={downloadPdfDocument}style={{backgroundColor:"#002E5E",color:"white", borderRadius:"5px", height:"100%", fontSize:"medium", border:"2px solid #002E5E", marginLeft:"20px"}}>Download PDF</button>
 
 }
 

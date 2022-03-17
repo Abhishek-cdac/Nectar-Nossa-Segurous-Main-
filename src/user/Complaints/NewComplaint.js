@@ -134,7 +134,7 @@ const NewComplaint = (props) => {
               <div className="detail-box">
                 <div className="card-body form-custom">
                   <div className="row">
-                    <div className="col-12 col-sm-6 col-md-6 col-lg-4">
+                    <div className="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
                       <div className="form-group">
                         <label htmlFor="exampleInputtext" className="mb-1">
                           Policy No.<em>*</em>
@@ -160,7 +160,7 @@ const NewComplaint = (props) => {
                         </Form.Item>
                       </div>
                     </div>
-                    <div className="col-12 col-sm-6 col-md-6 col-lg-4">
+                    <div className="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
                       <div className="form-group">
                         <label htmlFor="exampleInputtext" className="mb-1">
                           Policy<em>*</em>
@@ -186,7 +186,7 @@ const NewComplaint = (props) => {
                         </Form.Item>
                       </div>
                     </div>
-                    <div className="col-12 col-sm-6 col-md-6 col-lg-4">
+                    <div className="col-12 col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">
                       <div className="form-group">
                         <label htmlFor="exampleInputtext" className="mb-1">
                           Policy type<em>*</em>
@@ -212,7 +212,7 @@ const NewComplaint = (props) => {
                         </Form.Item>
                       </div>
                     </div>
-                    <div className="col-md-12">
+                    <div className="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12">
                       <div className="form-group">
                         <label htmlFor="exampleInputHolderName" className="mb-1">
                           Subject<em>*</em>
@@ -237,7 +237,7 @@ const NewComplaint = (props) => {
                         </Form.Item>
                       </div>
                     </div>
-                    <div className="col-md-12">
+                    <div className="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12">
                       <div className="form-group">
                         <label htmlFor="exampleInputHolderName" className="mb-1">
                           Complaint Description<em>*</em>

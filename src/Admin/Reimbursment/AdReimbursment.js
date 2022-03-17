@@ -527,10 +527,10 @@ const Reimbusrment = () => {
               <h3>Reimbursement</h3>
             </div>
             <div className="nav justify-content-center">
-            <div className="col-12 col-lg-3 col-md-3">
+            <div className="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12">
                   <div className="input-group">
                     <input
-                    style={{height:"35px"}}
+                    style={{height:"35px", width: "115px",}}
                       type="text"
                       className="form-control my-3"
                       placeholder="Search Hospital"
@@ -549,11 +549,11 @@ const Reimbusrment = () => {
                     </div>
                   </div>
             </div>
-            <div className="col-12 col-lg-3 col-md-3">
+            <div className="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12">
             <div className="btn-group">
                     <button
                       type="button"
-                      className="btn btn-success btn-sm my-3 mx-3"
+                      className="btn btn-success btn-sm my-3"
                       style={{ width: "160px", borderRadius:"5px", height:"35px", border: "1px solid #8EC131", backgroundColor: "#8EC131"}}
                       onClick={handleShow}
                     >
@@ -676,14 +676,14 @@ const Reimbusrment = () => {
                     </div>
                   </div>
             </div>
-            <div className="col-12 col-lg-3 col-md-3">
+            <div className="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12">
             <div className="btn-group hover_drop_down">
                     <button
                       type="button"
-                      className="btn btn-success btn-sm my-3 mx-2"
+                      className="btn btn-success btn-sm my-3"
                       data-toggle="dropdown"
                       style={{
-                        width: "140px",
+                        width: "160px",
                         borderRadius: "5px",
                         backgroundColor: "#8EC131",
                         border: "1px solid #8EC131",
@@ -723,12 +723,12 @@ const Reimbusrment = () => {
                     </ul>
                   </div>
             </div>
-            <div className="col-12 col-lg-3 col-md-3">
+            <div className="col-12 col-lg-3 col-md-3 col-sm-12 col-xs-12">
             <div className="btn-group">
                     <button
                       type="button"
                       className="btn btn-primary btn-sm my-3"
-                      style={{height:"35px"}}
+                      style={{height:"35px", width: "160px",}}
                     >
                       <CSVLink
                         data={ReimbursmentCSV}
