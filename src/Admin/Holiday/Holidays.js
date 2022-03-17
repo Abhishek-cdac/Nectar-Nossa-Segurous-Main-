@@ -104,7 +104,7 @@ function AdHolidays() {
   const handleShowModal = (selectedRec) => {
     console.log("table", HolidaysData);
     console.log("selectedRec", selectedRec);
-    const Date = moment(selectedRec.date).format("YYYY-MM-DD");
+    const Date = moment(selectedRec.date).format("DD-MM-YYYY");
     setData({
       id: selectedRec.id,
       Name: selectedRec.Name,
