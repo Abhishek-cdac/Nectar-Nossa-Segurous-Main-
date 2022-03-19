@@ -121,6 +121,9 @@ const Login = () => {
                     </Row>
                   </Radio.Group>
                 </Form.Item>
+                <div>
+                <p style={{ color: "red", textAlign:"center"}}>{errorMsg}</p>
+                </div>
                 <Form.Item
                   name="user_id"
                   rules={[
@@ -190,9 +193,6 @@ const Login = () => {
                     Forget password?
                   </a>
                 </Form.Item>
-                <div>
-                <p style={{ color: "red", marginLeft: "45px" }}>{errorMsg}</p>
-                </div>
               </Form>
             </div>
           </div>

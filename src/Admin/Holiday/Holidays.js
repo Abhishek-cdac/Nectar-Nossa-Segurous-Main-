@@ -104,7 +104,7 @@ function AdHolidays() {
   const handleShowModal = (selectedRec) => {
     console.log("table", HolidaysData);
     console.log("selectedRec", selectedRec);
-    const Date = moment(selectedRec.date).format("YYYY-MM-DD");
+    const Date = moment(selectedRec.date).format("DD-MM-YYYY");
     setData({
       id: selectedRec.id,
       Name: selectedRec.Name,
@@ -272,7 +272,7 @@ function AdHolidays() {
               <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                   <Modal.Title
-                    style={{ color: "#8ec131", marginLeft: "130px" }}
+                    style={{ color: "#8ec131", marginLeft:"25px"}}
                   >
                     Add Holiday List
                   </Modal.Title>
@@ -351,7 +351,7 @@ function AdHolidays() {
                       ></Form.Control>
                       <Form.Label>Holiday Type</Form.Label>
                       <Form.Select size="lg" value={Type} name="Type" onChange={handleChange}>
-                        <option>Open this select menu</option>
+                        <option>Select the type</option>
                         <option>public</option>
                         <option>National</option>
                         <option>seasonal</option>
@@ -426,7 +426,7 @@ function AdHolidays() {
               {/* pagination={paginationFactory({ sizePerPage: 5 })} */}
               <thead>
                 <tr>
-                  <th>Id</th>
+                  <th>Sr.No.</th>
                   <th>Name</th>
                   <th>Date</th>
                   <th>Day</th>
@@ -436,9 +436,9 @@ function AdHolidays() {
               </thead>
               <tbody>
                 {TableData &&
-                  TableData.slice(pagesVisited, pagesVisited + usersPerPage).map((item) => (
+                  TableData.slice(pagesVisited, pagesVisited + usersPerPage).map((item, i) => (
                     <tr>
-                      <td>{item.id}</td>
+                      <td>{i+1}</td>
                       <td>{item.Name}</td>
                       <td>{item.Date}</td>
                       <td>{item.Day}</td>
@@ -486,13 +486,13 @@ function AdHolidays() {
               <Modal.Body>
                 <div className="container">
                   <Form.Group>
-                    <Form.Label>Id</Form.Label>
+                    {/* <Form.Label>Id</Form.Label>
                     <Form.Control
                       type="id"
                       value={id}
                       name="id"
                       onChange={handleChange}
-                    ></Form.Control>
+                    ></Form.Control> */}
                     <Form.Label>Name</Form.Label>
                     <Form.Control
                       type="text"

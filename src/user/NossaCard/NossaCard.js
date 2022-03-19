@@ -55,9 +55,9 @@ console.log("lug",loginDetailsUserId)
         <div className="col-lg-6 col-md-6 text-left">
             <h3 className="mt-3 mb-4">Our Card</h3>
         </div>
-        <div className="col-lg-6 col-md-6 text-right">
+        <div className="col-12 col-lg-6 col-md-6 col-sm-12 col-xs-12 text-right">
             <div className="btn-two">
-                <a href="#" className="print-card-btn" onClick={() =>{window.print()}}>Print Card <img src={print} className="img-fluid" alt=""/></a>
+                <a href="#" className="print-card-btn" onClick={() =>{window.print()}} style={{height:"100%"}}>Print Card <img src={print} className="img-fluid" alt=""/></a>
                 {/* <button className="download-card-btn" onClick={saveFile}>Download card <img src={fileDownload1} className="img-fluid" alt=""/></button> */}
                 <GenericPdfDownloader 
           downloadFileName="NossaPdf" 

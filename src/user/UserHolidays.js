@@ -136,7 +136,7 @@ function UserHolidays() {
                   type="button"
                   className="btn btn-success btn-sm"
                   data-toggle="dropdown"
-                  style={{ width: "130px", borderRadius:"5px" }}
+                  style={{ width: "140px", height:"35px", borderRadius:"5px" }}
                 >
                   <i className="fas fa-filter"></i> Add Filters
                 </button>
@@ -172,7 +172,7 @@ function UserHolidays() {
               </div>
           </div>
           <div className="col-xl-7  col-lg-7 col-md-7 col-sm-12">
-              <button type="button" className="btn btn-primary btn-sm">
+              <button style={{height:"35px", width:"140px"}} type="button" className="btn btn-primary btn-sm">
                   <CSVLink data={HolidayCSV} target="_blank" style={{color:"white"}}>
                     Download PDF/CSV
                   </CSVLink>
@@ -185,7 +185,7 @@ function UserHolidays() {
             <Table responsive>
               <thead>
                 <tr>
-                  <th>Sr.No</th>
+                  <th>Sr.No.</th>
                   <th>Name</th>
                   <th>Date</th>
                   <th>Day</th>
@@ -195,7 +195,7 @@ function UserHolidays() {
               </thead>
               <tbody>
                 {TableData &&
-                  TableData.slice(pagesVisited, pagesVisited + usersPerPage).map((item,i) => (
+                  TableData.slice(pagesVisited, pagesVisited + usersPerPage).map((item, i) => (
                     <tr>
                       <td>{i+1}</td>
                       <td>{item.Name}</td>

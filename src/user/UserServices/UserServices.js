@@ -140,7 +140,7 @@ const UserServices = () => {
           <div className="col-12 col-md-6 col-sm-6 col-lg-3 mb-2">
             <div className="card card-custom" style={{background: "#FFACAC"}}>
               <div className="row">
-                <div className="col-6 col-md-6 col-sm-6 text-left"> 
+                <div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 text-left"> 
                   <p className="pl-4 pt-4">
                     <strong>Policy  Statement</strong>
                   </p>
@@ -162,7 +162,7 @@ const UserServices = () => {
           <div className="col-12 col-md-6 col-sm-6 col-lg-3 mb-2">
             <div className="card card-custom" style={{background:"#000",color:"whitesmoke"}} >
               <div className="row">
-                <div className="col-6 col-md-6 col-sm-6 text-left">
+                <div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 text-left">
                   <p className="pl-4 pt-4">
                    <strong>Statement</strong>
                     <br />
@@ -187,7 +187,7 @@ const UserServices = () => {
           <div className="col-12 col-md-6 col-sm-6 col-lg-3 mb-2">
             <div className="card card-custom" style={{background:"#8EC131"}}>
               <div className="row">
-                <div className="col-6 col-md-6 col-sm-6 text-left">
+                <div className="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 text-left">
                   <p className="pl-4 pt-4">
                    <strong>Invoices</strong> 
                    <br/><br/>

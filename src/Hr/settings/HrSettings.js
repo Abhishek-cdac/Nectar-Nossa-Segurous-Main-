@@ -180,7 +180,7 @@ export default function Setting() {
       {settingsPage && (
         <div className="container-fluid">
           <div className="row">
-            <div className="col-xl-12 col-lg-8 col-md-12 col-sm-2 col-xs-1">
+            <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <div classpolicy="comppage">
                 <Breadcrumb style={{ marginTop: "20px" }}>
                   <Breadcrumb.Item>Home</Breadcrumb.Item>

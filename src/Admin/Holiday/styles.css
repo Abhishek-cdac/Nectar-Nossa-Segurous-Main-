@@ -44,3 +44,17 @@
     border-radius: 5px;
     transition: border-width 4.5s linear;
   }
+
+  .btn-close:before{
+    content: 'X';
+    font-family: FontAwesome;
+    visibility: visible;
+    color: black;
+    font-size: small;
+    font-weight: bold;
+  }
+  .btn-close{
+    position: absolute;
+    right: 32px;
+    top: 20px;
+  }

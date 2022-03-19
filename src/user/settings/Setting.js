@@ -14,7 +14,7 @@ import {
   getChangePassword,
   getUserNotificationService,
   getNotificationService,
-  getAddUserNotificationService
+  getAddUserNotificationService,
 } from "../../services/authentication";
 import SetSucess from "./setSucess";
 
@@ -31,7 +31,7 @@ export default function Setting() {
   const [errorMsg, seterrorMsg] = useState("");
   const [SucessPage, setsucessPage] = useState(false);
   const [settingsPage, setSettingsPage] = useState(true);
-  const [emailvalue,setEmailvalue] = useState(false)
+  const [emailvalue, setEmailvalue] = useState(false);
   const Token = window.localStorage.getItem("token");
   const email = window.localStorage.getItem("email");
   const loginDetailsUserId = window.localStorage.getItem("loginDetailsUserId");
@@ -103,7 +103,6 @@ export default function Setting() {
   }, []);
 
   const handleGetAddNotification = async (payload, type) => {
-   
     console.log("payload", payload);
     try {
       const userAddNotiResp = await getAddUserNotificationService(payload);
@@ -134,7 +133,6 @@ export default function Setting() {
     }
   };
 
- 
   const handleback = () => {
     setsucessPage(false);
     setSettingsPage(true);
@@ -169,9 +167,9 @@ export default function Setting() {
   return (
     <>
       {settingsPage && (
-        // <div className="container-fluid">
+        <div className="container-fluid">
           <div className="row">
-            <div className="col-xl-12 col-lg-8 col-md-8 col-sm-2 col-xs-1">
+            <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <div classpolicy="comppage">
                 <Breadcrumb style={{ marginTop: "20px" }}>
                   <Breadcrumb.Item>Home</Breadcrumb.Item>
@@ -202,58 +200,57 @@ export default function Setting() {
                       style={{
                         width: "330px",
                         marginTop: "40px",
-                         marginLeft: "20px",
+                        marginLeft: "20px",
                       }}
                     >
-                     <div className="pass-wrapper">
-                          <label className="required" htmlFor="oldpass">
-                            Old Password
-                          </label>
-                          <input
-                            id="pass"
-                            placeholder="Enter Old Password"
-                            name="oldPassword"
-                            value={oldPassword}
-                            type={OldPasswordShown ? "text" : "password"}
-                            onChange={handleChange}
-                            required="required"
-                          />
-                          <i onClick={toggleOldPasswordVisiblity}>{eye}</i>
-                        </div>
-                        <div className="pass-wrapper">
-                          <label className="required" htmlFor="newpass">
-                            New Password
-                          </label>
-                          <input
-                            id="pass"
-                            placeholder="Enter New Password"
-                            name="newPassword"
-                            value={newPassword}
-                            type={NewPasswordShown ? "text" : "password"}
-                            onChange={handleChange}
-                          />
-                          <i onClick={toggleNewPasswordVisiblity}>{eye}</i>
-                        </div>
-                        <div className="pass-wrapper">
-                          <label className="required" htmlFor="confpass">
-                            Confirm New Password
-                          </label>
-                          <input
-                            id="pass"
-                            placeholder="Confirm New Password"
-                            name="confirmPassword"
-                            value={confirmPassword}
-                            type={ConfNewPasswordShown ? "text" : "password"}
-                            onChange={handleChange}
-                          />
-                          <i onClick={toggleConfNewPasswordVisiblity}>{eye}</i>
-                        </div>
+                      <div className="pass-wrapper">
+                        <label className="required" htmlFor="oldpass">
+                          Old Password
+                        </label>
+                        <input
+                          id="pass"
+                          placeholder="Enter Old Password"
+                          name="oldPassword"
+                          value={oldPassword}
+                          type={OldPasswordShown ? "text" : "password"}
+                          onChange={handleChange}
+                          required="required"
+                        />
+                        <i onClick={toggleOldPasswordVisiblity}>{eye}</i>
+                      </div>
+                      <div className="pass-wrapper">
+                        <label className="required" htmlFor="newpass">
+                          New Password
+                        </label>
+                        <input
+                          id="pass"
+                          placeholder="Enter New Password"
+                          name="newPassword"
+                          value={newPassword}
+                          type={NewPasswordShown ? "text" : "password"}
+                          onChange={handleChange}
+                        />
+                        <i onClick={toggleNewPasswordVisiblity}>{eye}</i>
+                      </div>
+                      <div className="pass-wrapper">
+                        <label className="required" htmlFor="confpass">
+                          Confirm New Password
+                        </label>
+                        <input
+                          id="pass"
+                          placeholder="Confirm New Password"
+                          name="confirmPassword"
+                          value={confirmPassword}
+                          type={ConfNewPasswordShown ? "text" : "password"}
+                          onChange={handleChange}
+                        />
+                        <i onClick={toggleConfNewPasswordVisiblity}>{eye}</i>
+                      </div>
 
                       <div
                         className="bttn"
                         style={{ marginTop: "50px", borderRadius: "10px" }}
                       >
-                    
                         <button
                           type="button"
                           className="btn btn-primary btn-lg"
@@ -278,7 +275,7 @@ export default function Setting() {
                     </div>
                   </TabPanel>
                   <TabPanel>
-                  {/* <div className="container-fluid"> */}
+                    {/* <div className="container-fluid"> */}
                     <div className="accord mx-3">
                       {notification &&
                         notification.map((data, index) => {
@@ -296,10 +293,7 @@ export default function Setting() {
                           data = { ...data, notificationdata };
 
                           return (
-                            <Accordion
-                              // style={{ width:"730px", marginTop: "30px" }}
-                              key={data.id}
-                            >
+                            <Accordion key={data.id}>
                               <div
                                 className="accordhead"
                                 style={{
@@ -318,10 +312,10 @@ export default function Setting() {
                                       fontSize: "large",
                                     }}
                                   >
-                             {data.name}
-                            </Typography>
-                          </AccordionSummary>
-                        </div>
+                                    {data.name}
+                                  </Typography>
+                                </AccordionSummary>
+                              </div>
 
                               <AccordionDetails>
                                 <Typography key={data?.id}>
@@ -362,8 +356,10 @@ export default function Setting() {
                                       className="react-switch-checkbox"
                                       id={`react-switch-new-${data.id}-2`}
                                       type="checkbox"
-                                      checked={ data.notificationdata?.textStatus}
-                                      onChange={() =>{
+                                      checked={
+                                        data.notificationdata?.textStatus
+                                      }
+                                      onChange={() => {
                                         handleUserNotification(
                                           {
                                             ...data.notificationdata,
@@ -373,8 +369,8 @@ export default function Setting() {
                                           },
 
                                           "text"
-                                        )
-                                      } }
+                                        );
+                                      }}
                                     />
                                     <label
                                       className="react-switch-label"
@@ -389,15 +385,15 @@ export default function Setting() {
                           );
                         })}
                     </div>
-                  
                   </TabPanel>
                 </Tabs>
               </div>
             </div>
-          {/* </div> */}
+            {/* </div> */}
+          </div>
         </div>
       )}
-      {SucessPage && <SetSucess handleback={handleback}/>}
+      {SucessPage && <SetSucess handleback={handleback} />}
     </>
   );
 }
