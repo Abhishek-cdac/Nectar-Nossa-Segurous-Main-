@@ -4,6 +4,7 @@ import NewClient from "./NewClient";
 import ClientDetails from "./ClientDetails";
 import { CSVLink } from "react-csv";
 import { Breadcrumb } from "antd";
+import moment from "moment";
 
 const Client = () => {
   const [ClientListArray, setClientListArray] = useState("");
@@ -29,11 +30,11 @@ const Client = () => {
         resp.data.map((data, i) => {
           const value = {
             policyNo: data.policy.policyCode,
-            policyHolder: data.user.firstName,
+            policyHolder:`${data.user.firstName} ${data.user.lastName}`,
             Category: data.policy.policyType,
             policyType: data.policy.policyName,
-            startDate: data.policyStartDate,
-            endDate: data.policyMaturityDate,
+            startDate: moment(data.policyStartDate).format("YYYY-MM-DD"),
+            endDate: moment(data.policyMaturityDate).format("YYYY-MM-DD"),
             id: data.id,
           };
           tableDataArr.push(value);

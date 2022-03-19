@@ -58,7 +58,7 @@ function AdHolidays() {
           const value = {
             id: data.id,
             Name: data.name,
-            Date: data.date,
+            Date: moment(data.date).format('YYYY-DD-MM'),
             Day: data.day,
             Type: data.type,
           };
@@ -229,7 +229,7 @@ function AdHolidays() {
           id: data.id,
           Name: data.name,
           Day: data.day,
-          Date: data.date,
+          Date: moment(data.date).format("YYYY-MM-DD"),
           Type: data.type,
         };
         tableDataArr.push(value);

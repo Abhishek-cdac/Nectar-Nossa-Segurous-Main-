@@ -8,6 +8,7 @@ import {
 } from "@ant-design/icons";
 import { getClaimsList } from "../../services/authentication";
 import HrClaimDetails from "../../Hr/HrClaims/HrClaimDetails";
+import moment from "moment";
 
 const AdminClaims = () => {
   const [recievedTableData, setRecievedTableData] = useState("");
@@ -86,9 +87,9 @@ const AdminClaims = () => {
             policyName: data.userPolicy.policy.policyName,
             amount: data.sumInsured,
             code: data.userPolicy.policy.policyCode,
-            date: data.claim_details && data.claim_details.createdAt,
+            date: moment(data.claim_details && data.claim_details.createdAt).format("YYYY-MM-DD"),
             status: data.verifyStatus,
-            agent: data.userPolicy.agent.firstName,
+            agent: `${data.userPolicy.agent.firstName} ${data.userPolicy.agent.lastName}`,
             key: data.id,
             //description:data.userPolicy.policy.description
           };
@@ -124,7 +125,7 @@ const AdminClaims = () => {
             policyName: data.userPolicy.policy.policyName,
             amount: data.sumInsured,
             code: data.userPolicy.policy.policyCode,
-            date: data.claim_details && data.claim_details.createdAt,
+            date: moment(data.claim_details && data.claim_details.createdAt).format("YYYY-MM-DD"),
             status: data.verifyStatus,
             agent: data.userPolicy.agent.firstName,
             key: data.id,
@@ -156,7 +157,7 @@ const AdminClaims = () => {
           policyName: data.userPolicy.policy.policyName,
           amount: data.sumInsured,
           code: data.userPolicy.policy.policyCode,
-          date: data.claim_details && data.claim_details.createdAt,
+          date: moment(data.claim_details && data.claim_details.createdAt).format('YYYY-MM-DD'),
           status: data.verifyStatus,
           amount: data.sumInsured,
         };
