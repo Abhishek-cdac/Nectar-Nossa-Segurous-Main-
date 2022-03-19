@@ -10,6 +10,7 @@ import {
 } from "@ant-design/icons";
 import { getClaimsList } from "../../services/authentication";
 import HrClaimDetails from "./HrClaimDetails";
+import moment from "moment"
 
 const { Search } = Input;
 
@@ -194,10 +195,10 @@ const HrRecievedClaims = () => {
         resp.data.map((data) => {
           const value = {
             id: data.claimCode,
-            name: data.userPolicy.user.firstName,
+            name: `${data.userPolicy.user.firstName} ${data.userPolicy.user.lastName}`,
             policyname: data.userPolicy.policy.policyName,
             code: data.userPolicy.policy.policyCode,
-            date: data.claim_details ? data.claim_details.createdAt:'',
+            date: moment((data.claim_details.createdAt).format("YYYY_MM_DD")),
             status: data.verifyStatus,
             description: data.userPolicy.policy.description,
             key:data.id
@@ -227,10 +228,10 @@ const HrRecievedClaims = () => {
       filterData.map((data, i) => {
         const value = {
           id: data.claimCode,
-          name: data.userPolicy.user.firstName,
+          name: `${data.userPolicy.user.firstName} ${data.userPolicy.user.lastName}`,
           policyname: data.userPolicy.policy.policyName,
           code: data.userPolicy.policy.policyCode,
-          date: data.claim_details && data.claim_details.createdAt,
+          date: moment(data.claim_details && data.claim_details.createdAt).format("YYYY-MM-DD"),
           status: data.verifyStatus,
           description: data.userPolicy.policy.description,
         };

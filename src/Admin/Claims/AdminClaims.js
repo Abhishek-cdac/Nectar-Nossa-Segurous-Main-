@@ -83,7 +83,7 @@ const AdminClaims = () => {
         resp.data.map((data) => {
           const value = {
             id: data.claimCode,
-            policyHolder: data.userPolicy.user.firstName,
+            policyHolder: `${data.userPolicy.user.firstName} ${data.userPolicy.user.lastName}`,
             policyName: data.userPolicy.policy.policyName,
             amount: data.sumInsured,
             code: data.userPolicy.policy.policyCode,
@@ -121,13 +121,13 @@ const AdminClaims = () => {
         resp.data.map((data, i) => {
           const value = {
             id: data.claimCode,
-            policyHolder: data.userPolicy.user.firstName,
+            policyHolder: `${data.userPolicy.user.firstName} ${data.userPolicy.user.lastName}`,
             policyName: data.userPolicy.policy.policyName,
             amount: data.sumInsured,
             code: data.userPolicy.policy.policyCode,
             date: moment(data.claim_details && data.claim_details.createdAt).format("YYYY-MM-DD"),
             status: data.verifyStatus,
-            agent: data.userPolicy.agent.firstName,
+            agent: `${data.userPolicy.agent.firstName} ${data.userPolicy.agent.lastName}`,
             key: data.id,
           };
           tableDataArr.push(value);
@@ -153,7 +153,7 @@ const AdminClaims = () => {
       filterData.map((data, i) => {
         const value = {
           id: data.claim_details && data.claim_details.claim_id,
-          policyHolder: data.userPolicy.user.firstName,
+          policyHolder: `${data.userPolicy.user.firstName} ${data.userPolicy.user.lastName}`,
           policyName: data.userPolicy.policy.policyName,
           amount: data.sumInsured,
           code: data.userPolicy.policy.policyCode,

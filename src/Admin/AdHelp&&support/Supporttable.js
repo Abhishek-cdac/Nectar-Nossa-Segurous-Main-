@@ -81,13 +81,13 @@ const Supporttable = (props) => {
         <Table responsive>
           <thead style={{ backgroundColor: "#8ec131" }}>
             <tr>
-              <th>Id</th>
-              <th>type</th>
+              <th>Sr.No.</th>
+              <th>Type</th>
               <th>Name</th>
-              <th>phone</th>
+              <th>Phone</th>
               <th>Description</th>
               <th>Email</th>
-              <th>subject</th>
+              <th>Subject</th>
             </tr>
           </thead>
           <tbody>
@@ -95,10 +95,10 @@ const Supporttable = (props) => {
               SupportListArray.slice(
                 pagesVisited,
                 pagesVisited + usersPerPage
-              ).map((item) => (
+              ).map((item, i) => (
                 <tr>
                   {/* {console.log("DLA",SupportListArray)} */}
-                  <td>{item.id}</td>
+                  <td>{i+1}</td>
                   <td>{item.type}</td>
                   <td>{item.name}</td>
                   <td>{item.phone}</td>

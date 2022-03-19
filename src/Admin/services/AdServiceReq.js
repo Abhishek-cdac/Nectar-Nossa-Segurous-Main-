@@ -11,6 +11,7 @@ import { getServiceList } from "../../services/authentication";
 import { CSVLink } from "react-csv";
 import "./Service.style.css";
 import ServiceDetails from "./ServiceDetails";
+import moment from "moment"
 
 // Search box icon property starts
 const { Search } = Input;
@@ -47,11 +48,11 @@ function AdServices() {
           const value = {
             serviceid: data.serviceCode,
             servicename: data.serviceName,
-            requestedby: data.userPolicy.user.firstName,
-            reqesteddate: data.date,
+            requestedby: `${data.userPolicy.user.firstName} ${data.userPolicy.user.lastName}`,
+            reqesteddate: moment(data.date).format('YYYY-MM-DD'),
             priority: data.priorityStatus,
             status: data.verifyStatus,
-            owner: data.userPolicy.agent.firstName,
+            owner: `${data.userPolicy.agent.firstName} ${data.userPolicy.agent.lastName}`,
             key:data.serviceCode,
           };
           //console.log(value);
@@ -77,11 +78,11 @@ function AdServices() {
         const value = {
           serviceid: data.serviceCode,
           servicename: data.serviceName,
-          requestedby: data.userPolicy.user.firstName,
-          reqesteddate: data.date,
+          requestedby: `${data.userPolicy.user.firstName} ${data.userPolicy.user.lastName}`,
+          reqesteddate: moment(data.date).format('YYYY-MM-DD'),
           tags: data.priorityStatus,
           status: data.verifyStatus,
-          owner: data.userPolicy.agent.firstName,
+          owner: `${data.userPolicy.agent.firstName} ${data.userPolicy.agent.lastName}`,
           
         };
         tableDataArr.push(value);

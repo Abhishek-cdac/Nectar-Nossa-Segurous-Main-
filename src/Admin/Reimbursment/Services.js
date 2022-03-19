@@ -342,7 +342,7 @@ const Services = () => {
                       {console.log("sla",ServicesListArray)}
                       <td>{i+1}</td>
                       <td>{item.service}</td>
-                      <td>{item.createdAt}</td>
+                      <td>{moment(item.createdAt).format('YYYY-MM-DD')}</td>
                       <td>
                         <Dropdown overlay={menu(item)}>
                           <a className="ant-dropdown-link">

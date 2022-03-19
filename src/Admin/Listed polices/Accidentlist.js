@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button, Input, Menu, Dropdown } from "antd";
 import { useNavigate } from "react-router-dom";
+import moment from "moment" 
 import {
   EyeOutlined,
   VerticalAlignBottomOutlined,
@@ -121,13 +122,13 @@ const AccidentList = (props) => {
           const value = {
             key: data.id,
             policyName:data.policy.policyName,
-            name: data.user.firstName,
+            name: `${data.user.firstName} ${data.user.lastName}`,
             code: data.policy.policyCode,
             type: data.premiumPlan,
             status: data.premiumStatus,
             count: data.numberOfClaims,
             Amount: data.premiumAmount,
-            date: data.createdAt,
+            date: moment(data.createdAt).format('YYYY-MM-DD'),
           };
           console.log(value);
           tableDataArr.push(value);
@@ -154,7 +155,7 @@ const AccidentList = (props) => {
           status: data.premiumStatus,
           count: data.numberOfClaims,
           Amount: data.premiumAmount,
-          date: data.createdAt,
+          date: moment(data.createdAt).format("YYYY-MM-DD"),
         };
         tableDataArr.push(value);
         

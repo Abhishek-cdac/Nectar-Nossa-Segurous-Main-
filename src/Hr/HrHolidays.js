@@ -51,7 +51,7 @@ function HrHolidays() {
           const value = {
             id: data.id,
             Name: data.name,
-            Date: data.date,
+            Date: moment(data.date).format('YYYY-MM-DD'),
             Day: data.day,
             Type: data.type,
           };

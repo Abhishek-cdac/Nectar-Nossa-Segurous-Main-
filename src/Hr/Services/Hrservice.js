@@ -10,6 +10,7 @@ import {
   Space,
 } from "antd";
 import { useHistory } from "react-router-dom";
+import moment from "moment";
 import {
   FilterOutlined,
   FormOutlined,
@@ -59,11 +60,11 @@ function HrServices() {
           const value = {
             serviceid: data.serviceCode,
             servicename: data.serviceName,
-            requestedby: data.userPolicy.user.firstName,
-            reqesteddate: data.date,
+            requestedby:  `${data.userPolicy.user.firstName} ${data.userPolicy.user.lastName}`,
+            reqesteddate: moment(data.date).format('YYYY-MM-DD'),
             priority: data.priorityStatus,
             status: data.verifyStatus,
-            owner: data.userPolicy.agent.firstName,
+            owner: `${data.userPolicy.agent.firstName} ${data.userPolicy.agent.lastName}`,
             key:data.serviceCode,
 
           };
@@ -90,11 +91,11 @@ function HrServices() {
         const value = {
           serviceid: data.serviceCode,
           servicename: data.serviceName,
-          requestedby: data.userPolicy.user.firstName,
-          reqesteddate: data.date,
+          requestedby: `${data.userPolicy.user.firstName} ${data.userPolicy.user.lastName}`,
+          reqesteddate: moment(data.date).format('YYYY-MM-DD'),
           tags: data.priorityStatus,
           status: data.verifyStatus,
-          owner: data.userPolicy.agent.firstName,
+          owner: `${data.userPolicy.agent.firstName} ${data.userPolicy.agent.lastName}`,
           
         };
         tableDataArr.push(value);

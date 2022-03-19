@@ -73,7 +73,7 @@ const HrList = () => {
         resp.data.map((data) => {
           const value = {
             key: data.id,
-            name: data.firstName,
+            name: `${data.firstName} ${data.firstName}`,
             code: data.userName,
             members: data.totalClient,
             Assigned: data.totalComplaint,
