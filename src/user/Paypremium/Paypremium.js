@@ -10,6 +10,7 @@ import { getAllUserPolicyList } from "../../services/authentication";
 import UserPolicy from "./UserPolicy";
 import SucessModal from "./SucessModal";
 import { CSVLink } from "react-csv";
+import moment from "moment"
 
 export const UserContext = React.createContext();
 
@@ -187,7 +188,7 @@ const Paypremium = () => {
         user_id: loginDetailsUserId,
         agent_id: "",
         premiumPlan: "",
-        activeStatus: "0",
+        activeStatus: "1",
       };
       const resp = await getAllUserPolicyList(data);
       // console.log('active',resp)
@@ -201,7 +202,7 @@ const Paypremium = () => {
             type: data.premiumPlan,
             status: data.premiumStatus ? data.premiumStatus:'',
             Amount: data.premiumAmount,
-            date: data.updatedAt,
+            date: moment(data.updatedAt).format('YYYY-MM-DD'),
           };
           tableDataArr.push(value);
         });
@@ -219,7 +220,7 @@ const Paypremium = () => {
         user_id: loginDetailsUserId,
         agent_id: "",
         premiumPlan: "",
-        activeStatus: "1",
+        activeStatus: "0",
       };
       const resp = await getAllUserPolicyList(data);
       // console.log('inactive',resp)
@@ -233,7 +234,7 @@ const Paypremium = () => {
             type: data.premiumPlan,
             status: data.premiumStatus ? data.premiumStatus :'',
             Amount: data.premiumAmount,
-            date: data.updatedAt,
+            date: moment(data.updatedAt).format('YYYY-MM-DD'),
           };
           tableDataArr.push(value);
         });

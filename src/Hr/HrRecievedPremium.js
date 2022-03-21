@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Table, Button, Input, Menu, Dropdown, Breadcrumb } from "antd";
 import { useNavigate } from "react-router-dom";
+import moment from "moment"
 import {
   EyeOutlined,
   VerticalAlignBottomOutlined,
@@ -26,10 +27,10 @@ const Receivedpremium = () => {
         resp.data.map((data, i) => {
           const value = {
             policy: data.userPolicy.policy.policyName,
-            name: data.userPolicy.user.firstName,
+            name: `${data.userPolicy.user.firstName} ${data.userPolicy.user.lastName}` ,
             code: data.invoiceNumber,
             type: data.userPolicy.premiumPlan,
-            date: data.userPolicy.updatedAt,
+            date: moment(data.userPolicy.updatedAt).format("YYYY-MM-DD"),
             amount: data.premiumAmount,
           };
           console.log(value);
@@ -56,11 +57,11 @@ const Receivedpremium = () => {
         const value = {
           key: data.id,
           policy: data.userPolicy.policy.policyName,
-          name: data.userPolicy.user.firstName,
+          name: `${data.userPolicy.user.firstName} ${data.userPolicy.user.lastName}`,
           // code: data.invoiceNumber,
           code: "NA012367",
           type: data.userPolicy.premiumPlan,
-          date: data.userPolicy.updatedAt,
+          date: moment(data.userPolicy.updatedAt).format("YYYY-MM-DD"),
           amount: data.premiumAmount,
         };
         tableDataArr.push(value);

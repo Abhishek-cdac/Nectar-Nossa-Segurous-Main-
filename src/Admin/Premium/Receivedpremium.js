@@ -8,6 +8,7 @@ import {
 } from "@ant-design/icons";
 import { CSVLink } from "react-csv";
 import { getPremiumList } from "../../services/authentication";
+import moment from "moment"
 
 const { Search } = Input;
 
@@ -26,10 +27,10 @@ const AdReceivedpremium = () => {
         resp.data.map((data, i) => {
           const value = {
             policy: data.userPolicy.policy.policyName,
-            name: data.userPolicy.user.firstName,
+            name: `${data.userPolicy.user.firstName} ${data.userPolicy.user.lastName}`,
             code: "NA123456",
             type: data.userPolicy.premiumPlan,
-            date: data.userPolicy.updatedAt,
+            date: moment(data.userPolicy.updatedAt).format("YYYY-MM-DD"),
             amount: data.premiumAmount,
           };
           console.log(value);
@@ -56,10 +57,10 @@ const AdReceivedpremium = () => {
         const value = {
           key: data.id,
           policy: data.userPolicy.policy.policyName,
-          name: data.userPolicy.user.firstName,
+          name: `${data.userPolicy.user.firstName} ${data.userPolicy.user.lastName}`,
           code: data.invoiceNumber,
           type: data.userPolicy.premiumPlan,
-          date: data.userPolicy.updatedAt,
+          date: moment(data.userPolicy.updatedAt).format("YYYY-MM-DD"),
           amount: data.premiumAmount,
         };
         tableDataArr.push(value);

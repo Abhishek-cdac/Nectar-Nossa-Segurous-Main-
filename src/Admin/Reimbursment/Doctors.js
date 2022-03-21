@@ -306,7 +306,7 @@ const Doctors = () =>{
                       <td>{item.doctorName}</td>
                       <td>{item.specialization}</td>
                       <td>{item.description}</td>
-                      <td>createdAt</td>
+                      <td>{moment(item.createdAt).format('YYYY-MM-DD')}</td>
                       <td>
                         <Dropdown overlay={menu(item)}>
                           <a className="ant-dropdown-link">

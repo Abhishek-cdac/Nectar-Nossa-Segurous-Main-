@@ -57,7 +57,7 @@ const Claims = () => {
             code: data.userPolicy.policy.policyCode,
             date: data.claim_details
               ? data.claim_details.updatedAt
-                ? moment(data.claim_details.updatedAt).format("MMM DD YY")
+                ? moment(data.claim_details.updatedAt).format("YYYY-MM-DD")
                 : ""
               : "",
             status:data.verifyStatus,

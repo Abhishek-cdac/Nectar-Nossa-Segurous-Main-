@@ -25,6 +25,7 @@ const NewComplaint = (props) => {
     user_id: loginDetailsUserId,
     agent_id: "",
     premiumPlan: "",
+    activeStatus:''
   };
 
   const handleGetPolicyListServiceCall = async (data) => {
@@ -270,6 +271,14 @@ const NewComplaint = (props) => {
                       className="btn btn-primary"
                     >
                       Submit Complaint
+                    </Button>
+                    <Button
+                    style={{height:"45px", fontSize:"medium",backgroundColor:"black",color:"white",borderRadius:"10px",marginTop:"15px"}}
+                      type="button"
+                      className="btn btn-dark"
+                      onClick={()=>props.handlereturn()}
+                    >
+                      Back
                     </Button>
                   </div>
                 </div>

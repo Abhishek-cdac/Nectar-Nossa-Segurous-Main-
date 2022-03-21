@@ -483,7 +483,7 @@ export default function AdSetting() {
           <div>
             <Modal show={ShowAddModal} onHide={handleCancel}>
               <Modal.Header closeButton>
-                <Modal.Title style={{ color: "#61B33B", marginLeft: "25px"  }}>
+                <Modal.Title style={{ color: "#61B33B", marginLeft: "25px"}}>
                   Add Notification List
                 </Modal.Title>
               </Modal.Header>

@@ -5,6 +5,7 @@ import { getServiceList } from "../../services/authentication";
 import { CSVLink } from "react-csv";
 import NewServices from "./Newservices";
 import SerSucessModal from "./SerSucessModal";
+import moment from "moment"
 import { TurnedInNotRounded } from "@material-ui/icons";
 
 const UserServices = () => {
@@ -28,7 +29,7 @@ const UserServices = () => {
             serviceid: data.serviceCode,
             servicename: data.serviceName,
             requestedby: data.userPolicy.user.firstName,
-            reqesteddate: data.date,
+            reqesteddate: moment(data.date).format('YYYY-MM-DD'),
             priority: data.priorityStatus,
             status: data.verifyStatus,
             owner: data.userPolicy.agent.firstName,

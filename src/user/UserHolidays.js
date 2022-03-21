@@ -4,6 +4,7 @@ import { getHolidaysList } from "../services/authentication"
 import { CSVLink } from "react-csv";
 import {Breadcrumb} from "antd"
 import ReactPaginate from "react-paginate";
+import moment from "moment"
 
 function UserHolidays() {
   const [HolidaysData, setHolidaysData] = useState("");
@@ -33,7 +34,7 @@ function UserHolidays() {
           const value = {
             id: data.id,
             Name: data.name,
-            Date: data.date,
+            Date: moment(data.date).format('YYYY-MM-DD'),
             Day: data.day,
             Type: data.type,
           };
@@ -93,7 +94,7 @@ function UserHolidays() {
           id: data.id,
           Name: data.name,
           Day: data.day,
-          Date: data.date,
+          Date: moment(data.date).format('YYYY-MM-DD'),
           Type: data.type,
         };
         tableDataArr.push(value);

@@ -24,11 +24,11 @@ const Hrlisted = () => {
     id:'',
      search:"",
      type:'',
-     activeStatus:"0"
+     activeStatus:"1"
    };
    const InActiveDataPayload = {
     id:'',
-    activeStatus: "1",
+    activeStatus: "0",
     search:"",
     type:'',
     
@@ -75,17 +75,16 @@ const Hrlisted = () => {
       const resp = await getPolicyList(data);
       console.log("ac",resp)
       setActiveData(resp && resp.data);
-      resp.length>0 &&
-        resp.map((data, i) => {
+      resp &&
+        resp.data.map((data, i) => {
           const value = {
             key: data.id,
             name: data.policyName,
             code: data.policyCode,
             type: data.policyType,
-            count: data.totalcount,
+            count: data.policyCount,
             number: data.registration,
-            // count: data.Activecount,
-            count:2
+            
           };
           tableDataArr.push(value);
         });
@@ -108,10 +107,10 @@ const Hrlisted = () => {
             name: data.policyName,
             code: data.policyCode,
             type: data.policyType,
-            count: data.totalcount,
+            count: data.policyCount,
             number: data.registration,
-            // count: data.inActivecount,
-            count:2
+          
+          
           };
           tableDataArr.push(value);
         });
@@ -127,24 +126,7 @@ const Hrlisted = () => {
     handleInActiveTab(InActiveDataPayload);
   }, []);
 
-  const handleFilterData = (filterData) => {
-    const tableDataArr = [];
-    console.log("filterData", filterData);
-    if (filterData.length > 0) {
-      filterData.map((data, i) => {
-        const value = {
-          key: data.id,
-          name: data.policy.policyName,
-          code: data.policy.policyCode,
-          number: data.policy.registration,
-          type: data.policy.policyType,
-          count: data.Activecount,
-        };
-        tableDataArr.push(value);
-      });
-    }
-    return tableDataArr;
-  };
+ 
 
 
 
@@ -228,7 +210,6 @@ const Hrlisted = () => {
     {
       title: "Policy Name",
       dataIndex: "name",
-      key: "name",
       align:"center",
 
       sorter: (a, b) => a.name.length - b.name.length,

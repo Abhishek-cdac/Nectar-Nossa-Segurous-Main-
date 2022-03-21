@@ -9,6 +9,7 @@ import { CSVLink } from "react-csv";
 import { getComplaintList } from "../../services/authentication";
 import AdComplaintDetails from "./AdComplaintDetail";
 import ApproveModal from "./ApproveModal";
+import moment from "moment"
 
 const { Search } = Input;
 
@@ -164,9 +165,9 @@ const AdminComplaint = () => {
         resp.data.map((data, i) => {
           const value = {
             Id: data.complaintCode,
-            policyHolder: data.userPolicy.user.firstName,
+            policyHolder: `${data.userPolicy.user.firstName} ${data.userPolicy.user.lastName}`,
             policyName: data.userPolicy.policy.policyName,
-            date: data.complaintDate,
+            date: moment(data.complaintDate).format('YYYY-MM-DD'),
             status: data.verifyStatus,
             description: data.description,
           };
@@ -193,9 +194,9 @@ const AdminComplaint = () => {
       filterData.map((data, i) => {
         const value = {
           Id: data.complaintCode,
-          policyHolder: data.userPolicy.user.firstName,
+          policyHolder: `${data.userPolicy.user.firstName} ${data.userPolicy.user.lastName}`,
           policyName: data.userPolicy.policy.policyName,
-          date: data.complaintDate,
+          date: moment(data.complaintDate).format('YYYY-MM-DD'),
           status: data.verifyStatus,
           description: data.description,
         };

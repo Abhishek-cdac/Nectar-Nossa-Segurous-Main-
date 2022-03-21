@@ -58,7 +58,7 @@ function AdHolidays() {
           const value = {
             id: data.id,
             Name: data.name,
-            Date: data.date,
+            Date: moment(data.date).format('YYYY-DD-MM'),
             Day: data.day,
             Type: data.type,
           };
@@ -229,7 +229,7 @@ function AdHolidays() {
           id: data.id,
           Name: data.name,
           Day: data.day,
-          Date: data.date,
+          Date: moment(data.date).format("YYYY-MM-DD"),
           Type: data.type,
         };
         tableDataArr.push(value);
@@ -460,7 +460,7 @@ function AdHolidays() {
           <div className="col-xl-8  col-lg-8 col-md-8 col-sm-2 col-xs-12">
             Shown Results {TableData && TableData.length}
           </div>
-          <div className="col-xl-4  col-lg-4 col-md-4 col-sm-4 col-xs-12" style={{padding:"20px"}}>
+          <div className="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12" style={{padding:"20px"}}>
             <ReactPaginate 
               previousLabel={"Previous"}
               nextLabel={"Next"}
@@ -479,7 +479,7 @@ function AdHolidays() {
           <div className="header">
             <Modal show={ShowModal} onHide={handleCancel}>
               <Modal.Header closeButton>
-                <Modal.Title style={{ color: "#8ec131", marginLeft: "130px" }}>
+                <Modal.Title style={{ color: "#8ec131", marginLeft: "25px" }}>
                   Edit Holiday List
                 </Modal.Title>
               </Modal.Header>

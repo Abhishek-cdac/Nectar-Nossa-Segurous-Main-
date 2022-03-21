@@ -85,7 +85,7 @@ const Complaint = () => {
             user_id: data.id,
             id: data.complaintCode,
             PolicyName: data.userPolicy.policy.policyName,
-            date: data.complaintDate,
+            date: moment(data.complaintDate).format("YYYY-MM-DD"),
             status: data.verifyStatus,
             description: data.description,
             subject: data.subject,
