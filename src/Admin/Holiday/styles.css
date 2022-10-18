@@ -46,15 +46,19 @@
   }
 
   .btn-close:before{
-    content: 'X';
+    content: '×';
     font-family: FontAwesome;
     visibility: visible;
     color: black;
-    font-size: small;
-    font-weight: bold;
+    font-size: xx-large;
+    background: none;
   }
   .btn-close{
     position: absolute;
     right: 32px;
-    top: 20px;
+    top: 8px;
+    background-color: #F8F8F8;
+    border: none;
+    background: none;
   }
+  
